@@ -1,6 +1,6 @@
 # Node.js 学习进度追踪器
 
-**Last Updated**: 2025-03-13
+**Last Updated**: 2025-03-15
 **学习目标**: 全栈开发就业（Node.js后端 + 前端）
 **计划时长**: 2-3个月（每天2-3小时）
 **当前课程**: 黑马程序员 Node.js 全套教程
@@ -9,9 +9,9 @@
 
 ## 📊 快速统计
 
-📈 **Overall Progress**: 5/73 topics covered = **7%**
-📚 **课程进度**: P001-P073 (共约300集)
-⏰ **已学习**: 1天
+📈 **Overall Progress**: 16/73 topics covered = **22%**
+📚 **课程进度**: P001-P080 (共约300集)
+⏰ **已学习**: 2天
 🎯 **目标日期**: 2025年6月中旬
 
 ---
@@ -20,9 +20,9 @@
 
 | 领域 | 权重 | 已掌握/总数 | 状态 | 优先级 |
 |------|------|-------------|------|--------|
-| **A. Node.js核心基础** | 15% | 2/10 | 🟡 进行中 | HIGH |
+| **A. Node.js核心基础** | 15% | 7/10 | 🟡 进行中 | HIGH |
 | **B. 异步编程** | 15% | 2/8 | 🟡 进行中 | HIGH |
-| **C. 内置模块** | 18% | 0/12 | ⚪ 未开始 | **HIGH** |
+| **C. 内置模块** | 18% | 5/12 | 🟡 进行中 | **HIGH** |
 | **D. Web框架** | 20% ⭐ | 0/10 | ⚪ 未开始 | **CRITICAL** |
 | **E. 数据库** | 17% | 0/10 | ⚪ 未开始 | **HIGH** |
 | **F. 认证与安全** | 10% | 0/8 | ⚪ 未开始 | Medium |
@@ -34,7 +34,27 @@
 
 **课程章节**: 第1-3章 | **视频范围**: P1-P40
 
-### ✅ 已掌握 (2/10)
+### ✅ 已掌握 (7/10)
+
+- [x] **A.3** CommonJS vs ES6模块化 (2025-03-15) - **High**
+  - 语法对比：require/module.exports vs import/export
+  - 加载时机：CommonJS运行时加载，ES6模块编译时加载
+  - 值的本质：CommonJS值拷贝，ES6模块值引用
+  - Tree-shaking：ES6模块支持静态分析，CommonJS不支持
+  - 启用ES6模块：.mjs扩展名或package.json中设置"type": "module"
+  - 模块混用：可以用.js(ES6)和.cjs(CommonJS)混用
+
+- [x] **A.4** npm包管理器使用 (2025-03-15) - **High**
+  - npm install vs npm ci：ci用于生产环境，严格按lock文件安装
+  - 版本号规则：^1.2.3（兼容次版本），~1.2.3（兼容补丁），1.2.3（精确）
+  - dependencies vs devDependencies：生产依赖 vs 开发依赖
+  - npm vs npx：npm管理包，npx执行包（无需安装）
+
+- [x] **A.5** package.json详解 (2025-03-15) - **High**
+  - 必须字段：name, version
+  - 依赖管理：dependencies, devDependencies
+  - scripts：npm脚本命令
+  - type: "module" | "commonjs"：模块类型
 
 - [x] **A.6** Buffer缓冲区 (2025-03-13) - **Medium-High**
   - Buffer概念：处理二进制数据的容器
@@ -52,14 +72,18 @@
   - 定时器：`setTimeout`, `setInterval`
   - console对象：`log`, `error`, `warn`
 
+- [x] **A.8** 模块加载机制 (2025-03-15) - **High**
+  - require()的5个步骤：路径解析→检查缓存→读取文件→模块包装→缓存模块
+  - 模块缓存机制：同一文件只执行一次，使用require.resolve()作为key
+  - 路径规则：./不能省略（区分文件模块和npm包）
+  - 文件查找顺序：.js → .json → .node → /index.js
+  - 核心模块优先级最高（防止恶意包覆盖）
+  - 模块包装函数：Node.js自动注入5个变量（require, module, exports, __filename, __dirname）
+
 ### 📚 学习中 (0/10)
 
 - [ ] **A.1** Node.js环境安装与配置
 - [ ] **A.2** ES6核心语法（let/const、箭头函数、解构）
-- [ ] **A.3** CommonJS vs ES6模块化
-- [ ] **A.4** npm包管理器使用
-- [ ] **A.5** package.json详解
-- [ ] **A.8** 模块加载机制（require工作原理）
 - [ ] **A.9** Node.js的执行模型
 - [ ] **A.10** 包的发布与私有npm搭建
 
@@ -106,20 +130,51 @@
 
 **课程章节**: 第5-6章 | **视频范围**: P81-P140
 
-### ✅ 已掌握 (0/12)
+### ✅ 已掌握 (5/12)
 
-*(暂无)*
+- [x] **C.1** fs文件写入 (2025-03-15) - **High**
+  - 异步API：fs.writeFile() - 推荐使用，不阻塞主线程
+  - 同步API：fs.writeFileSync() - 阻塞主线程，只适合启动脚本
+  - 追加写入：fs.appendFile()
+  - 错误处理：try-catch或回调
+
+- [x] **C.2** fs文件读取 (2025-03-15) - **High**
+  - 异步读取：fs.readFile() - 推荐使用
+  - 同步读取：fs.readFileSync() - 阻塞主线程
+  - 文件信息：fs.stat() - 获取文件大小、创建时间等
+  - 删除文件：fs.unlink()
+
+- [x] **C.3** fs流式操作 (2025-03-15) - **High**
+  - Stream（流）概念：一点一点传输数据，节省内存
+  - 创建读取流：fs.createReadStream() - 处理大文件
+  - 创建写入流：fs.createWriteStream()
+  - 管道pipe()：自动连接读取流和写入流，处理背压
+  - highWaterMark：控制缓冲区大小（默认64KB）
+
+- [x] **C.5** path路径处理 (2025-03-15) - **High**
+  - path.join()：拼接路径，自动处理斜杠
+  - path.resolve()：解析为绝对路径
+  - path.basename()：获取文件名
+  - path.dirname()：获取目录部分
+  - path.extname()：获取扩展名
+  - path.parse()：解析路径为对象
+  - __dirname vs path.dirname()：当前文件目录 vs 处理任意路径
+
+- [x] **C.6** http创建服务器 (2025-03-15) - **High**
+  - 创建服务器：http.createServer()
+  - req对象：包含请求信息（method, url, headers）
+  - res对象：返回响应（statusCode, setHeader, end）
+  - 返回JSON：设置Content-Type为application/json
 
 ### 📚 学习中 (0/12)
 
-- [ ] **C.1** fs模块 - 文件写入（writeFile/writeFileSync）
-- [ ] **C.2** fs模块 - 文件读取（readFile/readFileSync）
-- [ ] **C.3** fs模块 - 流式操作（createReadStream/createWriteStream）
 - [ ] **C.4** fs模块 - 文件信息（stat/readdir）
-- [ ] **C.5** path模块 - 路径处理
-- [ ] **C.6** http模块 - 创建Web服务器
-- [ ] **C.7** http模块 - 处理请求与响应
-- [ ] **C.8** http模块 - 获取请求报文（URL、查询参数）
+- [x] **C.7** http请求响应 (2025-03-15) - **High**
+  - 处理不同请求方法：GET/POST/PUT/DELETE
+  - 路由基础：根据URL路径处理不同请求
+  - 获取URL参数：url.parse()解析查询参数
+  - 接收POST数据：监听req的data和end事件
+  - RESTful API：设计规范的接口
 - [ ] **C.9** events模块 - 事件发射器
 - [ ] **C.10** crypto模块 - 加密与哈希
 - [ ] **C.11** url模块 - URL解析
@@ -303,6 +358,14 @@
 **完成项目数**: 0/4
 
 **最近7天学习记录**:
+- **2025-03-15**: 深入学习模块化、npm、内置模块
+  - 掌握了CommonJS vs ES6模块化的区别
+  - 学习了npm高级用法（ci, 版本管理, dependencies）
+  - 掌握了fs模块（文件读写、流操作）
+  - 掌握了path模块（路径处理）
+  - 掌握了http模块（创建服务器、处理请求响应）
+  - 新增10个知识点，进度从8%提升到22%
+
 - **2025-03-13**: 知识漏洞补习（Buffer、全局对象、Promise、async/await）
   - 评估了P001-P073的学习成果
   - 补齐了5个重要知识点
