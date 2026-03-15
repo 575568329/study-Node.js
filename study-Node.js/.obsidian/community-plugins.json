@@ -1,0 +1,77 @@
+{
+  "acceleratorShortcut": null,
+  "showInlineTitle": true,
+  "showRibbonIcon": true,
+  "propertiesInDocument": "tags",
+  "homeFile": "00-学习导航/README",
+  "openWhitespaceInExternal": false,
+  "openWhitespaceInInternal": false,
+  "openWhitespaceInDesktop": false,
+  "everyFolderALeaf": null,
+  "syntaxHighlighting": true,
+  "inlineHighlightPrefix": null,
+  "inlineHighlightSuffix": null,
+  "vimMode": false,
+  "vimSpellCheck": false,
+  "scrollSync": false,
+  "markdownFolder": "",
+  "newFileLocation": "folder",
+  "newFileFolderPath": "01-知识点总结",
+  "useMarkdownLinks": true,
+  "newLinkFormat": "shortest",
+  "defaultViewMode": "preview",
+  "folderNoteStyle": "[[index]]",
+  "folderNoteTemplate": "",
+  "showUnsupportedFiles": false,
+  "alwaysUpdateLinks": true,
+  "spellcheck": true,
+  "spellcheckLanguages": [
+    "zh-CN"
+  ],
+  "rightToLeft": false,
+  "autoPairMarkdown": true,
+  "autoPairBrackets": true,
+  "showLineNumber": false,
+  "spellcheckDelay": 0,
+  "disableScrollingForIframes": false,
+  "autoConvertSymlink": true,
+  "useQuickSwitcher": true,
+  "showQuickSwitcher": "ctrl+o",
+  "attachmentFolderPath": "02-代码示例",
+  "promptForDeleteOnMobile": false,
+  "showFrontmatter": false,
+  "readOnlyMode": false,
+  "focusNewTab": true,
+  "openFilesInNewTab": true,
+  "maxNumberOfInternalLinksToCheck": 256,
+  "ctrlCharacter": "Control",
+  "zoomLevel": 1,
+  "exportPDF": {
+    "pageSize": "a4",
+    "landscape": false,
+    "margin": "0",
+    "downscalePercent": 100
+  },
+  "pdfExportSettings": {
+    "pageSize": "a4",
+    "landscape": false,
+    "margin": "0",
+    "downscalePercent": 100
+  },
+  "communityPluginList": [
+    "dataview",
+    "calendar",
+    "tag-wrangler",
+    "obsidian-excalidraw-plugin"
+  ],
+  "plugins": {
+    "calendar": {
+      "showWeeklyNote": false,
+      "weeklyNoteFormat": "",
+      "weeklyNoteTemplate": "",
+      "weeklyNoteFolder": "",
+      "locale": "zh-CN",
+      "format": "YYYY-MM-DD"
+    }
+  }
+}
