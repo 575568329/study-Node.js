@@ -33,7 +33,7 @@
 ```
 Node.js-Study/
 ├── sessions/                    # 每日学习会话
-│   ├── 2025-03-13/             # 按日期组织
+│   ├── 2026-03-13/             # 按日期组织
 │   │   ├── session-notes.md    # 学习笔记
 │   │   └── problems-solved.md  # 问题记录
 │   └── SESSION-TEMPLATE.md     # 会话模板
@@ -102,10 +102,10 @@ AI: "完全正确！你已经理解了核心概念 ✓"
 cat progress/nodejs-study-tracker.md
 
 # 查看今天的笔记
-cat sessions/2025-03-13/session-notes.md
+cat sessions/2026-03-13/session-notes.md
 
 # 查看遇到的问题
-cat sessions/2025-03-13/problems-solved.md
+cat sessions/2026-03-13/problems-solved.md
 ```
 
 ---
@@ -220,8 +220,8 @@ cat sessions/2025-03-13/problems-solved.md
 
 ## 📊 学习统计
 
-**开始日期**: 2025-03-13
-**预计完成**: 2025年6月中旬
+**开始日期**: 2026-03-13
+**预计完成**: 2026年6月中旬
 **每天投入**: 2-3小时
 **总学习时长**: 约150-200小时
 
@@ -260,7 +260,7 @@ cat sessions/2025-03-13/problems-solved.md
 
 ---
 
-**最后更新**: 2025-03-13
+**最后更新**: 2026-03-13
 **当前进度**: 0/73 (0%)
 **GitHub**: https://github.com/575568329/study-Node.js.git
 

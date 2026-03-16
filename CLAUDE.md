@@ -185,10 +185,10 @@ Node.js全栈开发涵盖7个主要知识领域，每个领域有特定的主题
 
 ```
 /sessions/              # 每日学习会话
-  /2025-03-13/
+  /2026-03-13/
     session-notes.md    # 学习笔记
     problems-solved.md  # 问题记录
-  /2025-03-14/
+  /2026-03-14/
     session-notes.md
   SESSION-TEMPLATE.md   # 会话模板
 
@@ -430,7 +430,7 @@ fs.readFile('./input.txt', (err, data) => {
 
 ---
 
-**最后更新**: 2025-03-13
+**最后更新**: 2026-03-13
 **当前课程**: 黑马程序员 Node.js 全套教程
-**目标日期**: 2025年6月
+**目标日期**: 2026年6月
 **GitHub仓库**: https://github.com/575568329/study-Node.js.git
