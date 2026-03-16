@@ -1,6 +1,6 @@
 # Node.js 学习进度追踪器
 
-**Last Updated**: 2025-03-15
+**Last Updated**: 2026-03-16
 **学习目标**: 全栈开发就业（Node.js后端 + 前端）
 **计划时长**: 2-3个月（每天2-3小时）
 **当前课程**: 黑马程序员 Node.js 全套教程
@@ -9,10 +9,13 @@
 
 ## 📊 快速统计
 
-📈 **Overall Progress**: 16/73 topics covered = **22%**
+📈 **Overall Progress**: 20/73 topics covered = **27%**
 📚 **课程进度**: P001-P080 (共约300集)
-⏰ **已学习**: 2天
-🎯 **目标日期**: 2025年6月中旬
+⏰ **已学习**: 3天
+🎯 **目标日期**: 2026年6月中旬
+
+⏰ **今日学习时长**: 约2.5小时
+💡 **今日新增主题**: 4个（url复习、events、Express入门、中间件）
 
 ---
 
@@ -22,8 +25,8 @@
 |------|------|-------------|------|--------|
 | **A. Node.js核心基础** | 15% | 7/10 | 🟡 进行中 | HIGH |
 | **B. 异步编程** | 15% | 2/8 | 🟡 进行中 | HIGH |
-| **C. 内置模块** | 18% | 5/12 | 🟡 进行中 | **HIGH** |
-| **D. Web框架** | 20% ⭐ | 0/10 | ⚪ 未开始 | **CRITICAL** |
+| **C. 内置模块** | 18% | 7/12 | 🟡 进行中 | **HIGH** |
+| **D. Web框架** | 20% ⭐ | 2/10 | 🟡 进行中 | **CRITICAL** |
 | **E. 数据库** | 17% | 0/10 | ⚪ 未开始 | **HIGH** |
 | **F. 认证与安全** | 10% | 0/8 | ⚪ 未开始 | Medium |
 | **G. 项目实战** | 5% | 0/5 | ⚪ 未开始 | Medium |
@@ -36,7 +39,7 @@
 
 ### ✅ 已掌握 (7/10)
 
-- [x] **A.3** CommonJS vs ES6模块化 (2025-03-15) - **High**
+- [x] **A.3** CommonJS vs ES6模块化 (2026-03-15) - **High**
   - 语法对比：require/module.exports vs import/export
   - 加载时机：CommonJS运行时加载，ES6模块编译时加载
   - 值的本质：CommonJS值拷贝，ES6模块值引用
@@ -44,26 +47,26 @@
   - 启用ES6模块：.mjs扩展名或package.json中设置"type": "module"
   - 模块混用：可以用.js(ES6)和.cjs(CommonJS)混用
 
-- [x] **A.4** npm包管理器使用 (2025-03-15) - **High**
+- [x] **A.4** npm包管理器使用 (2026-03-15) - **High**
   - npm install vs npm ci：ci用于生产环境，严格按lock文件安装
   - 版本号规则：^1.2.3（兼容次版本），~1.2.3（兼容补丁），1.2.3（精确）
   - dependencies vs devDependencies：生产依赖 vs 开发依赖
   - npm vs npx：npm管理包，npx执行包（无需安装）
 
-- [x] **A.5** package.json详解 (2025-03-15) - **High**
+- [x] **A.5** package.json详解 (2026-03-15) - **High**
   - 必须字段：name, version
   - 依赖管理：dependencies, devDependencies
   - scripts：npm脚本命令
   - type: "module" | "commonjs"：模块类型
 
-- [x] **A.6** Buffer缓冲区 (2025-03-13) - **Medium-High**
+- [x] **A.6** Buffer缓冲区 (2026-03-13) - **Medium-High**
   - Buffer概念：处理二进制数据的容器
   - 创建方式：`Buffer.from()`, `Buffer.alloc()`
   - 转换方法：`.toString()` 可指定编码和位置
   - 应用场景：文件读写、图片处理、网络传输
   - 常见操作：`.concat()`, `.slice()`, 索引访问
 
-- [x] **A.7** 全局对象 (2025-03-13) - **High**
+- [x] **A.7** 全局对象 (2026-03-13) - **High**
   - `__dirname`：当前文件夹路径（文件所在位置，固定）
   - `__filename`：当前文件完整路径（包含文件名）
   - `process.argv`：获取命令行参数数组
@@ -72,7 +75,7 @@
   - 定时器：`setTimeout`, `setInterval`
   - console对象：`log`, `error`, `warn`
 
-- [x] **A.8** 模块加载机制 (2025-03-15) - **High**
+- [x] **A.8** 模块加载机制 (2026-03-15) - **High**
   - require()的5个步骤：路径解析→检查缓存→读取文件→模块包装→缓存模块
   - 模块缓存机制：同一文件只执行一次，使用require.resolve()作为key
   - 路径规则：./不能省略（区分文件模块和npm包）
@@ -99,7 +102,7 @@
 
 ### ✅ 已掌握 (2/8)
 
-- [x] **B.3** Promise基础 (2025-03-13) - **High**
+- [x] **B.3** Promise基础 (2026-03-13) - **High**
   - Promise三种状态：pending（进行中）、fulfilled（已成功）、rejected（已失败）
   - 状态一旦改变就不可逆
   - `resolve()` → 处理成功，由`.then()`接收
@@ -107,7 +110,7 @@
   - Promise链式调用：`.then()`的return会传递给下一个then
   - `.catch()`可以捕获错误并return让链式调用继续
 
-- [x] **B.5** async/await (2025-03-13) - **High**
+- [x] **B.5** async/await (2026-03-13) - **High**
   - `async`函数：声明异步函数，返回值永远是Promise
   - `await`：等待Promise完成，只暂停当前async函数
   - **关键理解**：await不阻塞主线程（仍是异步）
@@ -132,26 +135,26 @@
 
 ### ✅ 已掌握 (5/12)
 
-- [x] **C.1** fs文件写入 (2025-03-15) - **High**
+- [x] **C.1** fs文件写入 (2026-03-15) - **High**
   - 异步API：fs.writeFile() - 推荐使用，不阻塞主线程
   - 同步API：fs.writeFileSync() - 阻塞主线程，只适合启动脚本
   - 追加写入：fs.appendFile()
   - 错误处理：try-catch或回调
 
-- [x] **C.2** fs文件读取 (2025-03-15) - **High**
+- [x] **C.2** fs文件读取 (2026-03-15) - **High**
   - 异步读取：fs.readFile() - 推荐使用
   - 同步读取：fs.readFileSync() - 阻塞主线程
   - 文件信息：fs.stat() - 获取文件大小、创建时间等
   - 删除文件：fs.unlink()
 
-- [x] **C.3** fs流式操作 (2025-03-15) - **High**
+- [x] **C.3** fs流式操作 (2026-03-15) - **High**
   - Stream（流）概念：一点一点传输数据，节省内存
   - 创建读取流：fs.createReadStream() - 处理大文件
   - 创建写入流：fs.createWriteStream()
   - 管道pipe()：自动连接读取流和写入流，处理背压
   - highWaterMark：控制缓冲区大小（默认64KB）
 
-- [x] **C.5** path路径处理 (2025-03-15) - **High**
+- [x] **C.5** path路径处理 (2026-03-15) - **High**
   - path.join()：拼接路径，自动处理斜杠
   - path.resolve()：解析为绝对路径
   - path.basename()：获取文件名
@@ -160,24 +163,39 @@
   - path.parse()：解析路径为对象
   - __dirname vs path.dirname()：当前文件目录 vs 处理任意路径
 
-- [x] **C.6** http创建服务器 (2025-03-15) - **High**
+- [x] **C.6** http创建服务器 (2026-03-15) - **High**
   - 创建服务器：http.createServer()
   - req对象：包含请求信息（method, url, headers）
   - res对象：返回响应（statusCode, setHeader, end）
   - 返回JSON：设置Content-Type为application/json
 
+- [x] **C.9** events模块 - 事件发射器 (2026-03-16) - **High**
+  - EventEmitter核心类：继承后可自定义事件
+  - on(eventName, handler)：监听事件，可触发多次
+  - once(eventName, handler)：只监听一次，触发后自动移除
+  - emit(eventName, ...args)：触发事件，传递参数
+  - removeListener()：移除指定监听器
+  - listenerCount()：获取监听器数量
+  - 应用场景：模块解耦、异步通知、Stream/HTTP基础
+  - 优势：一个事件多个监听器、完全解耦、动态添加/删除
+
+- [x] **C.11** url模块 - URL解析 (2026-03-16) - **High**
+  - url.parse(urlString)：解析URL为对象
+  - 第二个参数true：自动解析query为对象
+  - 核心属性：href、protocol、host、hostname、port、pathname、search、query、hash
+  - 实际应用：解析URL查询参数、路由处理
+  - 开发中99%场景都用url.parse(url, true)
+
 ### 📚 学习中 (0/12)
 
 - [ ] **C.4** fs模块 - 文件信息（stat/readdir）
-- [x] **C.7** http请求响应 (2025-03-15) - **High**
+- [x] **C.7** http请求响应 (2026-03-15) - **High**
   - 处理不同请求方法：GET/POST/PUT/DELETE
   - 路由基础：根据URL路径处理不同请求
   - 获取URL参数：url.parse()解析查询参数
   - 接收POST数据：监听req的data和end事件
   - RESTful API：设计规范的接口
-- [ ] **C.9** events模块 - 事件发射器
 - [ ] **C.10** crypto模块 - 加密与哈希
-- [ ] **C.11** url模块 - URL解析
 - [ ] **C.12** 其他常用模块（os、util、querystring）
 
 ---
@@ -192,7 +210,7 @@
 
 ### 📚 学习中 (0/10)
 
-- [ ] **D.1** Express框架简介与安装
+- [x] **D.7** Express路由参数处理
 - [ ] **D.2** Express路由（GET/POST/PUT/DELETE）
 - [ ] **D.3** Express中间件机制
 - [ ] **D.4** 常用中间件（body-parser、cors、morgan）
@@ -283,7 +301,7 @@
 
 ---
 
-### ✅ **最近解决** (2025-03-13)
+### ✅ **最近解决** (2026-03-13)
 
 **已修复漏洞**：
 1. ✅ **Buffer缓冲区** - 完全没学 → **Medium-High**
@@ -352,13 +370,24 @@
 
 ## 📈 学习统计
 
-**总学习天数**: 1天
-**总学习时长**: 1.5小时
-**完成主题数**: 5/73 (7%)
+**总学习天数**: 3天
+**总学习时长**: 约5.5小时
+**完成主题数**: 20/73 (27%)
 **完成项目数**: 0/4
 
 **最近7天学习记录**:
-- **2025-03-15**: 深入学习模块化、npm、内置模块
+- **2026-03-16**: 深入学习Express框架与中间件
+  - 复习了url.parse()的完整用法和参数
+  - 掌握了events模块（事件发射器）
+  - 理解了事件驱动的设计模式和解耦优势
+  - 掌握了on/once/emit/removeListener等核心API
+  - 学习了Express框架安装和基本路由
+  - 理解了Express vs 原生http模块的优势
+  - 掌握了HTTP方法与RESTful API设计
+  - 理解了Express中间件机制和next()的作用
+  - 新增4个知识点，进度从25%提升到27%
+
+- **2026-03-15**: 深入学习模块化、npm、内置模块
   - 掌握了CommonJS vs ES6模块化的区别
   - 学习了npm高级用法（ci, 版本管理, dependencies）
   - 掌握了fs模块（文件读写、流操作）
@@ -366,7 +395,7 @@
   - 掌握了http模块（创建服务器、处理请求响应）
   - 新增10个知识点，进度从8%提升到22%
 
-- **2025-03-13**: 知识漏洞补习（Buffer、全局对象、Promise、async/await）
+- **2026-03-13**: 知识漏洞补习（Buffer、全局对象、Promise、async/await）
   - 评估了P001-P073的学习成果
   - 补齐了5个重要知识点
   - 创建了详细的会话记录
