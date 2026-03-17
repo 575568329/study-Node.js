@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Express中间件测试 - 前端页面</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 10px;
+      padding: 30px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    h1 {
+      color: #333;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+
+    .subtitle {
+      text-align: center;
+      color: #666;
+      margin-bottom: 30px;
+      font-size: 14px;
+    }
+
+    .section {
+      margin-bottom: 30px;
+      padding: 20px;
+      background: #f8f9fa;
+      border-radius: 8px;
+    }
+
+    .section h2 {
+      color: #667eea;
+      margin-bottom: 15px;
+      font-size: 18px;
+    }
+
+    button {
+      background: #667eea;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      margin: 5px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background: #5568d3;
+    }
+
+    button:active {
+      transform: scale(0.98);
+    }
+
+    .result {
+      margin-top: 15px;
+      padding: 15px;
+      background: white;
+      border-radius: 5px;
+      font-family: 'Courier New', monospace;
+      font-size: 13px;
+      max-height: 300px;
+      overflow-y: auto;
+      border-left: 4px solid #667eea;
+    }
+
+    .error {
+      border-left-color: #e74c3c;
+      background: #fee;
+    }
+
+    .success {
+      border-left-color: #27ae60;
+      background: #efe;
+    }
+
+    .form {
+      display: flex;
+      gap: 10px;
+      margin: 10px 0;
+    }
+
+    input {
+      flex: 1;
+      padding: 8px 12px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 14px;
+    }
+
+    .info-box {
+      background: #e3f2fd;
+      padding: 15px;
+      border-radius: 5px;
+      margin-bottom: 20px;
+      border-left: 4px solid #2196f3;
+    }
+
+    .info-box strong {
+      color: #1976d2;
+    }
+
+    code {
+      background: #f4f4f4;
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-family: 'Courier New', monospace;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🚀 Express中间件测试</h1>
+    <p class="subtitle">前端运行在 http://localhost:3000 | 后端运行在 http://localhost:3001</p>
+
+    <div class="info-box">
+      <strong>📝 测试说明：</strong><br>
+      1. 确保后端服务器已启动（<code>node server.js</code>）<br>
+      2. 这个前端页面通过 <strong>CORS</strong> 访问后端API<br>
+      3. 每个请求都会在后端通过 <strong>Morgan</strong> 记录日志<br>
+      4. 后端通过 <strong>Helmet</strong> 添加了安全响应头
+    </div>
+
+    <!-- 测试1: GET请求 -->
+    <div class="section">
+      <h2>📋 测试1: GET请求 - 获取用户列表</h2>
+      <button onclick="testGetUsers()">获取用户列表</button>
+      <div id="getResult" class="result"></div>
+    </div>
+
+    <!-- 测试2: POST请求 -->
+    <div class="section">
+      <h2>➕ 测试2: POST请求 - 创建用户</h2>
+      <div class="form">
+        <input type="text" id="userName" placeholder="用户名" value="测试用户">
+        <input type="email" id="userEmail" placeholder="邮箱" value="test@example.com">
+        <button onclick="testCreateUser()">创建用户</button>
+      </div>
+      <div id="postResult" class="result"></div>
+    </div>
+
+    <!-- 测试3: PUT请求 -->
+    <div class="section">
+      <h2>✏️ 测试3: PUT请求 - 更新用户</h2>
+      <div class="form">
+        <input type="number" id="userId" placeholder="用户ID" value="1">
+        <input type="text" id="updateName" placeholder="新用户名" value="更新后的用户">
+        <button onclick="testUpdateUser()">更新用户</button>
+      </div>
+      <div id="putResult" class="result"></div>
+    </div>
+
+    <!-- 测试4: DELETE请求 -->
+    <div class="section">
+      <h2>🗑️ 测试4: DELETE请求 - 删除用户</h2>
+      <div class="form">
+        <input type="number" id="deleteId" placeholder="用户ID" value="1">
+        <button onclick="testDeleteUser()">删除用户</button>
+      </div>
+      <div id="deleteResult" class="result"></div>
+    </div>
+
+    <!-- 测试5: 错误处理 -->
+    <div class="section">
+      <h2>❌ 测试5: 错误处理</h2>
+      <button onclick="testError()">触发服务器错误</button>
+      <div id="errorResult" class="result"></div>
+    </div>
+  </div>
+
+  <script>
+    const API_BASE = 'http://localhost:3001/api';
+
+    // 显示结果
+    function showResult(elementId, data, isError = false) {
+      const element = document.getElementById(elementId);
+      element.className = 'result ' + (isError ? 'error' : 'success');
+      element.textContent = JSON.stringify(data, null, 2);
+    }
+
+    // 测试1: GET请求
+    async function testGetUsers() {
+      try {
+        const response = await fetch(`${API_BASE}/users`);
+        const data = await response.json();
+        showResult('getResult', data);
+      } catch (error) {
+        showResult('getResult', { error: error.message }, true);
+      }
+    }
+
+    // 测试2: POST请求
+    async function testCreateUser() {
+      const name = document.getElementById('userName').value;
+      const email = document.getElementById('userEmail').value;
+
+      try {
+        const response = await fetch(`${API_BASE}/users`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ name, email })
+        });
+        const data = await response.json();
+        showResult('postResult', data, !data.success);
+      } catch (error) {
+        showResult('postResult', { error: error.message }, true);
+      }
+    }
+
+    // 测试3: PUT请求
+    async function testUpdateUser() {
+      const id = document.getElementById('userId').value;
+      const name = document.getElementById('updateName').value;
+
+      try {
+        const response = await fetch(`${API_BASE}/users/${id}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ name, email: 'updated@example.com' })
+        });
+        const data = await response.json();
+        showResult('putResult', data, !data.success);
+      } catch (error) {
+        showResult('putResult', { error: error.message }, true);
+      }
+    }
+
+    // 测试4: DELETE请求
+    async function testDeleteUser() {
+      const id = document.getElementById('deleteId').value;
+
+      try {
+        const response = await fetch(`${API_BASE}/users/${id}`, {
+          method: 'DELETE'
+        });
+        const data = await response.json();
+        showResult('deleteResult', data, !data.success);
+      } catch (error) {
+        showResult('deleteResult', { error: error.message }, true);
+      }
+    }
+
+    // 测试5: 错误处理
+    async function testError() {
+      try {
+        const response = await fetch(`${API_BASE}/error`);
+        const data = await response.json();
+        showResult('errorResult', data, true);
+      } catch (error) {
+        showResult('errorResult', { error: error.message }, true);
+      }
+    }
+  </script>
+</body>
+</html>

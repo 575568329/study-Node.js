@@ -16,7 +16,16 @@
       "Bash(curl -s -X POST http://localhost:3002/users -H \"Content-Type: application/json\" -d '{\"\"username\"\":\"\"test\"\"}')",
       "Bash(curl -s http://localhost:3002/admin/dashboard?role=user)",
       "Bash(curl -s http://localhost:3002/api/xxxxx)",
-      "Bash(curl -s http://localhost:3003/error)"
+      "Bash(curl -s http://localhost:3003/error)",
+      "Bash(curl -s http://localhost:3001/api/users -H \"Origin: http://localhost:3000\" -I)",
+      "Bash(curl -s http://localhost:3001/api/users -H \"Origin: http://localhost:3000\" -v)",
+      "Bash(curl -v http://localhost:3001/api/users)",
+      "Bash(curl http://localhost:3001/api/users)",
+      "Bash(curl -H \"Origin: http://localhost:3000\" -I http://localhost:3001/api/users)",
+      "Bash(curl -X POST http://localhost:3001/api/users -H \"Content-Type: application/json\" -d '{\"\"name\"\":\"\"测试\"\",\"\"email\"\":\"\"test@test.com\"\"}')",
+      "Bash(curl -s http://localhost:3001/api/users)",
+      "mcp__tavily__tavily_search",
+      "mcp__web-reader__webReader"
     ]
   }
 }
