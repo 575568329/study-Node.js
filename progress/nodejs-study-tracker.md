@@ -1,6 +1,6 @@
 # Node.js 学习进度追踪器
 
-**Last Updated**: 2026-03-16
+**Last Updated**: 2026-03-17
 **学习目标**: 全栈开发就业（Node.js后端 + 前端）
 **计划时长**: 2-3个月（每天2-3小时）
 **当前课程**: 黑马程序员 Node.js 全套教程
@@ -9,13 +9,13 @@
 
 ## 📊 快速统计
 
-📈 **Overall Progress**: 20/73 topics covered = **27%**
-📚 **课程进度**: P001-P080 (共约300集)
-⏰ **已学习**: 3天
+📈 **Overall Progress**: 24/73 topics covered = **33%**
+📚 **课程进度**: P001-P090 (共约300集)
+⏰ **已学习**: 4天
 🎯 **目标日期**: 2026年6月中旬
 
-⏰ **今日学习时长**: 约2.5小时
-💡 **今日新增主题**: 4个（url复习、events、Express入门、中间件）
+⏰ **今日学习时长**: 约3小时
+💡 **今日新增主题**: 4个（静态资源、模块化路由、错误处理、字符串方法）
 
 ---
 
@@ -26,7 +26,7 @@
 | **A. Node.js核心基础** | 15% | 7/10 | 🟡 进行中 | HIGH |
 | **B. 异步编程** | 15% | 2/8 | 🟡 进行中 | HIGH |
 | **C. 内置模块** | 18% | 7/12 | 🟡 进行中 | **HIGH** |
-| **D. Web框架** | 20% ⭐ | 2/10 | 🟡 进行中 | **CRITICAL** |
+| **D. Web框架** | 20% ⭐ | 6/10 | 🟡 进行中 | **CRITICAL** |
 | **E. 数据库** | 17% | 0/10 | ⚪ 未开始 | **HIGH** |
 | **F. 认证与安全** | 10% | 0/8 | ⚪ 未开始 | Medium |
 | **G. 项目实战** | 5% | 0/5 | ⚪ 未开始 | Medium |
@@ -204,21 +204,53 @@
 
 **课程章节**: 第7-10章 | **视频范围**: P141-P220
 
-### ✅ 已掌握 (0/10)
+### ✅ 已掌握 (6/10)
 
-*(暂无)*
+- [x] **D.1** Express简介与安装 (2026-03-16) - **High**
+  - Express vs Axios：Express是服务端框架，axios是客户端HTTP库
+  - Express vs 原生http模块：简化路由、中间件机制、丰富的生态系统
+  - 安装和基本使用：`npm install express`，创建app实例
 
-### 📚 学习中 (0/10)
+- [x] **D.2** Express路由（GET/POST/PUT/DELETE） (2026-03-16) - **High**
+  - HTTP方法：GET（读）、POST（创建）、PUT（全量更新）、PATCH（部分更新）、DELETE（删除）
+  - RESTful API设计：同一URL + 不同HTTP方法 = 不同操作
+  - 路由定义：`app.get(path, handler)`、`app.post(path, handler)`
+  - 路由参数：req.params（路径参数）、req.query（查询参数）
 
-- [x] **D.7** Express路由参数处理
-- [ ] **D.2** Express路由（GET/POST/PUT/DELETE）
-- [ ] **D.3** Express中间件机制
-- [ ] **D.4** 常用中间件（body-parser、cors、morgan）
-- [ ] **D.5** 静态资源服务
+- [x] **D.3** Express中间件机制 (2026-03-16) - **High**
+  - 中间件概念：请求和响应之间的处理函数
+  - 中间件函数：`(req, res, next) => {}`
+  - next()的作用：将控制权传递给下一个中间件
+  - 执行顺序：洋葱模型（进入和退出顺序相反）
+  - 应用级vs路由级中间件：app.use() vs router.use()
+
+- [x] **D.4** 常用中间件（express.static） (2026-03-17) - **High**
+  - express.static()：托管静态资源文件
+  - URL映射规则：public文件夹在URL中不出现
+  - 多个静态目录：按注册顺序查找，先找到的返回
+  - 虚拟路径前缀：`app.use('/static', express.static('public'))`
+
+- [x] **D.9** 模块化路由（express.Router） (2026-03-17) - **High**
+  - 为什么需要模块化：代码分离、易于维护、团队协作
+  - express.Router()的使用：创建独立路由模块
+  - app.use()的URL映射：剥离前缀，传递剩余路径给router
+  - 项目组织结构：routes/users.js、routes/posts.js、routes/admin.js
+  - 完整URL = 挂载前缀 + router路由路径
+
+- [x] **D.8** 错误处理中间件 (2026-03-17) - **High**
+  - 错误处理中间件：4个参数（err, req, res, next）
+  - next(error)：传递错误，跳过所有普通中间件
+  - 执行流程：路由出错 → next(error) → 错误处理中间件
+  - 异步错误处理：try-catch + next(error)
+  - 多个错误处理中间件：都会执行（如果调用next(err)）
+  - 错误处理位置：必须在所有路由之后
+  - 错误响应格式：统一的JSON格式
+
+### 📚 学习中 (4/10)
+
+- [ ] **D.5** 静态资源服务（进阶）
 - [ ] **D.6** RESTful API设计规范
-- [ ] **D.7** Express路由参数处理
-- [ ] **D.8** 错误处理中间件
-- [ ] **D.9** 模块化路由（express.Router）
+- [ ] **D.7** Express路由参数处理（进阶）
 - [ ] **D.10** Express最佳实践
 
 ---

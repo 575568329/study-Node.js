@@ -5,7 +5,18 @@
       "mcp__plugin_episodic-memory_episodic-memory__search",
       "Bash(netstat -ano)",
       "Bash(findstr :3000)",
-      "Bash(taskkill /F /PID 58224)"
+      "Bash(taskkill /F /PID 58224)",
+      "Bash(curl -s http://localhost:3000/)",
+      "Bash(curl -s http://localhost:3000/api/users/profile)",
+      "Bash(curl -s http://localhost:3000/api/posts)",
+      "Bash(curl -s http://localhost:3000/admin/stats)",
+      "Bash(taskkill //F //PID 17452)",
+      "Bash(curl -s http://localhost:3002/error-next)",
+      "Bash(curl -s http://localhost:3002/users/999)",
+      "Bash(curl -s -X POST http://localhost:3002/users -H \"Content-Type: application/json\" -d '{\"\"username\"\":\"\"test\"\"}')",
+      "Bash(curl -s http://localhost:3002/admin/dashboard?role=user)",
+      "Bash(curl -s http://localhost:3002/api/xxxxx)",
+      "Bash(curl -s http://localhost:3003/error)"
     ]
   }
 }
