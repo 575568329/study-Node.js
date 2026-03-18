@@ -155,49 +155,53 @@ app.post('/api/upload/avatar', upload.single('avatar'), (req, res) => {
 // 路由：用户注册 + 头像上传（综合）
 // ============================================
 
-app.post('/api/register-with-avatar', [
-  // 参数验证规则
-  body('username')
-    .trim()
-    .notEmpty().withMessage('用户名不能为空')
-    .isLength({ min: 3, max: 20 }).withMessage('用户名长度3-20字符'),
+app.post('/api/register-with-avatar',
+  upload.single('avatar'), // 1️⃣ 先用 Multer 解析 FormData
+  [
+    // 2️⃣ 然后验证参数（此时 req.body 已被 Multer 解析）
+    body('username')
+      .trim()
+      .notEmpty().withMessage('用户名不能为空')
+      .isLength({ min: 3, max: 20 }).withMessage('用户名长度3-20字符'),
 
-  body('email')
-    .trim()
-    .isEmail().withMessage('邮箱格式不正确')
-    .normalizeEmail(),
+    body('email')
+      .trim()
+      .isEmail().withMessage('邮箱格式不正确')
+      .normalizeEmail(),
 
-  body('password')
-    .isLength({ min: 6 }).withMessage('密码至少6个字符')
-], (req, res, next) => {
-  // 检查验证结果
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return res.status(400).json({
-      success: false,
-      message: '参数验证失败',
-      errors: errors.array()
+    body('password')
+      .isLength({ min: 6 }).withMessage('密码至少6个字符')
+  ],
+  (req, res) => {
+    console.log('req.body:', req.body);
+    console.log('req.file:', req.file);
+
+    // 检查验证结果
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({
+        success: false,
+        message: '参数验证失败',
+        errors: errors.array()
+      });
+    }
+
+    // 文件上传和参数验证都通过
+    const { username, email } = req.body;
+    const avatarUrl = req.file ? `http://localhost:${PORT}/uploads/${req.file.filename}` : null;
+
+    res.status(201).json({
+      success: true,
+      message: '注册成功',
+      data: {
+        username,
+        email,
+        avatar: avatarUrl,
+        createdAt: new Date().toISOString()
+      }
     });
   }
-
-  // 验证通过，继续处理文件上传
-  next();
-}, upload.single('avatar'), (req, res) => {
-  // 文件上传和参数验证都通过
-  const { username, email } = req.body;
-  const avatarUrl = req.file ? `http://localhost:${PORT}/uploads/${req.file.filename}` : null;
-
-  res.status(201).json({
-    success: true,
-    message: '注册成功',
-    data: {
-      username,
-      email,
-      avatar: avatarUrl,
-      createdAt: new Date().toISOString()
-    }
-  });
-});
+);
 
 // ============================================
 // 错误处理中间件

@@ -1,6 +1,6 @@
 # Node.js 学习进度追踪器
 
-**Last Updated**: 2026-03-17
+**Last Updated**: 2026-03-18
 **学习目标**: 全栈开发就业（Node.js后端 + 前端）
 **计划时长**: 2-3个月（每天2-3小时）
 **当前课程**: 黑马程序员 Node.js 全套教程
@@ -9,13 +9,13 @@
 
 ## 📊 快速统计
 
-📈 **Overall Progress**: 24/73 topics covered = **33%**
+📈 **Overall Progress**: 28/73 topics covered = **38%**
 📚 **课程进度**: P001-P090 (共约300集)
-⏰ **已学习**: 4天
+⏰ **已学习**: 5天
 🎯 **目标日期**: 2026年6月中旬
 
-⏰ **今日学习时长**: 约3小时
-💡 **今日新增主题**: 4个（静态资源、模块化路由、错误处理、字符串方法）
+⏰ **今日学习时长**: 约3.5小时
+💡 **今日新增主题**: 4个（Multer文件上传、express-validator、MySQL安装、SQL基础）
 
 ---
 
@@ -26,9 +26,9 @@
 | **A. Node.js核心基础** | 15% | 7/10 | 🟡 进行中 | HIGH |
 | **B. 异步编程** | 15% | 2/8 | 🟡 进行中 | HIGH |
 | **C. 内置模块** | 18% | 7/12 | 🟡 进行中 | **HIGH** |
-| **D. Web框架** | 20% ⭐ | 6/10 | 🟡 进行中 | **CRITICAL** |
-| **E. 数据库** | 17% | 0/10 | ⚪ 未开始 | **HIGH** |
-| **F. 认证与安全** | 10% | 0/8 | ⚪ 未开始 | Medium |
+| **D. Web框架** | 20% ⭐ | 7/10 | 🟡 进行中 | **CRITICAL** |
+| **E. 数据库** | 17% | 3/10 | 🟡 进行中 | **HIGH** |
+| **F. 认证与安全** | 10% | 1/8 | 🟡 进行中 | Medium |
 | **G. 项目实战** | 5% | 0/5 | ⚪ 未开始 | Medium |
 
 ---
@@ -204,7 +204,67 @@
 
 **课程章节**: 第7-10章 | **视频范围**: P141-P220
 
-### ✅ 已掌握 (6/10)
+### ✅ 已掌握 (7/10)
+
+- [x] **D.1** Express简介与安装 (2026-03-16) - **High**
+  - Express vs Axios：Express是服务端框架，axios是客户端HTTP库
+  - Express vs 原生http模块：简化路由、中间件机制、丰富的生态系统
+  - 安装和基本使用：`npm install express`，创建app实例
+
+- [x] **D.2** Express路由（GET/POST/PUT/DELETE） (2026-03-16) - **High**
+  - HTTP方法：GET（读）、POST（创建）、PUT（全量更新）、PATCH（部分更新）、DELETE（删除）
+  - RESTful API设计：同一URL + 不同HTTP方法 = 不同操作
+  - 路由定义：`app.get(path, handler)`、`app.post(path, handler)`
+  - 路由参数：req.params（路径参数）、req.query（查询参数）
+
+- [x] **D.3** Express中间件机制 (2026-03-16) - **High**
+  - 中间件概念：请求和响应之间的处理函数
+  - 中间件函数：`(req, res, next) => {}`
+  - next()的作用：将控制权传递给下一个中间件
+  - 执行顺序：洋葱模型（进入和退出顺序相反）
+  - 应用级vs路由级中间件：app.use() vs router.use()
+
+- [x] **D.4** 常用中间件（express.static、helmet、morgan、cors） (2026-03-17) - **High**
+  - express.static()：托管静态资源文件
+  - helmet：安全防护，设置HTTP安全头
+  - morgan：日志记录，自动记录HTTP请求
+  - cors：跨域资源共享，允许前端访问API
+  - URL映射规则：public文件夹在URL中不出现
+
+- [x] **D.9** 模块化路由（express.Router） (2026-03-17) - **High**
+  - 为什么需要模块化：代码分离、易于维护、团队协作
+  - express.Router()的使用：创建独立路由模块
+  - app.use()的URL映射：剥离前缀，传递剩余路径给router
+  - 项目组织结构：routes/users.js、routes/posts.js、routes/admin.js
+  - 完整URL = 挂载前缀 + router路由路径
+
+- [x] **D.8** 错误处理中间件 (2026-03-17) - **High**
+  - 错误处理中间件：4个参数（err, req, res, next）
+  - next(error)：传递错误，跳过所有普通中间件
+  - 执行流程：路由出错 → next(error) → 错误处理中间件
+  - 异步错误处理：try-catch + next(error)
+  - 多个错误处理中间件：都会执行（如果调用next(err)）
+  - 错误处理位置：必须在所有路由之后
+  - 错误响应格式：统一的JSON格式
+
+- [x] **Multer文件上传** (2026-03-18) - **High**
+  - multipart/form-data格式：为什么文件上传需要特殊格式
+  - storage配置：diskStorage（磁盘存储）vs memoryStorage（内存存储）
+  - 文件命名：字段名-时间戳-随机数.扩展名（保证唯一性）
+  - fileFilter：文件过滤（MIME类型检查，只允许图片）
+  - limits：文件大小限制（fileSize）
+  - 上传方法：single()、array()、fields()、none()、any()
+  - 错误处理：MulterError vs 普通错误
+  - 实际应用：用户头像上传、数据库保存失败时的文件清理
+
+- [x] **express-validator参数验证** (2026-03-18) - **High**
+  - 前端验证vs后端验证：为什么后端必须验证（安全、可靠性）
+  - 验证链：body()、param()、query()、header()
+  - 验证规则：trim()、notEmpty()、isLength()、isEmail()、matches()
+  - 错误消息：withMessage()自定义错误消息
+  - validationResult()：检查验证结果
+  - 执行顺序：参数验证 → 文件上传 → 业务逻辑
+  - 综合应用：用户注册+头像上传（参数验证+文件上传）
 
 - [x] **D.1** Express简介与安装 (2026-03-16) - **High**
   - Express vs Axios：Express是服务端框架，axios是客户端HTTP库
@@ -259,15 +319,36 @@
 
 **课程章节**: 第11-13章 | **视频范围**: P221-P280
 
-### ✅ 已掌握 (0/10)
+### ✅ 已掌握 (3/10)
 
-*(暂无)*
+- [x] **E.1** MySQL安装与配置 (2026-03-18) - **High**
+  - MySQL 8.0.45安装（Windows，Full完全安装）
+  - 环境变量配置：添加MySQL bin目录到PATH
+  - MySQL服务：MySQL80服务，开机自动启动
+  - Root密码设置：root123456
+  - 认证方式：Use Legacy Authentication（兼容性）
+  - 验证安装：mysql --version、mysql -u root -p
 
-### 📚 学习中 (0/10)
+- [x] **E.2** SQL基础语法 (2026-03-18) - **High**
+  - CREATE DATABASE：创建数据库
+  - USE：切换数据库
+  - CREATE TABLE：创建表（定义字段、类型、约束）
+  - INSERT：插入数据（INSERT INTO ... VALUES）
+  - SELECT：查询数据（SELECT * FROM、WHERE条件）
+  - UPDATE：更新数据（UPDATE ... SET ... WHERE）
+  - DELETE：删除数据（DELETE FROM ... WHERE）
+  - WHERE子句的重要性：忘记WHERE会更新/删除所有数据
 
-- [ ] **E.1** MySQL安装与配置
-- [ ] **E.2** SQL基础语法（SELECT/INSERT/UPDATE/DELETE）
-- [ ] **E.3** 数据库设计基础（表、字段、类型、约束）
+- [x] **E.3** 数据库设计基础 (2026-03-18) - **High**
+  - 表结构：字段、行、列的概念
+  - 字段类型：INT（整数）、VARCHAR(n)（变长字符串）、TIMESTAMP（时间戳）
+  - 约束：PRIMARY KEY（主键）、NOT NULL（非空）、UNIQUE（唯一）、DEFAULT（默认值）
+  - AUTO_INCREMENT：自增，自动加1
+  - 关系型数据库：表与表之间通过主键外键关联
+  - 数据库vs文件系统：查询速度、并发控制、事务支持
+
+### 📚 学习中 (7/10)
+
 - [ ] **E.4** Node.js连接mysql2包
 - [ ] **E.5** CRUD操作实现
 - [ ] **E.6** SQL注入攻击与预防
@@ -282,18 +363,23 @@
 
 **课程章节**: 第14-15章 | **视频范围**: P281-P320
 
-### ✅ 已掌握 (0/8)
+### ✅ 已掌握 (1/8)
 
-*(暂无)*
+- [x] **F.6** 数据验证（express-validator） (2026-03-18) - **High**
+  - 前端验证vs后端验证：前端可被绕过，后端必须验证
+  - 验证链：body()、param()、query()
+  - 常用验证：trim()、notEmpty()、isLength()、isEmail()、matches()
+  - 自定义错误：withMessage()设置错误消息
+  - 结果检查：validationResult(req)检查验证结果
+  - 实际应用：用户注册API、数据完整性保护
 
-### 📚 学习中 (0/8)
+### 📚 学习中 (7/8)
 
 - [ ] **F.1** HTTP无状态性与Cookie/Session
 - [ ] **F.2** JWT（JSON Web Token）原理
 - [ ] **F.3** JWT在Express中的实现
 - [ ] **F.4** Token刷新机制
-- [ ] **F.5** CORS跨域问题与解决方案
-- [ ] **F.6** 数据验证（express-validator/joi）
+- [ ] **F.5** CORS跨域问题与解决方案（已在03-17学习cors中间件）
 - [ ] **F.7** 密码加密（bcrypt/salt）
 - [ ] **F.8** XSS与CSRF防护
 
@@ -402,13 +488,25 @@
 
 ## 📈 学习统计
 
-**总学习天数**: 3天
-**总学习时长**: 约5.5小时
-**完成主题数**: 20/73 (27%)
-**完成项目数**: 0/4
+**总学习天数**: 5天
+**总学习时长**: 约12小时
+**完成主题数**: 28/73 (38%)
+**完成项目数**: 2/4
 
 **最近7天学习记录**:
-- **2026-03-16**: 深入学习Express框架与中间件
+- **2026-03-18**: Multer文件上传 + MySQL入门
+  - 深入学习了Multer文件上传机制（storage、fileFilter、limits）
+  - 理解了文件名唯一性设计（时间戳+随机数）
+  - 掌握了upload的5个上传方法（single、array、fields、none、any）
+  - 实践了文件上传的错误处理和资源清理
+  - 学习了express-validator参数验证（前端vs后端验证）
+  - 安装并配置了MySQL 8.0.45（Full安装）
+  - 掌握了SQL基础语法（CREATE、INSERT、SELECT、UPDATE、DELETE）
+  - 创建了第一个数据库（blog_database）和第一个表（users）
+  - 理解了关系型数据库的核心概念（主键、外键、约束）
+  - 新增4个知识点，进度从33%提升到38%
+
+- **2026-03-17**: 深入学习Express静态资源、模块化路由、错误处理
   - 复习了url.parse()的完整用法和参数
   - 掌握了events模块（事件发射器）
   - 理解了事件驱动的设计模式和解耦优势
