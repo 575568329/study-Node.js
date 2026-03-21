@@ -70,8 +70,7 @@
               "title": "书签"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "horizontal",
@@ -191,7 +190,7 @@
       "obsidian-excalidraw-plugin:New drawing": false
     }
   },
-  "active": "5a72b098dff3f8c8",
+  "active": "ffe0f65ac8e06fc3",
   "lastOpenFiles": [
     "未命名 1.canvas",
     "2026-03-21.md",

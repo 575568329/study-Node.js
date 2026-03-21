@@ -225,6 +225,92 @@ const JWT_SECRET = process.env.JWT_SECRET;
 
 ---
 
+## 🎨 可视化图表
+
+### JWT结构图
+
+```mermaid
+graph LR
+    subgraph JWT完整结构
+        A[Header] --> B[.]
+        B --> C[Payload]
+        C --> D[.]
+        D --> E[Signature]
+    end
+
+    subgraph Header头部
+        A1[alg: HS256]
+        A2[typ: JWT]
+    end
+
+    subgraph Payload载荷
+        C1[userId: 1]
+        C2[username: alice]
+        C3[exp: 1690000000]
+    end
+
+    subgraph Signature签名
+        E1[HMACSHA256<br/>header + payload + 密钥]
+    end
+
+    style A fill:#e1f5ff
+    style C fill:#fff4e1
+    style E fill:#ffe1e1
+```
+
+### JWT防伪造原理图
+
+```mermaid
+sequenceDiagram
+    participant 用户
+    participant 前端
+    participant 后端
+    participant 黑客
+
+    用户->>后端: 登录请求
+    后端->>后端: 生成JWT token<br/>(header.payload.signature)
+    后端->>前端: 返回token
+    前端->>前端: 存储token
+
+    Note over 前端,黑客: 黑客窃取token
+
+    前端->>后端: 访问API + token
+    黑客->>后端: 修改payload<br/>+ 原signature ❌
+
+    后端->>后端: 重新计算signature<br/>用密钥
+    后端->>后端: 对比signature
+
+    alt signature匹配
+        后端->>前端: ✅ 验证通过
+    else signature不匹配
+        后端->>黑客: ❌ 拒绝请求
+    end
+```
+
+### JWT vs Session对比
+
+```mermaid
+graph TB
+    subgraph Session认证
+        S1[用户登录] --> S2[服务器创建session]
+        S2 --> S3[存储到内存/Redis]
+        S3 --> S4[返回session ID]
+        S4 --> S5[前端存储cookie]
+    end
+
+    subgraph JWT认证
+        J1[用户登录] --> J2[服务器生成JWT]
+        J2 --> J3[不存储session]
+        J3 --> J4[返回JWT token]
+        J4 --> J5[前端存储localStorage]
+    end
+
+    style J3 fill:#90EE90
+    style S3 fill:#FFB6C1
+```
+
+---
+
 ## 🔗 相关主题
 
 - [[JWT在Express中的实现]] - 如何在代码中使用JWT

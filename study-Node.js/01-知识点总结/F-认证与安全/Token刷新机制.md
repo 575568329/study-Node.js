@@ -414,6 +414,161 @@ async function getProfile() {
 
 ---
 
+## 🎨 可视化图表
+
+### Token刷新完整流程
+
+```mermaid
+sequenceDiagram
+    participant 用户
+    participant 前端
+    participant 后端
+
+    Note over 用户,后端: 1. 登录获取双Token
+    用户->>前端: 输入用户名密码
+    前端->>后端: POST /login
+    后端->>后端: 验证密码
+    后端->>后端: 生成Access Token (15分钟)
+    后端->>后端: 生成Refresh Token (7天)
+    后端-->>前端: 返回两个token
+    前端->>前端: 存储到localStorage
+
+    Note over 用户,后端: 2. 正常访问API
+    前端->>后端: GET /profile + Access Token
+    后端->>后端: 验证token
+    后端-->>前端: 200 + 数据
+
+    Note over 用户,后端: 3. Access Token过期（15分钟后）
+    前端->>后端: GET /profile + Access Token
+    后端-->>前端: 401 Token已过期 ❌
+
+    Note over 前端,后端: 4. 自动刷新Token
+    前端->>前端: fetchWithRefresh拦截401
+    前端->>后端: POST /refresh-token + Refresh Token
+    后端->>后端: 验证Refresh Token
+    后端->>后端: 生成新的Access Token
+    后端-->>前端: 200 + 新Access Token
+
+    Note over 前端,后端: 5. 重新发送原请求
+    前端->>后端: GET /profile + 新Access Token
+    后端->>后端: 验证token
+    后端-->>前端: 200 + 数据
+    前端->>用户: 显示数据 ✅<br/>用户无感知！
+```
+
+### 双Token对比
+
+```mermaid
+graph TB
+    subgraph Access Token访问令牌
+        AT1[过期时间: 15分钟]
+        AT2[用途: 访问API]
+        AT3[存储: localStorage]
+        AT4[被盗风险: 低]
+        AT5[可撤销性: 困难]
+    end
+
+    subgraph Refresh Token刷新令牌
+        RT1[过期时间: 7天]
+        RT2[用途: 刷新Access Token]
+        RT3[存储: localStorage或httpOnly cookie]
+        RT4[被盗风险: 高]
+        RT5[可撤销性: 可以]
+    end
+
+    style AT1 fill:#ffe1e1
+    style RT1 fill:#90EE90
+    style AT4 fill:#90EE90
+    style RT4 fill:#FFB6C1
+```
+
+### 前端自动刷新逻辑
+
+```mermaid
+graph TD
+    A[fetchWithRefresh请求API] --> B{收到响应}
+    B -->|200 OK| C[返回数据]
+    B -->|401 过期| D{有Refresh Token?}
+
+    D -->|没有| E[清除所有token<br/>跳转登录页]
+    D -->|有| F[调用refreshAccessToken]
+
+    F --> G{刷新成功?}
+    G -->|成功| H[更新Access Token]
+    G -->|失败| E
+
+    H --> I[用新token重新发送请求]
+    I --> J{返回响应}
+    J -->|200 OK| C
+    J -->|401| E
+
+    style C fill:#90EE90
+    style E fill:#FFB6C1
+    style H fill:#e1f5ff
+```
+
+### Token生命周期
+
+```mermaid
+stateDiagram-v2
+    [*] --> 登录: 用户输入密码
+    登录 --> 生成双Token: 验证成功
+
+    生成双Token --> 使用Access Token: 存储token
+    使用Access Token --> 访问API: 携带token
+
+    访问API --> Token有效: 验证通过
+    访问API --> Token过期: 15分钟后
+
+    Token有效 --> 返回数据: 请求成功
+    返回数据 --> [*]
+
+    Token过期 --> 自动刷新: fetchWithRefresh
+    自动刷新 --> 刷新成功: Refresh Token有效
+    自动刷新 --> 刷新失败: Refresh Token过期
+
+    刷新成功 --> 使用新Token: 重新发送请求
+    刷新失败 --> 重新登录: 清除token
+
+    使用新Token --> 访问API
+    重新登录 --> [*]
+```
+
+### 安全方案对比
+
+```mermaid
+graph TB
+    subgraph 方案1: 单个长期Token
+        S1A[Token: 7天]
+        S1B[❌ 被盗后风险7天]
+        S1C[❌ 无法撤销]
+    end
+
+    subgraph 方案2: 双Token机制
+        S2A[Access Token: 15分钟]
+        S2B[Refresh Token: 7天]
+        S2C[✅ Access Token被盗风险小]
+        S2D[⚠️ Refresh Token可撤销]
+    end
+
+    subgraph 方案3: 双Token + 轮换
+        S3A[Access Token: 15分钟]
+        S3B[Refresh Token: 7天]
+        S3C[✅ 每次刷新生成新Refresh Token]
+        S3D[✅ 旧的立即失效]
+        S3E[✅ httpOnly cookie存储]
+    end
+
+    style S1B fill:#FFB6C1
+    style S1C fill:#FFB6C1
+    style S2C fill:#90EE90
+    style S3C fill:#90EE90
+    style S3D fill:#90EE90
+    style S3E fill:#90EE90
+```
+
+---
+
 ## 🔗 相关主题
 
 - [[JWT原理]] - JWT的结构和原理

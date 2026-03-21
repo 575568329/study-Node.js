@@ -452,6 +452,128 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 
 ---
 
+## 🎨 可视化图表
+
+### 完整认证流程图
+
+```mermaid
+sequenceDiagram
+    participant 用户
+    participant 前端
+    participant Express服务器
+    participant MySQL数据库
+
+    Note over 用户,数据库: 1. 用户注册
+    用户->>前端: 输入注册信息
+    前端->>Express: POST /register
+    Express->>Express: 参数验证
+    Express->>MySQL: 检查用户是否存在
+    MySQL-->>Express: 返回结果
+    alt 用户已存在
+        Express-->>前端: 400 用户名已存在
+    else 用户不存在
+        Express->>Express: bcrypt.hash加密密码
+        Express->>MySQL: INSERT INTO users
+        MySQL-->>Express: 插入成功
+        Express-->>前端: 201 注册成功
+    end
+
+    Note over 用户,数据库: 2. 用户登录
+    用户->>前端: 输入用户名密码
+    前端->>Express: POST /login
+    Express->>MySQL: SELECT * FROM users
+    MySQL-->>Express: 返回用户信息
+    Express->>Express: bcrypt.compare验证密码
+    alt 密码错误
+        Express-->>前端: 401 密码错误
+    else 密码正确
+        Express->>Express: jwt.sign生成token
+        Express-->>前端: 200 + token
+        前端->>前端: localStorage.setItem(token)
+    end
+
+    Note over 用户,数据库: 3. 访问受保护API
+    前端->>Express: GET /profile<br/>Authorization: Bearer token
+    Express->>Express: authMiddleware验证token
+    alt token无效
+        Express-->>前端: 401 Token无效
+    else token有效
+        Express->>Express: req.user获取用户信息
+        Express->>MySQL: SELECT * FROM users WHERE id=?
+        MySQL-->>Express: 返回用户数据
+        Express-->>前端: 200 + 用户数据
+    end
+```
+
+### Express中间件执行流程
+
+```mermaid
+graph TD
+    A[请求进入] --> B[authMiddleware]
+    B --> C{提取token}
+    C -->|没有token| D[返回401]
+    C -->|有token| E[验证token]
+    E -->|无效| D
+    E -->|有效| F[req.user = decoded]
+    F --> G[next]
+    G --> H[路由处理函数]
+    H --> I[返回响应]
+
+    style B fill:#e1f5ff
+    style H fill:#fff4e1
+    style D fill:#ffe1e1
+```
+
+### 项目代码结构
+
+```mermaid
+graph TB
+    subgraph 09-jwt-auth项目
+        A[src/server.js<br/>Express服务器]
+        B[src/db.js<br/>数据库连接池]
+        C[src/jwtUtils.js<br/>JWT工具函数]
+        D[src/authMiddleware.js<br/>认证中间件]
+        E[src/authRoutes.js<br/>认证路由]
+        F[test.html<br/>前端测试页面]
+    end
+
+    C -->|generateToken| E
+    C -->|verifyToken| D
+    D -->|验证通过| E
+    B -->|数据库连接| E
+    A -->|挂载路由| E
+    F -->|HTTP请求| E
+
+    style A fill:#e1f5ff
+    style C fill:#fff4e1
+    style D fill:#ffe1e1
+    style E fill:#f0f0f0
+```
+
+### 密码加密流程
+
+```mermaid
+graph LR
+    A[用户输入密码] --> B[bcrypt.hash<br/>10轮加密]
+    B --> C[生成salt]
+    C --> D[加盐哈希]
+    D --> E[存储到数据库]
+
+    F[用户登录] --> G[输入密码]
+    G --> H[bcrypt.compare]
+    H --> I[从数据库读取hash]
+    I --> J[对比哈希值]
+    J -->|匹配| K[✅ 登录成功]
+    J -->|不匹配| L[❌ 密码错误]
+
+    style B fill:#ffe1e1
+    style H fill:#e1f5ff
+    style K fill:#90EE90
+    style L fill:#FFB6C1
+```
+
+---
+
 ## 🔗 相关主题
 
 - [[JWT原理]] - JWT的结构和原理
