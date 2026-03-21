@@ -25,7 +25,8 @@
       "Bash(curl -X POST http://localhost:3001/api/users -H \"Content-Type: application/json\" -d '{\"\"name\"\":\"\"测试\"\",\"\"email\"\":\"\"test@test.com\"\"}')",
       "Bash(curl -s http://localhost:3001/api/users)",
       "mcp__tavily__tavily_search",
-      "mcp__web-reader__webReader"
+      "mcp__web-reader__webReader",
+      "Bash(openclaw:*)"
     ]
   }
 }

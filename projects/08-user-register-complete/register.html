@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>用户注册系统 - 完整版</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .container {
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      max-width: 500px;
+      width: 100%;
+      padding: 40px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 30px;
+      font-size: 28px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      color: #555;
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="password"] {
+      width: 100%;
+      padding: 12px 15px;
+      border: 2px solid #e0e0e0;
+      border-radius: 8px;
+      font-size: 14px;
+      transition: all 0.3s;
+    }
+
+    input[type="text"]:focus,
+    input[type="email"]:focus,
+    input[type="password"]:focus {
+      outline: none;
+      border-color: #667eea;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+
+    .file-upload {
+      border: 2px dashed #e0e0e0;
+      border-radius: 8px;
+      padding: 20px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .file-upload:hover {
+      border-color: #667eea;
+      background: #f8f9ff;
+    }
+
+    .file-upload input[type="file"] {
+      display: none;
+    }
+
+    .file-upload-label {
+      color: #667eea;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .file-preview {
+      margin-top: 10px;
+      max-width: 100px;
+      max-height: 100px;
+      border-radius: 8px;
+      display: none;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .requirements {
+      background: #f8f9fa;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      font-size: 13px;
+      color: #666;
+    }
+
+    .requirements h3 {
+      font-size: 14px;
+      margin-bottom: 10px;
+      color: #333;
+    }
+
+    .requirements ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .requirements li {
+      padding: 5px 0;
+      padding-left: 20px;
+      position: relative;
+    }
+
+    .requirements li:before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: #667eea;
+      font-weight: bold;
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .submit-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+    }
+
+    .submit-btn:active {
+      transform: translateY(0);
+    }
+
+    .submit-btn:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .result {
+      margin-top: 20px;
+      padding: 15px;
+      border-radius: 8px;
+      display: none;
+    }
+
+    .result.success {
+      background: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+    }
+
+    .result.error {
+      background: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
+    }
+
+    .result-title {
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .result-details {
+      font-size: 13px;
+      white-space: pre-wrap;
+      word-break: break-all;
+    }
+
+    .test-section {
+      margin-top: 30px;
+      padding-top: 20px;
+      border-top: 2px solid #e0e0e0;
+    }
+
+    .test-btn {
+      background: #28a745;
+      margin-right: 10px;
+      margin-bottom: 10px;
+    }
+
+    .test-btn:hover {
+      background: #218838;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>👤 用户注册</h1>
+
+    <form id="registerForm" onsubmit="return false;">
+      <div class="form-group">
+        <label for="username">用户名</label>
+        <input
+          type="text"
+          id="username"
+          name="username"
+          placeholder="请输入用户名（3-20字符）"
+          required
+        >
+      </div>
+
+      <div class="form-group">
+        <label for="email">邮箱</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          placeholder="请输入邮箱"
+          required
+        >
+      </div>
+
+      <div class="form-group">
+        <label for="password">密码</label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          placeholder="请输入密码（至少6位）"
+          required
+        >
+      </div>
+
+      <div class="form-group">
+        <label>头像</label>
+        <div class="file-upload" onclick="document.getElementById('avatar').click()">
+          <input type="file" id="avatar" name="avatar" accept="image/*" onchange="previewImage(this)">
+          <div class="file-upload-label">
+            📷 点击上传头像（可选）
+          </div>
+          <img id="avatarPreview" class="file-preview" alt="头像预览">
+        </div>
+      </div>
+
+      <button type="submit" class="submit-btn" id="submitBtn">注册</button>
+    </form>
+
+    <div class="result" id="result"></div>
+
+    <div class="test-section">
+      <h3 style="margin-bottom: 15px; color: #333;">🧪 测试功能</h3>
+      <button class="submit-btn test-btn" onclick="testConnection()">测试连接</button>
+      <button class="submit-btn test-btn" onclick="getAllUsers()">查看所有用户</button>
+    </div>
+
+    <div class="requirements">
+      <h3>📋 注册要求</h3>
+      <ul>
+        <li>用户名：3-20字符，只允许字母、数字和下划线</li>
+        <li>邮箱：必须是有效的邮箱格式</li>
+        <li>密码：至少6位，必须包含大小写字母和数字</li>
+        <li>头像：可选，支持jpg、png、gif、webp，最大5MB</li>
+      </ul>
+    </div>
+  </div>
+
+  <script>
+    console.log('✅ JavaScript开始加载...');
+
+    // ========== 全局错误捕获 ==========
+    window.addEventListener('error', function(event) {
+      console.error('😱 捕获到全局错误:', event.error);
+      alert('发生错误：' + event.error.message + '\n请查看浏览器Console(F12)获取详细信息');
+      return true; // 阻止默认错误处理
+    });
+
+    window.addEventListener('unhandledrejection', function(event) {
+      console.error('😱 捕获到未处理的Promise错误:', event.reason);
+      alert('发生错误：' + event.reason + '\n请查看浏览器Console(F12)获取详细信息');
+      return true;
+    });
+
+    const API_URL = 'http://localhost:3004';
+
+    // 页面加载完成后检查
+    window.addEventListener('DOMContentLoaded', function() {
+      console.log('✅ DOM加载完成');
+
+      const form = document.getElementById('registerForm');
+      console.log('📝 表单元素:', form);
+
+      if (form) {
+        console.log('✅ 表单找到了，准备绑定事件');
+      } else {
+        console.error('❌ 表单元素未找到！');
+        alert('错误：找不到registerForm表单！');
+      }
+    });
+
+    // 图片预览
+    function previewImage(input) {
+      if (input.files && input.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          const preview = document.getElementById('avatarPreview');
+          preview.src = e.target.result;
+          preview.style.display = 'block';
+        };
+        reader.readAsDataURL(input.files[0]);
+      }
+    }
+
+    // 显示结果
+    function showResult(success, title, details) {
+      const resultDiv = document.getElementById('result');
+      resultDiv.className = 'result ' + (success ? 'success' : 'error');
+      resultDiv.innerHTML = `
+        <div class="result-title">${title}</div>
+        ${details ? `<div class="result-details">${JSON.stringify(details, null, 2)}</div>` : ''}
+      `;
+      resultDiv.style.display = 'block';
+    }
+
+    // 测试连接
+    async function testConnection() {
+      try {
+        const res = await fetch(`${API_URL}/api/test`);
+        const data = await res.json();
+        showResult(data.success, data.message, null);
+      } catch (err) {
+        showResult(false, '连接失败', { error: err.message });
+      }
+    }
+
+    // 查看所有用户
+    async function getAllUsers() {
+      try {
+        const res = await fetch(`${API_URL}/api/users`);
+        const data = await res.json();
+        showResult(data.success, '查询成功', data);
+      } catch (err) {
+        showResult(false, '查询失败', { error: err.message });
+      }
+    }
+
+    // 表单提交
+    document.getElementById('registerForm').addEventListener('submit', async (e) => {
+      try {
+        // 阻止表单默认提交行为（防止页面刷新）
+        e.preventDefault();
+        e.stopPropagation(); // 阻止事件冒泡
+
+        console.log('📝 表单提交事件已触发'); // 调试信息
+
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.disabled = true;
+        submitBtn.textContent = '注册中...';
+
+        const formData = new FormData();
+        formData.append('username', document.getElementById('username').value);
+        formData.append('email', document.getElementById('email').value);
+        formData.append('password', document.getElementById('password').value);
+
+        const avatarFile = document.getElementById('avatar').files[0];
+        if (avatarFile) {
+          formData.append('avatar', avatarFile);
+        }
+
+        console.log('📤 正在发送请求到:', `${API_URL}/api/register`); // 调试信息
+
+        const res = await fetch(`${API_URL}/api/register`, {
+          method: 'POST',
+          body: formData,
+        });
+
+        console.log('✅ 服务器响应状态:', res.status); // 调试信息
+
+        const data = await res.json();
+        console.log('📦 服务器返回数据:', data); // 调试信息
+
+        if (data.success) {
+          showResult(true, data.message, data.data);
+          // 清空表单
+          document.getElementById('registerForm').reset();
+          document.getElementById('avatarPreview').style.display = 'none';
+        } else {
+          showResult(false, data.message || '注册失败', data.errors || null);
+        }
+      } catch (err) {
+        console.error('❌ 请求失败:', err); // 调试信息
+        showResult(false, '注册失败', {
+          error: err.message,
+          tip: '请检查浏览器Console查看详细错误信息'
+        });
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = '注册';
+        console.log('✅ 表单处理完成'); // 调试信息
+      }
+    });
+  </script>
+</body>
+</html>

@@ -2,6 +2,18 @@
 
 本文件指导Claude Code如何作为你的**Node.js学习伙伴和导师**。
 
+## 🤖 AI快速导航
+
+> **首次使用的AI请先阅读**: [AI-QUICK-START.md](./AI-QUICK-START.md)
+>
+> 快速链接:
+> - [AI快速导航](./AI-QUICK-START.md) - AI工作流程和常用命令
+> - [会话索引](./sessions/INDEX.md) - 查找所有学习会话
+> - [项目索引](./projects/INDEX.md) - 查找所有实战项目
+> - [进度追踪](./progress/nodejs-study-tracker.md) - 综合进度追踪
+
+---
+
 ## 🎯 项目概述
 
 这是 **Node.js-Study** 仓库 - 一个使用AI辅助的Node.js全栈开发学习环境。
@@ -191,6 +203,7 @@ Node.js全栈开发涵盖7个主要知识领域，每个领域有特定的主题
   /2026-03-14/
     session-notes.md
   SESSION-TEMPLATE.md   # 会话模板
+  INDEX.md             # 会话索引（快速查找）
 
 /progress/              # 进度追踪
   nodejs-study-tracker.md  # 综合追踪（唯一真相源）
@@ -199,15 +212,46 @@ Node.js全栈开发涵盖7个主要知识领域，每个领域有特定的主题
   /01-文件管理工具/
   /02-静态资源服务/
   /03-个人博客API/
+  INDEX.md             # 项目索引（快速查找）
 
 /code-examples/         # 代码练习片段
   buffer-demo.js
   fs-write.js
 
+/memory/                # 学习记忆
+  MEMORY.md            # 历史学习模式
+
 CLAUDE.md              # AI导师配置（本文件）
 README.md              # 项目说明
-SESSION-TEMPLATE.md    # 会话记录模板
+AI-QUICK-START.md      # AI快速导航（新增）
 ```
+
+---
+
+## 🚀 AI工作流程（必读）
+
+### 会话开始时
+1. ✅ 读取 [AI-QUICK-START.md](./AI-QUICK-START.md) 了解工作流程
+2. ✅ 读取 `progress/nodejs-study-tracker.md` 了解当前进度
+3. ✅ 读取 `memory/MEMORY.md` 了解学习模式
+4. ✅ 检查 `sessions/` 目录，确认是否需要创建新日期文件夹
+5. ✅ 读取最近一次的 session-notes.md 了解上下文
+
+### 学习过程中
+1. ✅ 采用苏格拉底式教学（先问学生理解，再讲解）
+2. ✅ 提供简洁解释（约200字）
+3. ✅ 检查理解（讲解后立即提问验证）
+4. ✅ 所有代码必须验证（搜索官方文档）
+5. ✅ 不自己启动项目（提供代码和命令，让用户启动）
+
+### 会话结束时
+1. ✅ 更新 `sessions/YYYY-MM-DD/session-notes.md`
+2. ✅ 更新 `progress/nodejs-study-tracker.md`
+3. ✅ 更新 `memory/MEMORY.md`（如需要）
+4. ✅ 更新 `sessions/INDEX.md`（新会话）
+5. ✅ 更新 `projects/INDEX.md`（新项目）
+
+**详细工作流程**: 参见 [AI-QUICK-START.md](./AI-QUICK-START.md)
 
 ---
 

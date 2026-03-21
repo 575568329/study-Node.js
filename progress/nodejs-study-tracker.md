@@ -9,13 +9,13 @@
 
 ## 📊 快速统计
 
-📈 **Overall Progress**: 29/73 topics covered = **40%**
+📈 **Overall Progress**: 34/73 topics covered = **47%**
 📚 **课程进度**: P001-P090 (共约300集)
 ⏰ **已学习**: 6天
 🎯 **目标日期**: 2026年6月中旬
 
-⏰ **今日学习时长**: 约0.5小时
-💡 **今日新增主题**: 1个（Event Loop事件循环机制复习）
+⏰ **今日学习时长**: 约3小时
+💡 **今日新增主题**: 3个（F.2 JWT原理、F.3 JWT实现、F.4 Token刷新机制）
 
 ---
 
@@ -27,8 +27,8 @@
 | **B. 异步编程** | 15% | 3/8 | 🟡 进行中 | HIGH |
 | **C. 内置模块** | 18% | 7/12 | 🟡 进行中 | **HIGH** |
 | **D. Web框架** | 20% ⭐ | 7/10 | 🟡 进行中 | **CRITICAL** |
-| **E. 数据库** | 17% | 3/10 | 🟡 进行中 | **HIGH** |
-| **F. 认证与安全** | 10% | 1/8 | 🟡 进行中 | Medium |
+| **E. 数据库** | 17% | 5/10 | 🟡 进行中 | **HIGH** |
+| **F. 认证与安全** | 10% | 3/8 | 🟡 进行中 | Medium |
 | **G. 项目实战** | 5% | 0/5 | ⚪ 未开始 | Medium |
 
 ---
@@ -357,10 +357,24 @@
   - 关系型数据库：表与表之间通过主键外键关联
   - 数据库vs文件系统：查询速度、并发控制、事务支持
 
-### 📚 学习中 (7/10)
+- [x] **E.4** Node.js连接mysql2 (2026-03-20) - **High**
+  - mysql2包安装：`npm install mysql2`
+  - 创建连接池：`mysql.createPool()` 配置host、user、password、database
+  - 连接池优势：复用连接、提高性能、自动管理、限制最大连接数
+  - 执行查询：`pool.promise().query()` 使用async/await
+  - 参数化查询：使用`?`占位符，防止SQL注入
+  - 错误处理：try-catch捕获数据库错误
 
-- [ ] **E.4** Node.js连接mysql2包
-- [ ] **E.5** CRUD操作实现
+- [x] **E.5** CRUD操作实现 (2026-03-20) - **High**
+  - CREATE（INSERT）：`INSERT INTO users (username, password) VALUES (?, ?)`
+  - READ（SELECT）：`SELECT * FROM users WHERE id = ?`
+  - UPDATE（UPDATE）：`UPDATE users SET username = ? WHERE id = ?`
+  - DELETE（DELETE）：`DELETE FROM users WHERE id = ?`
+  - WHERE子句重要性：忘记WHERE会更新/删除所有数据
+  - 查询结果：`[rows, fields]`解构获取结果集
+  - insertId：获取插入后的自增ID
+
+### 📚 学习中 (5/10)
 - [ ] **E.6** SQL注入攻击与预防
 - [ ] **E.7** 事务处理（Transaction）
 - [ ] **E.8** ORM框架（Sequelize基础）
@@ -373,7 +387,7 @@
 
 **课程章节**: 第14-15章 | **视频范围**: P281-P320
 
-### ✅ 已掌握 (1/8)
+### ✅ 已掌握 (3/8)
 
 - [x] **F.6** 数据验证（express-validator） (2026-03-18) - **High**
   - 前端验证vs后端验证：前端可被绕过，后端必须验证
@@ -383,13 +397,48 @@
   - 结果检查：validationResult(req)检查验证结果
   - 实际应用：用户注册API、数据完整性保护
 
-### 📚 学习中 (7/8)
+- [x] **F.2** JWT（JSON Web Token）原理 (2026-03-21) - **High**
+  - JWT的三个部分：Header（算法和类型）、Payload（用户信息）、Signature（防伪签名）
+  - Base64编码 vs 加密：Header和Payload只是编码（可解码），Signature是加密（无法伪造）
+  - 防伪造原理：HMACSHA256(header + payload + 密钥)，修改payload会导致signature不匹配
+  - JWT的优势：无状态（服务器不存储session）、跨域友好、移动端友好
+  - 安全注意：不要在Payload存敏感信息（密码、信用卡），Base64可解码
+  - 应用场景：API认证、单点登录、微服务架构
+
+- [x] **F.3** JWT在Express中的实现 (2026-03-21) - **High**
+  - jsonwebtoken包安装：`npm install jsonwebtoken`
+  - 生成token：`jwt.sign(payload, secret, { expiresIn: '7d' })`
+  - 验证token：`jwt.verify(token, secret)`，返回解码后的payload
+  - 认证中间件：从Authorization header提取token → 验证token → 挂载用户信息到req.user
+  - 密钥管理：使用环境变量`process.env.JWT_SECRET`，生产环境使用复杂密钥
+  - Token过期：设置合理的过期时间（Access Token短期15分钟，Refresh Token长期7天）
+  - 前端存储：localStorage存储token
+  - 前端发送：`headers: { 'Authorization': 'Bearer ' + token }`
+  - 完整流程：注册（加密密码）→ 登录（验证密码+生成token）→ 访问API（验证token）
+  - 实战项目：09-jwt-auth（完整的用户认证系统）
+  - 前端验证vs后端验证：前端可被绕过，后端必须验证
+  - 验证链：body()、param()、query()
+  - 常用验证：trim()、notEmpty()、isLength()、isEmail()、matches()
+  - 自定义错误：withMessage()设置错误消息
+  - 结果检查：validationResult(req)检查验证结果
+  - 实际应用：用户注册API、数据完整性保护
+
+### 📚 学习中 (5/8)
 
 - [ ] **F.1** HTTP无状态性与Cookie/Session
 - [ ] **F.2** JWT（JSON Web Token）原理
 - [ ] **F.3** JWT在Express中的实现
-- [ ] **F.4** Token刷新机制
-- [ ] **F.5** CORS跨域问题与解决方案（已在03-17学习cors中间件）
+- [x] **F.4** Token刷新机制 (2026-03-21) - **High**
+  - 双token设计：Access Token（15分钟）+ Refresh Token（7天）
+  - Access Token用途：访问API（短期，被盗损失小）
+  - Refresh Token用途：刷新Access Token（长期，存储更安全）
+  - 刷新流程：Access Token过期 → 前端收到401 → 自动调用/refresh-token → 获取新Access Token → 重新发送请求
+  - 前端实现：fetchWithRefresh拦截401错误，自动刷新token
+  - 后端实现：/refresh-token接口验证refreshToken，生成新accessToken
+  - 用户体验：用户无感知（不需要重新登录）
+  - 安全优势：Access Token短期降低风险，Refresh Token可撤销
+  - 生产环境建议：Refresh Token轮换、黑名单、httpOnly cookie
+- [ ] **F.5** CORS跨域问题与解决方案（已在03-17学习cors中间件基础）
 - [ ] **F.7** 密码加密（bcrypt/salt）
 - [ ] **F.8** XSS与CSRF防护
 
@@ -513,12 +562,27 @@
 
 ## 📈 学习统计
 
-**总学习天数**: 6天
-**总学习时长**: 约12.5小时
-**完成主题数**: 29/73 (40%)
+**总学习天数**: 7天
+**总学习时长**: 约15.5小时
+**完成主题数**: 34/73 (47%)
 **完成项目数**: 2/4
 
 **最近7天学习记录**:
+- **2026-03-21**: JWT认证系统 + Token刷新机制
+  - 深入学习了JWT（JSON Web Token）的原理和三个部分（Header、Payload、Signature）
+  - 理解了Base64编码vs加密的区别（Header/Payload可解码，Signature加密）
+  - 掌握了JWT的防伪造原理（密钥签名，修改payload会导致signature不匹配）
+  - 实现了完整的JWT认证系统（注册、登录、获取个人信息）
+  - 使用了jsonwebtoken包（jwt.sign生成、jwt.verify验证）
+  - 编写了authMiddleware中间件验证token并提取用户信息
+  - 添加了email字段验证（格式验证、唯一性验证）
+  - **实现了Token刷新机制**（Access Token 15分钟 + Refresh Token 7天）
+  - **前端自动刷新**：fetchWithRefresh拦截401错误，自动刷新token
+  - **用户无感知体验**：token过期时自动刷新，不需要重新登录
+  - **理解了双token设计的安全优势**：Access Token短期降低风险
+  - 完成了前端测试页面的完整流程测试
+  - 新增3个知识点，进度从42%提升到47%
+
 - **2026-03-20**: Event Loop事件循环机制复习
   - 复习巩固了Event Loop的核心概念和执行流程
   - 纠正了Promise任务分类错误（Promise是微任务，不是宏任务）

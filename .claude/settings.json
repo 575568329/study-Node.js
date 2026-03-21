@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//c/Users/about/AppData/Local/Temp/claude/c--Users-about-OneDrive----study-study-Node.js/74479839-ca21-4c1b-9e5e-528dd18e5c2e/tasks/**)",
+      "Bash(\"c:\\\\Users\\\\about\\\\OneDrive\\\\桌面\\\\study\\\\study-Node.js\\\\sessions\\\\2026-03-20\\\\session-notes.md\":*)",
+      "Bash(ls -d projects/*/)",
+      "Bash(xargs -I {} basename {})",
+      "Bash(mysql -u root -proot123456 -D blog_database -e \"DESCRIBE users;\")"
+    ],
+    "additionalDirectories": [
+      "c:\\Users\\about\\OneDrive\\桌面\\study\\study-Node.js\\sessions"
+    ]
+  }
+}

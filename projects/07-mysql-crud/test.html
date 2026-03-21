@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MySQL CRUD 测试</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 800px;
+      margin: 50px auto;
+      padding: 20px;
+      background: #f5f5f5;
+    }
+    .section {
+      background: white;
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    h2 {
+      color: #333;
+      border-bottom: 2px solid #007bff;
+      padding-bottom: 10px;
+    }
+    button {
+      background: #007bff;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-right: 10px;
+      margin-bottom: 10px;
+    }
+    button:hover {
+      background: #0056b3;
+    }
+    input {
+      padding: 8px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      margin-right: 10px;
+      width: 200px;
+    }
+    .result {
+      background: #f8f9fa;
+      padding: 15px;
+      border-radius: 4px;
+      margin-top: 10px;
+      white-space: pre-wrap;
+      font-family: monospace;
+      font-size: 12px;
+      max-height: 300px;
+      overflow-y: auto;
+    }
+    .success {
+      color: #28a745;
+      font-weight: bold;
+    }
+    .error {
+      color: #dc3545;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>MySQL CRUD 测试</h1>
+
+  <div class="section">
+    <h2>1️⃣ 测试数据库连接</h2>
+    <button onclick="testConnection()">测试连接</button>
+    <div id="connection-result" class="result"></div>
+  </div>
+
+  <div class="section">
+    <h2>2️⃣ 查询所有用户 (GET)</h2>
+    <button onclick="getAllUsers()">获取所有用户</button>
+    <div id="users-result" class="result"></div>
+  </div>
+
+  <div class="section">
+    <h2>3️⃣ 创建用户 (POST)</h2>
+    <input type="text" id="username" placeholder="用户名">
+    <input type="email" id="email" placeholder="邮箱">
+    <input type="password" id="password" placeholder="密码">
+    <button onclick="createUser()">创建用户</button>
+    <div id="create-result" class="result"></div>
+  </div>
+
+  <div class="section">
+    <h2>4️⃣ 查询单个用户 (GET)</h2>
+    <input type="number" id="userId" placeholder="用户ID">
+    <button onclick="getUserById()">查询用户</button>
+    <div id="user-result" class="result"></div>
+  </div>
+
+  <div class="section">
+    <h2>5️⃣ 更新用户 (PUT)</h2>
+    <input type="number" id="updateId" placeholder="用户ID">
+    <input type="text" id="updateUsername" placeholder="新用户名">
+    <input type="email" id="updateEmail" placeholder="新邮箱">
+    <input type="password" id="updatePassword" placeholder="新密码">
+    <button onclick="updateUser()">更新用户</button>
+    <div id="update-result" class="result"></div>
+  </div>
+
+  <div class="section">
+    <h2>6️⃣ 删除用户 (DELETE)</h2>
+    <input type="number" id="deleteId" placeholder="用户ID">
+    <button onclick="deleteUser()">删除用户</button>
+    <div id="delete-result" class="result"></div>
+  </div>
+
+  <script>
+    const API_URL = 'http://localhost:3003';
+
+    async function testConnection() {
+      const resultDiv = document.getElementById('connection-result');
+      resultDiv.textContent = '连接中...';
+      try {
+        const res = await fetch(`${API_URL}/test-connection`);
+        const data = await res.json();
+        resultDiv.innerHTML = `<span class="success">✅ ${data.message}</span>`;
+      } catch (err) {
+        resultDiv.innerHTML = `<span class="error">❌ 连接失败: ${err.message}</span>`;
+      }
+    }
+
+    async function getAllUsers() {
+      const resultDiv = document.getElementById('users-result');
+      resultDiv.textContent = '查询中...';
+      try {
+        const res = await fetch(`${API_URL}/api/users`);
+        const data = await res.json();
+        resultDiv.innerHTML = `<span class="success">✅ 查询成功</span>\n\n` + JSON.stringify(data, null, 2);
+      } catch (err) {
+        resultDiv.innerHTML = `<span class="error">❌ 查询失败: ${err.message}</span>`;
+      }
+    }
+
+    async function createUser() {
+      const resultDiv = document.getElementById('create-result');
+      const username = document.getElementById('username').value;
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+
+      if (!username || !email || !password) {
+        resultDiv.innerHTML = `<span class="error">❌ 请填写所有字段</span>`;
+        return;
+      }
+
+      resultDiv.textContent = '创建中...';
+
+      try {
+        const res = await fetch(`${API_URL}/api/users`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username, email, password })
+        });
+        const data = await res.json();
+
+        if (data.success) {
+          resultDiv.innerHTML = `<span class="success">✅ ${data.message}</span>\n\n` + JSON.stringify(data, null, 2);
+          document.getElementById('username').value = '';
+          document.getElementById('email').value = '';
+          document.getElementById('password').value = '';
+        } else {
+          resultDiv.innerHTML = `<span class="error">❌ ${data.message}</span>`;
+        }
+      } catch (err) {
+        resultDiv.innerHTML = `<span class="error">❌ 创建失败: ${err.message}</span>`;
+      }
+    }
+
+    async function getUserById() {
+      const resultDiv = document.getElementById('user-result');
+      const id = document.getElementById('userId').value;
+
+      if (!id) {
+        resultDiv.innerHTML = `<span class="error">❌ 请输入用户ID</span>`;
+        return;
+      }
+
+      resultDiv.textContent = '查询中...';
+
+      try {
+        const res = await fetch(`${API_URL}/api/users/${id}`);
+        const data = await res.json();
+
+        if (data.success) {
+          resultDiv.innerHTML = `<span class="success">✅ 查询成功</span>\n\n` + JSON.stringify(data, null, 2);
+        } else {
+          resultDiv.innerHTML = `<span class="error">❌ ${data.message}</span>`;
+        }
+      } catch (err) {
+        resultDiv.innerHTML = `<span class="error">❌ 查询失败: ${err.message}</span>`;
+      }
+    }
+
+    async function updateUser() {
+      const resultDiv = document.getElementById('update-result');
+      const id = document.getElementById('updateId').value;
+      const username = document.getElementById('updateUsername').value;
+      const email = document.getElementById('updateEmail').value;
+      const password = document.getElementById('updatePassword').value;
+
+      if (!id || !username || !email || !password) {
+        resultDiv.innerHTML = `<span class="error">❌ 请填写所有字段</span>`;
+        return;
+      }
+
+      resultDiv.textContent = '更新中...';
+
+      try {
+        const res = await fetch(`${API_URL}/api/users/${id}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username, email, password })
+        });
+        const data = await res.json();
+
+        if (data.success) {
+          resultDiv.innerHTML = `<span class="success">✅ ${data.message}</span>\n\n` + JSON.stringify(data, null, 2);
+        } else {
+          resultDiv.innerHTML = `<span class="error">❌ ${data.message}</span>`;
+        }
+      } catch (err) {
+        resultDiv.innerHTML = `<span class="error">❌ 更新失败: ${err.message}</span>`;
+      }
+    }
+
+    async function deleteUser() {
+      const resultDiv = document.getElementById('delete-result');
+      const id = document.getElementById('deleteId').value;
+
+      if (!id) {
+        resultDiv.innerHTML = `<span class="error">❌ 请输入用户ID</span>`;
+        return;
+      }
+
+      if (!confirm(`确定要删除用户 ${id} 吗？`)) {
+        return;
+      }
+
+      resultDiv.textContent = '删除中...';
+
+      try {
+        const res = await fetch(`${API_URL}/api/users/${id}`, {
+          method: 'DELETE'
+        });
+        const data = await res.json();
+
+        if (data.success) {
+          resultDiv.innerHTML = `<span class="success">✅ ${data.message}</span>`;
+        } else {
+          resultDiv.innerHTML = `<span class="error">❌ ${data.message}</span>`;
+        }
+      } catch (err) {
+        resultDiv.innerHTML = `<span class="error">❌ 删除失败: ${err.message}</span>`;
+      }
+    }
+  </script>
+</body>
+</html>
