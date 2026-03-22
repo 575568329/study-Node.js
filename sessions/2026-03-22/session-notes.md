@@ -170,12 +170,51 @@ app.use(cors({
 }));
 ```
 
+### 3. XSS与CSRF防护演示（xs-csrf-demo.js）⭐ **新增**
+
+**运行结果**：
+- XSS攻击演示（漏洞版）：输入`<script>alert('XSS')</script>` → 成功弹窗（危险！）
+- XSS防护演示：输入`<script>alert('XSS')</script>` → 被转义为`&lt;script&gt;`（安全！）
+- CSRF防护演示：
+  - 带Token转账 → 成功（验证通过）
+  - 不带Token转账 → 失败（CSRF保护生效）
+
+**关键代码**：
+```javascript
+// XSS防护：HTML转义
+function escapeHtml(unsafe) {
+  return unsafe
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
+}
+
+// CSRF防护：生成Token
+const csrfProtection = csurf({ cookie: true });
+
+// 获取Token
+app.get('/api/csrf-token', csrfProtection, (req, res) => {
+  res.json({ csrfToken: req.csrfToken() });
+});
+
+// 验证Token
+app.post('/api/transfer', csrfProtection, (req, res) => {
+  // 中间件自动验证Token
+});
+```
+
+**关键理解**：
+- ✅ CSP内容安全策略：刚才看到的错误就是CSP在工作
+- ✅ XSS防护重点：输出转义
+- ✅ CSRF防护重点：Token验证
+- ✅ 防护优先级：XSS > CSRF（XSS可以绕过CSRF）
+
 ---
 
 ## 📊 进度更新
 
-总体进度：47% → **55%** (+8%)
-新增主题：3个（F.1 Cookie/Session、F.5 CORS跨域、F.7 密码加密）
+总体进度：47% → **57%** (+10%)
+新增主题：4个（F.1 Cookie/Session、F.5 CORS跨域、F.7 密码加密、F.8 XSS与CSRF防护）
 
 ### 已掌握主题
 
@@ -197,6 +236,22 @@ app.use(cors({
   - Salt Rounds：加密强度（2^10=1024次），不是过期时间
   - 每次加密不同（随机盐），验证时自动提取盐匹配
   - 推荐值：10-12（平衡安全性和性能）
+
+- ✅ **F.8** XSS与CSRF防护 (2026-03-22) - **High**
+  - XSS攻击（跨站脚本攻击）：注入恶意JavaScript代码到网页
+  - XSS本质：攻击浏览器，执行恶意代码
+  - XSS危害：窃取Cookie、用户信息、重定向到钓鱼网站
+  - XSS三种类型：反射型、存储型、DOM型
+  - XSS防护：输出转义（escapeHtml）、输入验证、CSP内容安全策略
+  - 转义示例：`<script>` → `&lt;script&gt;`
+  - CSRF攻击（跨站请求伪造）：伪造HTTP请求，利用浏览器自动发送Cookie
+  - CSRF本质：攻击服务器，发送伪造请求
+  - CSRF危害：冒充用户操作（转账、发帖、修改密码）
+  - CSRF防护：CSRF Token、SameSite Cookie、验证Referer
+  - CSRF Token流程：生成Token → 前端获取 → 请求携带 → 后端验证
+  - XSS vs CSRF：XSS注入代码（攻击浏览器），CSRF伪造请求（攻击服务器）
+  - 防护优先级：XSS > CSRF（XSS可以绕过CSRF防护）
+  - CSP（内容安全策略）：限制脚本来源，阻止内联JavaScript执行
   - 使用方式：bcrypt.hash(password, 10)、bcrypt.compare(plain, hashed)
 
 ---
@@ -216,13 +271,29 @@ app.use(cors({
 - ✅ 准确回答CORS测试场景（选择答案B）
 - ✅ 理解了Cookie/Session/JWT的本质区别
 - ✅ 纠正了多个错误理解（salt rounds、JWT存储位置、跨域原因）
+- ✅ 理解了XSS vs CSRF的本质区别
+- ✅ 成功测试了XSS攻击和防护
+- ✅ 成功测试了CSRF Token验证（带Token成功，不带Token失败）
+- ✅ 亲眼看到了CSP的实际作用（内联脚本被阻止）
 
 **关键理解**：
 1. bcrypt的Salt Rounds是加密强度，不是过期时间
 2. JWT存在客户端（localStorage/Cookie），不是服务端
 3. 跨域是浏览器安全限制，与访问速度无关
 4. Cookie自动发送，localStorage/sessionStorage需要手动发送
+5. XSS是注入代码（攻击浏览器），CSRF是伪造请求（攻击服务器）
+6. XSS比CSRF更危险（可以绕过CSRF防护）
+7. CSP的实际作用：刚才看到的错误就是CSP在工作
 
 **需要巩固**：
-- XSS与CSRF攻击原理和防护（F.8）
-- 实际项目中的综合应用
+- 实际项目中的综合应用（下一步：个人博客后端API）
+
+**重要纠正**：
+- 纠正了对XSS的错误理解（以为是SQL注入，实际是脚本注入）
+- 纠正了对CSRF Token的理解（不是靠"不携带"，而是跨站请求"无法读取"）
+- 纠正了对Salt Rounds的理解（是加密强度，不是过期时间）
+
+**学习模式识别**：
+- 代码演示帮助理解抽象概念（bcrypt演示、CORS演示、XSS/CSRF演示）
+- 实际测试加深印象（亲手测试XSS攻击和CSRF Token验证）
+- 错误驱动学习（CSP错误帮助理解CSP的作用）

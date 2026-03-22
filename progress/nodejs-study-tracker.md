@@ -9,13 +9,13 @@
 
 ## 📊 快速统计
 
-📈 **Overall Progress**: 40/73 topics covered = **55%**
+📈 **Overall Progress**: 41/73 topics covered = **57%**
 📚 **课程进度**: P001-P090 (共约300集)
 ⏰ **已学习**: 8天
 🎯 **目标日期**: 2026年6月中旬
 
-⏰ **今日学习时长**: 约2小时
-💡 **今日新增主题**: 3个（F.1 Cookie/Session、F.5 CORS跨域、F.7 密码加密）
+⏰ **今日学习时长**: 约3小时
+💡 **今日新增主题**: 4个（F.1 Cookie/Session、F.5 CORS跨域、F.7 密码加密、F.8 XSS与CSRF防护）
 
 ---
 
@@ -28,7 +28,7 @@
 | **C. 内置模块** | 18% | 7/12 | 🟡 进行中 | **HIGH** |
 | **D. Web框架** | 20% ⭐ | 7/10 | 🟡 进行中 | **CRITICAL** |
 | **E. 数据库** | 17% | 5/10 | 🟡 进行中 | **HIGH** |
-| **F. 认证与安全** | 10% | 6/8 | 🟡 进行中 | Medium |
+| **F. 认证与安全** | 10% | 7/8 | 🟢 即将完成 | Medium |
 | **G. 项目实战** | 5% | 0/5 | ⚪ 未开始 | Medium |
 
 ---
@@ -462,9 +462,35 @@
   - 哈希值结构：`$2b$10$盐+哈希`（算法$成本$盐+哈希）
   - 为什么不能用明文：数据库泄露、撞库攻击、信任崩塌
 
-### 📚 学习中 (2/8)
+- [x] **F.8** XSS与CSRF防护 (2026-03-22) - **High**
+  - XSS攻击（跨站脚本攻击）：注入恶意JavaScript代码到网页
+    - 本质：攻击浏览器，执行恶意代码
+    - 危害：窃取Cookie、用户信息、重定向到钓鱼网站
+    - 三种类型：反射型（URL参数）、存储型（数据库）、DOM型（前端JS）
+    - 实际例子：`<script>steal(document.cookie)</script>`
+  - XSS防护：输出转义、输入验证、CSP内容安全策略
+    - 转义函数：`escapeHtml('<script>')` → `&lt;script&gt;`
+    - CSP作用：限制脚本来源，刚才的错误就是CSP在工作
+    - 生产环境：使用helmet中间件启用CSP
+  - CSRF攻击（跨站请求伪造）：伪造HTTP请求，利用浏览器自动发送Cookie
+    - 本质：攻击服务器，发送伪造请求
+    - 危害：冒充用户操作（转账、发帖、修改密码）
+    - 关键：黑客不需要获取Cookie，浏览器自动发送
+    - 实际流程：登录银行 → 访问恶意网站 → 自动发送Cookie → 钱被转走
+  - CSRF防护：CSRF Token、SameSite Cookie、验证Referer
+    - CSRF Token流程：生成Token → 前端获取 → 请求携带 → 后端验证
+    - 为什么有效：跨站请求无法读取Token（同源策略）
+    - 实际测试：带Token成功，不带Token失败 ✅
+  - XSS vs CSRF核心区别：
+    - XSS：注入代码（攻击浏览器），通过转义防护
+    - CSRF：伪造请求（攻击服务器），通过Token防护
+  - 防护优先级：XSS > CSRF
+    - 原因：XSS可以绕过CSRF防护（通过注入代码读取Token）
+    - 策略：先防XSS（第一优先级），再防CSRF（双重保险）
+  - 实际测试：成功测试XSS攻击（弹窗）、XSS防护（转义）、CSRF Token验证（带Token成功，不带Token失败）
 
-- [ ] **F.8** XSS与CSRF防护
+### 📚 学习中 (1/8)
+
 - [ ] 其他安全最佳实践
 
 ---
@@ -588,12 +614,12 @@
 ## 📈 学习统计
 
 **总学习天数**: 8天
-**总学习时长**: 约17.5小时
-**完成主题数**: 40/73 (55%)
+**总学习时长**: 约19小时
+**完成主题数**: 41/73 (57%)
 **完成项目数**: 2/4
 
 **最近7天学习记录**:
-- **2026-03-22**: Cookie/Session + CORS跨域 + 密码加密（bcrypt）
+- **2026-03-22**: Cookie/Session + CORS跨域 + 密码加密（bcrypt）+ XSS与CSRF防护
   - 深入学习了Cookie和Session的工作原理（会员卡类比）
   - 理解了HTTP无状态性：每个请求独立，默认不记住状态
   - 掌握了Session流程：创建Session → 返回Cookie（session_id） → 自动发送 → 查Session
@@ -605,9 +631,18 @@
   - 理解了简单请求vs复杂请求：PUT/DELETE/自定义头需要OPTIONS预检
   - 深入学习了bcrypt密码加密：自动加盐、慢速计算、可调强度
   - 纠正了错误理解：Salt Rounds是加密强度（2^10=1024次），不是过期时间
-  - 理解了bcrypt vs MD5：防止彩虹表攻击、防止暴力破解
-  - 完成了bcrypt演示和CORS演示项目
-  - 新增3个知识点，进度从47%提升到55%
+  - 理解了bcrypt vs MD5优势：防止彩虹表攻击、防止暴力破解
+  - 学习了XSS攻击（跨站脚本攻击）：注入恶意JavaScript代码到网页
+  - 理解了XSS的本质：攻击浏览器，窃取Cookie和用户信息
+  - 掌握了XSS防护：输出转义、输入验证、CSP内容安全策略
+  - 亲眼看到了CSP的实际作用：内联脚本被阻止（刚才的错误）
+  - 学习了CSRF攻击（跨站请求伪造）：伪造HTTP请求，利用Cookie自动发送
+  - 理解了CSRF的本质：攻击服务器，冒充用户操作
+  - 掌握了CSRF防护：CSRF Token、SameSite Cookie、验证Referer
+  - 理解了XSS vs CSRF的区别和防护优先级（XSS > CSRF）
+  - 成功测试了XSS攻击（弹窗）、XSS防护（转义）、CSRF Token验证
+  - 完成了bcrypt演示、CORS演示、XSS/CSRF防护演示项目
+  - 新增4个知识点，F领域达到7/8 (87.5%)，进度从47%提升到57%
 
 - **2026-03-21**: JWT认证系统 + Token刷新机制
   - 深入学习了JWT（JSON Web Token）的原理和三个部分（Header、Payload、Signature）
