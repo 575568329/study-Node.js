@@ -1,6 +1,6 @@
 # Node.js 学习进度追踪器
 
-**Last Updated**: 2026-03-20
+**Last Updated**: 2026-03-22
 **学习目标**: 全栈开发就业（Node.js后端 + 前端）
 **计划时长**: 2-3个月（每天2-3小时）
 **当前课程**: 黑马程序员 Node.js 全套教程
@@ -9,13 +9,13 @@
 
 ## 📊 快速统计
 
-📈 **Overall Progress**: 34/73 topics covered = **47%**
+📈 **Overall Progress**: 40/73 topics covered = **55%**
 📚 **课程进度**: P001-P090 (共约300集)
-⏰ **已学习**: 6天
+⏰ **已学习**: 8天
 🎯 **目标日期**: 2026年6月中旬
 
-⏰ **今日学习时长**: 约3小时
-💡 **今日新增主题**: 3个（F.2 JWT原理、F.3 JWT实现、F.4 Token刷新机制）
+⏰ **今日学习时长**: 约2小时
+💡 **今日新增主题**: 3个（F.1 Cookie/Session、F.5 CORS跨域、F.7 密码加密）
 
 ---
 
@@ -28,7 +28,7 @@
 | **C. 内置模块** | 18% | 7/12 | 🟡 进行中 | **HIGH** |
 | **D. Web框架** | 20% ⭐ | 7/10 | 🟡 进行中 | **CRITICAL** |
 | **E. 数据库** | 17% | 5/10 | 🟡 进行中 | **HIGH** |
-| **F. 认证与安全** | 10% | 3/8 | 🟡 进行中 | Medium |
+| **F. 认证与安全** | 10% | 6/8 | 🟡 进行中 | Medium |
 | **G. 项目实战** | 5% | 0/5 | ⚪ 未开始 | Medium |
 
 ---
@@ -387,15 +387,17 @@
 
 **课程章节**: 第14-15章 | **视频范围**: P281-P320
 
-### ✅ 已掌握 (3/8)
+### ✅ 已掌握 (6/8)
 
-- [x] **F.6** 数据验证（express-validator） (2026-03-18) - **High**
-  - 前端验证vs后端验证：前端可被绕过，后端必须验证
-  - 验证链：body()、param()、query()
-  - 常用验证：trim()、notEmpty()、isLength()、isEmail()、matches()
-  - 自定义错误：withMessage()设置错误消息
-  - 结果检查：validationResult(req)检查验证结果
-  - 实际应用：用户注册API、数据完整性保护
+- [x] **F.1** HTTP无状态性与Cookie/Session (2026-03-22) - **High**
+  - Cookie存在客户端（浏览器），自动发送，4KB容量
+  - Session存在服务端（内存/数据库），存储用户完整信息
+  - Session流程：登录 → 创建Session → 返回Cookie（session_id） → 以后自动发送Cookie → 服务器查Session
+  - HTTP无状态性：每个请求独立，默认不记住之前的状态
+  - Cookie vs localStorage vs sessionStorage：
+    - Cookie：自动发送，可设置过期，4KB
+    - localStorage：永久存储，手动发送，5-10MB
+    - sessionStorage：关闭标签页清除，5-10MB
 
 - [x] **F.2** JWT（JSON Web Token）原理 (2026-03-21) - **High**
   - JWT的三个部分：Header（算法和类型）、Payload（用户信息）、Signature（防伪签名）
@@ -412,22 +414,11 @@
   - 认证中间件：从Authorization header提取token → 验证token → 挂载用户信息到req.user
   - 密钥管理：使用环境变量`process.env.JWT_SECRET`，生产环境使用复杂密钥
   - Token过期：设置合理的过期时间（Access Token短期15分钟，Refresh Token长期7天）
-  - 前端存储：localStorage存储token
+  - 前端存储：localStorage存储token（存在客户端）
   - 前端发送：`headers: { 'Authorization': 'Bearer ' + token }`
   - 完整流程：注册（加密密码）→ 登录（验证密码+生成token）→ 访问API（验证token）
   - 实战项目：09-jwt-auth（完整的用户认证系统）
-  - 前端验证vs后端验证：前端可被绕过，后端必须验证
-  - 验证链：body()、param()、query()
-  - 常用验证：trim()、notEmpty()、isLength()、isEmail()、matches()
-  - 自定义错误：withMessage()设置错误消息
-  - 结果检查：validationResult(req)检查验证结果
-  - 实际应用：用户注册API、数据完整性保护
 
-### 📚 学习中 (5/8)
-
-- [ ] **F.1** HTTP无状态性与Cookie/Session
-- [ ] **F.2** JWT（JSON Web Token）原理
-- [ ] **F.3** JWT在Express中的实现
 - [x] **F.4** Token刷新机制 (2026-03-21) - **High**
   - 双token设计：Access Token（15分钟）+ Refresh Token（7天）
   - Access Token用途：访问API（短期，被盗损失小）
@@ -438,9 +429,43 @@
   - 用户体验：用户无感知（不需要重新登录）
   - 安全优势：Access Token短期降低风险，Refresh Token可撤销
   - 生产环境建议：Refresh Token轮换、黑名单、httpOnly cookie
-- [ ] **F.5** CORS跨域问题与解决方案（已在03-17学习cors中间件基础）
-- [ ] **F.7** 密码加密（bcrypt/salt）
+
+- [x] **F.5** CORS跨域问题与解决方案 (2026-03-22) - **High**
+  - 跨域定义：协议+域名+端口任一不同即为跨域
+  - 为什么需要CORS：防止恶意网站窃取用户数据（CSRF攻击防护）
+  - 浏览器限制：只有浏览器限制跨域，Postman/curl不受限制
+  - 解决方案：后端设置`Access-Control-Allow-Origin`白名单
+  - 简单请求vs复杂请求：
+    - 简单：GET、简单POST，不需要预检
+    - 复杂：PUT、DELETE、自定义头，需要OPTIONS预检请求
+  - 生产环境：不要用`origin: '*'`，使用白名单指定可信域名
+  - cors中间件配置：
+    - `app.use(cors())` - 允许所有（不安全）
+    - `app.use(cors({ origin: ['http://localhost:3000'] }))` - 白名单（推荐）
+
+- [x] **F.6** 数据验证（express-validator） (2026-03-18) - **High**
+  - 前端验证vs后端验证：前端可被绕过，后端必须验证
+  - 验证链：body()、param()、query()
+  - 常用验证：trim()、notEmpty()、isLength()、isEmail()、matches()
+  - 自定义错误：withMessage()设置错误消息
+  - 结果检查：validationResult(req)检查验证结果
+  - 实际应用：用户注册API、数据完整性保护
+
+- [x] **F.7** 密码加密（bcrypt） (2026-03-22) - **High**
+  - bcrypt vs MD5：自动加盐防止彩虹表、慢速计算防止暴力破解、可调强度
+  - Salt Rounds：加密强度（2^10=1024次加密循环），不是过期时间
+  - 每次加密结果不同：因为使用随机盐，但验证时能正确匹配
+  - 推荐值：10-12（平衡安全性和性能）
+  - 使用方式：
+    - 加密：`await bcrypt.hash(password, 10)`
+    - 验证：`await bcrypt.compare(plainPassword, hashedPassword)`
+  - 哈希值结构：`$2b$10$盐+哈希`（算法$成本$盐+哈希）
+  - 为什么不能用明文：数据库泄露、撞库攻击、信任崩塌
+
+### 📚 学习中 (2/8)
+
 - [ ] **F.8** XSS与CSRF防护
+- [ ] 其他安全最佳实践
 
 ---
 
@@ -562,12 +587,28 @@
 
 ## 📈 学习统计
 
-**总学习天数**: 7天
-**总学习时长**: 约15.5小时
-**完成主题数**: 34/73 (47%)
+**总学习天数**: 8天
+**总学习时长**: 约17.5小时
+**完成主题数**: 40/73 (55%)
 **完成项目数**: 2/4
 
 **最近7天学习记录**:
+- **2026-03-22**: Cookie/Session + CORS跨域 + 密码加密（bcrypt）
+  - 深入学习了Cookie和Session的工作原理（会员卡类比）
+  - 理解了HTTP无状态性：每个请求独立，默认不记住状态
+  - 掌握了Session流程：创建Session → 返回Cookie（session_id） → 自动发送 → 查Session
+  - 对比了Session vs JWT：有状态vs无状态，需要共享存储vs每个服务都能验证
+  - 掌握了三种存储的区别：Cookie（自动发送4KB）、localStorage（永久5-10MB）、sessionStorage（临时5-10MB）
+  - 学习了CORS跨域问题：协议+域名+端口任一不同即为跨域
+  - 理解了为什么需要CORS：防止恶意网站窃取用户数据（CSRF攻击防护）
+  - 掌握了CORS解决方案：后端设置Access-Control-Allow-Origin白名单
+  - 理解了简单请求vs复杂请求：PUT/DELETE/自定义头需要OPTIONS预检
+  - 深入学习了bcrypt密码加密：自动加盐、慢速计算、可调强度
+  - 纠正了错误理解：Salt Rounds是加密强度（2^10=1024次），不是过期时间
+  - 理解了bcrypt vs MD5：防止彩虹表攻击、防止暴力破解
+  - 完成了bcrypt演示和CORS演示项目
+  - 新增3个知识点，进度从47%提升到55%
+
 - **2026-03-21**: JWT认证系统 + Token刷新机制
   - 深入学习了JWT（JSON Web Token）的原理和三个部分（Header、Payload、Signature）
   - 理解了Base64编码vs加密的区别（Header/Payload可解码，Signature加密）
