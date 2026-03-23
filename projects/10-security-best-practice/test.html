@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>安全最佳实践测试</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      padding: 20px;
+      min-height: 100vh;
+    }
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 12px;
+      padding: 30px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    }
+    h1 {
+      color: #667eea;
+      margin-bottom: 10px;
+      font-size: 28px;
+    }
+    .subtitle {
+      color: #666;
+      margin-bottom: 30px;
+      font-size: 14px;
+    }
+    .section {
+      margin-bottom: 30px;
+      padding: 20px;
+      background: #f8f9fa;
+      border-radius: 8px;
+      border-left: 4px solid #667eea;
+    }
+    .section h2 {
+      color: #333;
+      font-size: 18px;
+      margin-bottom: 15px;
+    }
+    .test-group {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 15px;
+      flex-wrap: wrap;
+    }
+    button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 6px;
+      background: #667eea;
+      color: white;
+      cursor: pointer;
+      font-size: 14px;
+      transition: all 0.3s;
+      font-weight: 500;
+    }
+    button:hover {
+      background: #5568d3;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+    }
+    button:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+      transform: none;
+    }
+    input {
+      padding: 10px 15px;
+      border: 2px solid #e0e0e0;
+      border-radius: 6px;
+      font-size: 14px;
+      flex: 1;
+      min-width: 200px;
+    }
+    input:focus {
+      outline: none;
+      border-color: #667eea;
+    }
+    .response {
+      background: #1e1e1e;
+      color: #d4d4d4;
+      padding: 15px;
+      border-radius: 6px;
+      font-family: 'Consolas', 'Monaco', monospace;
+      font-size: 13px;
+      margin-top: 10px;
+      max-height: 300px;
+      overflow-y: auto;
+      white-space: pre-wrap;
+      word-break: break-all;
+    }
+    .response.error {
+      background: #2d1f1f;
+      border-left: 4px solid #f44336;
+    }
+    .response.success {
+      background: #1f2d1f;
+      border-left: 4px solid #4caf50;
+    }
+    .info-box {
+      background: #e3f2fd;
+      border-left: 4px solid #2196f3;
+      padding: 12px;
+      margin-bottom: 15px;
+      border-radius: 4px;
+      font-size: 13px;
+      color: #1565c0;
+    }
+    .warning-box {
+      background: #fff3e0;
+      border-left: 4px solid #ff9800;
+      padding: 12px;
+      margin-bottom: 15px;
+      border-radius: 4px;
+      font-size: 13px;
+      color: #e65100;
+    }
+    .badge {
+      display: inline-block;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: bold;
+      margin-right: 8px;
+    }
+    .badge-success { background: #4caf50; color: white; }
+    .badge-warning { background: #ff9800; color: white; }
+    .badge-danger { background: #f44336; color: white; }
+    .counter {
+      text-align: center;
+      font-size: 24px;
+      font-weight: bold;
+      color: #667eea;
+      margin: 15px 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🛡️ 安全最佳实践演示</h1>
+    <p class="subtitle">F.9 Security Best Practices - Rate Limiting, Helmet, Data Sanitization, Log Security</p>
+
+    <!-- 测试1：查看安全头 -->
+    <div class="section">
+      <h2>1️⃣ Helmet - HTTP安全头</h2>
+      <div class="info-box">
+        <strong>原理：</strong>Helmet自动添加15+个HTTP安全头，防止XSS、点击劫持等攻击<br>
+        <strong>检查：</strong>打开浏览器开发者工具 → Network → 查看响应头
+      </div>
+      <div class="test-group">
+        <button onclick="testHeaders()">🔍 查看安全头</button>
+      </div>
+      <div id="response-headers" class="response" style="display: none;"></div>
+    </div>
+
+    <!-- 测试2：登录限流 -->
+    <div class="section">
+      <h2>2️⃣ Rate Limiting - 速率限制（登录接口）</h2>
+      <div class="warning-box">
+        <strong>限制：</strong>5次/分钟（成功不计入，失败计入）<br>
+        <strong>目的：</strong>防止暴力破解密码攻击
+      </div>
+      <div class="info-box">
+        测试账号：alice / hashed_password_123
+      </div>
+      <div class="test-group">
+        <input type="text" id="login-username" placeholder="用户名" value="alice">
+        <input type="text" id="login-password" placeholder="密码" value="wrong_password">
+        <button onclick="testLogin()">🔐 登录</button>
+        <button onclick="testLoginCorrect()">✅ 正确密码登录</button>
+      </div>
+      <div class="counter">失败次数：<span id="login-count">0</span>/5</div>
+      <div id="response-login" class="response" style="display: none;"></div>
+    </div>
+
+    <!-- 测试3：触发全局限流 -->
+    <div class="section">
+      <h2>3️⃣ Rate Limiting - 全局限制</h2>
+      <div class="warning-box">
+        <strong>限制：</strong>100次/分钟<br>
+        <strong>目的：</strong>防止DDoS攻击
+      </div>
+      <div class="test-group">
+        <button onclick="testLimit()">⚡ 快速请求（触发限流）</button>
+        <button onclick="resetLimit()">🔄 重置计数器</button>
+      </div>
+      <div class="counter">请求次数：<span id="limit-count">0</span>/100</div>
+      <div id="response-limit" class="response" style="display: none;"></div>
+    </div>
+
+    <!-- 测试4：数据脱敏 -->
+    <div class="section">
+      <h2>4️⃣ 数据脱敏 - 不返回敏感信息</h2>
+      <div class="info-box">
+        <strong>敏感字段：</strong>password（密码）、phone（手机号）<br>
+        <strong>脱敏策略：</strong>password不返回，phone只显示前3后4位（138****8000）
+      </div>
+      <div class="test-group">
+        <button onclick="getUsers()">📋 获取用户列表</button>
+        <button onclick="getUser(1)">👤 获取用户1</button>
+        <button onclick="getUser(2)">👤 获取用户2</button>
+      </div>
+      <div id="response-users" class="response" style="display: none;"></div>
+    </div>
+
+    <!-- 测试5：日志安全 -->
+    <div class="section">
+      <h2>5️⃣ 日志安全 - 不记录敏感信息</h2>
+      <div class="info-box">
+        <strong>对比实验：</strong>查看服务器控制台<br>
+        <strong>不安全：</strong>日志中包含password（危险）<br>
+        <strong>安全：</strong>日志中不包含password（删除后记录）
+      </div>
+      <div class="test-group">
+        <input type="text" id="log-password" placeholder="密码" value="my_secret_password">
+        <button onclick="testUnsafeLog()">⚠️ 不安全的日志</button>
+        <button onclick="testSafeLog()">✅ 安全的日志</button>
+      </div>
+      <div class="warning-box">
+        <strong>⚠️ 查看服务器控制台：</strong>对比两种日志方式的区别
+      </div>
+      <div id="response-log" class="response" style="display: none;"></div>
+    </div>
+
+  </div>
+
+  <script>
+    const API_BASE = 'http://localhost:3003';
+    let loginCount = 0;
+    let limitCount = 0;
+
+    // 测试1：查看安全头
+    async function testHeaders() {
+      try {
+        const response = await fetch(`${API_BASE}/api/headers`);
+        const data = await response.json();
+
+        // 获取所有响应头
+        const headers = {
+          'X-Content-Type-Options': response.headers.get('X-Content-Type-Options'),
+          'X-Frame-Options': response.headers.get('X-Frame-Options'),
+          'X-XSS-Protection': response.headers.get('X-XSS-Protection'),
+          'Content-Security-Policy': response.headers.get('Content-Security-Policy'),
+        };
+
+        showResponse('response-headers', {
+          success: true,
+          data: data,
+          securityHeaders: headers
+        }, 'success');
+      } catch (error) {
+        showResponse('response-headers', { error: error.message }, 'error');
+      }
+    }
+
+    // 测试2：登录（错误密码 - 触发限流）
+    async function testLogin() {
+      const username = document.getElementById('login-username').value;
+      const password = document.getElementById('login-password').value;
+
+      try {
+        const response = await fetch(`${API_BASE}/api/login`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username, password })
+        });
+        const data = await response.json();
+
+        if (response.status === 401) {
+          loginCount++;
+          document.getElementById('login-count').textContent = loginCount;
+        }
+
+        showResponse('response-login', data, response.ok ? 'success' : 'error');
+      } catch (error) {
+        showResponse('response-login', { error: error.message }, 'error');
+      }
+    }
+
+    // 测试2：登录（正确密码 - 不计入限流）
+    async function testLoginCorrect() {
+      try {
+        const response = await fetch(`${API_BASE}/api/login`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username: 'alice', password: 'hashed_password_123' })
+        });
+        const data = await response.json();
+
+        showResponse('response-login', {
+          ...data,
+          note: '✅ 成功登录不计入限流（skipSuccessfulRequests: true）'
+        }, response.ok ? 'success' : 'error');
+      } catch (error) {
+        showResponse('response-login', { error: error.message }, 'error');
+      }
+    }
+
+    // 测试3：触发全局限流
+    async function testLimit() {
+      limitCount++;
+      document.getElementById('limit-count').textContent = limitCount;
+
+      try {
+        const response = await fetch(`${API_BASE}/api/test-limit`);
+        const data = await response.json();
+
+        showResponse('response-limit', {
+          ...data,
+          count: limitCount
+        }, response.ok ? 'success' : 'error');
+      } catch (error) {
+        showResponse('response-limit', { error: error.message }, 'error');
+      }
+    }
+
+    function resetLimit() {
+      limitCount = 0;
+      document.getElementById('limit-count').textContent = 0;
+      document.getElementById('response-limit').style.display = 'none';
+    }
+
+    // 测试4：获取用户列表（数据脱敏）
+    async function getUsers() {
+      try {
+        const response = await fetch(`${API_BASE}/api/users`);
+        const data = await response.json();
+
+        showResponse('response-users', {
+          ...data,
+          explanation: {
+            '✅ 已删除字段': ['password', 'phone'],
+            '⚠️ 只返回安全字段': ['id', 'username', 'email']
+          }
+        }, 'success');
+      } catch (error) {
+        showResponse('response-users', { error: error.message }, 'error');
+      }
+    }
+
+    // 测试4：获取单个用户（手机号脱敏）
+    async function getUser(id) {
+      try {
+        const response = await fetch(`${API_BASE}/api/users/${id}`);
+        const data = await response.json();
+
+        showResponse('response-users', {
+          ...data,
+          explanation: {
+            '✅ 已删除字段': ['password'],
+            '✅ 脱敏字段': {
+              phone: '138****8000 (只显示前3后4位)'
+            }
+          }
+        }, 'success');
+      } catch (error) {
+        showResponse('response-users', { error: error.message }, 'error');
+      }
+    }
+
+    // 测试5：不安全的日志
+    async function testUnsafeLog() {
+      const password = document.getElementById('log-password').value;
+
+      try {
+        const response = await fetch(`${API_BASE}/api/unsafe-log`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username: 'test', password })
+        });
+        const data = await response.json();
+
+        showResponse('response-log', {
+          ...data,
+          warning: '⚠️ 查看服务器控制台，日志中包含password（危险！）',
+          logOutput: '不安全的日志: { username: "test", password: "my_secret_password" }'
+        }, 'success');
+      } catch (error) {
+        showResponse('response-log', { error: error.message }, 'error');
+      }
+    }
+
+    // 测试5：安全的日志
+    async function testSafeLog() {
+      const password = document.getElementById('log-password').value;
+
+      try {
+        const response = await fetch(`${API_BASE}/api/safe-log`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username: 'test', password })
+        });
+        const data = await response.json();
+
+        showResponse('response-log', {
+          ...data,
+          safe: '✅ 查看服务器控制台，日志中不包含password（安全）',
+          logOutput: '安全的日志: { username: "test" }'
+        }, 'success');
+      } catch (error) {
+        showResponse('response-log', { error: error.message }, 'error');
+      }
+    }
+
+    // 显示响应
+    function showResponse(elementId, data, type = '') {
+      const element = document.getElementById(elementId);
+      element.style.display = 'block';
+      element.className = 'response ' + type;
+      element.textContent = JSON.stringify(data, null, 2);
+    }
+  </script>
+</body>
+</html>

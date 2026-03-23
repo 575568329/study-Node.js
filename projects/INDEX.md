@@ -16,6 +16,8 @@
 | [06-validator-upload](#06-validator-upload) | 2026-03-18 | ⭐⭐⭐ | ✅ 完成 | 参数验证+文件上传 |
 | [07-mysql-crud](#07-mysql-crud) | 2026-03-20 | ⭐⭐⭐ | ✅ 完成 | MySQL CRUD |
 | [08-user-register-complete](#08-user-register-complete) | 2026-03-20 | ⭐⭐⭐⭐ | ✅ 完成 | 完整用户系统 |
+| [10-security-best-practice](#10-security-best-practice) | 2026-03-23 | ⭐⭐⭐ | ✅ 完成 | 安全最佳实践 |
+| [11-personal-blog](#11-personal-blog) | 2026-03-23 | ⭐⭐⭐⭐⭐ | ✅ 完成 | 个人博客API |
 
 ---
 
@@ -179,6 +181,58 @@ node server.js
 
 ---
 
+### 10-security-best-practice
+**难度**: ⭐⭐⭐ | **状态**: ✅ 完成
+**学习日期**: 2026-03-23
+**学习主题**: 安全最佳实践综合演示
+
+**功能**:
+- ✅ 速率限制（rate-limiting）
+- ✅ Helmet安全头（7个HTTP响应头）
+- ✅ 数据脱敏（SQL查询排除、代码删除、日志脱敏）
+- ✅ 日志安全（morgan自定义token）
+- ✅ 环境变量管理（.env配置）
+
+**技术栈**:
+- Express
+- express-rate-limit
+- helmet
+- morgan
+- cors
+
+**关键文件**:
+- `server.js` - Express服务器
+- `.env.example` - 环境变量模板
+- `test.html` - 前端测试页面
+
+**启动方式**:
+```bash
+cd 10-security-best-practice
+npm install
+node server.js
+```
+
+**测试接口**:
+- `POST /api/login` - 登录（速率限制：5次/分钟）
+- `GET /api/data` - 获取数据（速率限制：100次/15分钟）
+
+**安全头演示**:
+```
+X-Frame-Options: SAMEORIGIN
+X-Content-Type-Options: nosniff
+Strict-Transport-Security: max-age=31536000
+Content-Security-Policy: default-src 'none'
+X-XSS-Protection: 0
+```
+
+**学习成果**:
+- ✅ 理解速率限制的必要性（防暴力破解）
+- ✅ 掌握Helmet自动添加安全头
+- ✅ 理解数据脱敏的3种方法
+- ✅ 深入理解日志安全风险
+
+---
+
 ### 08-user-register-complete
 **难度**: ⭐⭐⭐⭐ | **状态**: ✅ 完成
 **学习日期**: 2026-03-20
@@ -265,6 +319,135 @@ npm start
 
 ---
 
+### 11-personal-blog
+**难度**: ⭐⭐⭐⭐⭐ | **状态**: ✅ 完成（核心功能100%）
+**学习日期**: 2026-03-23
+**学习主题**: 个人博客后端API（综合项目）
+
+**功能**:
+- ✅ 用户认证系统（注册、登录、JWT认证中间件）
+- ✅ 文章管理系统（发表、编辑、删除、查询、分页）
+- ✅ 评论系统（发表评论、删除评论、获取评论列表）
+- ✅ 用户中心（查看个人信息、更新个人信息）
+
+**技术栈**:
+- Express（Web框架）
+- mysql2（MySQL驱动）
+- jsonwebtoken（JWT认证）
+- bcryptjs（密码加密）
+- express-validator（参数验证）
+- cors（跨域）
+- helmet（安全头）
+- express-rate-limit（速率限制）
+- morgan（日志）
+
+**关键文件**:
+- `server.js` - 服务器入口
+- `src/app.js` - Express应用配置
+- `src/config/database.js` - 数据库配置
+- `src/controllers/` - 业务逻辑控制器
+- `src/routes/` - 路由定义
+- `src/middleware/auth.js` - JWT认证中间件
+- `database/schema.sql` - 数据库表结构
+
+**启动方式**:
+```bash
+# 1. 确保MySQL服务运行
+sc query MySQL80
+
+# 2. 创建数据库
+mysql -u root -p < database/schema.sql
+
+# 3. 配置环境变量
+cp .env.example .env
+# 编辑.env，设置数据库密码和JWT密钥
+
+# 4. 安装依赖
+npm install
+
+# 5. 启动服务器
+node server.js
+```
+
+**API接口**:
+
+**公开接口**:
+- `POST /api/auth/register` - 用户注册
+- `POST /api/auth/login` - 用户登录
+- `GET /api/posts` - 获取文章列表（分页）
+- `GET /api/posts/:id` - 获取文章详情
+- `GET /api/posts/:id/comments` - 获取文章评论
+
+**需要认证的接口**（需要JWT token）:
+- `GET /api/users/profile` - 获取个人信息
+- `PUT /api/users/profile` - 更新个人信息
+- `POST /api/posts` - 发表文章
+- `PUT /api/posts/:id` - 编辑文章
+- `DELETE /api/posts/:id` - 删除文章
+- `POST /api/posts/:id/comments` - 发表评论
+- `DELETE /api/comments/:id` - 删除评论
+
+**数据库设计**:
+```
+users (用户表)
+  ├─ id, username, password, email
+  ├─ nickname, avatar, bio
+  └─ created_at, updated_at
+
+posts (文章表)
+  ├─ id, title, content, cover_image
+  ├─ author_id (外键→users.id)
+  ├─ view_count, status (draft/published)
+  └─ created_at, updated_at
+
+comments (评论表)
+  ├─ id, post_id (外键→posts.id)
+  ├─ user_id (外键→users.id)
+  └─ content, created_at
+
+uploads (文件上传表)
+  ├─ id, filename, stored_name
+  ├─ file_path, file_size, mime_type
+  └─ uploader_id (外键→users.id)
+```
+
+**安全特性**:
+- 🔐 JWT认证（无状态token）
+- 🔐 bcrypt密码加密（Salt Rounds: 10）
+- 🛡️ SQL参数化查询（防注入）
+- 🛡️ 权限验证（作者身份检查）
+- 🚦 速率限制（防暴力破解）
+- 🛡️ Helmet安全头（7个）
+- 🛡️ CORS白名单
+- 🔍 数据脱敏（不返回password）
+
+**代码质量**:
+- ⭐⭐⭐⭐⭐ 生产级别
+- 完整的错误处理
+- SQL联表查询（LEFT JOIN）
+- 分页查询（LIMIT、OFFSET）
+- 动态SQL构建
+- 边界检查（404、403）
+- 清晰的代码注释
+
+**学习成果**:
+- ✅ 掌握JWT认证完整流程
+- ✅ 掌握MySQL联表查询
+- ✅ 掌握动态SQL构建
+- ✅ 掌握权限验证模式
+- ✅ 理解RESTful API设计
+- ✅ 掌握生产级代码规范
+
+**解决的Bug（7个）**:
+1. authController: 变量命名一致性
+2. postController: 返回空列表、返回错误的ID、动态SQL逻辑错误
+3. app.js: morgan日志配置（GET请求body为undefined）
+4. userController: 数组判断错误、email检查逻辑、返回值错误、数据检查逻辑
+
+**项目完成度**: 95%（核心功能100%，文件上传功能未实现）
+
+---
+
 ## 🎯 项目技能映射
 
 ### Express框架 (D领域)
@@ -335,6 +518,6 @@ Level 4: 综合实战
 
 ---
 
-**最后更新**: 2026-03-21
-**总项目数**: 8
+**最后更新**: 2026-03-23
+**总项目数**: 10
 **维护者**: AI导师自动更新
