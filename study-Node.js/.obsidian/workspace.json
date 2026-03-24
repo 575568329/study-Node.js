@@ -11,10 +11,14 @@
             "id": "5a72b098dff3f8c8",
             "type": "leaf",
             "state": {
-              "type": "graph",
-              "state": {},
-              "icon": "lucide-git-fork",
-              "title": "关系图谱"
+              "type": "markdown",
+              "state": {
+                "file": "04-前后端对比/概念对照表.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "概念对照表"
             }
           }
         ]
@@ -186,36 +190,46 @@
       "daily-notes:打开/创建今天的日记": false,
       "templates:插入模板": false,
       "command-palette:打开命令面板": false,
-      "bases:新建数据库": false
+      "bases:新建数据库": false,
+      "obsidian-excalidraw-plugin:New drawing": false
     }
   },
-  "active": "ffe0f65ac8e06fc3",
+  "active": "5a72b098dff3f8c8",
   "lastOpenFiles": [
+    "01-知识点总结/D-Express框架/静态资源服务（进阶）.md",
+    "01-知识点总结/D-Express框架/静态资源服务（进阶）.md.tmp.31456.1774349206598",
+    "01-知识点总结/G-项目实战/个人博客API.md",
+    "01-知识点总结/G-项目实战/个人博客API.md.tmp.31456.1774349189448",
+    "01-知识点总结/G-项目实战",
+    "01-知识点总结/E-数据库/事务处理.md",
+    "01-知识点总结/E-数据库/事务处理.md.tmp.31456.1774349165580",
+    "01-知识点总结/E-数据库/SQL注入防护.md",
+    "01-知识点总结/E-数据库",
+    "01-知识点总结/D-Express框架/Express最佳实践.md",
+    "01-知识点总结/D-Express框架/Express最佳实践.md.tmp.31456.1774349133774",
+    "01-知识点总结/D-Express框架/Express路由参数处理.md",
+    "01-知识点总结/D-Express框架/Express路由参数处理.md.tmp.31456.1774349118001",
+    "01-知识点总结/D-Express框架/RESTful API设计规范.md",
+    "01-知识点总结/D-Express框架/RESTful API设计规范.md.tmp.31456.1774349103133",
+    "01-知识点总结/D-Express框架",
+    "01-知识点总结/知识点索引.md.tmp.31456.1774349088037",
+    "JWT.md",
+    "04-前后端对比/概念对照表.md",
+    "03-易错点与陷阱/易错点汇总.md",
+    "templates/知识点模板.md",
+    "templates/易错点模板.md",
+    "Excalidraw/Drawing 2026-03-21 20.43.34.excalidraw.md",
+    "01-知识点总结/知识点索引.md",
+    "01-知识点总结/A-Nodejs核心/CommonJS vs ES6模块化.md",
+    "05-速查表/常用代码速查.md",
     "未命名 1.canvas",
     "2026-03-21.md",
-    "未命名 1.base",
     "未命名.canvas",
     "README.md",
     "07-学习计划/学习计划.md",
-    "未命名.base",
     "00-学习导航/Obsidian使用指南.md",
-    "Excalidraw/Drawing 2026-03-21 20.43.34.excalidraw.md",
-    "Excalidraw",
     "欢迎.md",
     "2026-03-15.md",
-    "05-速查表/常用代码速查.md",
-    "00-学习导航/README.md",
-    "03-易错点与陷阱/易错点汇总.md",
-    "04-前后端对比/概念对照表.md",
-    "01-知识点总结/A-Nodejs核心/CommonJS vs ES6模块化.md",
-    "templates/易错点模板.md",
-    "templates/知识点模板.md",
-    "templates",
-    "07-学习计划",
-    "06-面试题库",
-    "05-速查表",
-    "04-前后端对比",
-    "03-易错点与陷阱",
-    "02-代码示例/实战项目"
+    "00-学习导航/README.md"
   ]
 }
