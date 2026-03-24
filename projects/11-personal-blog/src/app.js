@@ -12,6 +12,7 @@ const authRoutes = require('./routes/auth');
 const postRoutes = require('./routes/posts');
 const commentRoutes = require('./routes/comments');
 const userRoutes = require('./routes/users');
+const uploadRoutes = require('./routes/upload');
 const errorHandler = require('./middleware/error');
 
 const app = express();
@@ -72,6 +73,7 @@ app.use((req, res, next) => {
 app.use('/api/auth', authRoutes);
 app.use('/api/posts', postRoutes);
 app.use('/api/users', userRoutes); // 用户路由
+app.use('/api/upload', uploadRoutes); // 文件上传路由
 app.use('/api', commentRoutes); // 评论路由（包含/posts/:id/comments和/comments/:id）
 
 // ===== 404处理 =====

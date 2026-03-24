@@ -42,6 +42,15 @@ temp/
 projects/*/node_modules/
 projects/*/dist/
 projects/*/build/
+projects/*/uploads/  # 上传文件目录
+
+# Claude Code配置
+.claude/settings.local.json  # 本地设置
+.claude/settings.backup.json  # 备份文件
+.ccode/  # IDE配置
+
+# VSCode其他配置
+.history/
 
 # 可选：不提交会话笔记（如果包含敏感信息）
 # sessions/
