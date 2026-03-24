@@ -4,21 +4,17 @@
     "type": "split",
     "children": [
       {
-        "id": "a307e4097ef812bd",
+        "id": "f99434ed9765224b",
         "type": "tabs",
         "children": [
           {
-            "id": "5a72b098dff3f8c8",
+            "id": "0157d1d85e3ce87c",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "04-前后端对比/概念对照表.md",
-                "mode": "source",
-                "source": false
-              },
+              "type": "empty",
+              "state": {},
               "icon": "lucide-file",
-              "title": "概念对照表"
+              "title": "新标签页"
             }
           }
         ]
@@ -194,8 +190,16 @@
       "obsidian-excalidraw-plugin:New drawing": false
     }
   },
-  "active": "5a72b098dff3f8c8",
+  "active": "0157d1d85e3ce87c",
   "lastOpenFiles": [
+    "B-异步编程/Event Loop事件循环机制.md",
+    "B-异步编程",
+    "Event Loop事件循环机制.md",
+    "未命名.canvas",
+    "01-知识点总结/F-认证与安全/CORS跨域.md",
+    "01-知识点总结/F-认证与安全/Cookie与Session.md",
+    "01-知识点总结/F-认证与安全/密码加密.md",
+    "04-前后端对比/概念对照表.md",
     "01-知识点总结/D-Express框架/静态资源服务（进阶）.md",
     "01-知识点总结/D-Express框架/静态资源服务（进阶）.md.tmp.31456.1774349206598",
     "01-知识点总结/G-项目实战/个人博客API.md",
@@ -212,9 +216,7 @@
     "01-知识点总结/D-Express框架/RESTful API设计规范.md",
     "01-知识点总结/D-Express框架/RESTful API设计规范.md.tmp.31456.1774349103133",
     "01-知识点总结/D-Express框架",
-    "01-知识点总结/知识点索引.md.tmp.31456.1774349088037",
     "JWT.md",
-    "04-前后端对比/概念对照表.md",
     "03-易错点与陷阱/易错点汇总.md",
     "templates/知识点模板.md",
     "templates/易错点模板.md",
@@ -224,12 +226,9 @@
     "05-速查表/常用代码速查.md",
     "未命名 1.canvas",
     "2026-03-21.md",
-    "未命名.canvas",
     "README.md",
     "07-学习计划/学习计划.md",
     "00-学习导航/Obsidian使用指南.md",
-    "欢迎.md",
-    "2026-03-15.md",
-    "00-学习导航/README.md"
+    "欢迎.md"
   ]
 }
