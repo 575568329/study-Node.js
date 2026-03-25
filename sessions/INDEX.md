@@ -8,6 +8,62 @@
 
 ## 📅 会话时间线
 
+### 2026-03-25 (第11天)
+**主题**: Sequelize ORM完整学习 + 博客项目重构
+**进度**: 66% → 71%
+**文件**: [session-notes.md](./2026-03-25/session-notes.md)
+
+**主要内容**:
+- Part 1-3: Sequelize基础架构
+  - 安装和配置sequelize包
+  - 配置连接池（pool.max, min, acquire, idle）
+  - 定义模型（User、Post、Comment）
+  - 字段映射（驼峰→蛇形）
+  - timestamps自动管理
+- Part 4: 重构认证模块（register、login）
+  - Model.findOne()查询
+  - Model.create()创建
+  - 返回值差异（id vs insertId）
+- Part 6-10: 重构postController（5个函数）
+  - getPosts: findAndCountAll分页+联表
+  - getPostById: findOne+increment
+  - createPost: Model.create()
+  - updatePost: 实例方法vs静态方法
+  - deletePost: destroy()
+- Part 12: 循环引用问题解决
+  - TypeError: Converting circular structure to JSON
+  - 使用toJSON()转换模型实例
+- Part 13: 连接池配置详解
+  - max, min, acquire, idle参数
+  - 自行车租赁站类比
+- Part 14: 大型架构初步了解
+  - 负载均衡、Redis缓存、读写分离、分库分表
+
+**关键成果**:
+- ✅ 完整掌握Sequelize ORM（从理论到实践）
+- ✅ 重构了认证模块和文章模块
+- ✅ 解决了循环引用问题（toJSON()）
+- ✅ 理解了连接池原理和配置
+- ✅ 理解了insertId的底层原理
+- ✅ 掌握静态vs实例方法的选择
+- ✅ **E领域100%完成**（10/10全部掌握）🎉
+- ✅ 所有测试通过
+- ✅ 明确学习路线：Node.js → Vue3/React → Next.js → LangChain
+
+**解决问题**:
+- ✅ sequelize.define is not a function（解构导入）
+- ✅ 循环引用错误（toJSON()）
+- ✅ pool引用残留（删除旧代码）
+- ✅ 深入理解mysql2 vs Sequelize差异
+
+**关键见解**:
+- ORM的本质：把数据库行映射成JavaScript对象
+- 模型实例vs普通对象：toJSON()转换
+- 性能vs可读性：静态方法更快，实例方法更直观
+- 架构是练出来的：不要急于求成，先扎实基础
+
+---
+
 ### 2026-03-23 (第9天)
 **主题**: F.9 安全最佳实践 + G.3 个人博客API核心功能
 **进度**: 57% → 59%
@@ -222,22 +278,23 @@
 
 ## 📊 会话统计
 
-**总会话数**: 9
-**总学习天数**: 9天
-**总学习时长**: 约23.5小时
-**平均时长**: 约2.6小时/天
+**总会话数**: 11
+**总学习天数**: 11天
+**总学习时长**: 约27.5小时
+**平均时长**: 约2.5小时/天
 
 **进度轨迹**:
 ```
-起点 → 8% → 22% → 25% → 27% → 33% → 38% → 40% → 47% → 55% → 58% → 59%
-      +14%  +3%   +2%   +6%   +5%   +2%   +7%   +8%   +3%   +1%
+起点 → 8% → 22% → 25% → 27% → 33% → 38% → 40% → 47% → 55% → 58% → 59% → 66% → 71%
+      +14%  +3%   +2%   +6%   +5%   +2%   +7%   +8%   +3%   +1%   +7%   +5%
 ```
 
 **学习密度**:
 - 最高单日增量：+14%（第2天，模块化+npm+内置模块）
 - 第二高增量：+8%（第8天，Cookie/Session+CORS+bcrypt）
-- 第三高增量：+7%（第7天，JWT认证系统）
-- 最低单日增量：+2%（第6天，Event Loop复习）
+- 第三高增量：+7%（第10天，个人博客API完整功能、第11天，Sequelize ORM完整学习）
+- 最低单日增量：+1%（第9天，安全最佳实践）
+- 今日增量：+5%（Sequelize ORM + 博客项目重构）
 
 ---
 
@@ -270,11 +327,16 @@
 - **A. Node.js核心**: [2026-03-15](./2026-03-15/session-notes.md)
 - **B. 异步编程**: [2026-03-13](./2026-03-13/session-notes.md), [2026-03-20](./2026-03-20/session-notes.md)
 - **C. 内置模块**: [2026-03-15](./2026-03-15/session-notes.md), [2026-03-16](./2026-03-16/session-notes.md), [2026-03-17](./2026-03-17/session-notes.md)
-- **D. Web框架**: [2026-03-17](./2026-03-17/session-notes.md)
-- **E. 数据库**: [2026-03-18](./2026-03-18/session-notes.md)
-- **F. 认证与安全**: [2026-03-21](./2026-03-21/session-notes.md), [2026-03-22](./2026-03-22/session-notes.md), [2026-03-23](./2026-03-23/session-notes.md)
+- **D. Web框架**: [2026-03-17](./2026-03-17/session-notes.md), [2026-03-24](./2026-03-24/session-notes.md)
+- **E. 数据库**: [2026-03-18](./2026-03-18/session-notes.md), [2026-03-24](./2026-03-24/session-notes.md), [2026-03-25](./2026-03-25/session-notes.md) ✅ **100%完成**
+- **F. 认证与安全**: [2026-03-21](./2026-03-21/session-notes.md), [2026-03-22](./2026-03-22/session-notes.md), [2026-03-23](./2026-03-23/session-notes.md) ✅ **100%完成**
 
 ### 按主题查找
+- **ORM（Sequelize）**: [2026-03-25](./2026-03-25/session-notes.md)
+- **Sequelize模型定义**: [2026-03-25](./2026-03-25/session-notes.md)
+- **Sequelize模型关联**: [2026-03-25](./2026-03-25/session-notes.md)
+- **连接池配置**: [2026-03-25](./2026-03-25/session-notes.md)
+- **大型架构**: [2026-03-25](./2026-03-25/session-notes.md)
 - **安全最佳实践**: [2026-03-23](./2026-03-23/session-notes.md)
 - **速率限制**: [2026-03-23](./2026-03-23/session-notes.md)
 - **Helmet安全头**: [2026-03-23](./2026-03-23/session-notes.md)
@@ -299,5 +361,5 @@
 
 ---
 
-**最后更新**: 2026-03-23
+**最后更新**: 2026-03-25
 **维护者**: AI导师自动更新

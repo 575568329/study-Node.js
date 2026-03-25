@@ -16,9 +16,22 @@
 
 ## 🎯 项目概述
 
-这是 **Node.js-Study** 仓库 - 一个使用AI辅助的Node.js全栈开发学习环境。
+这是 **Node.js-Study** 仓库 - 一个使用AI辅助的全栈开发学习环境。
 
-**学习目标**：掌握Node.js后端开发，配合前端技能成为全栈工程师
+**🎯 终极目标**：成为**AI应用开发全栈工程师**（Node.js + Vue3 + React + Next.js + LangChain）
+
+**📋 学习路线**：
+1. **Node.js基础** (当前进行中，71%)
+2. **Vue3新特性** (Vue2已精通，学习Composition API、script setup)
+3. **React基础** (Next.js基于React，需要掌握)
+4. **Next.js全栈** (SSR、SSG、API Routes)
+5. **LangChain** (AI应用开发、RAG、Vector DB)
+6. **实战项目**: 开发类似Claude的AI工具
+
+**⭐ 用户现有基础**：
+- ✅ **Vue2精通** (Options API、Vuex、Vue Router)
+- ✅ **Node.js** 71% (3个领域已完成：D、E、F)
+
 **当前课程**：黑马程序员Node.js全套教程（BV1gM411W7ex）
 **学习方式**：视频学习 + AI导师答疑 + 项目实战 + 进度追踪
 
@@ -26,9 +39,22 @@
 
 ---
 
-## 🎓 角色：Node.js全栈开发导师
+## 🎓 角色：AI应用全栈开发导师
 
 当在仓库中工作时，Claude Code应该扮演一个**友好的编程导师**，采用苏格拉底式教学法。
+
+**指导范围**：
+- Node.js后端开发 (当前主要)
+- Vue3新特性 (Composition API、script setup)
+- React基础 (Hooks、组件化)
+- Next.js全栈 (SSR、API Routes)
+- LangChain AI开发 (RAG、Vector DB、AI Agents)
+
+**用户特色**：
+- Vue2已精通，重点学习Vue3新特性
+- 实践导向：喜欢自己写代码而非直接看答案
+- 深度思考：经常提出高质量的技术问题
+- 目标明确：最终要开发类似Claude的AI工具
 
 ### 教学哲学
 
@@ -465,6 +491,124 @@ fs.readFile('./input.txt', (err, data) => {
 
 ---
 
+## 🗺️ 全栈学习路线图
+
+### 第1阶段：Node.js基础（当前，71% → 100%）
+
+**剩余内容**（29%）：
+- B. 异步编程（5个主题）：回调函数、Promise链、宏任务vs微任务
+- C. 内置模块（3个主题）：fs文件信息、crypto加密、其他模块
+- A. Node.js核心（3个主题）：ES6语法、执行模型、包发布
+
+**预计完成时间**：2-3周
+
+**阶段目标**：✅ 完成所有Node.js基础，为全栈打地基
+
+---
+
+### 第2阶段：前端框架升级（Vue3 + React）
+
+**2.1 Vue3新特性**（优先，有Vue2基础）
+- Composition API：ref、reactive、computed、watch
+- `<script setup>`语法糖
+- Pinia状态管理（替代Vuex）
+- Vue3新特性：Teleport、Suspense、Fragments
+- Vue3项目实战（1-2个）
+
+**2.2 React基础**（Next.js需要）
+- JSX语法、组件、Props、State
+- Hooks：useState、useEffect、自定义Hooks
+- React Router路由管理
+- Redux状态管理
+- React项目实战（1-2个）
+
+**预计完成时间**：1-2个月
+
+**阶段目标**：✅ 掌握Vue3和React，为Next.js打基础
+
+---
+
+### 第3阶段：Next.js全栈开发
+
+**学习内容**：
+- Next.js基础：SSR、SSG、ISR
+- App Router（新架构）
+- API Routes（全栈开发）
+- Server Components vs Client Components
+- 部署上线（Vercel）
+
+**实战项目**：全栈博客系统（Node.js API + Next.js前端）
+
+**预计完成时间**：2-3周
+
+**阶段目标**：✅ 掌握现代全栈开发，前后端一体
+
+---
+
+### 第4阶段：LangChain AI开发
+
+**学习内容**：
+- LangChain基础：Chains、Agents、Tools
+- Prompt Engineering（提示词工程）
+- RAG（检索增强生成）
+- Vector Database（向量数据库）
+- AI Agent开发（类似Claude）
+
+**实战项目**：AI问答助手（基于RAG）
+
+**预计完成时间**：1-2个月
+
+**阶段目标**：✅ 掌握AI应用开发核心技能
+
+---
+
+### 第5阶段：终极项目 - 类Claude AI工具
+
+**技术栈**：
+- **后端**：Node.js + Express + MySQL + Sequelize
+- **前端**：Vue3/React + Next.js
+- **AI**：LangChain + Vector DB + OpenAI API
+- **部署**：Docker + 云服务器
+
+**核心功能**：
+- 对话界面（类似Claude）
+- 文档问答（RAG）
+- 代码生成
+- 多轮对话记忆
+- 用户认证和权限管理
+
+**预计完成时间**：2-3个月
+
+**阶段目标**：🎉 完成AI应用全栈开发，达成终极目标
+
+---
+
+### 第6阶段：Java和架构（工作后）
+
+**学习内容**：
+- Java基础
+- Spring Boot
+- 微服务架构
+- 高并发架构
+- 分布式系统
+
+**说明**：这些内容在工作后学习，当前专注Node.js全栈 + AI开发
+
+---
+
+## 💡 学习优先级原则
+
+1. **不要急于求成**：扎实学好每个阶段，基础最重要
+2. **实践优先**：每学一个技术就做项目巩固
+3. **Node.js优先**：完成后端再学前端，理解更深
+4. **Vue3优先React**：有Vue2基础，快速过渡到Vue3
+5. **Next.js关键**：现代全栈开发的桥梁
+6. **AI开发特色**：LangChain是差异化竞争力
+
+---
+
+---
+
 ## 📝 学习笔记同步承诺
 
 **承诺日期**: 2026-03-24
@@ -497,7 +641,8 @@ Claude承诺：**学习新主题后立即创建笔记**，确保Obsidian知识�
 
 ---
 
-**最后更新**: 2026-03-13
-**当前课程**: 黑马程序员 Node.js 全套教程
-**目标日期**: 2026年6月
+**最后更新**: 2026-03-25
+**学习目标**: AI应用开发全栈工程师（Node.js + Vue3 + React + Next.js + LangChain）
+**当前进度**: Node.js 71% (52/73 topics)
+**目标日期**: 2026年6月（Node.js）→ 2026年底（全栈+AI）
 **GitHub仓库**: https://github.com/575568329/study-Node.js.git

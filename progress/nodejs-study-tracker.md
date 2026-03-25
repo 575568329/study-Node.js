@@ -1,21 +1,21 @@
 # Node.js 学习进度追踪器
 
-**Last Updated**: 2026-03-24
-**学习目标**: 全栈开发就业（Node.js后端 + 前端）
-**计划时长**: 2-3个月（每天2-3小时）
-**当前课程**: 黑马程序员 Node.js 全套教程
+**Last Updated**: 2026-03-25
+**学习目标**: AI应用开发全栈工程师（Node.js + Next.js + LangChain）
+**计划时长**: 4-6个月
+**当前课程**: 黑马程序员 Node.js 全套教程 + Vue/React + Next.js + LangChain
 
 ---
 
 ## 📊 快速统计
 
-📈 **Overall Progress**: 48/73 topics covered = **66%**
+📈 **Overall Progress**: 52/73 topics covered = **71%**
 📚 **课程进度**: P001-P090+ (共约300集)
 ⏰ **已学习**: 11天
 🎯 **目标日期**: 2026年6月中旬
 
-⏰ **今日学习时长**: 约2小时
-💡 **今日新增主题**: 5个 + 完成D领域（100%）
+⏰ **今日学习时长**: 约4小时
+💡 **今日新增主题**: 3个（E.8, E.9, E.10）+ 完成E领域（100%）🎉
 
 ---
 
@@ -27,7 +27,7 @@
 | **B. 异步编程** | 15% | 3/8 | 🟡 进行中 | HIGH |
 | **C. 内置模块** | 18% | 7/12 | 🟡 进行中 | **HIGH** |
 | **D. Web框架** | 20% ⭐ | 10/10 | 🟢 **已完成** | **CRITICAL** |
-| **E. 数据库** | 17% | 7/10 | 🟡 进行中 | **HIGH** |
+| **E. 数据库** | 17% | 10/10 | 🟢 **已完成** | **HIGH** |
 | **F. 认证与安全** | 10% | 8/8 | 🟢 **已完成** | Medium |
 | **G. 项目实战** | 5% | 2/5 | 🟡 进行中 | Medium |
 
@@ -367,7 +367,7 @@
 
 **课程章节**: 第11-13章 | **视频范围**: P221-P280
 
-### ✅ 已掌握 (3/10)
+### ✅ 已掌握 (10/10) 🎉 **E领域100%完成**
 
 - [x] **E.1** MySQL安装与配置 (2026-03-18) - **High**
   - MySQL 8.0.45安装（Windows，Full完全安装）
@@ -447,10 +447,78 @@
     - 用户注册（创建用户+创建用户资料）
   - 连接池的重要性：复用连接，提高性能
 
-### 📚 学习中 (3/10)
-- [ ] **E.8** ORM框架（Sequelize基础）
-- [ ] **E.9** Sequelize模型定义与关联
-- [ ] **E.10** 数据库连接池配置
+- [x] **E.8** ORM框架（Sequelize基础）(2026-03-25) - **High**
+  - 为什么需要ORM：
+    - 代码简洁：`User.findOne()` vs `SELECT * FROM users WHERE id = ?`
+    - 可读性：JavaScript对象vsSQL字符串
+    - 数据库无关：切换数据库只需改配置
+  - Sequelize vs mysql2对比：
+    - mysql2返回`[rows, fields]`，Sequelize返回模型实例或对象
+    - mysql2需要手写SQL，Sequelize用JavaScript方法
+    - mysql2的insertId vs Sequelize的id属性
+  - 模型定义：
+    - DataTypes类型：INTEGER, STRING, TEXT, ENUM
+    - 字段映射：field选项（驼峰→蛇形）
+    - timestamps：自动管理created_at和updated_at
+  - CRUD操作：
+    - Create：`Model.create(data)` → 返回创建的对象
+    - Read：`Model.findOne()`, `Model.findAll()`, `Model.findAndCountAll()`
+    - Update：`instance.update(data)` 或 `Model.update(data, {where})`
+    - Delete：`instance.destroy()` 或 `Model.destroy({where})`
+  - 查询构建器：
+    - where：条件查询 `{ username: 'admin' }`
+    - order：排序 `[['created_at', 'DESC']]`
+    - limit/offset：分页查询
+  - 实战项目：重构个人博客API（从mysql2迁移到Sequelize）
+
+- [x] **E.9** Sequelize模型定义与关联(2026-03-25) - **High**
+  - 模型关联：
+    - 一对一：hasOne/belongsTo（用户→用户资料）
+    - 一对多：hasMany/belongsTo（用户→文章，文章→评论）
+    - 多对多：belongsToMany（文章↔标签）
+  - hasMany/belongsTo关联：
+    - User.hasMany(Post, { foreignKey: 'authorId', as: 'posts' })
+    - Post.belongsTo(User, { foreignKey: 'authorId', as: 'author' })
+  - include联表查询（LEFT JOIN）：
+    - 单层关联：`include: [{ model: User, as: 'author' }]`
+    - 多层关联：`include: [{ model: User, include: [{ model: Profile }] }]`
+  - as别名使用：
+    - 定义关联时设置as
+    - 查询时使用as匹配关联
+    - 避免默认名称冲突（user, user等）
+  - attributes字段选择：
+    - 选择特定字段：`attributes: ['username', 'email']`
+    - 排除字段：`attributes: { exclude: ['password'] }`
+  - 实战应用：文章查询包含作者信息、评论查询包含用户信息
+
+- [x] **E.10** 数据库连接池配置(2026-03-25) - **High**
+  - 连接池的概念和作用：
+    - 复用数据库连接，避免频繁创建/断开
+    - 提高性能：连接建立耗时（3-way握手）
+    - 控制并发：限制最大连接数，保护数据库
+  - 连接池配置参数：
+    - max：最大连接数（根据应用并发量设置）
+    - min：最小连接数（保持的空闲连接）
+    - acquire：获取连接超时时间（30秒）
+    - idle：空闲连接超时时间（10秒后收回）
+  - 连接池工作原理：
+    - 请求连接→从池中获取→执行查询→归还连接
+    - 无可用连接→等待acquire时间→超时报错
+  - 大型应用的连接池策略：
+    - 微服务：每个服务独立连接池（max: 5-10）
+    - 单体应用：根据并发设置max（20-50）
+    - Redis缓存：减少95%数据库请求，连接池压力减小
+  - 实战配置：博客项目连接池配置（max: 10, min: 0）
+  - 大型架构认知：
+    - 负载均衡：多台应用服务器
+    - 读写分离：1主N从，主库写，从库读
+    - 分库分表：水平拆分数据（微信10万表）
+    - Redis缓存：最重要，减少数据库压力
+    - CDN缓存：静态资源缓存
+
+### 📚 学习中 (0/10)
+
+*(E领域已全部完成)* 🎉
 
 ---
 
