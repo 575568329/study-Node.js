@@ -1,6 +1,6 @@
 # Node.js 学习进度追踪器
 
-**Last Updated**: 2026-03-25
+**Last Updated**: 2026-03-26
 **学习目标**: AI应用开发全栈工程师（Node.js + Next.js + LangChain）
 **计划时长**: 4-6个月
 **当前课程**: 黑马程序员 Node.js 全套教程 + Vue/React + Next.js + LangChain
@@ -9,13 +9,13 @@
 
 ## 📊 快速统计
 
-📈 **Overall Progress**: 52/73 topics covered = **71%**
+📈 **Overall Progress**: 57/73 topics covered = **78%**
 📚 **课程进度**: P001-P090+ (共约300集)
-⏰ **已学习**: 11天
+⏰ **已学习**: 12天
 🎯 **目标日期**: 2026年6月中旬
 
-⏰ **今日学习时长**: 约4小时
-💡 **今日新增主题**: 3个（E.8, E.9, E.10）+ 完成E领域（100%）🎉
+⏰ **今日学习时长**: 约1.5小时
+💡 **今日新增主题**: 5个（B.1, B.2, B.4, B.7, B.8）+ 完成B领域（100%）🎉
 
 ---
 
@@ -24,7 +24,7 @@
 | 领域 | 权重 | 已掌握/总数 | 状态 | 优先级 |
 |------|------|-------------|------|--------|
 | **A. Node.js核心基础** | 15% | 7/10 | 🟡 进行中 | HIGH |
-| **B. 异步编程** | 15% | 3/8 | 🟡 进行中 | HIGH |
+| **B. 异步编程** | 15% | 8/8 | 🟢 **已完成** | HIGH |
 | **C. 内置模块** | 18% | 7/12 | 🟡 进行中 | **HIGH** |
 | **D. Web框架** | 20% ⭐ | 10/10 | 🟢 **已完成** | **CRITICAL** |
 | **E. 数据库** | 17% | 10/10 | 🟢 **已完成** | **HIGH** |
@@ -100,7 +100,22 @@
 
 **课程章节**: 第4章 | **视频范围**: P41-P80
 
-### ✅ 已掌握 (3/8)
+### ✅ 已掌握 (8/8) 🎉 **B领域100%完成**
+
+- [x] **B.1** 同步 vs 异步的概念 (2026-03-26) - **High**
+  - 同步（Synchronous）：代码按顺序执行，**必须等待**当前操作完成才能继续
+  - 异步（Asynchronous）：发起操作后**不等待**结果，继续往下执行
+  - 同步的特点：逻辑简单，但**阻塞**（耗时的操作会卡住整个程序）
+  - 异步的特点：**非阻塞**，适合I/O密集型操作
+  - 性能对比：同步串行（6秒）vs 异步并行（2秒）- 3个文件读取
+  - Node.js大量使用异步的原因：单线程 + 高并发I/O处理
+
+- [x] **B.2** 回调函数与回调地狱 (2026-03-26) - **High**
+  - 回调函数定义：作为参数传递给另一个函数的函数
+  - 回调函数用途：在异步操作完成后被调用
+  - 回调地狱问题：多层嵌套导致代码横向增长（金字塔形状）
+  - 回调地狱的缺点：难以阅读、难以维护、错误处理复杂
+  - 三种解决方案：命名函数、Promise链式调用、async/await
 
 - [x] **B.3** Promise基础 (2026-03-13) - **High**
   - Promise三种状态：pending（进行中）、fulfilled（已成功）、rejected（已失败）
@@ -109,6 +124,14 @@
   - `reject()` → 处理失败，由`.catch()`接收
   - Promise链式调用：`.then()`的return会传递给下一个then
   - `.catch()`可以捕获错误并return让链式调用继续
+
+- [x] **B.4** Promise链式调用 (2026-03-26) - **High**
+  - 核心原理：`.then()` 方法**返回一个新的Promise**
+  - 返回值传递：`.then()`的return会传递给下一个`.then()`
+  - 返回Promise会等待：如果返回Promise，下一个`.then()`会等待完成
+  - 错误冒泡：任意`.then()`出错会跳过后面的`.then()`，直接到`.catch()`
+  - 实际应用：登录流程的Promise链（登录 → 获取个人信息 → 跳转首页）
+  - Promise链 vs 回调地狱：代码扁平、逻辑清晰、统一错误处理
 
 - [x] **B.5** async/await (2026-03-13) - **High**
   - `async`函数：声明异步函数，返回值永远是Promise
@@ -129,13 +152,27 @@
   - 宏任务产生微任务：必须等微任务清空后，才能执行下一个宏任务
   - 应用场景：理解异步代码执行顺序、面试高频考点
 
+- [x] **B.7** 宏任务 vs 微任务（深入Node.js特有阶段）(2026-03-26) - **High**
+  - Node.js的6个Event Loop阶段：timers、pending callbacks、idle/prepare、poll、check、close callbacks
+  - timers阶段：执行setTimeout、setInterval的回调
+  - poll阶段：执行I/O回调（fs.readFile等）⭐ 最重要
+  - check阶段：执行setImmediate的回调
+  - 微任务执行时机：每个阶段**执行完后**，都会检查并执行微任务队列
+  - setTimeout vs setImmediate：顺序不确定（取决于Event Loop启动时的时间）
+  - I/O回调中的顺序固定：poll → check → timers（setImmediate优先于setTimeout）
+
+- [x] **B.8** 错误处理 (2026-03-26) - **High**
+  - 为什么异步错误无法被try-catch捕获：异步回调在未来的宏任务/微任务中执行，那时try-catch早就执行完了
+  - 方式1 - 回调函数的err参数：Node.js风格，第一个参数是err，先检查if(err)
+  - 方式2 - Promise的.catch()：链式调用的错误冒泡，一个.catch()可捕获前面所有.then()的错误
+  - 方式3 - async/await的try-catch：最接近同步代码的写法，推荐使用
+  - unhandledRejection定义：Promise被rejected，但没有.catch()处理
+  - unhandledRejection的危害：内存泄漏、资源未释放、程序状态不一致
+  - 全局捕获unhandledRejection：process.on('unhandledRejection', callback)
+
 ### 📚 学习中 (0/8)
 
-- [ ] **B.1** 同步 vs 异步的概念
-- [ ] **B.2** 回调函数与回调地狱
-- [ ] **B.4** Promise链式调用
-- [ ] **B.7** 宏任务 vs 微任务（深入Node.js特有阶段：timers、poll、check等）
-- [ ] **B.8** 错误处理（try-catch、unhandledRejection）
+*(B领域已全部完成)* 🎉
 
 ---
 
