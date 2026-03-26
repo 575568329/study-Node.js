@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>静态资源服务测试</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>🎉 静态资源服务测试成功！</h1>
+        <p>如果你能看到这个页面带有样式，说明静态资源服务正常工作！</p>
+
+        <div class="card">
+            <h2>📊 功能特性</h2>
+            <ul>
+                <li>✅ HTML文件正常访问</li>
+                <li>✅ CSS样式正常加载</li>
+                <li>✅ JavaScript正常执行</li>
+                <li>✅ 图片正常显示</li>
+            </ul>
+        </div>
+
+        <div class="info">
+            <p>当前时间：<span id="time">加载中...</span></p>
+        </div>
+
+        <img src="/images/nodejs.png" alt="Node.js Logo" class="logo" onerror="this.style.display='none'">
+    </div>
+
+    <script src="/js/app.js"></script>
+</body>
+</html>

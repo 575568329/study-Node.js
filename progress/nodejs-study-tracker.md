@@ -1,6 +1,6 @@
 # Node.js 学习进度追踪器
 
-**Last Updated**: 2026-03-26
+**Last Updated**: 2026-03-26 (第三次更新)
 **学习目标**: AI应用开发全栈工程师（Node.js + Next.js + LangChain）
 **计划时长**: 4-6个月
 **当前课程**: 黑马程序员 Node.js 全套教程 + Vue/React + Next.js + LangChain
@@ -9,13 +9,13 @@
 
 ## 📊 快速统计
 
-📈 **Overall Progress**: 61/73 topics covered = **84%**
+📈 **Overall Progress**: 64/73 topics covered = **88%**
 📚 **课程进度**: P001-P090+ (共约300集)
-⏰ **已学习**: 12天
+⏰ **已学习**: 13天
 🎯 **目标日期**: 2026年6月中旬
 
-⏰ **今日学习时长**: 约2.5小时
-💡 **今日新增主题**: 9个（B领域5个 + C领域4个）+ 完成B领域和C领域（100%）🎉🎉
+⏰ **今日学习时长**: 约4小时
+💡 **今日新增主题**: 12个（B领域5个 + C领域4个 + A领域3个）+ 完成A、B、C三大领域（100%）🎉🎉🎉
 
 ---
 
@@ -23,13 +23,13 @@
 
 | 领域 | 权重 | 已掌握/总数 | 状态 | 优先级 |
 |------|------|-------------|------|--------|
-| **A. Node.js核心基础** | 15% | 7/10 | 🟡 进行中 | HIGH |
+| **A. Node.js核心基础** | 15% | 10/10 | 🟢 **已完成** | HIGH |
 | **B. 异步编程** | 15% | 8/8 | 🟢 **已完成** | HIGH |
 | **C. 内置模块** | 18% | 12/12 | 🟢 **已完成** | **HIGH** |
 | **D. Web框架** | 20% ⭐ | 10/10 | 🟢 **已完成** | **CRITICAL** |
 | **E. 数据库** | 17% | 10/10 | 🟢 **已完成** | **HIGH** |
 | **F. 认证与安全** | 10% | 8/8 | 🟢 **已完成** | Medium |
-| **G. 项目实战** | 5% | 2/5 | 🟡 进行中 | Medium |
+| **G. 项目实战** | 5% | 4/5 | 🟡 进行中 | Medium |
 
 ---
 
@@ -37,7 +37,51 @@
 
 **课程章节**: 第1-3章 | **视频范围**: P1-P40
 
-### ✅ 已掌握 (7/10)
+### ✅ 已掌握 (10/10) 🎉 **A领域100%完成**
+
+- [x] **A.1** Node.js环境安装与配置 (2026-03-26) - **High**
+  - Node.js版本号规则：v20.11.0（主版本.次版本.补丁版本）
+  - LTS vs Current：LTS长期支持版（稳定生产）、Current最新版（体验特性）
+  - nvm（Node Version Manager）：安装、切换、管理多版本
+  - nvm常用命令：nvm list、nvm install、nvm use、nvm alias default
+  - .nvmrc文件：项目指定Node版本，自动切换
+  - npm配置：淘宝镜像源（registry.npmmirror.com）、nrm管理镜像源
+  - npm全局安装：npm install -g、npm root -g、npm bin -g
+  - 环境变量配置：Windows（系统变量）、Linux/Mac（.bashrc/.zshrc）
+  - package.json详解：name、version、scripts、engines、dependencies、devDependencies
+  - 依赖版本号规则：^4.18.0（兼容次版本）、~4.18.0（兼容补丁）、4.18.0（精确）
+  - 常用npm命令：install、uninstall、update、outdated、list、cache clean
+  - 项目初始化最佳实践：.nvmrc、.gitignore、npm scripts
+
+- [x] **A.2** ES6核心语法（let/const、箭头函数、解构）(2026-03-26) - **High**
+  - let vs const：
+    - const声明的对象属性可以修改（内存地址不变，属性可变）
+    - const不能重新赋值整个对象
+    - let有块级作用域，var是函数作用域
+    - let/const不提升（TDZ），var会提升
+    - let/const不能重复声明，var可以
+    - const必须初始化，let不必需
+  - 箭头函数特性：
+    - 简化语法：`const add = (a, b) => a + b;`
+    - this的词法绑定：继承外层的this（不绑定自己的this）
+    - 不能作为构造函数：不能使用new调用
+    - 没有arguments对象：使用剩余参数`...args`
+    - 省略规则：单参数省括号、单行返回省大括号、返回对象用括号包裹
+  - 解构赋值：
+    - 对象解构：`const { name, age } = user;`
+    - 解构重命名：`const { name: username } = user;`
+    - 解构默认值：`const { age = 18 } = user;`
+    - 数组解构：`const [first, second] = array;`
+    - 跳过元素：`const [a, , b] = array;`
+    - 剩余参数：`const [head, ...tail] = array;`
+    - 实际应用：函数参数解构、交换变量、函数返回值
+  - call、apply、bind深入：
+    - call：立即调用，参数逐个传递
+    - apply：立即调用，参数以数组传递
+    - bind：返回新函数，支持部分应用（预设参数）
+    - this的4种绑定方式：默认绑定、隐式绑定、显式绑定、new绑定
+    - setTimeout中的this问题：传统函数this指向全局，箭头函数继承外层
+  - 柯里化（Currying）：将多参数函数转换为单参数函数序列
 
 - [x] **A.3** CommonJS vs ES6模块化 (2026-03-15) - **High**
   - 语法对比：require/module.exports vs import/export
@@ -83,12 +127,23 @@
   - 核心模块优先级最高（防止恶意包覆盖）
   - 模块包装函数：Node.js自动注入5个变量（require, module, exports, __filename, __dirname）
 
+- [x] **A.9** Node.js的执行模型 (2026-03-26) - **High**
+  - Node.js的核心架构：V8引擎 → 绑定层 → libuv → 操作系统
+  - 单线程vs多线程模型：
+    - 传统多线程（Java）：100个请求 = 100个线程 = 200MB内存
+    - Node.js单线程：100个请求 = 1个线程 = 20MB内存
+  - 异步I/O实现高并发：主线程提交请求 → libuv处理 → 主线程继续处理其他请求
+  - libuv的作用：Event Loop实现、异步I/O操作、线程池管理
+  - 哪些操作使用线程池：文件系统（fs）、DNS查询（dns）、压缩（zlib）、密码学（crypto）
+  - 哪些操作不使用线程池：网络操作、定时器、setImmediate
+  - Node.js适合I/O密集型：Web服务器、API服务、实时应用
+  - Node.js不适合CPU密集型：加密计算、图像处理、数据分析
+  - Worker Threads（Node.js 10+）：多线程处理CPU密集型任务
+  - 性能对比：I/O密集型Node.js胜出（内存节省10倍），CPU密集型多线程胜出
+
 ### 📚 学习中 (0/10)
 
-- [ ] **A.1** Node.js环境安装与配置
-- [ ] **A.2** ES6核心语法（let/const、箭头函数、解构）
-- [ ] **A.9** Node.js的执行模型
-- [ ] **A.10** 包的发布与私有npm搭建
+*(A领域已全部完成)* 🎉
 
 ### 🔍 知识漏洞
 
@@ -736,7 +791,46 @@
 
 **课程章节**: 第16章 | **视频范围**: P321-END
 
-### ✅ 已掌握 (1/5)
+### ✅ 已掌握 (4/5)
+
+- [x] **G.1** 项目1: 文件管理工具（2026-03-26）- **High** ✅ **100%完成**
+  - **项目结构**: Node.js命令行工具
+  - **核心功能**: 6个命令全部实现
+    - `create <文件名> [内容]`: 使用fs.writeFile()创建文件，支持默认参数、参数验证、错误处理
+    - `read <文件名>`: 使用fs.readFile()读取文件，utf8编码
+    - `delete <文件名>`: 使用fs.unlink()删除文件，错误处理
+    - `rename <旧名> <新名>`: 使用fs.rename()重命名文件，参数验证
+    - `list [目录名]`: 使用fs.readdir()列出目录，格式化输出（序号、分隔线、计数）
+    - `stat <文件名>`: 使用fs.stat()获取文件信息（大小、创建时间、修改时间）
+  - **命令行参数解析**: process.argv获取命令和参数
+  - **命令路由**: 使用if判断实现命令分发
+  - **异步编程**: 全面使用fs.promises + async/await
+  - **错误处理**: try-catch捕获异常，友好的错误提示
+  - **代码质量**: 结构清晰（每个命令一个函数）、参数验证完善
+  - **涉及知识点**: C.1 fs文件写入、C.2 fs文件读取、C.4 fs文件信息、C.5 path路径处理
+
+- [x] **G.2** 项目2: 静态资源服务（2026-03-26）- **High** ✅ **100%完成**
+  - **项目结构**: Express + 原生http双实现
+  - **原生http实现**（server-native.js）:
+    - http.createServer()创建HTTP服务器
+    - fs.readFile()读取静态文件
+    - path.extname()获取文件扩展名
+    - MIME类型映射表（.html→text/html、.css→text/css、.js→application/javascript）
+    - Content-Type响应头设置
+    - 404错误处理
+    - 根路径处理（/ → /index.html）
+  - **Express实现**（server-express.js）:
+    - express.static()托管静态资源
+    - app.get()路由处理
+    - app.use()中间件（404处理）
+    - 代码量减少60%（从50行→20行）
+    - 自动处理MIME类型、路径、错误
+  - **核心理解**:
+    - express.static()返回一个中间件函数
+    - 多个静态目录按注册顺序查找
+    - Express vs 原生http：代码简洁性、自动化处理、中间件生态
+  - **涉及知识点**: C.6 http创建服务器、C.2 fs文件读取、C.5 path路径处理、D.5 静态资源服务
+  - **前端页面**: HTML + CSS渐变背景 + JS实时时间更新 + 图片加载
 
 - [x] **G.3** 个人博客后端API（2026-03-23 ~ 2026-03-24）- **High** ✅ **100%完成**
   - **项目结构**: Express + MySQL + JWT认证 + Multer文件上传
@@ -800,8 +894,6 @@
 
 ### 📚 学习中 (4/5)
 
-- [ ] **G.1** 项目1: 文件管理工具
-- [ ] **G.2** 项目2: 静态资源服务
 - [ ] **G.4** 项目4: 电影管理系统（完整CRUD）
 - [ ] **G.5** 项目部署（服务器、环境变量、PM2）
 
@@ -907,12 +999,190 @@
 
 ## 📈 学习统计
 
-**总学习天数**: 11天
-**总学习时长**: 约28.5小时
-**完成主题数**: 48/73 (66%)
-**完成项目数**: 2/5（G.3完整完成，G.1/G.2/G.4待完成）
+**总学习天数**: 13天
+**总学习时长**: 约32.5小时
+**完成主题数**: 64/73 (88%)
+**完成项目数**: 4/5（G.1/G.2/G.3完整完成，G.4/G.5待完成）
 
 **最近7天学习记录**:
+- **2026-03-26**: A领域+B领域+C领域全面完成（今日新增12个主题）
+  - **Part 1: B.1 同步vs异步的概念**（20分钟）
+    - 掌握了同步（阻塞、串行）vs 异步（非阻塞、并行）的区别
+    - 理解了性能对比：同步6秒 vs 异步2秒（3个文件读取）
+    - 理解了Node.js大量使用异步的原因：单线程 + 高并发I/O处理
+    - 学生的理解："同步需要等待三个文件都传输完成才能执行下面的操作，异步不需要先往下执行同步程序，后续异步继续执行"（思路正确）
+  - **Part 2: B.2 回调函数与回调地狱**（15分钟）
+    - 掌握了回调函数的定义：作为参数传递给另一个函数的函数
+    - 理解了回调地狱问题：多层嵌套导致代码横向增长
+    - 掌握了三种解决方案：命名函数、Promise链式调用、async/await
+  - **Part 3: B.4 Promise链式调用**（25分钟）
+    - 掌握了核心原理：`.then()` 方法**返回一个新的Promise**
+    - 理解了返回值传递、返回Promise会等待、错误冒泡
+    - 学习了登录流程的Promise链实现（登录 → 获取个人信息 → 跳转首页）
+    - 理解了Promise链 vs 回调地狱的优势（代码扁平、逻辑清晰）
+  - **Part 4: B.7 宏任务vs微任务（深入Node.js特有阶段）**（30分钟）
+    - 深入学习了Node.js的6个Event Loop阶段
+    - 掌握了微任务执行时机：每个阶段**执行完后**，都会检查并执行微任务队列
+    - 理解了setTimeout vs setImmediate：顺序不确定（取决于Event Loop启动时的时间）
+    - 掌握了I/O回调中的顺序固定：poll → check → timers（setImmediate优先于setTimeout）
+    - 分析了复杂的执行顺序问题：学生正确回答"D C B A"
+  - **Part 5: B.8 错误处理**（20分钟）
+    - 理解了为什么异步错误无法被try-catch捕获（执行时机不同）
+    - 掌握了三种错误处理方式：回调函数err参数、Promise.catch()、async/await的try-catch
+    - 学习了unhandledRejection的定义、危害、全局捕获
+    - 对比了三种方式的优缺点
+  - **Part 6: C.4 fs文件信息（stat/readdir）**（30分钟）
+    - 掌握了fs.stat()获取文件详细信息（大小、时间、类型）
+    - 学习了stats.isFile()、stats.isDirectory()、stats.size、stats.mtime
+    - 学习了fs.readdir()读取目录内容
+    - 实际应用：列出文件、递归获取目录树、统计目录大小
+    - **深入学习了Array.reduce()方法**：
+      - 理解了reduce的作用：把数组归纳成一个值
+      - 掌握了参数：accumulator（累加器）、currentValue（当前值）
+      - 实际应用：求和、去重、统计、转对象
+    - 练习题：统计目录大小
+      - 学生初版代码有异步陷阱和语法问题
+      - 详细讲解了async/await正确实现、Promise.all并行实现
+      - 对比了三种方式（async/await、Promise.all、回调函数）
+    - **学习了includes() vs some()的区别**
+    - **学习了push()的返回值是数组长度，不是数组本身**
+  - **Part 7: C.7 http请求响应（复习巩固）**（15分钟）
+    - 复习了HTTP请求响应流程：客户端→服务器→响应
+    - 掌握了req对象（method、url、headers、body）和res对象（statusCode、setHeader、write、end）
+    - 学习了RESTful API实现（GET、POST、DELETE）
+    - 对比了原生http vs Express
+    - 学习了常见HTTP状态码（200、201、400、401、403、404、500）
+  - **Part 8: C.10 crypto加密模块**（30分钟）
+    - 掌握了哈希函数：MD5（不安全）、SHA-256（推荐）
+    - 理解了文件完整性验证：计算文件哈希、对比官方哈希
+    - **深入理解了哈希的雪崩效应**：原始数据微小变化→哈希值完全不同
+    - 学习了HMAC（带密钥的哈希）：createHmac()、API签名验证
+    - 学习了AES对称加密：createCipheriv()、createDecipheriv()
+    - 学习了生成随机数：randomBytes()、randomInt()、UUID
+    - **理解题：为什么下载软件时要提供SHA-256校验值？**
+    - 学生回答："防止被篡改，验证签名是否相同"（完全正确！）
+    - 详细讲解了文件完整性验证流程和哈希的雪崩效应
+    - 对比了crypto vs bcrypt：crypto快速（文件校验）、bcrypt慢速（密码存储）
+  - **Part 9: C.12 其他常用模块（os、util）**（25分钟）
+    - **os模块**：
+      - 系统信息：os.type()、os.release()、os.platform()、os.arch()、os.hostname()
+      - CPU信息：os.cpus()[0].model（型号）、os.cpus().length（核心数）、CPU使用率计算
+      - 内存信息：os.totalmem()（总内存）、os.freemem()（空闲内存）、使用率计算
+      - 网络信息：os.networkInterfaces()、获取IP地址和MAC地址
+      - 用户信息：os.homedir()（主目录）、os.userInfo().username（用户名）、os.tmpdir()（临时目录）
+      - 运行时间：os.uptime()（系统运行时间）、process.uptime()（Node运行时间）
+    - **util模块**：
+      - 格式化：util.format()、占位符%s/%d/%j
+      - 类型检查：util.isArray()、util.isDate()、util.isError()、util.isRegExp()
+      - util.promisify：回调函数转Promise
+      - util.inspect：深度查看对象
+    - **实际应用**：系统监控、批量处理文件、环境检测
+  - **Part 10: A.2 ES6核心语法**（45分钟）
+    - **let vs const**：
+      - 学生的理解："let声明的变量能够修改，const声明的变量不能直接修改"（正确）
+      - 补充了const的对象属性可以修改（内存地址不变）
+      - 补充了let的块级作用域（vs var的函数作用域）
+      - 对比了let/const vs var的完整区别表
+    - **箭头函数**：
+      - 学生的理解："简化了额function方法，且this指向为上下文"（正确）
+      - 补充了箭头函数的完整特性：简化语法、this词法绑定、不能作为构造函数、没有arguments
+      - 详细讲解了省略规则
+    - **解构赋值**：
+      - 学生的理解："const name = user.name"（这是普通赋值，不是解构）
+      - 纠正为：`const { name } = user`
+      - 讲解了对象解构、解构重命名、解构默认值、数组解构、剩余参数
+      - 实际应用：函数参数解构、交换变量、函数返回值
+    - **深入讲解了this指向和setTimeout问题**：
+      - 学生的疑问："传统函数 - this指向全局 怎么理解"
+      - 详细讲解了this的4种绑定方式（默认、隐式、显式、new）
+      - 深入理解了setTimeout中的this为什么指向全局（独立调用）
+      - 对比了传统函数 vs 箭头函数的this区别
+      - 提供了3种解决方案（箭头函数、bind、保存外层this）
+    - **深入讲解了call、apply、bind**：
+      - 基本语法和区别
+      - 实际应用场景（继承、借用方法、事件绑定、预设参数）
+      - 手写实现原理（面试常考）
+    - **讲解了柯里化（Currying）**：
+      - 定义：将多参数函数转换为单参数函数序列
+      - 实现支持多种调用方式的函数
+      - 通用的柯里化函数实现
+    - **理解检查题**："My name is Alice"（学生回答正确）
+  - **Part 11: A.1 Node.js环境安装与配置**（20分钟）
+    - 掌握了Node.js版本号规则和LTS vs Current
+    - 学习了nvm的使用（安装、切换、管理多版本）
+    - 掌握了npm配置（镜像源、全局路径）
+    - 学习了环境变量配置
+    - 掌握了package.json详解（字段、版本号规则）
+    - 学习了常用npm命令（安装、卸载、更新）
+    - 掌握了项目初始化最佳实践
+  - **Part 12: A.9 Node.js的执行模型**（25分钟）
+    - 学生的理解："使用异步调用来实现大并发"（正确）
+    - 深入讲解了Node.js的核心架构层次
+    - 对比了单线程 vs 多线程模型（Java vs Node.js）
+    - 理解了异步I/O如何实现高并发（不阻塞主线程）
+    - 学习了libuv和线程池的作用
+    - 理解了哪些操作使用线程池（文件系统、DNS、压缩、密码学）
+    - 理解了Node.js适合I/O密集型任务
+    - 学习了CPU密集型任务的解决方案（Worker Threads）
+    - 对比了性能（I/O密集型Node.js胜出，CPU密集型多线程胜出）
+  - **成果**：
+    - 新增12个知识点（B领域5个 + C领域4个 + A领域3个）
+    - **B领域100%完成**（8/8）✅
+    - **C领域100%完成**（12/12）✅
+    - **A领域100%完成**（10/10）✅
+    - 进度从78%提升到88%（+10%）
+    - 学生的理解能力和学习速度非常快
+    - 对复杂概念（Event Loop、this指向、异步模型）有深刻理解
+  - **Part 11: G.1 文件管理工具项目**（1.5小时）
+    - **项目目标**: 实现命令行文件管理工具
+    - **核心技术**:
+      - fs.promises API（writeFile、readFile、unlink、rename、readdir、stat）
+      - process.argv命令行参数解析
+      - async/await异步编程
+      - try-catch错误处理
+    - **实现的6个命令**:
+      - create: fs.writeFile()创建文件，支持默认参数、参数验证
+      - read: fs.readFile()读取文件，utf8编码
+      - delete: fs.unlink()删除文件
+      - rename: fs.rename()重命名文件
+      - list: fs.readdir()列出目录，格式化输出
+      - stat: fs.stat()获取文件信息（大小、时间）
+    - **代码质量**: 结构清晰、错误处理完善、用户友好输出
+    - **测试验证**: 所有命令测试通过✅
+  - **Part 12: G.2 静态资源服务项目**（1小时）
+    - **项目目标**: 实现HTTP静态资源服务器
+    - **原生http实现**（server-native.js）:
+      - http.createServer()创建服务器
+      - fs.readFile()读取文件
+      - path.extname()获取扩展名
+      - MIME类型映射表（.html、.css、.js等）
+      - Content-Type响应头设置
+      - 404错误处理
+      - 根路径重定向（/ → /index.html）
+    - **Express实现**（server-express.js）:
+      - express.static()托管静态资源
+      - app.get()路由、app.use()中间件
+      - 代码量减少60%（50行→20行）
+      - 自动处理MIME、路径、错误
+    - **核心理解**:
+      - express.static()返回中间件函数
+      - 多个静态目录按注册顺序查找
+      - Express vs 原生http：代码简洁、自动化、中间件生态
+    - **前端页面**: HTML + CSS渐变背景 + JS实时时间 + 图片加载
+    - **测试验证**: 两种实现都正常工作✅
+  - **今日学习成果**:
+    - **新增知识点**: A领域3个 + B领域5个 + C领域4个 = 12个
+    - **完成项目**: G.1文件管理工具 ✅ + G.2静态资源服务 ✅
+    - **A领域100%完成**（10/10）✅
+    - **B领域100%完成**（8/8）✅
+    - **C领域100%完成**（12/12）✅
+    - **D领域100%完成**（10/10）✅
+    - **E领域100%完成**（10/10）✅
+    - **F领域100%完成**（8/8）✅
+    - **G领域进行中**（4/5，80%）✅
+    - **总进度**: 88%（64/73主题）
+    - **项目能力**: 能够独立实现文件工具和Web服务器
+    - **学习状态**: 理论知识全部掌握，进入实战阶段🚀
 - **2026-03-24**: D.6/D.7/D.10 + E.6/E.7 + 文件上传测试（2小时）
   - **Part 1: G.3 文件上传测试**（15分钟）
     - 学生自己测试了文件上传功能
