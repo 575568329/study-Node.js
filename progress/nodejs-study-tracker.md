@@ -9,13 +9,13 @@
 
 ## 📊 快速统计
 
-📈 **Overall Progress**: 57/73 topics covered = **78%**
+📈 **Overall Progress**: 61/73 topics covered = **84%**
 📚 **课程进度**: P001-P090+ (共约300集)
 ⏰ **已学习**: 12天
 🎯 **目标日期**: 2026年6月中旬
 
-⏰ **今日学习时长**: 约1.5小时
-💡 **今日新增主题**: 5个（B.1, B.2, B.4, B.7, B.8）+ 完成B领域（100%）🎉
+⏰ **今日学习时长**: 约2.5小时
+💡 **今日新增主题**: 9个（B领域5个 + C领域4个）+ 完成B领域和C领域（100%）🎉🎉
 
 ---
 
@@ -25,7 +25,7 @@
 |------|------|-------------|------|--------|
 | **A. Node.js核心基础** | 15% | 7/10 | 🟡 进行中 | HIGH |
 | **B. 异步编程** | 15% | 8/8 | 🟢 **已完成** | HIGH |
-| **C. 内置模块** | 18% | 7/12 | 🟡 进行中 | **HIGH** |
+| **C. 内置模块** | 18% | 12/12 | 🟢 **已完成** | **HIGH** |
 | **D. Web框架** | 20% ⭐ | 10/10 | 🟢 **已完成** | **CRITICAL** |
 | **E. 数据库** | 17% | 10/10 | 🟢 **已完成** | **HIGH** |
 | **F. 认证与安全** | 10% | 8/8 | 🟢 **已完成** | Medium |
@@ -180,7 +180,7 @@
 
 **课程章节**: 第5-6章 | **视频范围**: P81-P140
 
-### ✅ 已掌握 (5/12)
+### ✅ 已掌握 (12/12) 🎉 **C领域100%完成**
 
 - [x] **C.1** fs文件写入 (2026-03-15) - **High**
   - 异步API：fs.writeFile() - 推荐使用，不阻塞主线程
@@ -201,6 +201,17 @@
   - 管道pipe()：自动连接读取流和写入流，处理背压
   - highWaterMark：控制缓冲区大小（默认64KB）
 
+- [x] **C.4** fs文件信息（stat/readdir）(2026-03-26) - **High**
+  - fs.stat()获取文件详细信息（大小、时间、类型）
+  - stats.isFile()和stats.isDirectory()判断文件类型
+  - stats.size获取文件大小（字节）
+  - stats.mtime获取修改时间
+  - fs.readdir()读取目录内容
+  - 实际应用：列出文件、递归获取目录树、统计目录大小
+  - 异步陷阱：fs.stat是异步的，需要await或回调
+  - Array.reduce()详解：数组归纳、求和、去重
+  - includes() vs some()的区别
+
 - [x] **C.5** path路径处理 (2026-03-15) - **High**
   - path.join()：拼接路径，自动处理斜杠
   - path.resolve()：解析为绝对路径
@@ -215,6 +226,15 @@
   - req对象：包含请求信息（method, url, headers）
   - res对象：返回响应（statusCode, setHeader, end）
   - 返回JSON：设置Content-Type为application/json
+
+- [x] **C.7** http请求响应（复习巩固）(2026-03-26) - **High**
+  - HTTP请求响应流程：客户端→服务器→响应
+  - req对象：method、url、headers、body（需要手动解析）
+  - res对象：statusCode、setHeader、write、end
+  - RESTful API实现：GET、POST、DELETE
+  - 原生http vs Express对比
+  - 常见HTTP状态码：200、201、400、401、403、404、500
+  - 请求体解析：监听data和end事件
 
 - [x] **C.9** events模块 - 事件发射器 (2026-03-16) - **High**
   - EventEmitter核心类：继承后可自定义事件
@@ -233,17 +253,33 @@
   - 实际应用：解析URL查询参数、路由处理
   - 开发中99%场景都用url.parse(url, true)
 
+- [x] **C.10** crypto加密模块 (2026-03-26) - **High**
+  - 哈希函数：MD5（不安全，已被破解）、SHA-256（推荐）
+  - createHash()创建哈希对象、update()添加数据、digest()输出哈希值
+  - 文件完整性验证：计算文件哈希、对比官方哈希、验证是否被篡改
+  - 哈希的雪崩效应：原始数据微小变化→哈希值完全不同
+  - HMAC（带密钥的哈希）：createHmac()、API签名验证、验证数据来源
+  - AES对称加密：createCipheriv()加密、createDecipheriv()解密、加密敏感数据
+  - 生成随机数：randomBytes()、randomInt()、UUID
+  - crypto vs bcrypt对比：crypto快速（文件校验）、bcrypt慢速（密码存储）
+  - 安全体系：HTTPS（TLS/SSL）、bcrypt（密码）、SHA-256（完整性）、HMAC（签名）、AES（加密）
+
+- [x] **C.12** 其他常用模块（os、util）(2026-03-26) - **High**
+  - os模块系统信息：os.type()、os.release()、os.platform()、os.arch()、os.hostname()
+  - os模块CPU信息：os.cups()[0].model（型号）、os.cpus().length（核心数）
+  - os模块内存信息：os.totalmem()（总内存）、os.freemem()（空闲内存）、使用率计算
+  - os模块网络信息：os.networkInterfaces()、获取IP地址和MAC地址
+  - os模块用户信息：os.homedir()（主目录）、os.userInfo().username（用户名）、os.tmpdir()（临时目录）
+  - os模块运行时间：os.uptime()（系统运行时间）、process.uptime()（Node运行时间）
+  - util模块格式化：util.format()、占位符%s/%d/%j
+  - util模块类型检查：util.isArray()、util.isDate()、util.isError()、util.isRegExp()
+  - util.promisify：回调函数转Promise、兼容旧代码、优雅的异步处理
+  - util.inspect：深度查看对象、设置depth、colors彩色输出
+  - 实际应用：系统监控（CPU、内存、网络）、批量处理文件、环境检测
+
 ### 📚 学习中 (0/12)
 
-- [ ] **C.4** fs模块 - 文件信息（stat/readdir）
-- [x] **C.7** http请求响应 (2026-03-15) - **High**
-  - 处理不同请求方法：GET/POST/PUT/DELETE
-  - 路由基础：根据URL路径处理不同请求
-  - 获取URL参数：url.parse()解析查询参数
-  - 接收POST数据：监听req的data和end事件
-  - RESTful API：设计规范的接口
-- [ ] **C.10** crypto模块 - 加密与哈希
-- [ ] **C.12** 其他常用模块（os、util、querystring）
+*(C领域已全部完成)* 🎉
 
 ---
 

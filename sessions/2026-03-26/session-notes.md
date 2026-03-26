@@ -3,7 +3,7 @@
 ## 会话概述
 
 - **日期**: 2026-03-26
-- **时长**: 约1.5小时
+- **时长**: 约2.5小时
 - **学习方式**: 苏格拉底式教学 + 系统化学习
 - **主要主题**:
   - B.1 同步vs异步的概念
@@ -11,6 +11,10 @@
   - B.4 Promise链式调用
   - B.7 宏任务vs微任务（深入Node.js特有阶段）
   - B.8 错误处理
+  - C.4 fs文件信息（stat/readdir）
+  - C.7 http请求响应（复习巩固）
+  - C.10 crypto加密模块
+  - C.12 其他模块（os、util）
 
 ---
 
@@ -22,6 +26,10 @@
 - [x] B.4 Promise链式调用
 - [x] B.7 宏任务vs微任务（深入Node.js特有阶段）
 - [x] B.8 错误处理
+- [x] C.4 fs文件信息（stat/readdir）
+- [x] C.7 http请求响应（复习巩固）
+- [x] C.10 crypto加密模块
+- [x] C.12 其他模块（os、util）
 
 ---
 
@@ -492,6 +500,563 @@ process.on('unhandledRejection', (err, promise) => {
 
 ---
 
+## Part 6: C领域 - 内置模块（4个主题）
+
+### C.4 fs文件信息（stat/readdir）
+
+#### 核心API
+```javascript
+const fs = require('fs');
+
+// 获取文件信息
+fs.stat('./test.txt', (err, stats) => {
+  console.log(stats.isFile());      // 是否为文件
+  console.log(stats.isDirectory()); // 是否为目录
+  console.log(stats.size);          // 文件大小（字节）
+  console.log(stats.mtime);         // 修改时间
+});
+
+// 读取目录
+fs.readdir('./', (err, files) => {
+  console.log(files);  // ['file1.txt', 'folder1', ...]
+});
+```
+
+#### 学生练习
+**任务**：实现一个函数，统计目录下所有文件的总大小
+
+**学生代码**（第一版）：
+```javascript
+let sizes = 0
+fs.readdir(path, (err, files) => {
+  files.forEach(file => {
+    let stats = fs.stat(file)  // ❌ 异步问题
+    if (file.isFile()) {  // ❌ file.isFile()不存在
+      sizes = sizes + stats.size
+    }
+  })
+})
+console.log(sizes)  // ❌ 输出0（异步问题）
+```
+
+**问题分析**：
+1. fs.stat是异步的，不会等待结果
+2. file.isFile()应该是stats.isFile()
+3. console.log会在异步完成前执行
+
+**正确实现**（async/await）：
+```javascript
+async function getDirectorySize(dirPath) {
+  let totalSize = 0;
+  const files = await fs.promises.readdir(dirPath);
+
+  for (const file of files) {
+    const filePath = path.join(dirPath, file);
+    const stats = await fs.promises.stat(filePath);
+
+    if (stats.isFile()) {
+      totalSize += stats.size;
+    }
+  }
+
+  return totalSize;
+}
+```
+
+**学生学习**：
+- ✅ 理解异步陷阱
+- ✅ 掌握async/await
+- ✅ 学会使用path.join()
+- ✅ 理解stats.isFile()
+
+**附加学习**：Array.reduce()
+- 问题：`statsArray.reduce()`是什么意思？
+- 讲解：reduce将数组归纳成一个值
+- 示例：数组求和、去重、统计
+
+**学生去重练习**：
+```javascript
+// 学生的思路（正确，但语法错误）
+const array = numbers.reduce((sum, num) => {
+  if (sum.some(num)) {  // ❌ 应该用includes
+    return sum
+  }
+  return sum.push(num)  // ❌ push返回长度，应先push再return sum
+})
+```
+
+**正确实现**：
+```javascript
+const unique = numbers.reduce((sum, num) => {
+  if (!sum.includes(num)) {
+    sum.push(num);
+  }
+  return sum;
+}, []);  // ✅ 添加初始值
+```
+
+**学生学习**：
+- ✅ 理解reduce()的作用和参数
+- ✅ 掌握includes() vs some()
+- ✅ 理解push()的返回值
+- ✅ 学会数组去重方法
+
+---
+
+### C.7 http请求响应（复习巩固）
+
+#### 初始理解检查
+**问题**：HTTP请求和响应的流程？
+
+**学生回答**：
+1. 客户端发送请求信息
+2. 服务器接收请求头和携带的内容
+3. 服务器返回响应头和响应信息
+
+**评价**：完全正确！✅
+
+#### 深入讲解
+
+**req对象**（请求）：
+- req.method：请求方法（GET、POST等）
+- req.url：请求URL
+- req.headers：请求头
+- req.body：请求体（需要手动解析）
+
+**res对象**（响应）：
+- res.statusCode：状态码（200、404等）
+- res.setHeader()：设置响应头
+- res.write()：分段写入
+- res.end()：结束响应
+
+**完整示例**：RESTful API
+```javascript
+const http = require('http');
+const url = require('url');
+
+const server = http.createServer((req, res) => {
+  const parsedUrl = url.parse(req.url, true);
+  const path = parsedUrl.pathname;
+
+  res.setHeader('Content-Type', 'application/json');
+
+  if (path === '/users' && req.method === 'GET') {
+    res.end(JSON.stringify([{ id: 1, name: 'Alice' }]));
+  } else if (path === '/users' && req.method === 'POST') {
+    let body = '';
+    req.on('data', chunk => body += chunk);
+    req.on('end', () => {
+      res.end(JSON.stringify({ success: true }));
+    });
+  } else {
+    res.statusCode = 404;
+    res.end(JSON.stringify({ error: 'Not Found' }));
+  }
+});
+```
+
+**对比**：原生http vs Express
+- 原生http：繁琐，手动解析URL和方法
+- Express：简洁，自动路由和中间件
+
+**学生学习**：
+- ✅ 理解HTTP请求响应流程
+- ✅ 掌握req和res对象的常用属性
+- ✅ 理解RESTful API实现
+- ✅ 对比原生http和Express
+
+---
+
+### C.10 crypto加密模块
+
+#### 初始理解检查
+**问题**：为什么bcrypt比MD5更安全？
+
+**学生回答**：bcrypt更安全理论上无法被暴力破解
+
+**纠正补充**：
+- ❌ 不是"无法被暴力破解"
+- ✅ 而是"让暴力破解变得非常慢"
+- MD5：快（一秒几百万次）
+- bcrypt：慢（一秒几次，Salt Rounds: 10 = 1024次加密）
+
+#### 核心功能
+
+**1. 哈希函数**
+```javascript
+const crypto = require('crypto');
+
+// MD5（不安全）
+const md5 = crypto.createHash('md5').update('hello').digest('hex');
+
+// SHA-256（推荐）
+const sha256 = crypto.createHash('sha256').update('hello').digest('hex');
+```
+
+**2. 文件完整性验证**
+```javascript
+function calculateFileHash(filePath) {
+  return new Promise((resolve, reject) => {
+    const hash = crypto.createHash('sha256');
+    const stream = fs.createReadStream(filePath);
+
+    stream.on('data', data => hash.update(data));
+    stream.on('end', () => resolve(hash.digest('hex')));
+    stream.on('error', reject);
+  });
+}
+
+// 使用：验证下载文件是否被篡改
+const localHash = await calculateFileHash('./node-v20.0.0.tar.gz');
+if (localHash === officialHash) {
+  console.log('✅ 文件完整');
+} else {
+  console.log('❌ 文件已被篡改');
+}
+```
+
+**3. HMAC（带密钥的哈希）**
+```javascript
+const secret = 'my-secret-key';
+const data = 'important message';
+
+const hmac = crypto.createHmac('sha256', secret)
+  .update(data)
+  .digest('hex');
+
+// 应用：API签名验证
+```
+
+**4. AES对称加密**
+```javascript
+const algorithm = 'aes-256-cbc';
+const key = crypto.randomBytes(32);
+const iv = crypto.randomBytes(16);
+
+// 加密
+function encrypt(text) {
+  const cipher = crypto.createCipheriv(algorithm, key, iv);
+  let encrypted = cipher.update(text, 'utf8', 'hex');
+  encrypted += cipher.final('hex');
+  return encrypted;
+}
+
+// 解密
+function decrypt(encryptedText) {
+  const decipher = crypto.createDecipheriv(algorithm, key, iv);
+  let decrypted = decipher.update(encryptedText, 'hex', 'utf8');
+  decrypted += decipher.final('utf8');
+  return decrypted;
+}
+```
+
+**5. 生成随机数**
+```javascript
+// 随机字节
+crypto.randomBytes(16).toString('hex');
+
+// 随机整数
+crypto.randomInt(1, 100);
+
+// UUID
+const { v4: uuidv4 } = require('uuid');
+uuidv4();
+```
+
+**crypto vs bcrypt对比**：
+| 特性 | crypto (SHA-256) | bcrypt |
+|------|------------------|--------|
+| 速度 | 快 | 慢 |
+| 安全性 | 需要加盐 | 自动加盐 |
+| 应用 | 文件校验、HMAC | 密码存储 |
+
+**学生学习**：
+- ✅ 理解哈希函数的作用
+- ✅ 掌握文件完整性验证
+- ✅ 理解HMAC和API签名
+- ✅ 掌握AES对称加密
+- ✅ 理解crypto vs bcrypt的区别
+- ✅ 理解哈希的雪崩效应
+
+**理解检查**：为什么下载软件时要提供SHA-256校验值？
+**学生回答**：防止被篡改，验证签名是否相同
+
+**评价**：完全正确！✅
+
+---
+
+### C.12 其他模块（os、util）
+
+#### os模块（操作系统信息）
+
+**1. 系统信息**
+```javascript
+const os = require('os');
+
+console.log('操作系统:', os.type());        // Windows_NT, Linux
+console.log('系统版本:', os.release());     // 10.0.19041
+console.log('平台:', os.platform());        // win32, linux
+console.log('架构:', os.arch());            // x64, arm
+console.log('主机名:', os.hostname());      // DESKTOP-ABC123
+```
+
+**2. CPU信息**
+```javascript
+console.log('CPU型号:', os.cpus()[0].model);
+console.log('CPU核心数:', os.cpus().length);
+
+// 计算CPU使用率
+const cpus = os.cpus();
+const usage = 100 - (totalIdle / totalTick) * 100;
+console.log(`CPU使用率: ${usage.toFixed(2)}%`);
+```
+
+**3. 内存信息**
+```javascript
+const totalMem = os.totalmem();
+const freeMem = os.freemem();
+const usedMem = totalMem - freeMem;
+
+console.log('总内存:', (totalMem / 1024 / 1024 / 1024).toFixed(2), 'GB');
+console.log('空闲内存:', (freeMem / 1024 / 1024 / 1024).toFixed(2), 'GB');
+console.log('内存使用率:', ((usedMem / totalMem) * 100).toFixed(2), '%');
+```
+
+**4. 网络信息**
+```javascript
+const interfaces = os.networkInterfaces();
+console.log(interfaces);
+
+// 获取本机IP
+function getLocalIP() {
+  for (const name in interfaces) {
+    for (const iface of interfaces[name]) {
+      if (iface.family === 'IPv4' && !iface.internal) {
+        return iface.address;
+      }
+    }
+  }
+  return 'localhost';
+}
+
+console.log('本机IP:', getLocalIP());  // 192.168.1.100
+```
+
+**5. 用户信息**
+```javascript
+console.log('主目录:', os.homedir());        // C:\Users\Username
+console.log('用户名:', os.userInfo().username);
+console.log('临时目录:', os.tmpdir());       // C:\Users\Username\AppData\Local\Temp
+```
+
+#### util模块（工具函数）
+
+**1. 格式化字符串**
+```javascript
+const util = require('util');
+
+const message = util.format('Hello %s, you are %d years old', 'Alice', 20);
+console.log(message);  // Hello Alice, you are 20 years old
+```
+
+**2. 检查类型**
+```javascript
+console.log(util.isArray([1, 2, 3]));      // true
+console.log(util.isDate(new Date()));      // true
+console.log(util.isError(new Error()));    // true
+console.log(util.isRegExp(/test/));       // true
+```
+
+**3. promisify（回调转Promise）**
+```javascript
+const fs = require('fs');
+
+// 回调风格
+fs.readFile('./test.txt', (err, data) => {
+  console.log(data);
+});
+
+// 转换为Promise风格
+const readFilePromise = util.promisify(fs.readFile);
+
+readFilePromise('./test.txt')
+  .then(data => console.log(data))
+  .catch(err => console.error(err));
+
+// 或使用async/await
+async function main() {
+  const data = await readFilePromise('./test.txt');
+  console.log(data);
+}
+```
+
+**4. inspect（深度查看对象）**
+```javascript
+const obj = {
+  name: 'Alice',
+  address: { city: 'Beijing', district: 'Chaoyang' }
+};
+
+console.log(util.inspect(obj, { depth: null, colors: true }));
+```
+
+#### 实际应用：系统监控
+```javascript
+function getSystemInfo() {
+  return {
+    platform: os.platform(),
+    arch: os.arch(),
+    cpuModel: os.cpus()[0].model,
+    cpuCores: os.cpus().length,
+    totalMem: (os.totalmem() / 1024 / 1024 / 1024).toFixed(2) + ' GB',
+    freeMem: (os.freemem() / 1024 / 1024 / 1024).toFixed(2) + ' GB',
+    memUsage: ((1 - os.freemem() / os.totalmem()) * 100).toFixed(2) + '%',
+    hostname: os.hostname(),
+    ip: getLocalIP()
+  };
+}
+
+console.log(getSystemInfo());
+/*
+{
+  platform: 'win32',
+  arch: 'x64',
+  cpuModel: 'Intel(R) Core(TM) i7-10700 @ 2.90GHz',
+  cpuCores: 8,
+  totalMem: '16.00 GB',
+  freeMem: '4.50 GB',
+  memUsage: '71.88%',
+  hostname: 'DESKTOP-ABC123',
+  ip: '192.168.1.100'
+}
+*/
+```
+
+**学生学习**：
+- ✅ 掌握os模块获取系统信息
+- ✅ 理解util模块的工具函数
+- ✅ 掌握promisify转换回调为Promise
+- ✅ 理解系统监控的实际应用
+
+---
+
+## 掌握的主题
+
+### C领域（内置模块 - 18%）✅ **100%完成**
+
+- [x] **C.4** fs文件信息（stat/readdir）(2026-03-26) - **High**
+  - fs.stat()获取文件详细信息
+  - stats.isFile()和stats.isDirectory()
+  - stats.size、stats.mtime获取大小和时间
+  - fs.readdir()读取目录内容
+  - 实际应用：列出文件、递归获取目录树
+  - 异步陷阱：fs.stat是异步的，需要await
+  - Array.reduce()详解：数组归纳、求和、去重
+  - includes() vs some()的区别
+
+- [x] **C.7** http请求响应（复习巩固）(2026-03-26) - **High**
+  - HTTP请求响应流程（客户端→服务器→响应）
+  - req对象：method、url、headers、body
+  - res对象：statusCode、headers、end
+  - RESTful API实现（GET、POST、DELETE）
+  - 原生http vs Express对比
+  - 常见HTTP状态码（200、201、400、401、403、404、500）
+
+- [x] **C.10** crypto加密模块 (2026-03-26) - **High**
+  - 哈希函数：MD5（不安全）、SHA-256（推荐）
+  - 文件完整性验证：计算文件哈希、对比官方哈希
+  - 哈希的雪崩效应：微小变化→完全不同
+  - HMAC：带密钥的哈希（API签名验证）
+  - AES对称加密：加密解密敏感数据
+  - 生成随机数：randomBytes、randomInt、UUID
+  - crypto vs bcrypt对比和应用场景
+  - 安全体系：HTTPS、bcrypt、SHA-256、HMAC、AES
+
+- [x] **C.12** 其他模块（os、util）(2026-03-26) - **High**
+  - os模块获取系统信息：type、release、platform、arch、hostname
+  - os模块获取CPU信息：型号、核心数、使用率
+  - os模块获取内存信息：总内存、空闲内存、使用率
+  - os模块获取网络信息：IP地址、MAC地址、网络接口
+  - os模块获取用户信息：主目录、用户名、临时目录
+  - util模块格式化字符串：util.format()
+  - util模块检查类型：isArray、isDate、isError、isRegExp
+  - util.promisify：回调函数转Promise
+  - util.inspect：深度查看对象
+  - 实际应用：系统监控、批量处理文件
+
+**C领域完成度**: 12/12 (100%) 🎉
+
+---
+
+## 新增掌握的主题
+
+### C领域（内置模块）
+- [x] **C.4** fs文件信息（stat/readdir）(2026-03-26) - **High**
+- [x] **C.7** http请求响应（复习巩固）(2026-03-26) - **High**
+- [x] **C.10** crypto加密模块 (2026-03-26) - **High**
+- [x] **C.12** 其他模块（os、util）(2026-03-26) - **High**
+
+---
+
+## 学习成果
+
+### 今日成就
+- ✅ 完整掌握异步编程的核心概念（B领域100%）
+- ✅ 完整掌握内置模块的核心功能（C领域100%）
+- ✅ 理解同步vs异步的本质区别
+- ✅ 掌握Promise链式调用和async/await
+- ✅ 深入理解Node.js Event Loop
+- ✅ 掌握fs文件信息获取和目录操作
+- ✅ 掌握HTTP请求响应流程
+- ✅ 理解crypto加密模块的多种应用
+- ✅ 掌握os和util模块的实用功能
+- ✅ **B领域100%完成** 🎉
+- ✅ **C领域100%完成** 🎉
+
+### 学习进度
+- 之前：57/73 (78%)
+- 现在：**61/73 (84%)** (+6%)
+
+### 领域进度
+- A领域：7/10 (70%)
+- **B领域：8/8 (100%)** ✅ **今日完成**
+- **C领域：12/12 (100%)** ✅ **今日完成**
+- D领域：10/10 (100%) ✅
+- E领域：10/10 (100%) ✅
+- F领域：8/8 (100%) ✅
+- G领域：2/5 (40%)
+
+**已完成领域**: B、C、D、E、F（5/7个，71%）
+
+---
+
+## 关键见解
+
+### 重要概念理解
+1. **同步vs异步的本质**：阻塞 vs 非阻塞，串行 vs 并行
+2. **回调地狱的解决**：命名函数 → Promise → async/await（进化路径）
+3. **Promise链的核心**：.then()返回新Promise，实现链式调用
+4. **Event Loop的阶段**：6个阶段 + 微任务检查点
+5. **异步错误的处理**：无法用try-catch，必须用回调参数、.catch()、async/await
+6. **Array.reduce()**：数组归纳成一个值（求和、去重、统计）
+7. **哈希的雪崩效应**：原始数据微小变化→哈希值完全不同
+8. **crypto vs bcrypt**：crypto快速（文件校验），bcrypt慢速（密码存储）
+9. **os模块的实用价值**：系统监控、资源管理、环境检测
+10. **util模块的便利性**：回调转Promise、类型检查、格式化输出
+
+### 技术决策
+1. **优先使用async/await**：最接近同步代码，易读易维护
+2. **Promise链适合简单场景**：如登录、数据获取
+3. **回调函数逐渐淘汰**：除非是Node.js内置模块
+4. **全局错误处理很重要**：unhandledRejection、uncaughtException
+5. **SHA-256替代MD5**：MD5已被破解，SHA-256更安全
+6. **bcrypt用于密码**：crypto用于文件校验和数据完整性
+7. **使用Promise.all提高性能**：并行执行多个异步操作
+8. **os模块用于系统监控**：实时检测CPU、内存使用率
+9. **util.promisify兼容旧代码**：将回调函数转换为Promise
+
+---
+
 ## 下一步学习计划
 
 ### 剩余的Node.js基础内容（共16个主题）
@@ -518,9 +1083,9 @@ process.on('unhandledRejection', (err, promise) => {
 
 **今日成就**: ⭐⭐⭐⭐⭐ **极其出色！**
 
-**新增主题**: 5个B领域主题
-**完成领域**: B领域（100%）🎉
-**进度提升**: 71% → 78% (+7%)
+**新增主题**: 9个主题（B领域5个 + C领域4个）
+**完成领域**: B领域（100%）+ C领域（100%）🎉🎉
+**进度提升**: 71% → 84% (+13%)
 
 **掌握的关键技能**:
 - ✅ 同步vs异步的本质区别（阻塞 vs 非阻塞）
@@ -530,10 +1095,25 @@ process.on('unhandledRejection', (err, promise) => {
 - ✅ setTimeout vs setImmediate的执行顺序
 - ✅ 异步错误处理的三种方式
 - ✅ unhandledRejection的概念和处理
+- ✅ fs文件信息获取（stat、readdir）
+- ✅ Array.reduce()数组归纳
+- ✅ HTTP请求响应流程
+- ✅ RESTful API实现
+- ✅ crypto加密模块（哈希、HMAC、AES）
+- ✅ 文件完整性验证
+- ✅ os模块系统信息（CPU、内存、网络）
+- ✅ util模块工具函数（promisify、类型检查）
 
-**学生表现**: 理解能力强、思考深入、主动验证
+**学生学习亮点**:
+- ✅ 快速理解异步陷阱并修正代码
+- ✅ 深入理解Array.reduce()的作用
+- ✅ 正确理解bcrypt的安全性（慢速计算防暴力破解）
+- ✅ 理解哈希雪崩效应（完整性验证原理）
+- ✅ 掌握os和util模块的实用功能
 
-**下一步**: 继续完成Node.js基础，优先学习C领域（内置模块）
+**学生表现**: 理解能力强、思考深入、主动验证、学习速度快
+
+**下一步**: 继续完成Node.js基础（剩余A领域3个主题 + G领域3个主题）
 
 ---
 
