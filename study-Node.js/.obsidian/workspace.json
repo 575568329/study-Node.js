@@ -11,10 +11,14 @@
             "id": "0157d1d85e3ce87c",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
+              "type": "markdown",
+              "state": {
+                "file": "01-知识点总结/C-内置模块/fs文件写入.md",
+                "mode": "source",
+                "source": false
+              },
               "icon": "lucide-file",
-              "title": "新标签页"
+              "title": "fs文件写入"
             }
           }
         ]
@@ -49,7 +53,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "",
+                "query": "fs.writeFile",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -70,7 +74,8 @@
               "title": "书签"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
@@ -192,6 +197,7 @@
   },
   "active": "0157d1d85e3ce87c",
   "lastOpenFiles": [
+    "01-知识点总结/D-Express框架/静态资源服务（进阶）.md",
     "01-知识点总结/C-内置模块/url模块.md",
     "01-知识点总结/C-内置模块/url模块.md.tmp.31456.1774349629903",
     "01-知识点总结/C-内置模块/events事件发射器.md",
@@ -219,7 +225,6 @@
     "01-知识点总结/F-认证与安全/Cookie与Session.md",
     "01-知识点总结/F-认证与安全/密码加密.md",
     "04-前后端对比/概念对照表.md",
-    "01-知识点总结/D-Express框架/静态资源服务（进阶）.md",
     "01-知识点总结/G-项目实战/个人博客API.md",
     "01-知识点总结/E-数据库/事务处理.md",
     "01-知识点总结/E-数据库/SQL注入防护.md",
