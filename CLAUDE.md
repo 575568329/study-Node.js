@@ -77,7 +77,7 @@
 
 **步骤3: 索引更新**
 - 更新 `sessions/{当前技能}/INDEX.md`（新会话）
-- 更新 `projects/INDEX.md`（新项目时）
+- 更新 `projects/{当前技能}/INDEX.md`（新项目时）
 
 ---
 

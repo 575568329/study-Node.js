@@ -172,10 +172,10 @@ git push
 
 **检查时机**：每次同步Obsidian后，必须检查笔记完整性
 
-**检查项1：对比tracker.md vs Obsidian笔记**
+**检查项1：对比{当前技能}-progress.md vs Obsidian笔记**
 
 ```bash
-# 从tracker.md提取已掌握的主题
+# 从{当前技能}-progress.md提取已掌握的主题
 grep -E "^\- \[x\] \*\*[A-G]\.\d+" d:/study/Node.js-Study/progress/{当前技能}-progress.md | wc -l
 
 # 预期：应该有64个主题
@@ -357,7 +357,7 @@ grep -E "^\- \[x\] \*\*[A-G]\.\d+" d:/study/Node.js-Study/progress/{当前技能
 - [ ] 具体建议（如果有）
 ```
 
-### 文件3: sessions/INDEX.md
+### 文件3: sessions/{当前技能}/INDEX.md
 
 **添加今日会话**：
 ```markdown
@@ -523,7 +523,7 @@ Skill自动：
 
 - ✅ 自动识别学习的主题编号（B.1、C.4等）
 - ✅ 同步Obsidian笔记（为每个新主题创建笔记）
-- ✅ **执行完整性检查**（对比tracker vs Obsidian）
+- ✅ **执行完整性检查**（对比progress文件 vs Obsidian）
 - ✅ **识别缺失笔记**（学了但没记录的）
 - ✅ **验证笔记内容完整性**（不是空白笔记）
 - ✅ **提取并记录所有错误内容**（从会话历史）
@@ -574,7 +574,7 @@ Skill自动：
 ### 每次更新进度时必须执行：
 
 **检查1：主题对比**
-- [ ] 从tracker.md提取已掌握主题列表
+- [ ] 从{当前技能}-progress.md提取已掌握主题列表
 - [ ] 遍历Obsidian笔记库，检查每个主题是否有笔记
 - [ ] 记录缺失的主题
 
