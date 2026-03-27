@@ -6,7 +6,7 @@
 
 ## 🎯 学生概况
 
-**学习目标**: AI应用开发全栈工程师（Node.js + Vue3 + React + Next.js + LangChain）
+**学习目标**: AI应用开发全栈工程师（Node.js + TypeScript + Vue3 + React + Next.js + LangChain）
 **终极项目**: 开发类似Claude的AI工具
 **当前课程**: 黑马程序员 Node.js 全套教程 (BV1gM411W7ex)
 **学习方式**: 视频学习 + AI导师苏格拉底式教学 + 代码练习
@@ -26,7 +26,7 @@
 **已学习天数**: 14天
 **总学习时长**: 约32小时
 **当前视频**: P001-P090+ (自学+实战)
-**学习阶段**: Node.js基础全部完成！准备进入前端框架学习
+**学习阶段**: Node.js基础全部完成！准备学习 TypeScript
 
 ### 已完成领域 🎉🎉🎉
 - ✅ **A领域** (Node.js核心) - 10/10 (100%)
@@ -546,25 +546,41 @@ memory/MEMORY.md        # 本文件
 
 ---
 
-### **阶段2：前端框架升级**（1-2个月）
+### **阶段2：TypeScript**（即将开始）
+
+**学习内容**：
+- [ ] 基本类型与类型注解
+- [ ] 接口（Interface）与类型别名（Type）
+- [ ] 函数类型与泛型（Generics）
+- [ ] 类与装饰器（Decorators）
+- [ ] 联合类型、交叉类型、类型守卫
+- [ ] 工具类型（Partial、Pick、Omit、Record等）
+- [ ] TS 配置（tsconfig.json）
+- [ ] TypeScript + Node.js 实践
+
+**预计完成时间**：2-3周
+
+---
+
+### **阶段3：前端框架升级**（1-2个月）
 
 **Vue3新特性**（优先，Vue2已精通）：
 - [ ] Composition API（ref、reactive、computed、watch）
 - [ ] `<script setup>`语法糖
 - [ ] Pinia状态管理（替代Vuex）
 - [ ] Vue3新特性（Teleport、Suspense、Fragments）
-- [ ] Vue3项目实战（1-2个）
+- [ ] Vue3 + TypeScript 项目实战（1-2个）
 
 **React基础**（Next.js需要）：
 - [ ] JSX语法、组件、Props、State
 - [ ] Hooks（useState、useEffect、自定义Hooks）
 - [ ] React Router路由管理
 - [ ] Redux状态管理
-- [ ] React项目实战（1-2个）
+- [ ] React + TypeScript 项目实战（1-2个）
 
 ---
 
-### **阶段3：Next.js全栈**（2-3周）
+### **阶段4：Next.js全栈**（2-3周）
 
 - [ ] Next.js基础（SSR、SSG、ISR）
 - [ ] App Router（新架构）
@@ -575,7 +591,7 @@ memory/MEMORY.md        # 本文件
 
 ---
 
-### **阶段4：LangChain AI开发**（1-2个月）
+### **阶段5：LangChain AI开发**（1-2个月）
 
 - [ ] LangChain基础（Chains、Agents、Tools）
 - [ ] Prompt Engineering（提示词工程）
@@ -586,13 +602,13 @@ memory/MEMORY.md        # 本文件
 
 ---
 
-### **阶段5：终极项目**（2-3个月）
+### **阶段6：终极项目**（2-3个月）
 
 **目标**：开发类似Claude的AI工具
 
 **技术栈**：
-- 后端：Node.js + Express + MySQL + Sequelize
-- 前端：Vue3/React + Next.js
+- 后端：Node.js + TypeScript + Express + MySQL + Sequelize
+- 前端：Vue3/React + Next.js + TypeScript
 - AI：LangChain + Vector DB + OpenAI API
 - 部署：Docker + 云服务器
 
@@ -605,7 +621,7 @@ memory/MEMORY.md        # 本文件
 
 ---
 
-### **阶段6：Java和架构**（工作后）
+### **阶段7：Java和架构**（工作后）
 
 - [ ] Java基础
 - [ ] Spring Boot
@@ -617,7 +633,7 @@ memory/MEMORY.md        # 本文件
 **最后复习**: 2026-03-27 会话内容（电影管理系统 + 项目部署）
 **下次更新**: 每次学习会话结束后
 
-**学习路径**: ~~Node.js (90%)~~ → ✅ **Node.js基础完成！** → Vue3/React → Next.js → LangChain → AI应用 → Java
+**学习路径**: ~~Node.js (90%)~~ → ✅ **Node.js基础完成！** → TypeScript → Vue3/React → Next.js → LangChain → AI应用 → Java
 
 ---
 

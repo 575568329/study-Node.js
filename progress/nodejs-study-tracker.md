@@ -1,9 +1,9 @@
 # Node.js 学习进度追踪器
 
 **Last Updated**: 2026-03-27 (第四次更新)
-**学习目标**: AI应用开发全栈工程师（Node.js + Next.js + LangChain）
+**学习目标**: AI应用开发全栈工程师（Node.js + TypeScript + Vue3 + React + Next.js + LangChain）
 **计划时长**: 4-6个月
-**当前课程**: 黑马程序员 Node.js 全套教程 + Vue/React + Next.js + LangChain
+**当前课程**: 黑马程序员 Node.js 全套教程 + TypeScript + Vue3/React + Next.js + LangChain
 
 ---
 
@@ -1394,6 +1394,25 @@
   - 评估了P001-P073的学习成果
   - 补齐了5个重要知识点
   - 创建了详细的会话记录
+
+---
+
+## 🗺️ 下一步学习计划
+
+### ✅ 第1阶段：Node.js基础 — 已完成！（2026-03-27）
+- 66/73 topics (90%)，7个领域全部100%
+
+### 🔜 第2阶段：TypeScript（即将开始）
+- 基本类型、接口、泛型、类与装饰器
+- 工具类型、tsconfig配置
+- TS + Node.js 实践
+- 预计2-3周
+
+### 第3阶段：Vue3 + React（1-2个月）
+### 第4阶段：Next.js全栈（2-3周）
+### 第5阶段：LangChain AI开发（1-2个月）
+### 第6阶段：终极项目（2-3个月）
+### 第7阶段：Java和架构（工作后）
 
 ---
 

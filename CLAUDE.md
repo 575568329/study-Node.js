@@ -18,15 +18,16 @@
 
 这是 **Node.js-Study** 仓库 - 一个使用AI辅助的全栈开发学习环境。
 
-**🎯 终极目标**：成为**AI应用开发全栈工程师**（Node.js + Vue3 + React + Next.js + LangChain）
+**🎯 终极目标**：成为**AI应用开发全栈工程师**（Node.js + TypeScript + Vue3 + React + Next.js + LangChain）
 
 **📋 学习路线**：
-1. **Node.js基础** (当前进行中，71%)
-2. **Vue3新特性** (Vue2已精通，学习Composition API、script setup)
-3. **React基础** (Next.js基于React，需要掌握)
-4. **Next.js全栈** (SSR、SSG、API Routes)
-5. **LangChain** (AI应用开发、RAG、Vector DB)
-6. **实战项目**: 开发类似Claude的AI工具
+1. **Node.js基础** (✅ 已完成，90%)
+2. **TypeScript** (当前，即将开始)
+3. **Vue3新特性** (Vue2已精通，学习Composition API、script setup)
+4. **React基础** (Next.js基于React，需要掌握)
+5. **Next.js全栈** (SSR、SSG、API Routes)
+6. **LangChain** (AI应用开发、RAG、Vector DB)
+7. **实战项目**: 开发类似Claude的AI工具
 
 **⭐ 用户现有基础**：
 - ✅ **Vue2精通** (Options API、Vuex、Vue Router)
@@ -493,34 +494,50 @@ fs.readFile('./input.txt', (err, data) => {
 
 ## 🗺️ 全栈学习路线图
 
-### 第1阶段：Node.js基础（当前，71% → 100%）
-
-**剩余内容**（29%）：
-- B. 异步编程（5个主题）：回调函数、Promise链、宏任务vs微任务
-- C. 内置模块（3个主题）：fs文件信息、crypto加密、其他模块
-- A. Node.js核心（3个主题）：ES6语法、执行模型、包发布
-
-**预计完成时间**：2-3周
+### 第1阶段：Node.js基础（✅ 已完成）
 
 **阶段目标**：✅ 完成所有Node.js基础，为全栈打地基
+**完成日期**：2026-03-27
+**完成度**：66/73 topics (90%)，7个领域全部100%
 
 ---
 
-### 第2阶段：前端框架升级（Vue3 + React）
+### 第2阶段：TypeScript（当前，即将开始）
 
-**2.1 Vue3新特性**（优先，有Vue2基础）
+**学习内容**：
+- 基本类型与类型注解
+- 接口（Interface）与类型别名（Type）
+- 函数类型与泛型（Generics）
+- 类与装饰器（Decorators）
+- 联合类型、交叉类型、类型守卫
+- 工具类型（Partial、Pick、Omit、Record等）
+- 模块与命名空间
+- TS 配置（tsconfig.json）
+- TypeScript + Node.js 实践
+
+**实战项目**：用 TS 重构一个已有的 Node.js 项目
+
+**预计完成时间**：2-3周
+
+**阶段目标**：✅ 掌握 TypeScript 核心特性，为 Vue3/React/Next.js 打基础
+
+---
+
+### 第3阶段：前端框架升级（Vue3 + React）
+
+**3.1 Vue3新特性**（优先，有Vue2基础）
 - Composition API：ref、reactive、computed、watch
 - `<script setup>`语法糖
 - Pinia状态管理（替代Vuex）
 - Vue3新特性：Teleport、Suspense、Fragments
-- Vue3项目实战（1-2个）
+- Vue3 + TypeScript 项目实战（1-2个）
 
-**2.2 React基础**（Next.js需要）
+**3.2 React基础**（Next.js需要）
 - JSX语法、组件、Props、State
 - Hooks：useState、useEffect、自定义Hooks
 - React Router路由管理
 - Redux状态管理
-- React项目实战（1-2个）
+- React + TypeScript 项目实战（1-2个）
 
 **预计完成时间**：1-2个月
 
@@ -528,7 +545,7 @@ fs.readFile('./input.txt', (err, data) => {
 
 ---
 
-### 第3阶段：Next.js全栈开发
+### 第4阶段：Next.js全栈开发
 
 **学习内容**：
 - Next.js基础：SSR、SSG、ISR
@@ -545,7 +562,7 @@ fs.readFile('./input.txt', (err, data) => {
 
 ---
 
-### 第4阶段：LangChain AI开发
+### 第5阶段：LangChain AI开发
 
 **学习内容**：
 - LangChain基础：Chains、Agents、Tools
@@ -562,11 +579,11 @@ fs.readFile('./input.txt', (err, data) => {
 
 ---
 
-### 第5阶段：终极项目 - 类Claude AI工具
+### 第6阶段：终极项目 - 类Claude AI工具
 
 **技术栈**：
-- **后端**：Node.js + Express + MySQL + Sequelize
-- **前端**：Vue3/React + Next.js
+- **后端**：Node.js + TypeScript + Express + MySQL + Sequelize
+- **前端**：Vue3/React + Next.js + TypeScript
 - **AI**：LangChain + Vector DB + OpenAI API
 - **部署**：Docker + 云服务器
 
@@ -583,7 +600,7 @@ fs.readFile('./input.txt', (err, data) => {
 
 ---
 
-### 第6阶段：Java和架构（工作后）
+### 第7阶段：Java和架构（工作后）
 
 **学习内容**：
 - Java基础
@@ -601,9 +618,10 @@ fs.readFile('./input.txt', (err, data) => {
 1. **不要急于求成**：扎实学好每个阶段，基础最重要
 2. **实践优先**：每学一个技术就做项目巩固
 3. **Node.js优先**：完成后端再学前端，理解更深
-4. **Vue3优先React**：有Vue2基础，快速过渡到Vue3
-5. **Next.js关键**：现代全栈开发的桥梁
-6. **AI开发特色**：LangChain是差异化竞争力
+4. **TypeScript优先**：TS是Vue3/React/Next.js的基础，先学TS再学前端框架
+5. **Vue3优先React**：有Vue2基础，快速过渡到Vue3
+6. **Next.js关键**：现代全栈开发的桥梁
+7. **AI开发特色**：LangChain是差异化竞争力
 
 ---
 
@@ -630,6 +648,7 @@ Claude承诺：**学习新主题后立即创建笔记**，确保Obsidian知识�
 
 **官方文档：**
 - Node.js: https://nodejs.org/docs/latest/api/
+- TypeScript: https://www.typescriptlang.org/docs/
 - Express: https://expressjs.com/en/4x/api.html
 - MySQL: https://dev.mysql.com/doc/
 - npm: https://docs.npmjs.com/
@@ -641,8 +660,8 @@ Claude承诺：**学习新主题后立即创建笔记**，确保Obsidian知识�
 
 ---
 
-**最后更新**: 2026-03-25
-**学习目标**: AI应用开发全栈工程师（Node.js + Vue3 + React + Next.js + LangChain）
-**当前进度**: Node.js 71% (52/73 topics)
-**目标日期**: 2026年6月（Node.js）→ 2026年底（全栈+AI）
+**最后更新**: 2026-03-27
+**学习目标**: AI应用开发全栈工程师（Node.js + TypeScript + Vue3 + React + Next.js + LangChain）
+**当前进度**: Node.js 90% (66/73 topics) ✅ 基础完成 → TypeScript 即将开始
+**目标日期**: 2026年4月（TS）→ 2026年6月（Vue3/React）→ 2026年底（全栈+AI）
 **GitHub仓库**: https://github.com/575568329/study-Node.js.git
