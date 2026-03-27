@@ -18,6 +18,7 @@
 | [08-user-register-complete](#08-user-register-complete) | 2026-03-20 | ⭐⭐⭐⭐ | ✅ 完成 | 完整用户系统 |
 | [10-security-best-practice](#10-security-best-practice) | 2026-03-23 | ⭐⭐⭐ | ✅ 完成 | 安全最佳实践 |
 | [11-personal-blog](#11-personal-blog) | 2026-03-23 | ⭐⭐⭐⭐⭐ | ✅ 完成 | 个人博客API |
+| [04-电影管理系统](#04-电影管理系统) | 2026-03-27 | ⭐⭐⭐⭐ | ✅ 完成 | 电影管理系统(Sequelize+多对多) |
 
 ---
 
@@ -349,6 +350,28 @@ npm start
 - `src/routes/` - 路由定义
 - `src/middleware/auth.js` - JWT认证中间件
 - `database/schema.sql` - 数据库表结构
+
+### 04-电影管理系统
+**难度**: ⭐⭐⭐⭐ | **状态**: ✅ 完成
+**学习日期**: 2026-03-27
+**学习主题**: 电影管理系统（Sequelize ORM + 多对多关系）
+
+**功能**:
+- ✅ 用户认证（注册、登录、JWT）
+- ✅ 电影管理（创建、列表、详情、更新、删除，关联导演/演员）
+- ✅ 人员管理（导演+演员的CRUD）
+- ✅ 评论评分（发表、修改、删除）
+- ✅ 多对多关系（电影↔人员，通过中间表 + role区分导演/演员）
+
+**技术栈**:
+- Express + Sequelize + MySQL + JWT
+
+**关键文件**:
+- `server.js` - 服务器入口
+- `src/models/` - 5个Sequelize模型（User、Movie、Person、MoviePerson、Comment）
+- `src/models/index.js` - 模型关联关系
+- `src/controllers/` - 4个控制器
+- `src/routes/` - 4组路由
 
 **启动方式**:
 ```bash
