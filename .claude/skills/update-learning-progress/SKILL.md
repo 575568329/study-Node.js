@@ -1,13 +1,26 @@
 ---
 name: update-learning-progress
-description: Use when user says "记录一下进度"、"更新进度"、"记录学习成果" to automate Node.js learning progress tracking. Updates tracker (nodejs-study-tracker.md), session notes (session-notes.md), and index (INDEX.md) from conversation context.
+description: Use when user says "记录一下进度"、"更新进度"、"记录学习成果" to automate learning progress tracking. Reads current skill pointer from CLAUDE.md, then updates the corresponding progress file, session notes, and index from conversation context.
 ---
 
 # 学习进度更新器
 
 ## 概述
 
-自动化Node.js学习进度记录，从会话上下文中提取学习成果并更新3个核心文件。避免重复手动操作，确保记录质量和格式一致性。
+自动化学习进度记录，从会话上下文中提取学习成果并更新核心文件。避免重复手动操作，确保记录质量和格式一致性。
+
+## 📍 技能感知机制
+
+**执行前必须先读取当前技能指针**：
+
+1. 读取 `CLAUDE.md` 中的"当前学习阶段"部分
+2. 提取指针值：
+   - `当前技能`: TypeScript
+   - `进度文件`: progress/typescript-progress.md
+   - `会话目录`: sessions/typescript/
+   - `项目目录`: projects/typescript/
+   - `Obsidian笔记`: study-TypeScript/
+3. 后续所有文件操作基于这些指针路径
 
 ## ⚠️ 重要：错误记录优先级（复习重点）
 
@@ -79,7 +92,8 @@ description: Use when user says "记录一下进度"、"更新进度"、"记录�
 
 ### 文件0: Obsidian笔记同步（第一步！）⭐
 
-**Obsidian笔记库路径**: `D:\study\Node.js-Study\study-Node.js`
+**Obsidian笔记库路径**: 从 CLAUDE.md 指针的 `Obsidian笔记` 字段获取（如 `study-TypeScript/`）
+**实际路径**: `D:\study\Node.js-Study\{Obsidian笔记}`
 
 **同步策略**：
 1. **识别新学习的主题**（如A.2 ES6核心语法）
@@ -146,7 +160,7 @@ description: Use when user says "记录一下进度"、"更新进度"、"记录�
 
 **Git提交**：
 ```bash
-cd D:\study\Node.js-Study\study-Node.js
+cd D:\study\Node.js-Study\{Obsidian笔记库}
 git add .
 git commit -m "docs: 添加A.2 ES6核心语法学习笔记"
 git push
@@ -162,7 +176,7 @@ git push
 
 ```bash
 # 从tracker.md提取已掌握的主题
-grep -E "^\- \[x\] \*\*[A-G]\.\d+" d:/study/Node.js-Study/progress/nodejs-study-tracker.md | wc -l
+grep -E "^\- \[x\] \*\*[A-G]\.\d+" d:/study/Node.js-Study/progress/{当前技能}-progress.md | wc -l
 
 # 预期：应该有64个主题
 ```
@@ -239,7 +253,7 @@ grep -E "^\- \[x\] \*\*[A-G]\.\d+" d:/study/Node.js-Study/progress/nodejs-study-
 4. 再次检查直到100%完整
 ```
 
-### 文件1: progress/nodejs-study-tracker.md
+### 文件1: progress/{当前技能}-progress.md
 
 **更新部分**：
 ```markdown
@@ -462,7 +476,7 @@ Skill自动：
 ### 示例0.5：完整性检查（第二步）🔍
 ```
 Skill自动：
-1. 读取nodejs-study-tracker.md → 提取已掌握主题（64个）
+1. 读取{当前技能}-progress.md → 提取已掌握主题（64个）
 2. 遍历Obsidian笔记库 → 检查每个主题是否有对应笔记
 3. 生成完整性报告：
    - ✅ 笔记已创建：58/64
@@ -490,7 +504,7 @@ Skill自动：
 2. 提取：B.1-B.5, C.4, C.10-C.12（8个主题）
 3. 计算：57/73 → 65/73（+11%）
 4. 同步Obsidian笔记（先执行）
-5. 更新nodejs-study-tracker.md
+5. 更新{当前技能}-progress.md
 6. 更新session-notes.md
 7. 更新INDEX.md
 8. 清理todo list
