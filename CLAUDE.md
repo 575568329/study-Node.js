@@ -22,7 +22,7 @@
 - **会话目录**: `sessions/typescript/`
 - **项目目录**: `projects/typescript/`
 - **代码示例**: `code-examples/typescript/`
-- **Obsidian笔记**: `study-TypeScript/`（开始学习时创建）
+- **Obsidian笔记**: `study-notes/{当前技能}/`（通用多技能笔记库，按技能名动态解析）
 
 ---
 
@@ -121,8 +121,7 @@
   INDEX.md                 # 会话索引
 
 /progress/                  # 技能进度文件
-  nodejs-progress.md       # Node.js进度（已完成）
-  typescript-progress.md   # TypeScript进度（当前）
+  typescript-progress.md   # TypeScript进度（已完成）
 
 /projects/                  # 实战项目
   /{技能}/
@@ -130,8 +129,13 @@
 
 /code-examples/{技能}/     # 代码练习片段
 
-/memory/                    # 通用学习记忆
-  MEMORY.md                # 历史学习模式
+/study-notes/               # Obsidian 多技能笔记库
+  /{技能}/                  # 每个技能一个目录
+    INDEX.md               # 技能索引（Claude Code 读取入口）
+    01-知识点总结/
+    03-易错点与陷阱/
+    05-速查表/
+  README.md                # 总索引
 
 CLAUDE.md                   # AI导师配置（本文件）
 ```

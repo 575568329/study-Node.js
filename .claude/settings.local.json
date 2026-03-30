@@ -43,7 +43,15 @@
       "Bash(wc -l \"d:/study/Node.js-Study/code-examples/\"*.js)",
       "Bash(mkdir -p sessions/nodejs sessions/typescript sessions/vue3 sessions/react sessions/nextjs sessions/langchain)",
       "Bash(mkdir -p projects/nodejs projects/typescript projects/vue3 projects/react projects/nextjs projects/langchain)",
-      "Bash(mkdir -p code-examples/nodejs code-examples/typescript code-examples/vue3 code-examples/react)"
+      "Bash(mkdir -p code-examples/nodejs code-examples/typescript code-examples/vue3 code-examples/react)",
+      "Bash(mkdir -p Node.js)",
+      "Bash(mv \"01-知识点总结\" \"03-易错点与陷阱\" \"05-速查表\" Node.js/)",
+      "Bash(mv \"B-异步编程\" Node.js/)",
+      "Bash(mv \"04-前后端对比\" 共享/前后端对比)",
+      "Bash(mkdir -p 共享)",
+      "Bash(mv \"04-前后端对比\" 共享/)",
+      "Bash(mv \"07-学习计划\" Node.js/)",
+      "Bash(mv \"00-学习导航\" Node.js/)"
     ]
   }
 }
