@@ -1,6 +1,6 @@
 # Vue3 + TypeScript 学习笔记索引
 
-> 状态: 🔵 学习中 | 开始日期: 2026-03-31
+> 状态: ✅ 核心完成 | 开始日期: 2026-03-31 | 完成度: 90%
 
 ---
 
@@ -8,22 +8,28 @@
 
 | 阶段 | 主题 | 状态 |
 |------|------|------|
-| V3.1 | Vue3 新特性概览与项目搭建 | 🔵 进行中 |
-| V3.2 | Composition API 核心 | ⬜ 未开始 |
-| V3.3 | 生命周期与 setup | ⬜ 未开始 |
-| V3.4 | Props、Emits 与 TypeScript | ⬜ 未开始 |
-| V3.5 | 模板与类型 | ⬜ 未开始 |
-| V3.6 | 组合式函数（Composables） | ⬜ 未开始 |
-| V3.7 | Pinia 状态管理 | ⬜ 未开始 |
-| V3.8 | Vue Router 4 + TypeScript | ⬜ 未开始 |
-| V3.9 | 实战 | ⬜ 未开始 |
+| V3.1 | Vue3 新特性概览与项目搭建 | ✅ |
+| V3.2 | Composition API 核心 | ✅ |
+| V3.3 | 生命周期与 setup | ✅ |
+| V3.4 | Props、Emits 与 TypeScript | ✅ |
+| V3.5 | 模板与类型 | ✅ |
+| V3.6 | 组合式函数（Composables） | ✅ |
+| V3.7 | Pinia 状态管理 | ✅ |
+| V3.8 | Vue Router 4 + TypeScript | ✅ |
+| V3.9 | 实战 | ✅ |
 
 ---
 
 ## 笔记目录
 
-- `01-知识点总结/` — 各章节核心知识点
-- `03-易错点与陷阱/` — Vue3+TS 常见坑
-- `05-速查表/` — API 速查
+### 01-知识点总结
+- [Composition API 核心](01-知识点总结/Composition-API核心.md)
+- [生命周期钩子](01-知识点总结/生命周期钩子.md)
+- [Pinia 状态管理](01-知识点总结/Pinia状态管理.md)
+- [Composables 设计模式](01-知识点总结/Composables设计模式.md)
 
-（学习过程中持续更新）
+### 03-易错点与陷阱
+- [Vue3+TS 易错点](03-易错点与陷阱/Vue3易错点.md)
+
+### 05-速查表
+- [Vue3+TS API 速查表](05-速查表/Vue3-TS速查表.md)
