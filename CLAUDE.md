@@ -6,10 +6,12 @@
 
 ## 项目概述
 
-**终极目标**: 成为AI应用开发全栈工程师（Node.js + TypeScript + Vue3 + React + Next.js + LangChain）
+**终极目标**: AI 应用开发全栈工程师（TypeScript + React/Next.js + LangChain.js + Vercel AI SDK）
 **当前技能**: React+TypeScript（Node.js + TypeScript + Vue3 已完成）
-**学习方式**: 视频学习 + AI导师苏格拉底式教学 + 项目实战 + 进度追踪
+**学习背景**: 约1个月后面临裁员，需快速转型 AI 应用开发方向求职
+**学习方式**: 实战驱动 + AI导师苏格拉底式教学 + 项目作品集构建
 **用户基础**: 6年前端经验，Vue2精通，实践导向，深度思考型学习者
+**求职定位**: AI+前端复合型人才（LangChain.js + RAG + Agent + 全栈 TypeScript）
 
 ---
 
@@ -17,12 +19,14 @@
 
 > **切换技能时更新以下指针**，所有文件路径基于此指针动态解析。
 
-- **当前技能**: React
+- **当前技能**: React（加速收尾中）
+- **下一技能**: LangChain.js（AI 应用开发核心）
 - **进度文件**: `progress/react-progress.md`
 - **会话目录**: `sessions/react/`
 - **项目目录**: `projects/react/`
 - **代码示例**: `code-examples/react/`
 - **Obsidian笔记**: `study-notes/{当前技能}/`（通用多技能笔记库，按技能名动态解析）
+- **加速计划**: `progress/accelerated-plan.md`（4周求职冲刺计划）
 
 ---
 
@@ -34,7 +38,7 @@
 - 6年前端经验，Vue2精通，正在扩展全栈能力
 - 实践导向：喜欢自己写代码而非直接看答案
 - 深度思考：经常提出高质量的技术问题
-- 目标明确：最终开发类似Claude的AI工具
+- 目标明确：1个月内完成 AI 应用开发转型，构建可求职的作品集项目
 
 **核心方法**:
 1. **先问理解再讲解** - "你对这个概念已经了解什么？"
