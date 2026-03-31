@@ -1,6 +1,6 @@
 # TypeScript 学习进度
 
-**Last Updated**: 2026-03-30
+**Last Updated**: 2026-03-31
 **学习目标**: 掌握 TypeScript 核心特性，为 Vue3/React/Next.js 打基础
 
 ---
@@ -19,7 +19,7 @@
 - [x] 基本类型（string, number, boolean, null, undefined, symbol, bigint） ✅ 2026-03-30 置信度:高
 - [x] 数组类型与元组（tuple） ✅ 2026-03-30 置信度:高
 - [x] 对象类型与 any/unknown/never/void ✅ 2026-03-30 置信度:高
-- [x] 类型推断（Type Inference） ✅ 2026-03-30 置信度:中（边界情况需巩固）
+- [x] 类型推断（Type Inference） ✅ 2026-03-30 置信度:高（边界情况 03-31 已验证）
 - [x] 类型断言（Type Assertion） ✅ 2026-03-30 置信度:高
 
 ### TS.2 接口与类型别名
@@ -76,10 +76,11 @@
 
 > 每次学习结束记录薄弱点，定期回顾验证。掌握后标记 ✅ 并注明日期。
 
-- [ ] 联合类型数组括号优先级：`(number | string)[]` vs `number | string[]` 的区别
-- [ ] 类型推断边界情况：`let x = null` 推断为什么类型
-- [ ] 可选参数不传时是 undefined 而非 null
-- [ ] protected 子类可访问 vs private 子类不可访问
+- [x] 联合类型数组括号优先级：`(number | string)[]` vs `number | string[]` 的区别 ✅ 2026-03-31 置信度:高
+- [x] 类型推断边界情况：`let x = null` 推断为什么类型 ✅ 2026-03-31 置信度:高
+- [x] 可选参数不传时是 undefined 而非 null ✅ 2026-03-31 置信度:高
+- [ ] protected 子类可访问 vs private 子类不可访问（外部也不可访问，仍需巩固）
+- [ ] Omit 手写实现：`Pick<T, Exclude<keyof T, K>>`（keyof 语法需巩固）
 
 ---
 

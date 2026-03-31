@@ -51,7 +51,8 @@
       "Bash(mkdir -p 共享)",
       "Bash(mv \"04-前后端对比\" 共享/)",
       "Bash(mv \"07-学习计划\" Node.js/)",
-      "Bash(mv \"00-学习导航\" Node.js/)"
+      "Bash(mv \"00-学习导航\" Node.js/)",
+      "mcp__tavily__tavily_research"
     ]
   }
 }

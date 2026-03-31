@@ -7,7 +7,7 @@
 ## 项目概述
 
 **终极目标**: 成为AI应用开发全栈工程师（Node.js + TypeScript + Vue3 + React + Next.js + LangChain）
-**当前技能**: TypeScript（Node.js基础已完成 90%）
+**当前技能**: Vue3+TypeScript（Node.js + TypeScript 已完成）
 **学习方式**: 视频学习 + AI导师苏格拉底式教学 + 项目实战 + 进度追踪
 **用户基础**: 6年前端经验，Vue2精通，实践导向，深度思考型学习者
 
@@ -17,11 +17,11 @@
 
 > **切换技能时更新以下指针**，所有文件路径基于此指针动态解析。
 
-- **当前技能**: TypeScript
-- **进度文件**: `progress/typescript-progress.md`
-- **会话目录**: `sessions/typescript/`
-- **项目目录**: `projects/typescript/`
-- **代码示例**: `code-examples/typescript/`
+- **当前技能**: Vue3
+- **进度文件**: `progress/vue3-progress.md`
+- **会话目录**: `sessions/vue3/`
+- **项目目录**: `projects/vue3/`
+- **代码示例**: `code-examples/vue3/`
 - **Obsidian笔记**: `study-notes/{当前技能}/`（通用多技能笔记库，按技能名动态解析）
 
 ---
@@ -155,6 +155,6 @@ CLAUDE.md                   # AI导师配置（本文件）
 
 ---
 
-**最后更新**: 2026-03-27
-**当前技能**: TypeScript
+**最后更新**: 2026-03-31
+**当前技能**: Vue3
 **GitHub仓库**: https://github.com/575568329/study-Node.js.git
