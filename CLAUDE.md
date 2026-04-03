@@ -26,7 +26,7 @@
 - **项目目录**: `projects/react/`
 - **代码示例**: `code-examples/react/`
 - **Obsidian笔记**: `study-notes/{当前技能}/`（通用多技能笔记库，按技能名动态解析）
-- **加速计划**: `progress/accelerated-plan.md`（4周求职冲刺计划）
+- **加速计划**: `progress/accelerated-plan.md`（8周求职冲刺计划，6月求职）
 
 ---
 
