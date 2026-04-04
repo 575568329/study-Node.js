@@ -1,6 +1,6 @@
 # React + TypeScript 学习笔记索引
 
-> 状态: 🔵 学习中 | 开始日期: 2026-03-31
+> 状态: ✅ 已完成 | 开始日期: 2026-03-31 | 完成日期: 2026-04-04
 
 ---
 
@@ -12,10 +12,10 @@
 | R2 | Hooks 核心（useState/useEffect/useRef/useMemo/useCallback） | ✅ 已完成 |
 | R3 | Hooks 进阶（useContext/useReducer/自定义Hook） | ✅ 已完成 |
 | R4 | TypeScript 深度集成（泛型组件/事件类型/forwardRef） | ✅ 已完成 |
-| R5 | 路由与数据获取 | ⬜ 未开始 |
-| R6 | 状态管理（Zustand） | ⬜ 未开始 |
-| R7 | 样式方案 | ⬜ 未开始 |
-| R8 | 实战 | ⬜ 未开始 |
+| R5 | 路由与数据获取（React Router/TanStack Query） | ✅ 已完成 |
+| R6 | 状态管理（Zustand） | ✅ 已完成 |
+| R7 | 样式方案（CSS Modules + Tailwind CSS） | ✅ 已完成 |
+| R8 | 实战（项目搭建/API封装/React Hook Form + Zod） | ✅ 已完成 |
 
 ---
 
@@ -36,6 +36,12 @@
 - [React 事件类型](01-知识点总结/React事件类型.md)
 - [泛型组件](01-知识点总结/泛型组件.md)
 - [forwardRef](01-知识点总结/forwardRef.md)
+- [React Router v6](01-知识点总结/ReactRouter.md)
+- [数据获取模式](01-知识点总结/数据获取.md)
+- [Zustand 状态管理](01-知识点总结/Zustand状态管理.md)
+- [CSS Modules 与 Tailwind CSS](01-知识点总结/CSS-Modules与Tailwind.md)
+- [React Hook Form 与 Zod](01-知识点总结/React-Hook-Form与Zod.md)
+- [项目搭建与 API 封装](01-知识点总结/项目搭建与API封装.md)
 
 ### 03-易错点与陷阱
 - [React vs Vue3 混淆陷阱](03-易错点与陷阱/React-Vue3混淆陷阱.md)
