@@ -5,6 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "server": "json-server --watch db.json --port 3001",
+    "dev:all": "node -e \"const{spawn}=require('child_process');const c1=spawn('npm',['run','dev'],{stdio:'inherit',shell:true});const c2=spawn('npx',['json-server','--watch','db.json','--port','3001'],{stdio:'inherit',shell:true});process.on('SIGINT',()=>{c1.kill();c2.kill();process.exit()})\"",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview"
@@ -32,6 +34,7 @@
     "eslint-plugin-react-hooks": "^7.0.1",
     "eslint-plugin-react-refresh": "^0.5.2",
     "globals": "^17.4.0",
+    "json-server": "0.17.4",
     "typescript": "~5.9.3",
     "typescript-eslint": "^8.57.0",
     "vite": "^8.0.1"

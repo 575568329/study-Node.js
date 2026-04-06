@@ -4,12 +4,19 @@
 
 ---
 
-**总会话数**: 3
+**总会话数**: 4
 **开始日期**: 2026-03-31
 
 ---
 
 ## 会话列表
+
+### #4 - 2026-04-06: React 实战项目（task-manager）
+- **主题**: React+TS 全栈实战 — 任务管理系统完整开发
+- **状态**: ✅ 完成
+- **项目**: `projects/react/task-manager`
+- **实现**: 登录/任务CRUD/标签管理/路由守卫/筛选搜索
+- **技术**: React 19 + TanStack Query + Zustand + RHF + Zod + Tailwind + Axios + json-server
 
 ### #3 - 2026-04-04: React 路由/数据获取/状态管理/样式/实战（R5 ~ R8）
 - **主题**: React Router v6 / TanStack Query / Zustand / CSS Modules + Tailwind / 项目搭建 + API封装 / React Hook Form + Zod
