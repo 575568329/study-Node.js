@@ -5,6 +5,7 @@
     "cors": "^2.8.6",
     "csurf": "^1.11.0",
     "express": "^5.2.1",
-    "helmet": "^8.1.0"
+    "helmet": "^8.1.0",
+    "react-router-dom": "^7.14.0"
   }
 }

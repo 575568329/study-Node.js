@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "01-知识点总结/知识点索引.md",
+                "file": "Vue3/个人笔记记录.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "知识点索引"
+              "title": "个人笔记记录"
             }
           }
         ]
@@ -196,6 +196,12 @@
   },
   "active": "0157d1d85e3ce87c",
   "lastOpenFiles": [
+    "Vue3/01-知识点总结/Pinia状态管理.md",
+    "Vue3/01-知识点总结/Composition-API核心.md",
+    "Vue3/01-知识点总结/Composables设计模式.md",
+    "Vue3/01-知识点总结/生命周期钩子.md",
+    "Vue3/03-易错点与陷阱/Vue3易错点.md",
+    "Vue3/个人笔记记录.md",
     "01-知识点总结/C-内置模块/fs文件写入.md",
     "01-知识点总结/D-Express框架/静态资源服务（进阶）.md",
     "01-知识点总结/C-内置模块/url模块.md",
@@ -227,12 +233,6 @@
     "01-知识点总结/G-项目实战/个人博客API.md",
     "01-知识点总结/E-数据库/事务处理.md",
     "01-知识点总结/E-数据库/SQL注入防护.md",
-    "01-知识点总结/D-Express框架/Express最佳实践.md",
-    "01-知识点总结/D-Express框架/Express路由参数处理.md",
-    "01-知识点总结/D-Express框架/RESTful API设计规范.md",
-    "JWT.md",
-    "03-易错点与陷阱/易错点汇总.md",
-    "templates/知识点模板.md",
     "未命名 1.canvas"
   ]
 }
