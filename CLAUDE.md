@@ -19,12 +19,12 @@
 
 > **切换技能时更新以下指针**，所有文件路径基于此指针动态解析。
 
-- **当前技能**: React（加速收尾中）
+- **当前技能**: Next.js（基础完成，实战阶段）
 - **下一技能**: LangChain.js（AI 应用开发核心）
-- **进度文件**: `progress/react-progress.md`
-- **会话目录**: `sessions/react/`
-- **项目目录**: `projects/react/`
-- **代码示例**: `code-examples/react/`
+- **进度文件**: `progress/nextjs-progress.md`
+- **会话目录**: `sessions/nextjs/`
+- **项目目录**: `projects/nextjs-demo/`
+- **代码示例**: `code-examples/nextjs/`
 - **Obsidian笔记**: `study-notes/{当前技能}/`（通用多技能笔记库，按技能名动态解析）
 - **加速计划**: `progress/accelerated-plan.md`（8周求职冲刺计划，6月求职）
 
