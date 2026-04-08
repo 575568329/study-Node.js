@@ -1,6 +1,6 @@
 # Next.js 学习进度
 
-**Last Updated**: 2026-04-07
+**Last Updated**: 2026-04-08
 **状态**: 🟡 进行中
 **前置技能**: React+TS (100%) | Node.js (90%) | TypeScript (100%)
 
@@ -8,8 +8,8 @@
 
 ## 📊 快速统计
 
-📈 **Overall Progress**: 7/7 topics = **100%** 🎉（基础阶段）
-📚 **学习天数**: 1
+📈 **Overall Progress**: 7/7 基础 + 实战项目 75% = **🟡 实战阶段进行中**
+📚 **学习天数**: 2
 
 ---
 
@@ -39,6 +39,31 @@
 
 ### N7 导航
 - [x] Link 组件（Server Component 可用） ✅ 2026-04-07 置信度:高
+
+---
+
+## 🛠 实战项目 — Task Manager（Next.js 版）
+
+### 2026-04-08 - 实战项目核心 CRUD
+- **项目**: `projects/nextjs-demo/`
+- **技术栈**: Next.js 16 + React 19 + TypeScript + Tailwind CSS + React Hook Form + Zod
+- **完成**:
+  - 类型定义（User/Task/Tag/ApiResponse）
+  - 内存数据库（db.ts）完整 CRUD
+  - API Routes（auth/tasks/tags 全部接口）
+  - 登录/注册页面（表单验证 + localStorage）
+  - 任务列表页（搜索/筛选/CRUD/弹窗）
+  - 标签管理页（CRUD/颜色选择器）
+- **关键收获**:
+  - Server Component 负责数据获取，Client Component 负责交互
+  - 子传父回调模式实战通过：`onClick={() => onDelete(task.id!)}`
+  - Record<UnionType, Value> 做类型安全映射
+  - update 操作必须用 `{...item, ...data}` 而非直接赋值
+- **错误亮点**:
+  - 类型文件放 app/types/ 会变成路由 → 放 src/types/
+  - fetch POST 需要 headers + body: JSON.stringify()
+  - route.ts 和 page.tsx 不能在同一目录
+- **待完成**: profile 页面、全局 Layout 导航栏、路由守卫
 
 ---
 
