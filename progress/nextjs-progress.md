@@ -1,15 +1,15 @@
 # Next.js 学习进度
 
-**Last Updated**: 2026-04-08
-**状态**: 🟡 进行中
+**Last Updated**: 2026-04-09
+**状态**: ✅ 实战项目完成
 **前置技能**: React+TS (100%) | Node.js (90%) | TypeScript (100%)
 
 ---
 
 ## 📊 快速统计
 
-📈 **Overall Progress**: 7/7 基础 + 实战项目 75% = **🟡 实战阶段进行中**
-📚 **学习天数**: 2
+📈 **Overall Progress**: 7/7 基础 + 实战项目 100% = **✅ 已完成**
+📚 **学习天数**: 3
 
 ---
 
@@ -63,7 +63,7 @@
   - 类型文件放 app/types/ 会变成路由 → 放 src/types/
   - fetch POST 需要 headers + body: JSON.stringify()
   - route.ts 和 page.tsx 不能在同一目录
-- **待完成**: profile 页面、全局 Layout 导航栏、路由守卫
+- **待完成**: ~~profile 页面、全局 Layout 导航栏、路由守卫~~ ✅ 全部完成
 
 ---
 
@@ -72,7 +72,7 @@
 ### P1 - 中优先级（3天内复习）
 
 - [ ] **动态路由 params 是 Promise** | Next.js 15 变更，需 await 解包
-  - 复习日期: 2026-04-10 | 状态: 未验证 | 验证次数: 0
+  - 复习日期: 2026-04-12 | 状态: ⚠️ 课前小测仍遗漏 | 验证次数: 2
 
 ### P2 - 低优先级（实战中巩固）
 
@@ -83,6 +83,21 @@
 ---
 
 ## 学习记录
+
+### 2026-04-09 - Next.js 实战项目收尾 🎉
+- **完成**: Profile 页面、Navbar 导航栏、AuthGuard 路由守卫
+- **新增组件**:
+  - `src/components/Navbar.tsx` — next/link + usePathname 高亮 + 退出登录
+  - `src/components/AuthGuard.tsx` — 路由守卫 + 登录/注册白名单
+  - `src/app/profile/page.tsx` — 个人中心（useState 懒初始化读 localStorage）
+- **踩坑记录**:
+  - react-router-dom 不能用在 Next.js → 用 next/link + next/navigation
+  - localStorage SSR 问题 → useState 懒初始化失效（水合不重新执行），必须用 useEffect
+  - React 19 lint 规则 → 不建议 useEffect 中 setState（AuthGuard 是必要场景）
+  - Hook 只能在组件顶层调用，不能放在普通函数里
+  - Navbar 登录页隐藏 → 路径白名单判断
+- **课前小测**: Layout 持久化⚠️、localStorage SSR⚠️、params Promise⚠️仍遗漏、use client场景⚠️、RequireAuth思路✅
+- **笔记**: `sessions/nextjs/2026-04-09/session-notes.md`
 
 ### 2026-04-07 - Next.js 基础全阶段（N1-N7）🎉
 - **项目**: `projects/nextjs-demo`（学习练习项目）

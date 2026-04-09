@@ -3,7 +3,7 @@ import {User} from '../types/user'
 import {TagType} from '../types/tag'
 
 //内存数据
-let users: User[] = [
+const users: User[] = [
   {id: 1, username: 'admin', nickname:'管理员',created_at:'2026-04-08'}
 ]
 let tasks: Task[] = [
