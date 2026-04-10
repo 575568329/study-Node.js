@@ -7,7 +7,7 @@
 ## 项目概述
 
 **终极目标**: AI 应用开发全栈工程师（TypeScript + React/Next.js + LangChain.js + Vercel AI SDK）
-**当前技能**: React+TypeScript（Node.js + TypeScript + Vue3 已完成）
+**当前技能**: LangChain.js（React + Next.js 已完成）
 **学习背景**: 约1个月后面临裁员，需快速转型 AI 应用开发方向求职
 **学习方式**: 实战驱动 + AI导师苏格拉底式教学 + 项目作品集构建
 **用户基础**: 6年前端经验，Vue2精通，实践导向，深度思考型学习者
@@ -19,12 +19,12 @@
 
 > **切换技能时更新以下指针**，所有文件路径基于此指针动态解析。
 
-- **当前技能**: Next.js（基础完成，实战阶段）
-- **下一技能**: LangChain.js（AI 应用开发核心）
-- **进度文件**: `progress/nextjs-progress.md`
-- **会话目录**: `sessions/nextjs/`
-- **项目目录**: `projects/nextjs-demo/`
-- **代码示例**: `code-examples/nextjs/`
+- **当前技能**: LangChain.js（AI 应用开发核心，未开始）
+- **下一技能**: —
+- **进度文件**: `progress/langchain-progress.md`
+- **会话目录**: `sessions/langchain/`
+- **项目目录**: `projects/ai-apps/`
+- **代码示例**: `code-examples/langchain/`
 - **Obsidian笔记**: `study-notes/{当前技能}/`（通用多技能笔记库，按技能名动态解析）
 - **加速计划**: `progress/accelerated-plan.md`（8周求职冲刺计划，6月求职）
 
@@ -159,6 +159,6 @@ CLAUDE.md                   # AI导师配置（本文件）
 
 ---
 
-**最后更新**: 2026-03-31
-**当前技能**: React
+**最后更新**: 2026-04-09
+**当前技能**: LangChain.js
 **GitHub仓库**: https://github.com/575568329/study-Node.js.git
