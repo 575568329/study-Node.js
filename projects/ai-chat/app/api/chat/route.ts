@@ -1,14 +1,6 @@
-require('dotenv').config();
-
-const readline = require('readline');
-const rl = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout,
-});
-let messageList = [];
-let fullContent = ''
-async function main() {
-  console.log(JSON.stringify(messageList));
+export async function POST(request: Request) {
+  const body = await request.json()
+  const { message } = body
   const res = await fetch(
     'https://open.bigmodel.cn/api/paas/v4/chat/completions',
     {
@@ -46,58 +38,16 @@ async function main() {
 
           请按照以上格式审查用户提交的代码。请一步一步思考。
           `
-        }, ...messageList],
+        },...message],
         temperature: 0.1,
         stream:true,
       }),
     },
   );
-  const reader = res.body.getReader();
-  const decoder = new TextDecoder()
-
-  while (true) {
-    const { done, value } = await reader.read()
-    if (done) break
-    try{
-    const chunk = decoder.decode(value, { stream: true })
-
-    const lines = chunk.split('\n').filter(line => line.startsWith('data:'))
-
-    for (const line of lines) {
-      const data = line.slice(6) // 去掉 "data: "前缀
-      if (data === '[DONE]') break
-
-      const json = JSON.parse(data)
-      const content = json.choices[0]?.delta?.content
-      if(content) {
-        process.stdout.write(content)
-        fullContent+=content
-      }
+  return new Response(res.body, {
+    headers: {
+      'Content-Type': 'text/event-stream',
+      'Cache-Control': 'no-cache',
     }
-    }catch{
-
-    }
-  }
-
-  
-  
-  messageList.push({
-    role: 'assistant',
-    content: fullContent,
-  });
+  })
 }
-function chat() {
-  rl.question('你:', async (input) => {
-    if (input == 'exit') {
-      rl.close();
-      return;
-    }
-    messageList.push({
-      role: 'user',
-      content: input,
-    });
-    await main();
-    chat();
-  });
-}
-chat();

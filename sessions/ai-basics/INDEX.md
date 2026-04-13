@@ -16,12 +16,18 @@
 - **主题**: Few-shot、Chain of Thought、代码审查助手实战
 - **状态**: ✅ 完成
 - **笔记**: [session-notes.md](./2026-04-11/session-notes.md)
-- **进度**: 7/14 topics = 50%
+- **进度**: 7/14 topics
+
+### #3 - 2026-04-13: 结构化输出 + LangChain.js 入门
+- **主题**: JSON mode实战、情感分析API、LangChain.js四大组件概念
+- **状态**: ✅ 完成
+- **笔记**: [session-notes.md](./2026-04-13/session-notes.md)
+- **进度**: 10/14 topics = 71%
 
 ---
 
 ## 📊 统计
 
-**总会话数**: 2
-**总学习时长**: ~3小时
+**总会话数**: 3
+**总学习时长**: ~5小时
 **开始日期**: 2026-04-10
