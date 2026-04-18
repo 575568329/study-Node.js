@@ -11,15 +11,16 @@
 |------|------|------|------|
 | **Node.js** | ✅ 已完成 | 90% | [[Node.js/INDEX]] |
 | **TypeScript** | ✅ 已完成 | 100% | [[TypeScript/INDEX]] |
-| **Vue3** | 📋 未开始 | - | [[Vue3/INDEX]] |
-| **React** | 📋 未开始 | - | [[React/INDEX]] |
-| **Next.js** | 📋 未开始 | - | [[Next.js/INDEX]] |
+| **Vue3** | ✅ 已完成 | - | [[Vue3/INDEX]] |
+| **React** | ✅ 已完成 | - | [[React/INDEX]] |
+| **Next.js** | ✅ 已完成 | - | [[Next.js/INDEX]] |
+| **LangChain** | 🔥 进行中 | 64% | [[LangChain/INDEX]] |
 
 ---
 
-## 当前技能: TypeScript
+## 当前技能: LangChain
 
-> 已完成 (2026-03-30)，下一步: Vue3 + TypeScript
+> 进行中 (2026-04-18)，已完成 9/14 主题，下一步: 向量数据库 + RAG 优化
 
 ---
 
@@ -37,9 +38,10 @@ study-notes/
 │   ├── 01-知识点总结/
 │   ├── 03-易错点与陷阱/
 │   └── 05-速查表/
-├── Vue3/                 # Vue3（预留）
-├── React/                # React（预留）
-├── Next.js/              # Next.js（预留）
+├── Vue3/                 # Vue3（已完成）
+├── React/                # React（已完成）
+├── Next.js/              # Next.js（已完成）
+├── LangChain/            # LangChain.js（进行中）
 ├── 共享/                  # 跨技能通用内容
 ├── Excalidraw/           # 思维导图
 └── templates/            # 笔记模板
@@ -68,4 +70,4 @@ study-notes/
 
 ---
 
-**最后更新**: 2026-03-30
+**最后更新**: 2026-04-18
