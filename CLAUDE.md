@@ -19,8 +19,8 @@
 
 > **切换技能时更新以下指针**，所有文件路径基于此指针动态解析。
 
-- **当前技能**: LangChain.js（AI 应用开发核心，进行中 9/14 = 64%）
-- **下一技能**: —
+- **当前技能**: LangChain.js（AI 应用开发核心，已完成 14/14 = 100%）
+- **下一技能**: Vercel AI SDK
 - **进度文件**: `progress/langchain-progress.md`
 - **会话目录**: `sessions/langchain/`
 - **项目目录**: `projects/ai-apps/`
@@ -159,6 +159,6 @@ CLAUDE.md                   # AI导师配置（本文件）
 
 ---
 
-**最后更新**: 2026-04-18
-**当前技能**: LangChain.js
+**最后更新**: 2026-04-19
+**当前技能**: LangChain.js（已完成）→ Vercel AI SDK
 **GitHub仓库**: https://github.com/575568329/study-Node.js.git

@@ -2,4 +2,5 @@
 
 | 日期 | 主题 | 文件 |
 |------|------|------|
+| 2026-04-19 | 向量数据库 Chroma + CRUD + 文档加载器 | [session-notes.md](2026-04-19/session-notes.md) |
 | 2026-04-18 | LangChain.js 核心 + RAG 全流程 | [session-notes.md](2026-04-18/session-notes.md) |

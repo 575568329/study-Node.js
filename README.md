@@ -14,9 +14,9 @@
 - 求职定位：AI+前端复合型人才（月薪 20K-50K）
 
 ### 当前阶段
-📍 **LangChain.js** (9/14 = 64%)
-- ✅ 已完成：Model / Prompt / Chain / Parser / Embedding / Chunking / Retrieval / RAG / Conversational RAG
-- ⏭️ 下一步：向量数据库 Chroma / 文档加载器 / RAG 优化 / Agent
+📍 **LangChain.js** (14/14 = 100%) ✅ 已完成
+- ✅ 已完成：Model / Prompt / Chain / Parser / Embedding / Chunking / Retrieval / RAG / Conversational RAG / Chroma / 文档加载器 / RAG优化 / Agent
+- ⏭️ 下一步：Vercel AI SDK + 项目实战
 
 ### 用户基础
 - ✅ **6年前端开发经验**，Vue2精通
@@ -33,8 +33,8 @@
 | Vue3 + TS | ✅ 已完成 | - | [笔记](study-notes/Vue3/INDEX.md) |
 | React + TS | ✅ 已完成 | - | [笔记](study-notes/React/INDEX.md) |
 | Next.js | ✅ 已完成 | - | [笔记](study-notes/Next.js/INDEX.md) |
-| **LangChain.js** | 🔥 **进行中** | **64%** | [笔记](study-notes/LangChain/INDEX.md) |
-| Vercel AI SDK | 📋 计划中 | - | - |
+| **LangChain.js** | ✅ **已完成** | **100%** | [笔记](study-notes/LangChain/INDEX.md) |
+| Vercel AI SDK | 🔥 **进行中** | - | - |
 
 ---
 
@@ -53,7 +53,7 @@ Node.js-Study/
 │   ├── react/                   # React 会话
 │   └── typescript/              # TypeScript 会话
 ├── projects/                    # 实战项目
-│   └── langchain-demo/          # LangChain.js 练习（09个示例）
+│   └── langchain-demo/          # LangChain.js 练习（13个示例）
 ├── study-notes/                 # Obsidian 笔记库
 │   ├── LangChain/               # LangChain 学习笔记
 │   ├── Next.js/                 # Next.js 学习笔记
@@ -81,14 +81,16 @@ Node.js-Study/
 | 07-retrieval.js | 相似度检索 | 自实现内存向量库 |
 | 08-rag.js | RAG Pipeline | 完整检索增强生成 |
 | 09-conversation-rag.js | 对话式 RAG | 多轮对话记忆 |
+| 10.chroma.js | 向量数据库 Chroma | 连接 + 存储 + 查询 |
+| 10.2-chroma-crud.js | Chroma CRUD | 增删改查 + 元数据过滤 |
+| 11-document-loader.js | 文档加载器 | TextLoader 从文件加载知识库 |
+| 12-rag-multiquery.js | RAG 优化 Multi-Query | LLM 改写查询 + 多路检索 + 去重 |
+| 13-agent.js | Agent 工具调用 | tool() + createToolCallingAgent + AgentExecutor |
 
 ### 待学习内容
 
-- 向量数据库 Chroma（本地部署 + CRUD）
-- 文档加载器（PDF/Markdown/网页）
-- RAG 优化（检索策略、重排序）
-- Agent + Tool Calling
-- LangGraph 工作流编排
+- Vercel AI SDK（流式交互 + 前端集成）
+- LangGraph 工作流编排（进阶）
 
 ---
 
@@ -110,13 +112,16 @@ Node.js-Study/
 - LLM 原理、API 调用、Prompt 工程、流式输出
 - 结构化输出 + Few-shot + CoT
 
-### 🔥 阶段4：LangChain.js + RAG（进行中 64%）
+### ✅ 阶段4：LangChain.js + RAG（已完成 100%）
 - LangChain 四大核心组件 ✅
 - RAG 完整流程（Embedding → Chunking → Retrieval → Generation）✅
 - 对话式 RAG ✅
-- 向量数据库 / RAG 优化 / Agent ⏭️
+- 向量数据库 Chroma ✅
+- 文档加载器 ✅
+- RAG 优化（Multi-Query 多查询）✅
+- Agent 工具调用 ✅
 
-### 📋 阶段5：Vercel AI SDK + 项目整合
+### 🔥 阶段5：Vercel AI SDK + 项目整合
 - useChat / streaming / Tool Calling
 - 项目1：AI 知识库问答系统（RAG）
 - 项目2：AI Agent 助手（工具调用）
@@ -126,7 +131,7 @@ Node.js-Study/
 ## 📊 学习统计
 
 **开始日期**: 2026-03-13
-**最近更新**: 2026-04-18
+**最近更新**: 2026-04-19
 **求职冲刺**: 8周计划（04-01 ~ 05-26）
 
 ### 进度里程碑
@@ -140,6 +145,9 @@ Node.js-Study/
 | 04-14 | Next.js 基础完成 |
 | 04-15 | AI 应用开发基础完成 |
 | 04-18 | LangChain.js RAG 全流程完成（64%） |
+| 04-19 | LangChain.js Chroma + 文档加载器完成（86%） |
+| 04-19 | LangChain.js RAG 优化 Multi-Query 完成（93%） |
+| 04-19 | LangChain.js Agent 工具调用完成（100%） |
 | ~04-28 | LangChain.js 完成 + 项目1后端 |
 | ~05-05 | **项目1完成**（AI 知识库问答系统） |
 | ~05-19 | **项目2完成**（AI Agent 助手） |
@@ -155,12 +163,10 @@ Node.js-Study/
 - **工具**: Git、VS Code、Postman、Obsidian
 
 ### 正在学习
-- **AI 框架**: LangChain.js（Model/Chain/RAG）
-- **向量数据库**: Chroma（计划中）
+- **AI SDK**: Vercel AI SDK（流式交互 + 前端集成）
 
 ### 待学习
-- **AI SDK**: Vercel AI SDK（流式交互）
-- **AI 编排**: LangGraph.js（Agent 工作流）
+- **AI 编排**: LangGraph.js（Agent 工作流，进阶）
 - **部署**: Vercel + Railway
 
 ---
@@ -186,7 +192,7 @@ Node.js-Study/
 | 当前技能指针 | `CLAUDE.md` |
 | LangChain 进度 | `progress/langchain-progress.md` |
 | 8周冲刺计划 | `progress/accelerated-plan.md` |
-| 今日学习笔记 | `sessions/langchain/2026-04-18/session-notes.md` |
+| 今日学习笔记 | `sessions/langchain/2026-04-19/session-notes.md` |
 | LangChain 笔记 | `study-notes/LangChain/INDEX.md` |
 | 练习代码 | `projects/langchain-demo/` |
 
@@ -209,6 +215,6 @@ Node.js-Study/
 
 ---
 
-**最后更新**: 2026-04-18
-**当前技能**: LangChain.js (64%)
+**最后更新**: 2026-04-19
+**当前技能**: LangChain.js (100% ✅) → Vercel AI SDK
 **GitHub**: https://github.com/575568329/study-Node.js.git
