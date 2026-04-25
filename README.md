@@ -14,9 +14,9 @@
 - 求职定位：AI+前端复合型人才（月薪 20K-50K）
 
 ### 当前阶段
-📍 **LangChain.js** (14/14 = 100%) ✅ 已完成
-- ✅ 已完成：Model / Prompt / Chain / Parser / Embedding / Chunking / Retrieval / RAG / Conversational RAG / Chroma / 文档加载器 / RAG优化 / Agent
-- ⏭️ 下一步：Vercel AI SDK + 项目实战
+📍 **Vercel AI SDK** (6/10 = 60%) 🔥 进行中
+- ✅ 已完成：流式聊天基础 / useChat 状态管理 / 停止生成 / 重新生成 / 新对话 / Tool Calling
+- ⏭️ 下一步：Structured Output / System Prompt / RAG 整合 + 项目实战
 
 ### 用户基础
 - ✅ **6年前端开发经验**，Vue2精通
@@ -34,7 +34,7 @@
 | React + TS | ✅ 已完成 | - | [笔记](study-notes/React/INDEX.md) |
 | Next.js | ✅ 已完成 | - | [笔记](study-notes/Next.js/INDEX.md) |
 | **LangChain.js** | ✅ **已完成** | **100%** | [笔记](study-notes/LangChain/INDEX.md) |
-| Vercel AI SDK | 🔥 **进行中** | - | - |
+| Vercel AI SDK | 🔥 **进行中** | 60% | [笔记](study-notes/Vercel%20AI%20SDK/INDEX.md) |
 
 ---
 
@@ -45,9 +45,11 @@ Node.js-Study/
 ├── CLAUDE.md                    # AI导师配置（当前技能指针）
 ├── progress/                    # 各技能进度追踪
 │   ├── langchain-progress.md    # LangChain.js 进度
+│   ├── vercel-ai-sdk-progress.md # Vercel AI SDK 进度
 │   ├── ai-basics-progress.md    # AI 基础进度
 │   └── accelerated-plan.md      # 8周求职冲刺计划
 ├── sessions/                    # 每日学习会话记录
+│   ├── vercel-ai-sdk/2026-04-25/ # Vercel AI SDK 会话
 │   ├── langchain/2026-04-18/   # LangChain 会话
 │   ├── nextjs/                  # Next.js 会话
 │   ├── react/                   # React 会话
@@ -56,6 +58,7 @@ Node.js-Study/
 │   └── langchain-demo/          # LangChain.js 练习（13个示例）
 ├── study-notes/                 # Obsidian 笔记库
 │   ├── LangChain/               # LangChain 学习笔记
+│   ├── Vercel AI SDK/           # Vercel AI SDK 学习笔记
 │   ├── Next.js/                 # Next.js 学习笔记
 │   ├── React/                   # React 学习笔记
 │   ├── TypeScript/              # TypeScript 学习笔记
@@ -66,9 +69,27 @@ Node.js-Study/
 
 ---
 
-## 🔥 当前学习：LangChain.js
+## 🔥 当前学习：Vercel AI SDK
 
-### 已完成的练习
+### 已掌握的主题
+
+| 主题 | 关键 API | 置信度 |
+|------|---------|--------|
+| 流式聊天基础 | useChat + streamText + toUIMessageStreamResponse | ⭐⭐⭐ |
+| useChat 状态管理 | status（submitted/streaming/ready/error） | ⭐⭐⭐ |
+| 停止生成 | stop() | ⭐⭐⭐ |
+| 重新生成 | regenerate({ messageId }) | ⭐⭐⭐ |
+| 新对话 | useChat({ id }) 切换 id | ⭐⭐⭐ |
+| Tool Calling | tool() + inputSchema + execute + stepCountIs | ⭐⭐⭐ |
+
+### 待学习内容
+
+- Structured Output（generateObject / streamObject）
+- System Prompt 深入
+- Client-side Tool
+- RAG 整合（LangChain 后端 + AI SDK 前端）
+
+### LangChain.js 已完成的练习
 
 | 文件 | 主题 | 关键概念 |
 |------|------|---------|
@@ -90,6 +111,8 @@ Node.js-Study/
 ### 待学习内容
 
 - Vercel AI SDK（流式交互 + 前端集成）
+- Structured Output + System Prompt + Client-side Tool
+- RAG 整合（LangChain + AI SDK）
 - LangGraph 工作流编排（进阶）
 
 ---
@@ -122,7 +145,9 @@ Node.js-Study/
 - Agent 工具调用 ✅
 
 ### 🔥 阶段5：Vercel AI SDK + 项目整合
-- useChat / streaming / Tool Calling
+- useChat / streaming / Tool Calling ✅（6/10 完成）
+- Structured Output / System Prompt / Client-side Tool（待学习）
+- RAG 整合（LangChain 后端 + AI SDK 前端）
 - 项目1：AI 知识库问答系统（RAG）
 - 项目2：AI Agent 助手（工具调用）
 
@@ -131,7 +156,7 @@ Node.js-Study/
 ## 📊 学习统计
 
 **开始日期**: 2026-03-13
-**最近更新**: 2026-04-19
+**最近更新**: 2026-04-25
 **求职冲刺**: 8周计划（04-01 ~ 05-26）
 
 ### 进度里程碑
@@ -148,6 +173,8 @@ Node.js-Study/
 | 04-19 | LangChain.js Chroma + 文档加载器完成（86%） |
 | 04-19 | LangChain.js RAG 优化 Multi-Query 完成（93%） |
 | 04-19 | LangChain.js Agent 工具调用完成（100%） |
+| 04-22 | Vercel AI SDK 流式聊天基础完成 |
+| 04-25 | Vercel AI SDK useChat + Tool Calling 完成（60%） |
 | ~04-28 | LangChain.js 完成 + 项目1后端 |
 | ~05-05 | **项目1完成**（AI 知识库问答系统） |
 | ~05-19 | **项目2完成**（AI Agent 助手） |
@@ -190,9 +217,11 @@ Node.js-Study/
 | 用途 | 文件 |
 |------|------|
 | 当前技能指针 | `CLAUDE.md` |
+| Vercel AI SDK 进度 | `progress/vercel-ai-sdk-progress.md` |
 | LangChain 进度 | `progress/langchain-progress.md` |
 | 8周冲刺计划 | `progress/accelerated-plan.md` |
-| 今日学习笔记 | `sessions/langchain/2026-04-19/session-notes.md` |
+| 今日学习笔记 | `sessions/vercel-ai-sdk/2026-04-25/session-notes.md` |
+| Vercel AI SDK 笔记 | `study-notes/Vercel AI SDK/INDEX.md` |
 | LangChain 笔记 | `study-notes/LangChain/INDEX.md` |
 | 练习代码 | `projects/langchain-demo/` |
 
@@ -215,6 +244,6 @@ Node.js-Study/
 
 ---
 
-**最后更新**: 2026-04-19
-**当前技能**: LangChain.js (100% ✅) → Vercel AI SDK
+**最后更新**: 2026-04-25
+**当前技能**: Vercel AI SDK (60% 🔥) → 项目实战
 **GitHub**: https://github.com/575568329/study-Node.js.git
