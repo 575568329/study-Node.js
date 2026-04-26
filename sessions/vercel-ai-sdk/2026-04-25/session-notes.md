@@ -2,9 +2,10 @@
 
 ## 会话概述
 - **日期**: 2026-04-25
-- **时长**: 约 2 小时
+- **时长**: 约 5 小时（上午 + 下午）
 - **格式**: 深入讲解 + 理解检查 + 实战编码
-- **主要主题**: useChat 状态管理、停止生成、重新生成、新对话、Tool Calling
+- **主要主题（上午）**: useChat 状态管理、停止生成、重新生成、新对话、Tool Calling
+- **主要主题（下午）**: Structured Output、System Prompt 深入、Client-side Tool
 
 ---
 
@@ -167,7 +168,194 @@ const result = streamText({
 
 ## 下次学习建议
 
-1. **Structured Output**（P0）— `generateObject` / `streamObject` + Zod 定义输出格式
-2. **System Prompt 深入**（P1）— 动态 prompt、多轮对话上下文管理
-3. **Client-side Tool**（P1）— 前端工具、人机协作审批
-4. **RAG 整合**（P0）— LangChain RAG 后端 + AI SDK 前端流式展示
+1. **RAG 整合**（P0）— LangChain RAG 后端 + AI SDK 前端流式展示
+
+---
+
+# 下午场：主题 7-9
+
+## Part 6: Structured Output（结构化输出）
+
+### 初始理解检查
+**问题**: 你对 Structured Output 的理解是什么？和之前 LangChain 的 Zod 输出有什么不同？
+**学生的回答**: 知道 LangChain 用 Zod 做结构化，不确定 AI SDK 的实现方式。
+
+### 深入讲解
+- AI SDK 通过模型原生 `response_format` 强制返回 JSON，不是提示词技巧
+- 关键 API：`Output.object()` + Zod schema → `generateObject` / `streamObject`
+- **API-driven vs Prompt-driven**：
+  - AI SDK（API-driven）：设置 `response_format`，模型原生返回 JSON
+  - LangChain（Prompt-driven）：提示词要求返回 JSON + JSON.parse 解析
+- **GLM 限制**：GLM API 无 `response_format` 参数，不支持 `Output.object()`
+- **Workaround**：用 tool calling 模拟（tool + toolChoice:'required' + inputSchema 定义结构）
+- **Output vs Tool Calling 区别**：
+  - Output.object() 直达取数据，tool calling 绕路执行动作
+  - Output 直接返回干净 JSON，tool 需从 input 抠数据
+
+### 理解检查
+**问题**: 为什么 LangChain 能调用成功结构化输出，AI SDK 用 GLM 却失败？
+**学生回答**: 因为 LangChain 用提示词方式，AI SDK 用 API 参数方式，GLM 没有这个参数。正确。
+
+### 学生提问
+
+| 问题 | 回答要点 |
+|------|---------|
+| 为什么 LangChain 能调用成功结构化输出 | LangChain 是 prompt-driven（提示词+JSON.parse），AI SDK 是 API-driven（response_format），GLM 没有此参数 |
+| 后面主要用 GLM 是不是要以 LangChain 为主 | 不互斥，LangChain 做后端逻辑，AI SDK 做前端交互，组合使用 |
+
+---
+
+## Part 7: System Prompt 深入
+
+### 初始理解检查
+**问题**: 你觉得动态 system prompt 应该怎么实现？
+**学生的回答**: 用变量拼接？不确定。
+
+### 深入讲解
+- `system` 参数：可以传动态字符串
+- **策略映射**：`Record<Mode, string>` 对象替代 if-else，根据模式切换指令
+- **v6 transport 传参**：`body` 从 `useChat` 移到了 `transport` 层（DefaultChatTransport）
+- **ref+state 配合**：
+  - state 管显示和切换（触发渲染）
+  - ref 管 transport 取最新值（不触发渲染，绕过闭包问题）
+  - `useRef` 创建跨渲染持久化可变引用，改值不触发渲染
+
+### 关键代码
+```tsx
+const modeRef = useRef<Mode>('general');
+modeRef.current = mode; // 每次渲染同步
+
+const transport = useMemo(() => new DefaultChatTransport({
+  body: () => ({ mode: modeRef.current }), // getter 取最新值
+}), []);
+
+const { messages, sendMessage } = useChat({ transport });
+```
+
+### ❌ 错误记录
+
+**错误1**: useChat 的 `body` 选项报 TS 错误
+**纠正**: v6 移除了 body，改到 transport 层。用 `new DefaultChatTransport({ body: ... })`
+
+**错误2**: transport body 切换角色不生效
+**纠正**: body 在 transport 创建时固定。用 `useRef` + getter 函数 `() => ({mode: ref.current})`
+
+### 学生提问
+
+| 问题 | 回答要点 |
+|------|---------|
+| useChat 怎么传额外参数给后端 | v6 用 DefaultChatTransport({ body }) |
+| modeRef 解释 | useRef 创建跨渲染持久化可变引用，改值不触发渲染，用于绕过闭包问题 |
+
+---
+
+## Part 8: Client-side Tool（前端工具）
+
+### 初始理解检查
+**问题**: 后端工具和前端工具有什么区别？
+**学生的回答**: 后端工具有 execute 在服务端跑，前端工具……是在浏览器跑？
+
+### 深入讲解
+- **区分标准**：后端工具有 `execute` → 服务端执行；前端工具无 `execute` → 转发给前端 `onToolCall`
+- **onToolCall 返回 void**：不能直接 return 结果，必须用 `addToolOutput` 喂回
+- **addToolOutput 桥接**：通过 ref 桥接（时序依赖问题）
+- **sendAutomaticallyWhen**：控制是否自动重发
+  - `() => true` 导致无限循环！每次响应都触发重发
+  - 需要条件判断（检查 `state === 'output-available'`）
+- **GLM 问题**：tool calling 不稳定（返回 Python 代码而非 tool call）
+- **生产策略**：
+  - GLM 当纯文本对话用
+  - 浏览器能力前端解决（如获取位置）
+  - 通过 body/context 传参数给后端
+- **Claude Code 的启示**：Claude 模型 tool calling 能力强是 Claude Code 稳定的原因，架构相同但模型能力差异
+
+### 关键代码
+```tsx
+const addToolOutputRef = useRef(addToolOutput);
+addToolOutputRef.current = addToolOutput;
+
+// 前端工具调用示例
+const onToolCall = async (toolCall) => {
+  if (toolCall.toolName === 'getLocation') {
+    try {
+      const position = await new Promise((resolve, reject) =>
+        navigator.geolocation.getCurrentPosition(resolve, reject)
+      );
+      addToolOutputRef.current({
+        toolCallId: toolCall.toolCallId,
+        output: { lat: position.coords.latitude, lng: position.coords.longitude },
+      });
+    } catch {
+      addToolOutputRef.current({
+        toolCallId: toolCall.toolCallId,
+        output: { state: 'output-error', errorText: '获取位置失败' },
+      });
+    }
+  }
+};
+```
+
+### ❌ 错误记录
+
+**错误1**: onToolCall return string 报 TS 错误
+**纠正**: v6 onToolCall 返回 void，用 `addToolOutput` 替代 return
+
+**错误2**: `addToolResult` 找不到
+**纠正**: v6 中 deprecated，改用 `addToolOutput`
+
+**错误3**: sendAutomaticallyWhen: `() => true` 无限循环
+**纠正**: 每次响应都触发重发，需要条件判断
+
+**错误4**: GLM 返回 Python 代码而非 tool call
+**纠正**: GLM tool calling 不稳定，生产环境用前端预获取+body传参
+
+### 学生提问
+
+| 问题 | 回答要点 |
+|------|---------|
+| getCurrentPosition 怎么包 Promise | `new Promise((resolve, reject) => getCurrentPosition(resolve, reject))` |
+| 怎么解决获取位置失败不停止 | try-catch 包裹，失败时 addToolOutput({ state: 'output-error', errorText }) |
+| Claude Code 怎么解决 client tool 问题 | Claude 模型 tool calling 能力强，架构相同但模型能力差异 |
+| GLM 生产环境怎么处理 | GLM 当纯文本对话，复杂交互前端解决，body/context 传参 |
+
+---
+
+## 全天学习成果总结
+
+### 新增主题（共 9 个）
+1. 流式聊天基础（04-22）
+2. useChat 状态管理（04-25 上午）
+3. 停止生成（04-25 上午）
+4. 重新生成（04-25 上午）
+5. 新对话（04-25 上午）
+6. Tool Calling（04-25 上午）
+7. Structured Output（04-25 下午）
+8. System Prompt 深入（04-25 下午）
+9. Client-side Tool（04-25 下午）
+
+### 关键见解
+1. Tool Calling 不是提示词触发，是结构化的通信协议（tool_calls JSON）
+2. AI SDK 本身不持久化，需要自己实现存储层
+3. v6 API 变化巨大，必须先看类型定义再写代码
+4. Structured Output 有 API-driven 和 Prompt-driven 两种路径，GLM 只支持后者
+5. v6 transport 层取代了 useChat 的 body 选项，ref 是绕过闭包的关键
+6. Client-side Tool 的核心是 onToolCall + addToolOutput，GLM tool calling 不稳定需降级处理
+7. 模型能力差异决定架构选择（Claude tool calling 稳定 vs GLM 不稳定）
+
+---
+
+## 全天表现评估
+
+### 优势
+- [x] 理解速度快，Tool Calling 原理一次就理解了核心
+- [x] 实践能力强，所有功能都是自己写代码实现
+- [x] 提问质量高，能问到通信协议、思考过程区分等深层问题
+- [x] 代码规范意识好，主动拒绝使用 any
+- [x] 对 v6 API 变化的适应能力强
+- [x] 能快速关联已有知识（LangChain 对比、闭包问题）
+- [x] 对"为什么 LangChain 成功 AI SDK 失败"的思考很有深度
+
+### 改进建议
+- [ ] 对 v6 API 变更不够敏感（body 位置变化、onToolCall 返回 void），建议每次接触新 API 先看类型定义
+- [ ] Client-side Tool 置信度偏低（⭐⭐），需要通过项目实战巩固
+- [ ] 实际项目中 Tool Calling 的错误处理和超时机制需要进一步学习

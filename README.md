@@ -14,9 +14,10 @@
 - 求职定位：AI+前端复合型人才（月薪 20K-50K）
 
 ### 当前阶段
-📍 **Vercel AI SDK** (6/10 = 60%) 🔥 进行中
-- ✅ 已完成：流式聊天基础 / useChat 状态管理 / 停止生成 / 重新生成 / 新对话 / Tool Calling
-- ⏭️ 下一步：Structured Output / System Prompt / RAG 整合 + 项目实战
+📍 **项目实战** — AI 知识库问答系统
+- ✅ 已完成：Vercel AI SDK（10/10 = 100%）
+- ✅ 已完成：LangChain.js（14/14 = 100%）
+- ⏭️ 下一步：项目实战（AI 知识库问答系统）
 
 ### 用户基础
 - ✅ **6年前端开发经验**，Vue2精通
@@ -34,7 +35,7 @@
 | React + TS | ✅ 已完成 | - | [笔记](study-notes/React/INDEX.md) |
 | Next.js | ✅ 已完成 | - | [笔记](study-notes/Next.js/INDEX.md) |
 | **LangChain.js** | ✅ **已完成** | **100%** | [笔记](study-notes/LangChain/INDEX.md) |
-| Vercel AI SDK | 🔥 **进行中** | 60% | [笔记](study-notes/Vercel%20AI%20SDK/INDEX.md) |
+| **Vercel AI SDK** | ✅ **已完成** | **100%** | [笔记](study-notes/Vercel%20AI%20SDK/INDEX.md) |
 
 ---
 
@@ -69,9 +70,9 @@ Node.js-Study/
 
 ---
 
-## 🔥 当前学习：Vercel AI SDK
+## 🔥 当前学习：项目实战
 
-### 已掌握的主题
+### 已掌握的主题（Vercel AI SDK 已完成）
 
 | 主题 | 关键 API | 置信度 |
 |------|---------|--------|
@@ -81,13 +82,15 @@ Node.js-Study/
 | 重新生成 | regenerate({ messageId }) | ⭐⭐⭐ |
 | 新对话 | useChat({ id }) 切换 id | ⭐⭐⭐ |
 | Tool Calling | tool() + inputSchema + execute + stepCountIs | ⭐⭐⭐ |
+| Structured Output | Output.object() + Zod + generateObject/streamObject | ⭐⭐⭐ |
+| System Prompt 深入 | system + 策略映射 + DefaultChatTransport + useRef | ⭐⭐⭐ |
+| Client-side Tool | onToolCall + addToolOutput + sendAutomaticallyWhen | ⭐⭐ |
+| RAG 整合 | LangChain 检索 + streamText({ system: context }) | ⭐⭐⭐ |
 
-### 待学习内容
+### 下一步计划
 
-- Structured Output（generateObject / streamObject）
-- System Prompt 深入
-- Client-side Tool
-- RAG 整合（LangChain 后端 + AI SDK 前端）
+- 项目1：AI 知识库问答系统（RAG）
+- 项目2：AI Agent 助手（工具调用）
 
 ### LangChain.js 已完成的练习
 
@@ -110,10 +113,8 @@ Node.js-Study/
 
 ### 待学习内容
 
-- Vercel AI SDK（流式交互 + 前端集成）
-- Structured Output + System Prompt + Client-side Tool
-- RAG 整合（LangChain + AI SDK）
 - LangGraph 工作流编排（进阶）
+- 部署（Vercel + Railway）
 
 ---
 
@@ -145,10 +146,8 @@ Node.js-Study/
 - Agent 工具调用 ✅
 
 ### 🔥 阶段5：Vercel AI SDK + 项目整合
-- useChat / streaming / Tool Calling ✅（6/10 完成）
-- Structured Output / System Prompt / Client-side Tool（待学习）
-- RAG 整合（LangChain 后端 + AI SDK 前端）
-- 项目1：AI 知识库问答系统（RAG）
+- useChat / streaming / Tool Calling / Structured Output / System Prompt / Client-side Tool / RAG 整合 ✅（10/10 完成）
+- 项目1：AI 知识库问答系统（RAG）（进行中）
 - 项目2：AI Agent 助手（工具调用）
 
 ---
@@ -156,7 +155,7 @@ Node.js-Study/
 ## 📊 学习统计
 
 **开始日期**: 2026-03-13
-**最近更新**: 2026-04-25
+**最近更新**: 2026-04-26
 **求职冲刺**: 8周计划（04-01 ~ 05-26）
 
 ### 进度里程碑
@@ -174,7 +173,8 @@ Node.js-Study/
 | 04-19 | LangChain.js RAG 优化 Multi-Query 完成（93%） |
 | 04-19 | LangChain.js Agent 工具调用完成（100%） |
 | 04-22 | Vercel AI SDK 流式聊天基础完成 |
-| 04-25 | Vercel AI SDK useChat + Tool Calling 完成（60%） |
+| 04-25 | Vercel AI SDK useChat + Tool Calling + Structured Output + System Prompt + Client-side Tool 完成（90%） |
+| 04-26 | Vercel AI SDK RAG 整合完成（100%）|
 | ~04-28 | LangChain.js 完成 + 项目1后端 |
 | ~05-05 | **项目1完成**（AI 知识库问答系统） |
 | ~05-19 | **项目2完成**（AI Agent 助手） |
@@ -190,7 +190,7 @@ Node.js-Study/
 - **工具**: Git、VS Code、Postman、Obsidian
 
 ### 正在学习
-- **AI SDK**: Vercel AI SDK（流式交互 + 前端集成）
+- **项目实战**: AI 知识库问答系统（RAG + LangChain.js + AI SDK）
 
 ### 待学习
 - **AI 编排**: LangGraph.js（Agent 工作流，进阶）
@@ -220,7 +220,7 @@ Node.js-Study/
 | Vercel AI SDK 进度 | `progress/vercel-ai-sdk-progress.md` |
 | LangChain 进度 | `progress/langchain-progress.md` |
 | 8周冲刺计划 | `progress/accelerated-plan.md` |
-| 今日学习笔记 | `sessions/vercel-ai-sdk/2026-04-25/session-notes.md` |
+| 今日学习笔记 | `sessions/vercel-ai-sdk/2026-04-26/session-notes.md` |
 | Vercel AI SDK 笔记 | `study-notes/Vercel AI SDK/INDEX.md` |
 | LangChain 笔记 | `study-notes/LangChain/INDEX.md` |
 | 练习代码 | `projects/langchain-demo/` |
@@ -245,5 +245,5 @@ Node.js-Study/
 ---
 
 **最后更新**: 2026-04-25
-**当前技能**: Vercel AI SDK (60% 🔥) → 项目实战
+**当前技能**: 项目实战（Vercel AI SDK 100% ✅）→ LangGraph.js
 **GitHub**: https://github.com/575568329/study-Node.js.git

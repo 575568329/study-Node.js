@@ -6,8 +6,9 @@
 
 ## 学习状态
 
-- **进度**: 6/10 topics = 60%
+- **进度**: 10/10 topics = **100%** ✅
 - **开始日期**: 2026-04-22
+- **完成日期**: 2026-04-26
 - **进度文件**: `progress/vercel-ai-sdk-progress.md`
 
 ---
@@ -19,6 +20,7 @@
 | [[useChat核心API]] | useChat 返回值、status、sendMessage、stop、regenerate | ⭐⭐⭐ |
 | [[Tool-Calling]] | tool() 定义、inputSchema、execute、stepCountIs、协议原理 | ⭐⭐⭐ |
 | [[v6迁移指南]] | v6 vs 旧版的关键变化汇总 | ⭐⭐⭐ |
+| [[RAG整合]] | LangChain 检索 + AI SDK 流式展示对接模式 | ⭐⭐⭐ |
 
 ## 03-易错点与陷阱
 
