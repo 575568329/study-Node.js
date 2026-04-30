@@ -11,3 +11,4 @@
 | 日期 | 主题 | 产出 |
 |------|------|------|
 | 2026-04-29 | Day 1: 项目搭建 + 数据层 | 7个文件（types/db/embedding/vector-store） |
+| 2026-04-30 | Day 2: API 层 + 首页 | chunker + 3个API Route + 首页 |
