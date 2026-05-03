@@ -1,7 +1,7 @@
 # 项目实战 — 会话索引
 
 > 技能: AI 知识库问答系统（rag-docs-assistant）
-> 项目地址: D:\Study\rag-docs-assistant
+> 项目地址: C:\Users\about\OneDrive\桌面\study\rag-docs-assistant
 > GitHub: https://github.com/575568329/rag-docs-assistant
 
 ---
@@ -12,3 +12,4 @@
 |------|------|------|
 | 2026-04-29 | Day 1: 项目搭建 + 数据层 | 7个文件（types/db/embedding/vector-store） |
 | 2026-04-30 | Day 2: API 层 + 首页 | chunker + 3个API Route + 首页 |
+| 2026-05-03 | Day 3: RAG 对话 + 文档上传 + 日志系统 | chat API + ChatPanel + 上传按钮 + 日志 + 持久化 |
