@@ -13,3 +13,4 @@
 | 2026-04-29 | Day 1: 项目搭建 + 数据层 | 7个文件（types/db/embedding/vector-store） |
 | 2026-04-30 | Day 2: API 层 + 首页 | chunker + 3个API Route + 首页 |
 | 2026-05-03 | Day 3: RAG 对话 + 文档上传 + 日志系统 | chat API + ChatPanel + 上传按钮 + 日志 + 持久化 |
+| 2026-05-04 | Day 4: UI 打磨 + 错误处理 + Markdown 渲染 | 上传进度条(XHR) + 加载状态 + Toast 组件 + react-markdown |

@@ -19,7 +19,7 @@
 
 > **切换技能时更新以下指针**，所有文件路径基于此指针动态解析。
 
-- **当前技能**: 项目实战（AI 知识库问答系统）— Day 3 RAG 对话完成
+- **当前技能**: 项目实战（AI 知识库问答系统）— Day 5 优化完成
 - **下一技能**: LangGraph.js（Agent 工作流编排，进阶）
 - **进度文件**: `progress/accelerated-plan.md`
 - **会话目录**: `sessions/`
@@ -159,6 +159,6 @@ CLAUDE.md                   # AI导师配置（本文件）
 
 ---
 
-**最后更新**: 2026-04-26
-**当前技能**: 项目实战（Vercel AI SDK 已完成 100%）→ LangGraph.js
+**最后更新**: 2026-05-04
+**当前技能**: 项目实战（Day 5 优化完成）→ LangGraph.js
 **GitHub仓库**: https://github.com/575568329/study-Node.js.git
