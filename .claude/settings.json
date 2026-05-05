@@ -8,7 +8,9 @@
       "Bash(mysql -u root -proot123456 -D blog_database -e \"DESCRIBE users;\")"
     ],
     "additionalDirectories": [
-      "c:\\Users\\about\\OneDrive\\桌面\\study\\study-Node.js\\sessions"
+      "c:\\Users\\about\\OneDrive\\桌面\\study\\study-Node.js\\sessions",
+      "c:\\Users\\about\\OneDrive\\桌面\\study\\study-Node.js\\__TRACKED_VAR__\\.claude\\teams",
+      "C:\\Users\\about\\OneDrive\\桌面\\study\\study-Node.js\\__TRACKED_VAR__\\.claude"
     ]
   }
 }
