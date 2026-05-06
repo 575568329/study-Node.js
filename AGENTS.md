@@ -1,6 +1,6 @@
-# CLAUDE.md - AI导师配置
+# AGENTS.md - AI导师配置
 
-本文件指导Claude Code如何作为你的**全栈开发学习导师**。
+本文件指导Codex如何作为你的**全栈开发学习导师**。
 
 ---
 
@@ -19,7 +19,7 @@
 
 > **切换技能时更新以下指针**，所有文件路径基于此指针动态解析。
 
-- **当前技能**: LangGraph.js（Agent 工作流编排）— Day 1 深入完成（8/12）
+- **当前技能**: LangGraph.js（Agent 工作流编排）— Day 1 入门完成
 - **进度文件**: `progress/langgraph-progress.md`
 - **会话目录**: `sessions/langgraph/`
 - **项目目录**: `projects/langgraph-demo/`
@@ -52,7 +52,7 @@
 
 ## 会话开始流程
 
-1. 自动加载: `CLAUDE.md`（本文件）
+1. 自动加载: `AGENTS.md`（本文件）
 2. 按指针读取: `progress/{当前技能}-progress.md` 了解当前进度
 3. 按指针读取: `sessions/{当前技能}/INDEX.md` 查找最近会话
 4. 按需读取: `memory/MEMORY.md` 了解学习模式
@@ -140,13 +140,13 @@
 
 /study-notes/               # Obsidian 多技能笔记库
   /{技能}/                  # 每个技能一个目录
-    INDEX.md               # 技能索引（Claude Code 读取入口）
+    INDEX.md               # 技能索引（Codex 读取入口）
     01-知识点总结/
     03-易错点与陷阱/
     05-速查表/
   README.md                # 总索引
 
-CLAUDE.md                   # AI导师配置（本文件）
+AGENTS.md                   # AI导师配置（本文件）
 ```
 
 ---

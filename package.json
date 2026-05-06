@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.94.0",
     "@langchain/core": "^1.1.40",
     "@langchain/openai": "^1.4.4",
     "bcrypt": "^6.0.0",

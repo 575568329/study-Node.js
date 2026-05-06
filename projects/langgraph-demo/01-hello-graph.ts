@@ -7,7 +7,7 @@
  * 运行：npx tsx 01-hello-graph.ts
  */
 
-import { StateGraph, StateSchema, START, END } from "@langchain/langgraph"
+import { StateGraph, StateSchema, START, END, ReducedValue } from "@langchain/langgraph"
 import { z } from "zod"
 
 // ==================== 1. 定义状态 ====================
@@ -17,7 +17,10 @@ const State = new StateSchema({
   question: z.string(),       // 用户问题
   answer: z.string(),         // 最终回答
   questionType: z.string(),   // 问题类型（math/greeting/unknown）
-  steps: z.array(z.string()), // 记录走过的节点（调试用）
+  steps: new ReducedValue(z.array(z.string()).default(() => []), {
+    inputSchema: z.array(z.string()),
+    reducer: (currentSteps, nextSteps) => [...currentSteps, ...nextSteps],
+  }), // 记录走过的节点（调试用）
 })
 
 // ==================== 2. 定义节点 ====================

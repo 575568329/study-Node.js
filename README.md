@@ -36,6 +36,7 @@
 | Next.js | ✅ 已完成 | - | [笔记](study-notes/Next.js/INDEX.md) |
 | **LangChain.js** | ✅ **已完成** | **100%** | [笔记](study-notes/LangChain/INDEX.md) |
 | **Vercel AI SDK** | ✅ **已完成** | **100%** | [笔记](study-notes/Vercel%20AI%20SDK/INDEX.md) |
+| **LangGraph.js** | 🔥 **进行中** | **67%** | [笔记](study-notes/LangGraph/INDEX.md) |
 
 ---
 
