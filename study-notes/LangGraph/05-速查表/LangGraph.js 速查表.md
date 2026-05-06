@@ -66,3 +66,22 @@ messages：给用户看
 checkpoint：给图恢复
 thread_id：放 conversations 表
 ```
+
+## Subgraph
+
+```ts
+async function callSubgraph(state: typeof MainState.State) {
+  const result = await subGraph.invoke({ query: state.question });
+  return { summary: result.summary };
+}
+```
+
+## Multi-Agent 条件循环
+
+```ts
+type ReviewDecision = "approved" | "revise" | "force_final";
+
+function routeAfterReview(state: typeof TeamState.State) {
+  return state.reviewDecision === "revise" ? "writer" : "final";
+}
+```

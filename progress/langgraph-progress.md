@@ -3,7 +3,7 @@
 **开始日期**: 2026-05-06
 **最后更新**: 2026-05-06
 **学习天数**: 1
-**总体进度**: 8/12 (67%)
+**总体进度**: 10/12 (83%)
 
 ## 已掌握主题
 
@@ -17,13 +17,13 @@
 | 6 | Human-in-the-loop（interrupt + Command resume） | 04-human-in-the-loop.ts | 2026-05-06 | ⭐⭐⭐⭐ |
 | 7 | Agent 工具审批（危险工具执行前人工审批） | 05-agent-tool-approval.ts | 2026-05-06 | ⭐⭐⭐⭐ |
 | 8 | Checkpoint 持久化设计（messages vs checkpoint） | 设计讨论 | 2026-05-06 | ⭐⭐⭐ |
+| 9 | Subgraph 子图（主图调用子图 + State 映射） | 06-subgraph.ts | 2026-05-06 | ⭐⭐⭐⭐ |
+| 10 | Multi-Agent 编排（角色分工 + 条件审核循环） | 07-multi-agent.ts | 2026-05-06 | ⭐⭐⭐⭐ |
 
 ## 待学习主题
 
 | # | 主题 | 预估难度 |
 |---|------|---------|
-| 9 | Subgraph 子图 | ⭐⭐⭐⭐ |
-| 10 | Multi-Agent 编排 | ⭐⭐⭐⭐ |
 | 11 | Streaming 流式输出 | ⭐⭐ |
 | 12 | Command + Send 动态路由 | ⭐⭐⭐⭐ |
 
@@ -42,8 +42,10 @@
 | LLM 可能脑补工具参数 | 危险工具执行前展示真实参数，并做路径白名单、权限校验、审批 | 2026-05-06 |
 | messages 表不能替代 checkpoint | messages 解决展示历史，checkpoint 解决图从哪里继续 | 2026-05-06 |
 | withApproval 泛型推断为 unknown | 调用时显式传入输入类型，如 `withApproval<CalculatorInput>()` | 2026-05-06 |
+| State 字段名和节点名冲突 | State channel 与 node 共享命名空间，字段用名词、节点用动词，如 `draft` / `generateDraft` | 2026-05-06 |
+| z.enum 返回值被推断为 string | 显式声明字面量联合类型，如 `type ReviewDecision = "approved" | "revise" | "force_final"` | 2026-05-06 |
+| Multi-Agent 审核循环可能无限重试 | 增加 `revisionCount` 和 `force_final`，达到上限后强制收敛 | 2026-05-06 |
 
 ## 下次学习计划
-- Subgraph 子图
-- Multi-Agent 编排
 - Streaming 流式输出
+- Command + Send 动态路由

@@ -19,7 +19,7 @@
 
 > **切换技能时更新以下指针**，所有文件路径基于此指针动态解析。
 
-- **当前技能**: LangGraph.js（Agent 工作流编排）— Day 1 入门完成
+- **当前技能**: LangGraph.js（Agent 工作流编排）— Day 1 深入完成（10/12）
 - **进度文件**: `progress/langgraph-progress.md`
 - **会话目录**: `sessions/langgraph/`
 - **项目目录**: `projects/langgraph-demo/`
@@ -161,3 +161,4 @@ AGENTS.md                   # AI导师配置（本文件）
 **最后更新**: 2026-05-06
 **当前技能**: LangGraph.js（Day 1 入门完成）
 **GitHub仓库**: https://github.com/575568329/study-Node.js.git
+

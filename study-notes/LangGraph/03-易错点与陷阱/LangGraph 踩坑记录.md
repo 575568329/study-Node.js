@@ -26,3 +26,7 @@
 | LLM 脑补文件路径 | 模型会生成看似合理的参数 | 展示真实参数、权限校验、路径白名单 |
 | 工具拒绝文案不清楚 | 模型会误总结为权限不足 | 返回“人工审批未通过” |
 | messages 代替 checkpoint | messages 不含执行现场 | checkpoint 保存恢复点 |
+
+| State 字段名与节点名重复 | channel 与 node 共享命名空间 | 字段用名词，节点用动词 |
+| z.enum 返回值变 string | 字面量类型被拓宽 | 显式声明联合类型 |
+| Multi-Agent 无限重写 | 缺少最大循环次数 | 使用 revisionCount + force_final |

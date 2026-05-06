@@ -134,3 +134,49 @@
 - **核心理解**: 已理解 Agent 模式的本质是 LLM 自主决策 + 工具循环，不是手动 if-else
 - **安全意识**: 能主动提出白名单放行、未知工具默认审批的 fail closed 策略
 - **架构意识**: 能区分 userId、conversationId、thread_id，以及 messages 与 checkpoint 的职责边界
+
+### 7. Subgraph 子图（06-subgraph.ts）
+- Subgraph 是可以独立运行的小图，可以被主图作为节点调用。
+- 主图与子图使用独立 State，通过显式输入/输出映射传递数据。
+- 完成 `researchGraph`：query → documents → summary。
+- 完成 `writerGraph`：topic + researchSummary → draft。
+- 主图流程：question → researchSummary → draft → finalAnswer。
+- 验证子图内部字段不会自动污染主图 State。
+- 讨论：同一主图体系下通常共享 checkpointer，子图 State 独立但 checkpoint 统一保存恢复现场。
+
+### 8. Multi-Agent 编排（07-multi-agent.ts）
+- 固定流程版：researcher → writer → reviewer → final。
+- 每个 Agent 节点职责明确：Researcher 产出研究结论，Writer 写草稿，Reviewer 审核质量，Final 整合输出。
+- 增加条件边：reviewer 根据 `reviewDecision` 路由到 final 或 writer。
+- 增加审核循环：不通过则回 writer 重写。
+- 增加 `revisionCount` 防止无限循环。
+- 优化三态决策：`approved` / `revise` / `force_final`。
+- 验证通过分支和强制结束分支。
+
+## 本轮新增提问记录
+
+| 问题 | 回答要点 |
+|------|---------|
+| Subgraph 是普通节点还是小图？ | 是可独立运行的小图，可作为主图节点调用。 |
+| 主图和子图能否直接共用 State？ | 可以但不推荐；职责不同应独立 State，并显式映射输入输出。 |
+| 子图使用自己的 checkpointer 还是主图统一？ | 同一主图体系下通常统一 checkpointer；State 隔离不等于 checkpoint 分裂。 |
+| Multi-Agent 是否等同多个工具？ | 类似但层级不同：工具是函数能力，Agent/Subgraph 是角色工作流。 |
+| Reviewer 只看 draft 够不够？ | 不够，应至少看原始任务、研究依据和草稿。 |
+| 简单计算要不要 Multi-Agent？ | 不需要，单 Agent + 工具更合适。 |
+| 为什么 Multi-Agent 要限制 revisionCount？ | 控制成本、延迟、不确定性，避免模型无限“继续优化”。 |
+
+## 本轮新增错误记录
+
+### 错误11：State 字段名与 Node 节点名冲突
+- **错误**: `draft` 既作为 State 字段，又作为 node 名称 `.addNode("draft", draftNode)`。
+- **原因**: LangGraph 中 State channel 与 node 共享命名空间。
+- **正确**: 字段用名词，节点用动词，如 `draft` / `generateDraft`。
+
+### 错误12：z.enum 返回值被 TypeScript 推断为 string
+- **错误**: `reviewDecision: passed ? "approved" : "revise"` 被推断为 `string`。
+- **原因**: 节点返回对象的字面量类型被拓宽。
+- **正确**: 显式声明 `type ReviewDecision = "approved" | "revise" | "force_final"`。
+
+### 错误13：Multi-Agent 审核循环缺少退出条件
+- **风险**: writer → reviewer → writer 无限循环。
+- **正确**: 增加 `revisionCount`，到达上限后设置 `force_final`。
