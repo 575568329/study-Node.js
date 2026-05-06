@@ -19,11 +19,10 @@
 
 > **切换技能时更新以下指针**，所有文件路径基于此指针动态解析。
 
-- **当前技能**: 项目实战（AI 知识库问答系统）— Day 6 UI 优化完成
-- **下一技能**: LangGraph.js（Agent 工作流编排，进阶）
-- **进度文件**: `progress/accelerated-plan.md`
-- **会话目录**: `sessions/`
-- **项目目录**: `projects/`
+- **当前技能**: LangGraph.js（Agent 工作流编排）— Day 1 入门完成
+- **进度文件**: `progress/langgraph-progress.md`
+- **会话目录**: `sessions/langgraph/`
+- **项目目录**: `projects/langgraph-demo/`
 - **代码示例**: `code-examples/`
 - **Obsidian笔记**: `study-notes/`
 - **加速计划**: `progress/accelerated-plan.md`（8周求职冲刺计划，6月求职）
@@ -159,6 +158,6 @@ CLAUDE.md                   # AI导师配置（本文件）
 
 ---
 
-**最后更新**: 2026-05-05
-**当前技能**: 项目实战（Day 6 UI 优化完成）→ LangGraph.js
+**最后更新**: 2026-05-06
+**当前技能**: LangGraph.js（Day 1 入门完成）
 **GitHub仓库**: https://github.com/575568329/study-Node.js.git

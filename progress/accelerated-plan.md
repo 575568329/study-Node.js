@@ -108,7 +108,7 @@
 
 | 天 | 内容 | 产出 |
 |---|---|---|
-| Day 1 | LangGraph.js 入门：State / Node / Edge / 图编排 | Agent 练习 |
+| Day 1 | LangGraph.js 入门：State / Node / Edge / 图编排 | Agent 练习 | ✅ |
 | Day 2 | Agent 模式：ReAct / Tool Use / Function Calling | Agent 练习 |
 | Day 3 | Multi-Agent 概念 + 人机协作模式 | 概念 + 练习 |
 | Day 4 | **项目2 开始**: AI Agent 助手（工具调用 + 联网搜索） | 项目2 骨架 |
