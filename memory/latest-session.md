@@ -105,3 +105,21 @@ rag-docs-assistant 项目体检
 - 已把讯飞澳门项目素材和项目表达总结整理到 `docs/work-projects/`。
 - 已将 `简历相关/` 收缩为简历工程、原始简历归档和少量直接相关材料。
 - 已删除 `docs/` 根目录下与 RAG 项目重复的副本，保留项目分类目录作为真源。
+
+## 2026-05-07 复习模式约定
+
+- 后续 Node / React / Vue / Next / AI / 后端 复习按统一模式推进：
+  先判断是否会，不会就按学习时的方式重新讲解，再配小实例或代码，最后出对应面试题。
+- 该模式会作为后续知识点复习的默认节奏，避免下次又切回纯讲解或跳步复习。
+
+## 2026-05-07 fullstack 复习入口补齐
+
+- 已新增 `docs/fullstack/统一复习矩阵.md`，把 Node / React / Vue / Next / AI / 后端按 `必问 / 需精进 / 项目关联` 三层拆开。
+- 已新增 `docs/fullstack/复习计划.md`，明确顺序为：先矩阵，再 Node，再 React/Vue/Next，再 AI/后端，最后面试模拟和简历回填。
+- 已补 `docs/fullstack/` 下的后端与面试补强材料：
+  - `Node后端追问清单.md`
+  - `数据库与持久化取舍.md`
+  - `SSE与WebSocket对比.md`
+  - `MQ思想与Node落地.md`
+  - `Java概念到Node类比.md`
+- 已新增 `docs/projects/rag-docs-assistant/RAG项目简历描述.md`。

@@ -55,6 +55,22 @@ docs/work-projects/
 - 各项目亮点与面试表达
 - 项目经历整理模板
 
+### fullstack
+
+目录：
+
+```text
+docs/fullstack/
+```
+
+内容：
+
+- Node 后端追问
+- 数据库与持久化取舍
+- SSE 与 WebSocket 对比
+- MQ 思想与 Node 落地
+- Java 概念到 Node 类比
+
 ### RAG 主项目
 
 目录：
@@ -84,4 +100,5 @@ docs/projects/rag-docs-assistant/
 - `简历相关/` 只维护简历素材、评价和 `resume-web`。
 - `study-notes/` 继续作为知识笔记库，不作为求职交付入口。
 - `projects/` 保留代码和 demo，项目定位见 [../projects/INDEX.md](../projects/INDEX.md)。
+- `docs/fullstack/` 保存 P5 全栈补强材料。
 

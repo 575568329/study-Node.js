@@ -64,6 +64,7 @@
 - [ ] 检查并完善 `简历相关/resume-web` 简历内容。
 - [ ] 从 `docs/` 面试资产中提炼简历 bullet。
 - [ ] 导出 PDF 并检查分页、空白和控件隐藏。
+- [ ] 按 `docs/fullstack/复习计划.md` 继续推进 Node / React / Vue / Next / AI / 后端 复习，并把成熟内容回填到简历。
 
 ## 已完成
 
