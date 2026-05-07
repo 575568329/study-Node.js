@@ -7,7 +7,7 @@
 - 项目：`Node.js-Study`
 - 当前阶段：学习内容已基本完成，转入项目证明、简历和面试准备。
 - 当前定位：全栈工程师｜Node.js / React / Next.js｜AI 应用方向。
-- 当前主项目：外部仓库 `C:\Users\about\OneDrive\桌面\study\rag-docs-assistant`。
+- 当前主项目：外部仓库 `D:\Study\rag-docs-assistant`。
 - 当前仓库用途：学习记录、简历素材、项目证明方案、面试资产、辅助 demo。
 
 ## 后续工作读取顺序
@@ -73,4 +73,35 @@ rag-docs-assistant 项目体检
 - 不大规模移动历史学习目录。
 - 不把没有项目支撑的技术词写进简历主技能。
 - 后续回答默认围绕“项目证明 + 面试可讲”展开。
+## 2026-05-07 RAG 项目体检
 
+- 已确认 RAG 主项目真实路径为 `D:\Study\rag-docs-assistant`。
+- 已输出 `docs/RAG项目体检报告.md`。
+- 体检结论：项目主体能力完整，但优先要修复构建失败、路径记录过期、对话历史不完整、图谱清理不完整等风险。
+## 2026-05-07 RAG 构建修复
+
+- 已在 `D:\Study\rag-docs-assistant\next.config.ts` 配置 `turbopack.root = process.cwd()`。
+- 已执行 `npm install` 补齐本地依赖。
+- 已验证 `npm run build` 通过。
+- 下一步建议补删除知识库时图谱清理逻辑。
+## 2026-05-07 RAG 数据一致性修复
+
+- 已在 `D:\Study\rag-docs-assistant\src\app\api\kb\[id]\route.ts` 中删除知识库时同步调用 `getGraphStore().deleteCollection(id)`。
+- 已验证 `npm run build` 通过。
+- 剩余建议：补完整对话历史持久化，或补删除单个文档时图谱节点清理。
+## 2026-05-07 RAG 对话历史闭环
+
+- 已在 `D:\Study\rag-docs-assistant\src\lib\db.ts` 增加 `conversationMessages` 存储结构。
+- 已扩展 `/api/chat/history?convId=xxx` 返回单个对话及完整消息。
+- 已让 `/api/chat` 在带 `conversationId` 时保存 user / assistant 消息和 sources metadata。
+- 已让前端通过 `convId` 路由新建、打开并恢复历史对话。
+- 已验证 `npm run build` 通过。
+
+
+## 2026-05-07 文档按项目归档
+
+- 已将 RAG 面试资产统一收口到 `docs/projects/rag-docs-assistant/`。
+- 已把求职定位、项目盘点、职业策略和历史调研整理到 `docs/career/`。
+- 已把讯飞澳门项目素材和项目表达总结整理到 `docs/work-projects/`。
+- 已将 `简历相关/` 收缩为简历工程、原始简历归档和少量直接相关材料。
+- 已删除 `docs/` 根目录下与 RAG 项目重复的副本，保留项目分类目录作为真源。

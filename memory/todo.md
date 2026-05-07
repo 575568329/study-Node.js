@@ -17,10 +17,10 @@
 
 ### P1：项目体检
 
-- [ ] 切到外部仓库 `C:\Users\about\OneDrive\桌面\study\rag-docs-assistant`。
-- [ ] 按 `docs/02-RAG项目体检清单.md` 检查代码结构。
-- [ ] 输出 `docs/RAG项目体检报告.md`。
-- [ ] 标注已完成能力、简历可写点、面试风险点、必须补齐项。
+- [x] 切到外部仓库 `D:\Study\rag-docs-assistant`。
+- [x] 按 `docs/02-RAG项目体检清单.md` 检查代码结构。
+- [x] 输出 `docs/RAG项目体检报告.md`。
+- [x] 标注已完成能力、简历可写点、面试风险点、必须补齐项。
 
 ### P2：组件库脚手架
 
@@ -81,3 +81,5 @@
 - [ ] 检查 `AGENTS.md`、`CLAUDE.md` 中当前阶段描述是否同步到“全栈项目证明”。
 - [ ] 如果后续继续维护 LangGraph demo，再补 `projects/langgraph-demo/INDEX.md`。
 
+
+- [ ] 将 `docs/career/` 和 `docs/work-projects/` 继续提炼进简历成稿，删除不再需要的历史草稿。
