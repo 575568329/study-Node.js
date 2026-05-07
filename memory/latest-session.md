@@ -34,18 +34,20 @@
 - 已提交并推送：`docs: 更新学习记忆上下文`。
 - 用户明确：目前学习内容已经完成，后续要用项目证明能力，并保证面试追问能应对。
 - 用户明确：放弃纯前端主线，全面转型全栈。
-- 已新增项目读取入口：
+- 已新增项目读取入口与执行计划：
   - `docs/README.md`
   - `docs/00-工作入口.md`
   - `docs/01-全栈转型项目证明方案.md`
   - `docs/02-RAG项目体检清单.md`
   - `docs/03-面试资产目录.md`
   - `projects/INDEX.md`
+  - `docs/04-全栈求职执行计划.md`
+  - `docs/组件库设计方案.md`
 
 ## 当前项目状态
 
 - `Node.js-Study` 不再以课程推进为核心。
-- `rag-docs-assistant` 是唯一主项目，需要先做体检。
+- `rag-docs-assistant` 是主项目，需要先做体检；同时组件库作为第二条证明线，按 `docs/组件库设计方案.md` 推进。
 - `projects/langgraph-demo`、`projects/langchain-demo`、`projects/ai-chat` 是学习证明，不作为主项目。
 - `简历相关/resume-web` 是简历生成工具，后续简历内容从 `docs/` 面试资产中提炼。
 
@@ -71,3 +73,4 @@ rag-docs-assistant 项目体检
 - 不大规模移动历史学习目录。
 - 不把没有项目支撑的技术词写进简历主技能。
 - 后续回答默认围绕“项目证明 + 面试可讲”展开。
+

@@ -18,6 +18,7 @@ GitHub: https://github.com/575568329/rag-docs-assistant
 | 层级 | 项目 | 路径 | 用途 |
 | --- | --- | --- | --- |
 | S | RAG 文档问答系统 | 外部 `rag-docs-assistant` | 全栈 AI 主项目，优先打磨 |
+| A | 全栈组件库 | `projects/fullstack-ui-kit/` | React + TypeScript 组件设计证明，计划创建 |
 | A | React 任务管理系统 | `projects/react/task-manager/` | 前端工程能力补充 |
 | A | Node.js 个人博客 API | `projects/nodejs/11-personal-blog/` | Node.js 后端基础补充 |
 | B | LangGraph demo | `projects/langgraph-demo/` | Agent 工作流学习证明 |
@@ -38,3 +39,4 @@ GitHub: https://github.com/575568329/rag-docs-assistant
 - 不要把 `projects/langgraph-demo` 包装成主项目。
 - 不要为了整理而移动历史项目目录。
 - 不要在当前仓库记录 `.env` 密钥。
+
