@@ -4,142 +4,121 @@
 
 ## 仓库目标
 
-`Node.js-Study` 已从 AI 辅助学习仓库切换为简历、面试和项目包装准备仓库。学习资料作为面试支撑材料继续保留。
+`Node.js-Study` 已从 AI 辅助学习仓库切换为：
 
-核心技术栈：
-- TypeScript
-- React / Next.js
-- Node.js
-- RAG
-- LangChain.js / Vercel AI SDK / LangGraph.js（作为支撑能力）
+**全栈转型项目证明、简历和面试准备仓库。**
 
-## 学习系统结构
+历史学习资料继续保留，但后续工作优先围绕 RAG 主项目和面试资产展开。
+
+## 当前定位
+
+```text
+全栈工程师｜Node.js / React / Next.js｜AI 应用方向
+```
+
+不是放弃前端，而是以前端复杂业务经验为基础转向全栈交付。
+
+## 仓库结构
 
 ```text
 Node.js-Study/
-├── AGENTS.md                  # Codex 导师规则与记忆规则
-├── CLAUDE.md                  # 之前 Claude 导师规则
+├── docs/                      # 后续工作入口、项目证明方案、面试资产
+├── 简历相关/                  # 简历素材、评价、resume-web
 ├── memory/                    # Codex 恢复上下文记忆
-├── 简历相关/                  # 当前主目录：简历、方案、评价、网页简历项目
-├── progress/                  # 各技能学习进度
-├── sessions/                  # 每日学习会话记录
-├── study-notes/               # Obsidian 风格笔记
-├── projects/                  # 实战项目与练习 demo
-└── code-examples/             # 小型代码示例
+├── projects/                  # 学习 demo 与辅助项目
+├── progress/                  # 历史学习进度
+├── sessions/                  # 历史学习会话
+├── study-notes/               # Obsidian 风格知识笔记
+├── code-examples/             # 小代码示例
+├── AGENTS.md                  # Codex 导师规则
+├── CLAUDE.md                  # Claude 导师规则
+└── README.md                  # 仓库总览
 ```
 
-## Codex 必读记忆文件
+## 入口文件
 
-`AGENTS.md` 要求每次开始工作前读取：
+后续每次开始工作先读：
 
 ```text
+docs/00-工作入口.md
+docs/01-全栈转型项目证明方案.md
+docs/02-RAG项目体检清单.md
+docs/03-面试资产目录.md
+projects/INDEX.md
 memory/latest-session.md
 memory/todo.md
-memory/decisions.md
-memory/architecture.md
 ```
 
-任务结束时，如果上下文变化，需要同步更新这些文件。
+## 主项目
 
-## 当前学习架构
-
-当前重点：简历、面试和项目包装。
+RAG 主项目是外部仓库：
 
 ```text
-study-Node.js/简历相关/
-  -> 三版简历 / 方案 / 评价 / 面试材料 / resume-web
-
 C:\Users\about\OneDrive\桌面\study\rag-docs-assistant
-  -> RAG 主项目，负责支撑 Node.js 全栈 AI 版简历
-
-study-Node.js/sessions、progress、study-notes、projects
-  -> 学习记录、补强笔记和 demo 仓库
+GitHub: https://github.com/575568329/rag-docs-assistant
 ```
 
-LangGraph 当前状态：已完成 10/12，暂缓继续扩展，后续作为 Agent / MCP / Human-in-the-loop 的补充能力。
+它负责支撑：
 
-LangGraph 示例文件：
+- 全栈能力证明。
+- AI 应用能力证明。
+- 简历主项目。
+- 面试 3 分钟讲解。
+- 技术追问回答。
+
+## 当前仓库内项目分层
+
+详见：
 
 ```text
-projects/langgraph-demo/
-├── 01-hello-graph.ts
-├── 01-hello-graph2.ts
-├── 02-agent-with-tools.ts
-├── 03-agent-with-memory.ts
-├── 04-human-in-the-loop.ts
-├── 05-agent-tool-approval.ts
-├── 06-subgraph.ts
-├── 07-multi-agent.ts
-├── package.json
-└── .env
+projects/INDEX.md
 ```
 
-禁止在记忆文件中记录 `.env` 的密钥值。
+简要分层：
 
-## LangGraph 概念路线
+- S：外部 `rag-docs-assistant`。
+- A：React 任务管理、Node.js 个人博客 API。
+- B：LangGraph demo、LangChain demo、AI SDK demo。
+- C：历史学习练习。
+
+## 关键工作流
+
+### RAG 项目体检
 
 ```text
-StateGraph 基础
-  -> Agent with Tools
-  -> Memory / Checkpoint
-  -> Human-in-the-loop
-  -> 工具审批
-  -> Subgraph
-  -> Multi-Agent
-  -> Streaming
-  -> Command + Send
+读取 rag-docs-assistant 代码
+  -> 按 docs/02-RAG项目体检清单.md 检查
+  -> 输出 docs/RAG项目体检报告.md
+  -> 决定补强顺序
 ```
 
-当前不继续新开 Agent 项目；先把三版简历、RAG 主项目、工作项目讲稿和面试追问准备完整。
-
-## 关键数据流
-
-### Agent with Tools
+### 面试资产沉淀
 
 ```text
-HumanMessage
-  -> agent 节点
-  -> toolsCondition 判断是否存在 tool_calls
-  -> 如需工具则进入 ToolNode
-  -> agent 节点总结工具结果
-  -> END
+项目体检
+  -> README
+  -> 架构图
+  -> 演示文档 / 演示问题
+  -> 3 分钟讲稿
+  -> 高频追问答案
+  -> 简历 bullet
 ```
 
-### Memory
+### 简历落地
 
 ```text
-graph.invoke(input, { configurable: { thread_id } })
-  -> checkpointer 根据 thread_id 加载旧 state
-  -> MessagesAnnotation 追加新 messages
-  -> graph 执行
-  -> checkpointer 保存更新后的 state
+docs 面试资产
+  -> 简历相关/resume-web/src/resumeVersions.ts
+  -> 浏览器预览
+  -> PDF 导出
+  -> 分页检查
 ```
 
-### Human-in-the-loop
+## 暂缓内容
 
-```text
-节点调用 interrupt(value)
-  -> 图返回 __interrupt__
-  -> 外部用户批准 / 拒绝
-  -> graph.invoke(new Command({ resume }), 同一个 runConfig)
-  -> 图从 checkpoint 中恢复并继续执行
-```
+- MCP / OpenClaw 深入研究。
+- 新开 Agent 项目。
+- 大规模整理历史学习目录。
+- 把 LangGraph / Multi-Agent 写成简历主卖点。
 
-### 生产持久化边界
-
-```text
-users / conversations / messages
-  -> 用户可见历史、归属、权限
-
-LangGraph checkpoint
-  -> 图执行恢复、中断点、pending execution state
-```
-
-## 教学交互模式
-
-沿用苏格拉底式教学：
-- 先问用户已有理解。
-- 用简短解释和具体代码讲概念。
-- 讲完立即检查理解。
-- 用户写 demo 时，优先给提示和检查点，不直接替写完整答案。
-- 完成学习里程碑后更新 progress 和 session 文件。
+LangGraph 已完成核心学习，后续只有接入主项目并可演示后，才作为简历加分项。

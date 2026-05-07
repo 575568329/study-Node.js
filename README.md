@@ -132,3 +132,24 @@ memory/architecture.md
 ```
 
 当前不再默认进入“开始今日学习”流程。除非明确要求学习新技术，否则默认围绕简历、面试和项目包装推进。
+
+## 当前工作入口（2026-05-07）
+
+当前仓库已从“学习进度仓库”切换为“全栈转型项目证明与面试准备仓库”。后续工作优先读取：
+
+| 文件 | 用途 |
+| --- | --- |
+| [docs/00-工作入口.md](docs/00-工作入口.md) | 当前主线、边界、读取顺序 |
+| [docs/01-全栈转型项目证明方案.md](docs/01-全栈转型项目证明方案.md) | 全栈转型定位和执行计划 |
+| [docs/02-RAG项目体检清单.md](docs/02-RAG项目体检清单.md) | RAG 主项目体检标准 |
+| [docs/03-面试资产目录.md](docs/03-面试资产目录.md) | 讲稿、追问、简历描述等产物清单 |
+| [projects/INDEX.md](projects/INDEX.md) | 当前仓库内项目分层与用途 |
+
+当前主项目：`rag-docs-assistant`（外部仓库）
+
+```text
+C:\Users\about\OneDrive\桌面\study\rag-docs-assistant
+GitHub: https://github.com/575568329/rag-docs-assistant
+```
+
+后续主线：先做 RAG 项目体检，再补 README、架构图、演示数据、3 分钟讲稿和面试追问清单。
