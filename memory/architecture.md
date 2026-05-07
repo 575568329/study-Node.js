@@ -81,6 +81,63 @@ projects/INDEX.md
 - B：LangGraph demo、LangChain demo、AI SDK demo。
 - C：历史学习练习。
 
+## 组件库定位
+
+`projects/fullstack-ui-kit` 作为第二条证明线存在，但定位不是通用 UI 库。
+
+核心抽象方向：
+
+- AI 对话组件。
+- RAG 来源和引用组件。
+- Agent / 流程执行组件。
+- 文件上传和流式输出组件。
+- 前端复杂状态和错误恢复组件。
+
+普通基础组件只保留最小集合，不作为主卖点。
+
+## 组件库当前实现
+
+`projects/fullstack-ui-kit` 已落地为独立 Vite + React + TypeScript 子项目，当前首批组件为：
+
+- `ChatMessage`
+- `SourceCard`
+- `StepTimeline`
+- `UploadPanel`
+
+页面入口用于展示：
+
+- AI 对话样式。
+- RAG 来源卡片。
+- Agent 执行步骤。
+- 上传状态和错误重试。
+
+## npm 发布仓库
+
+独立 npm 版本的真源已迁移到：
+
+```text
+D:\Study\fullstack-ui-kit
+```
+
+当前结构要点：
+
+- `src/index.ts` 作为库入口。
+- `tsconfig.build.json` 负责输出声明文件。
+- `vite.config.js` 使用 library mode。
+- `package.json` 配置了 `peerDependencies`、`exports`、`files` 和双格式输出。
+
+## 子代理工作流
+
+当前仓库已集成仓库级子代理协作规范，核心模式是：
+
+- 主线程负责规划、分派和验收。
+- 子代理负责调查、实现和审查。
+- 大任务先拆 scope，再并行执行，再由主线程汇总。
+
+对应文档：
+
+- `docs/codex_with_cc子代理工作流.md`
+
 ## 关键工作流
 
 ### RAG 项目体检

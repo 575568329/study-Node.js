@@ -138,3 +138,67 @@
 - 后续每个知识点都先做理解确认。
 - 不会的内容补讲时要配小实例或代码。
 - 每个知识点最后都要落到面试题。
+
+---
+
+## 2026-05-07 - 组件库定位收敛为 AI 场景与复杂状态抽象
+
+**决策**：`fullstack-ui-kit` 不做通用大而全 UI 库，优先抽取 AI 对话、RAG 来源引用、Agent 执行步骤、文件上传、流式输出、错误恢复等组件。
+
+**原因**：
+- 用户明确组件库主要服务 AI 相关场景、简历项目沉淀和前端疑难杂症。
+- 普通按钮、输入框、弹窗、表格等组件不是核心卖点，做太多会稀释项目价值。
+- 面试里更有说服力的是“从真实项目中抽象出高频复杂场景组件”，而不是重复造常规 UI 轮子。
+
+**影响**：
+- 第一批优先组件调整为 `ChatMessage`、`SourceCard`、`StepTimeline`、`UploadPanel`。
+- `StreamingText`、`ErrorStatePanel`、`RetryNotice`、`ConversationHistoryPanel` 作为复杂状态补强。
+- 常规基础组件只保留最小能力，不作为简历主卖点。
+
+---
+
+## 2026-05-07 - 组件库实现采用最小可运行 Vite 子项目
+
+**决策**：`projects/fullstack-ui-kit` 先用独立 Vite + React + TypeScript 子项目落地，并以 `ChatMessage`、`SourceCard`、`StepTimeline`、`UploadPanel` 作为首批可演示组件。
+
+**原因**：
+- 组件库需要先有可运行、可构建、可展示的真实代码，再继续补文档和面试材料。
+- 先做 AI / RAG / Agent 场景组件，比先做 Button / Input / Modal 更符合项目定位。
+- 最小可运行版本更容易验证构建链路和后续扩展边界。
+
+**影响**：
+- 组件库可直接 `npm run dev` 和 `npm run build`。
+- 后续优先补 `StreamingText`、`ErrorStatePanel`、`RetryNotice`、`ConversationHistoryPanel`。
+- 普通基础组件后置，只作为辅助，不作为主卖点。
+
+---
+
+## 2026-05-07 - npm 版本独立放在 D:\\Study\\fullstack-ui-kit
+
+**决策**：真正要发布 npm 的组件库独立仓库放到 `D:\Study\fullstack-ui-kit`，不再依附于 `Node.js-Study`。
+
+**原因**：
+- npm 包需要清晰独立的仓库边界。
+- 这样可以单独配置 `peerDependencies`、`exports`、`files`、打包产物和发布流程。
+- 方便后续直接绑定 `git@github.com:575568329/fullstack-ui-kit.git`。
+
+**影响**：
+- `Node.js-Study` 里保留方案和索引，不再作为发布源。
+- `D:\Study\fullstack-ui-kit` 成为 npm 发布真源。
+- 目前已切为 library mode，并可成功构建出 `dist/index.js`、`dist/index.cjs`、`dist/style.css`。
+
+---
+
+## 2026-05-07 - 仓库级子代理工作流采用主线程加子代理模式
+
+**决策**：把 `codex_with_cc` 的核心协作思想集成到当前仓库规则中，采用“主线程规划 + 子代理分工 + 主线程验收”的协作模式。
+
+**原因**：
+- 当前项目涉及 RAG 主项目、组件库、简历和面试材料，任务并行度高。
+- 子代理适合做调查、实现和审查分工，能减少单线程上下文污染。
+- 需要一套可重复的协作规范，而不是每次临时决定是否拆分。
+
+**影响**：
+- `AGENTS.md` 增加了子代理调度边界和输出要求。
+- 新增 `docs/codex_with_cc子代理工作流.md` 作为可执行说明。
+- 后续大任务可以优先考虑并行拆分，但必须保持 scope 互斥、主线程最终验收。

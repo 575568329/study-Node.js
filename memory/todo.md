@@ -24,11 +24,13 @@
 
 ### P2：组件库脚手架
 
-- [ ] 创建 `projects/fullstack-ui-kit`。
-- [ ] 配置 Vite + React + TypeScript。
-- [ ] 实现 Button / Modal / Toast 三个基础组件。
+- [x] 创建 `projects/fullstack-ui-kit`。
+- [x] 配置 Vite + React + TypeScript。
+- [x] 实现 AI / RAG / Agent 相关基础示例页。
+- [x] 跑通 demo 页面。
 - [ ] 补组件分层说明和 README。
-- [ ] 跑通 demo 页面。
+- [x] 独立迁移到 `D:\\Study\\fullstack-ui-kit`。
+- [x] 切换为可发布 npm 包结构。
 
 ### P3：RAG 项目面试资产
 
@@ -41,10 +43,12 @@
 
 ### P4：组件库第一版
 
-- [ ] 补 UploadPanel / SourceCard / ChatMessage / StepTimeline。
-- [ ] 补 DataTable。
+- [x] 优先补 AI / RAG / Agent 相关组件：UploadPanel / SourceCard / ChatMessage / StepTimeline。
+- [ ] 补前端复杂状态组件：StreamingText / ErrorStatePanel / RetryNotice / ConversationHistoryPanel。
+- [ ] 仅保留普通基础组件最小集合，不把 Button / Input / Modal / Toast 作为主卖点。
 - [ ] 补组件 API 文档。
 - [ ] 准备组件库 2 分钟讲稿和追问清单。
+- [ ] 初始化独立仓库 git remote 并准备首次提交。
 
 ### P5：全栈追问补强
 
@@ -52,6 +56,7 @@
 - [ ] 梳理 JSON / SQLite / PostgreSQL / Chroma 的取舍。
 - [ ] 从 RAG 项目中沉淀 3-5 个组件案例。
 - [ ] 准备 Node.js 全栈 AI 版自我介绍。
+- [ ] 大任务默认按子代理工作流拆分，任务边界和验收标准先写清楚。
 
 ### P6：工作项目材料
 
