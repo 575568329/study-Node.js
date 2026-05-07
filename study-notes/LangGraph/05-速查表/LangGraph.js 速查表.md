@@ -85,3 +85,63 @@ function routeAfterReview(state: typeof TeamState.State) {
   return state.reviewDecision === "revise" ? "writer" : "final";
 }
 ```
+## Streaming
+
+```ts
+const stream = await graph.stream(input, {
+  streamMode: "updates",
+});
+
+for await (const chunk of stream) {
+  console.log(chunk);
+}
+```
+
+```text
+updates：节点局部更新
+values：每一步完整 State
+```
+
+## Send
+
+```ts
+function routeTasks(state: typeof PlannerState.State) {
+  return state.tasks.map((task) => new Send("worker", { task }));
+}
+```
+
+目标节点接收 `Send` 第二个参数：
+
+```ts
+type WorkerInput = { task: string };
+```
+
+## ReducedValue
+
+```ts
+results: new ReducedValue(
+  z.array(z.string()).default(() => []),
+  {
+    inputSchema: z.array(z.string()),
+    reducer: (existing, update) => existing.concat(update),
+  }
+)
+```
+
+用于多个 worker 并发写同一字段时合并结果。
+
+## Command
+
+```ts
+return new Command({
+  update: {
+    finalAnswer: "简单问题直接回答",
+  },
+  goto: END,
+});
+```
+
+```text
+update：写 State
+goto：决定下一跳
+```

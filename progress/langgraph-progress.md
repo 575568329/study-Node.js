@@ -1,9 +1,9 @@
 # LangGraph.js 学习进度
 
 **开始日期**: 2026-05-06
-**最后更新**: 2026-05-06
-**学习天数**: 1
-**总体进度**: 10/12 (83%)
+**最后更新**: 2026-05-07
+**学习天数**: 2
+**总体进度**: 12/12 (100%)
 
 ## 已掌握主题
 
@@ -19,13 +19,12 @@
 | 8 | Checkpoint 持久化设计（messages vs checkpoint） | 设计讨论 | 2026-05-06 | ⭐⭐⭐ |
 | 9 | Subgraph 子图（主图调用子图 + State 映射） | 06-subgraph.ts | 2026-05-06 | ⭐⭐⭐⭐ |
 | 10 | Multi-Agent 编排（角色分工 + 条件审核循环） | 07-multi-agent.ts | 2026-05-06 | ⭐⭐⭐⭐ |
+| 11 | Streaming 流式输出（updates / values） | 08-streaming.ts | 2026-05-07 | ⭐⭐⭐⭐ |
+| 12 | Command + Send 动态路由（map-reduce 并发派发） | 09-command-send.ts | 2026-05-07 | ⭐⭐⭐⭐ |
 
 ## 待学习主题
 
-| # | 主题 | 预估难度 |
-|---|------|---------|
-| 11 | Streaming 流式输出 | ⭐⭐ |
-| 12 | Command + Send 动态路由 | ⭐⭐⭐⭐ |
+已完成 LangGraph.js Day 1-2 核心入门主题。下一步进入项目化整合：把 Memory、工具审批、Streaming、Command/Send 用到 AI Agent 项目中。
 
 ## 踩坑记录
 
@@ -45,7 +44,10 @@
 | State 字段名和节点名冲突 | State channel 与 node 共享命名空间，字段用名词、节点用动词，如 `draft` / `generateDraft` | 2026-05-06 |
 | z.enum 返回值被推断为 string | 显式声明字面量联合类型，如 `type ReviewDecision = "approved" | "revise" | "force_final"` | 2026-05-06 |
 | Multi-Agent 审核循环可能无限重试 | 增加 `revisionCount` 和 `force_final`，达到上限后强制收敛 | 2026-05-06 |
+| `invoke()` 结果不能 `for await` | `invoke()` 返回最终 State；只有 `stream()` 返回异步流 | 2026-05-07 |
+| `StateSchema` 中 Zod registry reducer 未生效 | 使用 `StateSchema` 时追加字段用 `ReducedValue`，否则并发写入仍是 `LastValue` | 2026-05-07 |
+| 多个 `Send` worker 并发写同一字段报错 | 共享字段必须配置 reducer 合并多个更新，如 `results` 使用 `ReducedValue` | 2026-05-07 |
 
 ## 下次学习计划
-- Streaming 流式输出
-- Command + Send 动态路由
+- 项目化整合 LangGraph：可流式展示步骤的 Agent 工作流
+- 设计作品集项目中的 Agent 状态、审批、工具和恢复流程

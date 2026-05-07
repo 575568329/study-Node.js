@@ -1,6 +1,6 @@
 # LangGraph 踩坑记录
 
-> 最近更新: 2026-05-06
+> 最近更新: 2026-05-07
 
 ## API 与类型
 
@@ -10,6 +10,8 @@
 | addEdge 传函数 | addEdge 需要节点名字符串 | `.addEdge(START, "agent")` |
 | withApproval 泛型变 unknown | 泛型未被 tool() 调用推断 | `withApproval<CalculatorInput>()` |
 | `as` 被误认为运行时校验 | `as` 只是类型断言 | 生产用 Zod parse |
+| `invoke()` 结果不能 `for await` | `invoke()` 返回普通 State | 使用 `graph.stream()` |
+| `registry` 主包导入失败 | Zod registry 在适配层 | `import { registry } from "@langchain/langgraph/zod"` |
 
 ## 环境变量
 
@@ -30,3 +32,6 @@
 | State 字段名与节点名重复 | channel 与 node 共享命名空间 | 字段用名词，节点用动词 |
 | z.enum 返回值变 string | 字面量类型被拓宽 | 显式声明联合类型 |
 | Multi-Agent 无限重写 | 缺少最大循环次数 | 使用 revisionCount + force_final |
+| 多个 Send worker 写同一字段报错 | 默认 LastValue 不能接收同 step 多个更新 | 使用 ReducedValue 合并 |
+| StateSchema 中 Zod registry reducer 未生效 | StateSchema 需要 ReducedValue 表示 reducer 字段 | `new ReducedValue(...)` |
+| workerNode 类型写成主图 State | Send 传入的是局部输入 | 按 `new Send("worker", { task })` 定义 `WorkerInput` |
