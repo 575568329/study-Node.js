@@ -7,7 +7,7 @@
 ## 学生概况
 
 - 29岁，6年前端经验，Vue2精通
-- 学习目标：AI应用开发全栈工程师（TypeScript + React/Next.js + LangChain.js + Vercel AI SDK + LangGraph.js）
+- 当前目标：全面面向简历和面试，定位全栈型前端 / AI 应用方向前端工程师
 - 终极项目：开发类似Claude的AI工具
 - 学习风格：实践导向，喜欢自己写代码，深度思考，提出高质量技术问题
 - 开始日期：2026-03-13
@@ -16,9 +16,9 @@
 
 ## 当前进度
 
-- **当前技能**: LangGraph.js（Agent 工作流编排）
-- **进度**: 10/12（83%），见 `progress/langgraph-progress.md`
-- **当前阶段**: LangGraph.js Day 1 深入完成，剩余 Streaming、Command + Send
+- **当前重点**: 简历三版本、面试讲稿、项目追问、RAG 项目包装
+- **LangGraph 进度**: 10/12（83%），见 `progress/langgraph-progress.md`
+- **当前阶段**: study-Node 学习流程已基本走完，后续全面服务简历和面试准备
 - **已完成主线**: Node.js、TypeScript、Vue3、React、Next.js、AI基础、LangChain.js、Vercel AI SDK、RAG项目实战核心、LangGraph 多数主题
 
 ---
@@ -69,7 +69,18 @@
 3. 今日学习目标
 4. 学生对上次内容的理解程度
 
-## 当前 LangGraph 学习重点
+## 当前学习重点
+
+优先级从 2026-05-07 起调整为简历 / 面试主线：
+
+1. 三版简历：通用版、纯前端版、Node.js 全栈 AI 版。
+2. `rag-docs-assistant` 项目包装：README、架构图、演示数据、演示问题、3 分钟讲稿、追问清单。
+3. 工作项目讲稿：讯飞澳门项目、地灾 GIS、车载终端。
+4. Node.js / Next.js 后端追问补强：API Route、文件上传、SSE、错误处理、日志、任务状态。
+5. 前端组件化沉淀：从 RAG 项目和讯飞富文本链路提炼组件案例。
+6. LangGraph 仅保留复习和后续整合，不再作为当前主线。
+
+## LangGraph 已学内容
 
 - 已掌握：
   - StateGraph 图编排
@@ -82,7 +93,7 @@
   - Checkpoint 持久化设计
   - Subgraph
   - Multi-Agent
-- 待学习：
+- 暂缓学习：
   - Streaming
   - Command + Send 动态路由
 
@@ -103,7 +114,13 @@
 
 ## 学习路径
 
-~~Node.js~~ -> ~~TypeScript~~ -> ~~Vue3/React~~ -> ~~Next.js~~ -> ~~AI基础~~ -> ~~LangChain.js~~ -> ~~Vercel AI SDK~~ -> **LangGraph.js** -> Agent项目 -> 部署/简历/面试
+旧路径：
+
+~~Node.js~~ -> ~~TypeScript~~ -> ~~Vue3/React~~ -> ~~Next.js~~ -> ~~AI基础~~ -> ~~LangChain.js~~ -> ~~Vercel AI SDK~~ -> LangGraph.js -> Agent项目 -> 部署/简历/面试
+
+新路径：
+
+~~Node.js~~ -> ~~TypeScript~~ -> ~~React/Next.js~~ -> ~~LangChain / AI SDK / RAG 基础~~ -> ~~LangGraph 核心~~ -> **简历 / 面试 / 项目包装** -> 按面试反馈查漏补缺
 
 ---
 

@@ -1,0 +1,18 @@
+所以让你多研究生langchina langgarph
+他哪些是agent框架和问题痛点得集成解决商
+落地一些范式
+先会用
+明白哪些组件
+然后解决一两个问题
+然后研究底层魔法
+然后脱胎看论文
+你就无敌了
+
+langchina 0.3的版本不知道多原始
+还没我ccodeNB呢
+还不是几百万人用
+他最开始没有什么react agent
+就是一个workflow
+就是一个for循环➕正则
+有鸡毛NB的
+他最开始subagent都没有

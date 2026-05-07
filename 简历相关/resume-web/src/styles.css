@@ -1,0 +1,91 @@
+@import "tailwindcss";
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  font-family:
+    "Microsoft YaHei",
+    "PingFang SC",
+    "Noto Sans CJK SC",
+    Arial,
+    sans-serif;
+}
+
+.resume-page {
+  width: 210mm;
+  min-height: 297mm;
+}
+
+.resume-theme {
+  --accent: #1d4f91;
+  --accent-dark: #172b4d;
+  --accent-soft: #edf4ff;
+  --accent-border: #bfd2ee;
+}
+
+.resume-header {
+  border-bottom: 2px solid var(--accent-dark);
+}
+
+.resume-name,
+.resume-section-title,
+.project-title,
+.skill-card-title {
+  color: var(--accent-dark);
+}
+
+.resume-section {
+  border-top: 1px solid var(--accent-border);
+}
+
+.profile-tag {
+  background: var(--accent-soft);
+  color: var(--accent-dark);
+}
+
+.skill-card {
+  border-color: var(--accent-border);
+  background: linear-gradient(90deg, var(--accent-soft), #fff 44%);
+}
+
+.skill-pill {
+  border-color: var(--accent-border);
+  color: var(--accent-dark);
+  background: #fff;
+}
+
+.project-block {
+  border-left: 3px solid var(--accent);
+  padding-left: 7px;
+}
+
+.resume-bullet-dot {
+  color: var(--accent);
+}
+
+@page {
+  size: A4;
+  margin: 0;
+}
+
+@media print {
+  html,
+  body {
+    background: #fff;
+  }
+
+  .resume-page {
+    width: 210mm;
+    min-height: 297mm;
+    padding: 10mm 12mm;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+}

@@ -4,14 +4,14 @@
 
 ## 仓库目标
 
-`Node.js-Study` 是一个 AI 辅助学习与作品集构建仓库，目标是转型为 AI 应用开发全栈工程师。
+`Node.js-Study` 已从 AI 辅助学习仓库切换为简历、面试和项目包装准备仓库。学习资料作为面试支撑材料继续保留。
 
 核心技术栈：
 - TypeScript
 - React / Next.js
-- LangChain.js
-- Vercel AI SDK
-- LangGraph.js
+- Node.js
+- RAG
+- LangChain.js / Vercel AI SDK / LangGraph.js（作为支撑能力）
 
 ## 学习系统结构
 
@@ -20,6 +20,7 @@ Node.js-Study/
 ├── AGENTS.md                  # Codex 导师规则与记忆规则
 ├── CLAUDE.md                  # 之前 Claude 导师规则
 ├── memory/                    # Codex 恢复上下文记忆
+├── 简历相关/                  # 当前主目录：简历、方案、评价、网页简历项目
 ├── progress/                  # 各技能学习进度
 ├── sessions/                  # 每日学习会话记录
 ├── study-notes/               # Obsidian 风格笔记
@@ -42,13 +43,20 @@ memory/architecture.md
 
 ## 当前学习架构
 
-当前技能：LangGraph.js。
+当前重点：简历、面试和项目包装。
 
 ```text
-progress/langgraph-progress.md
-sessions/langgraph/
-projects/langgraph-demo/
+study-Node.js/简历相关/
+  -> 三版简历 / 方案 / 评价 / 面试材料 / resume-web
+
+C:\Users\about\OneDrive\桌面\study\rag-docs-assistant
+  -> RAG 主项目，负责支撑 Node.js 全栈 AI 版简历
+
+study-Node.js/sessions、progress、study-notes、projects
+  -> 学习记录、补强笔记和 demo 仓库
 ```
+
+LangGraph 当前状态：已完成 10/12，暂缓继续扩展，后续作为 Agent / MCP / Human-in-the-loop 的补充能力。
 
 LangGraph 示例文件：
 
@@ -81,6 +89,8 @@ StateGraph 基础
   -> Streaming
   -> Command + Send
 ```
+
+当前不继续新开 Agent 项目；先把三版简历、RAG 主项目、工作项目讲稿和面试追问准备完整。
 
 ## 关键数据流
 

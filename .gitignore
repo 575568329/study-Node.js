@@ -43,6 +43,8 @@ projects/*/node_modules/
 projects/*/dist/
 projects/*/build/
 projects/*/uploads/  # 上传文件目录
+简历相关/resume-web/dist/
+简历相关/resume-web/tsconfig.tsbuildinfo
 
 # Claude Code配置
 .claude/settings.local.json  # 本地设置

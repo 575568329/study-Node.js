@@ -5,14 +5,16 @@
 ## 当前上下文
 
 - 项目：`Node.js-Study`
-- 定位：AI 辅助的全栈 AI 应用学习与作品集仓库。
-- 当前技能：LangGraph.js Agent 工作流编排。
-- 当前进度：根据 `progress/langgraph-progress.md`，已完成 `10/12` 个主题。
+- 定位：简历、面试和项目包装准备仓库；学习资料作为支撑材料。
+- 当前重点：三版简历、RAG 项目讲稿、工作项目追问、Node.js 全栈 AI 面试准备。
+- LangGraph 进度：根据 `progress/langgraph-progress.md`，已完成 `10/12` 个主题，暂缓继续扩展。
 - 当前学习指针：
-  - 进度文件：`progress/langgraph-progress.md`
-  - 会话目录：`sessions/langgraph/`
-  - 示例项目：`projects/langgraph-demo/`
-  - 笔记目录：`study-notes/`
+  - 简历目录：`简历相关/`
+  - 网页简历：`简历相关/resume-web/`
+  - RAG 主项目：`C:\Users\about\OneDrive\桌面\study\rag-docs-assistant`
+  - 参考学习仓库：`study-Node.js`
+  - 记忆目录：`memory/`
+  - 后续补强：Node.js API Route、文件上传、SSE、错误处理、日志、组件化沉淀
 
 ## 最近完成内容
 
@@ -37,10 +39,10 @@
 
 ## 当前项目状态
 
-- LangGraph.js 学习已接近完成。
-- 剩余计划主题：
-  - Streaming 流式输出
-  - Command + Send 动态路由
+- `study-Node.js` 学习流程已基本走完，当前全面面向简历和面试。
+- `简历相关/` 已移动到 `study-Node.js` 内。
+- `rag-docs-assistant` 已具备 RAG 主项目雏形，但还缺 README、架构图、演示数据、讲稿、追问清单等面试资产。
+- LangGraph.js 学习已接近完成，但当前不作为主线继续推进。
 - 用户偏好苏格拉底式教学：
   - 先问理解，再讲解。
   - 简洁解释，配合代码。
@@ -59,4 +61,12 @@
 
 ## 下一步建议
 
-继续学习 LangGraph.js：先学 `Streaming`，再学 `Command + Send` 动态路由。
+优先推进简历和面试材料：
+
+1. 检查三版网页简历和 PDF 导出效果。
+2. RAG 项目 README、架构图、演示文档和演示问题。
+3. RAG 项目 3 分钟讲稿和追问清单。
+4. 讯飞澳门项目讲稿和追问清单。
+5. Node.js 全栈 AI 版自我介绍。
+6. Node.js / SSE / 文件上传 / 错误处理补强。
+7. 前端组件化沉淀。

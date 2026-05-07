@@ -6,6 +6,44 @@
 
 ---
 
+## 2026-05-07 - 仓库主线切换为简历和面试准备
+
+**决策**：`study-Node.js` 学习流程视为基本走完，当前仓库主线切换为简历、面试和项目包装准备。
+
+**原因**：
+- 用户已将 `简历相关/` 移动到 `study-Node.js` 内。
+- Node.js、TypeScript、React、Next.js、LangChain、Vercel AI SDK、RAG、LangGraph 核心学习已经覆盖。
+- 当前最重要目标是求职转化，而不是继续推进课程式学习。
+
+**影响**：
+- `简历相关/` 成为当前主工作目录。
+- `rag-docs-assistant` 是 Node.js 全栈 AI 版简历的主项目支撑。
+- `sessions/`、`progress/`、`study-notes/`、`projects/` 作为面试支撑材料和查漏补缺资料。
+- 后续任务优先级：三版简历、PDF、项目讲稿、追问清单、面试模拟。
+
+---
+
+## 2026-05-07 - 学习主线从 LangGraph 扩展切换到 RAG 项目闭环
+
+**决策**：暂停继续扩展 LangGraph 新主题和新 Agent 项目，优先把 `rag-docs-assistant` 打磨成可投递、可演示、可讲解的主项目。
+
+**原因**：
+- `study-Node.js` 已覆盖 Node.js、TypeScript、React、Next.js、LangChain、Vercel AI SDK、RAG、LangGraph，多数基础已经够用。
+- 当前简历和面试更缺项目闭环、架构图、README、演示数据、讲稿和追问答案。
+- 继续学习 MCP / OpenClaw / LangGraph 高级主题会增加关键词，但短期内不能显著提升投递可信度。
+
+**影响**：
+- `rag-docs-assistant` 成为当前唯一主项目。
+- `projects/langchain-demo`、`projects/ai-chat`、`projects/langgraph-demo` 作为学习 demo 和面试复习材料，不作为主简历项目。
+- LangGraph 的 Streaming、Command + Send 后置，后续需要时再恢复。
+
+**下一步**：
+- 补 README、架构图、演示数据、3 分钟讲稿、追问清单。
+- 补 Node.js API Route、文件上传、SSE、错误处理、日志和任务状态。
+- 从 RAG 项目提炼组件化沉淀案例。
+
+---
+
 ## 2026-05-07 - 使用仓库内 memory 文件作为 Codex 恢复上下文
 
 **决策**：按照 `AGENTS.md` 要求，在仓库内 `memory/` 目录维护 Codex 工作记忆。
