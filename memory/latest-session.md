@@ -152,3 +152,11 @@ rag-docs-assistant 项目体检
   - `MQ思想与Node落地.md`
   - `Java概念到Node类比.md`
 - 已新增 `docs/projects/rag-docs-assistant/RAG项目简历描述.md`。
+
+## 2026-05-08 Node 事件循环复习
+
+- 已按问答方式完成 Node.js 事件循环第一轮复习。
+- 已明确模型：入口脚本可理解为初始宏任务；每个宏任务内部先执行同步代码，再清空 `process.nextTick` 和 Promise 微任务，然后进入下一个宏任务。
+- 已补充 Node.js 与 Java 后端选型区别，以及 Claude Code / Codex 等 CLI 工具为什么常用 Node.js。
+- 已新增笔记：`docs/fullstack/Node事件循环.md`。
+- 后续进入下一个 Node 高频知识点，继续按“先判断是否会 -> 讲解 -> 小例子 -> 面试回答 -> 记录笔记”的方式推进。
