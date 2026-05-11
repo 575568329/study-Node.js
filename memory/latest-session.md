@@ -1,6 +1,6 @@
 # 最近会话
 
-**最后更新**：2026-05-07
+**最后更新**：2026-05-11
 
 ## 当前上下文
 
@@ -68,6 +68,17 @@
 - 已把独立仓库开发端口固定为 `3000`，预览端口固定为 `3001`，避免和其他项目默认端口冲突。
 - 已把页面主标题改成中性表述 `组件演示站`，不再使用类比式宣传文案。
 - 已在独立仓库 `D:\\Study\\fullstack-ui-kit` 新增 repo-local `memory.md`，同步项目定位、当前组件、演示方式和下一步。
+- 2026-05-09 完成 Node.js 事件循环复习的第二轮追问：
+  - `setTimeout` 不传 delay 时，Node 默认按 `1ms` 处理，且小于 1 的值也会被归一到 `1`。
+  - 在 I/O 回调里同时注册 `process.nextTick`、Promise、`setImmediate`、`setTimeout` 时，通常顺序仍是 `nextTick -> Promise -> immediate -> timeout`。
+  - 进一步确认 `await` 后续执行属于 Promise 微任务，不是同步代码也不是宏任务。
+- 2026-05-11 完成 Node.js Stream 与背压复习：
+  - 明确 `readFileSync` 会阻塞事件循环，大文件一次性读入内存可能导致 OOM。
+  - 明确 `fs.createReadStream()` 默认产出的 `chunk` 是 `Buffer`，传 `encoding` 后才是字符串。
+  - 讲清 `write()` 返回值、`pause()`、`drain`、`resume()` 如何配合处理背压。
+  - 讲清 `pipe()` 自动处理背压，`pipeline()` 进一步统一错误处理和资源清理。
+  - 讲清 `Readable`、`Writable`、`Duplex`、`Transform` 四种流的区别。
+  - 已新增笔记：`docs/fullstack/Node Stream与背压.md`。
 
 ## 当前项目状态
 
@@ -160,3 +171,18 @@ rag-docs-assistant 项目体检
 - 已补充 Node.js 与 Java 后端选型区别，以及 Claude Code / Codex 等 CLI 工具为什么常用 Node.js。
 - 已新增笔记：`docs/fullstack/Node事件循环.md`。
 - 后续进入下一个 Node 高频知识点，继续按“先判断是否会 -> 讲解 -> 小例子 -> 面试回答 -> 记录笔记”的方式推进。
+
+## 2026-05-09 Node 计时器追问
+
+- 已继续追问 `setTimeout` / `setImmediate` / `process.nextTick` / Promise 的相对顺序。
+- 已明确：`setTimeout(fn)` 在 Node.js 中默认 delay 为 `1ms`，不是 `0ms`。
+- 已确认：在 `readFile` 这类 I/O 回调内部注册定时器时，`setImmediate` 仍通常先于 `setTimeout` 执行。
+- 后续继续复习 Node 高频题：`Promise` / `async-await` 细节、`Stream`、错误处理和背压。
+
+## 2026-05-11 Node Stream 与背压复习
+
+- 已按问答方式复习 Stream、大文件读取、背压、`pipe()`、`pipeline()` 和四种流类型。
+- 已纠正：`readFileSync` 会阻塞 Node.js 事件循环，不适合在服务端请求链路中处理大文件。
+- 已明确：背压的核心是读取端快于写入端，导致写入缓冲区堆积。
+- 已新增笔记：`docs/fullstack/Node Stream与背压.md`。
+- 后续建议继续 Node 高频复习：错误处理、异步任务状态设计、文件上传链路与 RAG 项目结合。
