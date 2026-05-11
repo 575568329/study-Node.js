@@ -186,3 +186,14 @@ rag-docs-assistant 项目体检
 - 已明确：背压的核心是读取端快于写入端，导致写入缓冲区堆积。
 - 已新增笔记：`docs/fullstack/Node Stream与背压.md`。
 - 后续建议继续 Node 高频复习：错误处理、异步任务状态设计、文件上传链路与 RAG 项目结合。
+
+## 2026-05-11 Node 异步与错误处理复习
+
+- 已按问答方式复习 `Promise`、`async/await`、异步错误捕获和并发控制。
+- 已纠正：`await` 普通值时，后续代码仍会进入 Promise 微任务。
+- 已明确：`return promise` 不会被当前函数内部 `try...catch` 捕获，`return await promise` 可以。
+- 已明确：API Route 中影响接口成功与否的异步逻辑必须 `await`，后台增强任务可以不 `await`，但必须 `.catch()`。
+- 已明确：`Promise.all` 适合缺一不可的并行任务，`Promise.allSettled` 适合允许部分失败的降级任务。
+- 已明确：`map(async fn)` 返回 `Promise[]`，大批量任务需要分批或 `p-limit` 做并发控制。
+- 已新增笔记：`docs/fullstack/Node异步与错误处理.md`。
+- 后续建议继续 Node 高频复习：HTTP 服务与请求生命周期、请求/响应结构、状态码、headers、body、流式响应，以及和 Next.js Route Handler 的关系。

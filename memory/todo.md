@@ -60,7 +60,8 @@
 - [x] 完成 Node.js 事件循环第一轮复习并记录 docs/fullstack/Node事件循环.md。
 - [x] 完成 Node.js 计时器追问：`setTimeout` 默认 delay、`setImmediate` 与 I/O 回调顺序。
 - [x] 完成 Node.js Stream 与背压复习并记录 docs/fullstack/Node Stream与背压.md。
-- [ ] 继续 Node 高频复习：错误处理、异步任务状态设计、文件上传链路与 RAG 项目结合。
+- [x] 完成 Node.js 异步与错误处理复习并记录 docs/fullstack/Node异步与错误处理.md。
+- [ ] 继续 Node 高频复习：HTTP 服务与请求生命周期、请求/响应结构、状态码、headers、body、流式响应，以及和 Next.js Route Handler 的关系。
 
 ### P6：工作项目材料
 
