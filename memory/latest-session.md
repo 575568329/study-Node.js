@@ -197,3 +197,14 @@ rag-docs-assistant 项目体检
 - 已明确：`map(async fn)` 返回 `Promise[]`，大批量任务需要分批或 `p-limit` 做并发控制。
 - 已新增笔记：`docs/fullstack/Node异步与错误处理.md`。
 - 后续建议继续 Node 高频复习：HTTP 服务与请求生命周期、请求/响应结构、状态码、headers、body、流式响应，以及和 Next.js Route Handler 的关系。
+
+## 2026-05-21 Node HTTP 与认证跨域复习
+
+- 已按问答方式复习 HTTP 请求生命周期、method/path/query/header/body、GET/POST 语义、PUT/PATCH 区别和 REST 接口设计。
+- 已明确常见状态码：200、201、400、401、403、404、409、413、415、500，并纠正“非法 JSON / 字段错误不是 500”的理解。
+- 已明确 `Content-Type` 的作用，JSON 请求需要 `application/json`，FormData 上传文件时通常不要手写 `multipart/form-data`。
+- 已复习 schema 参数校验、统一响应结构、创建文章接口设计，并明确用户身份应从 token 解析，不让前端传 `userId`。
+- 已复习 Cookie、Session、JWT、access token / refresh token、HttpOnly、Secure、SameSite、localStorage 风险、401 和 403 区别。
+- 已复习 CORS、跨域携带 Cookie、Bearer Token 跨域、OPTIONS 预检、`Access-Control-Allow-Headers` / `Allow-Methods`、OPTIONS 不应先鉴权。
+- 已新增笔记：`docs/fullstack/Node HTTP与认证跨域.md`。
+- 后续建议继续 Node 高频复习：Next.js Route Handler 落地、文件上传接口链路、SSE 流式响应，或回到 RAG 项目接口设计。

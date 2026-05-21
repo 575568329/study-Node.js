@@ -1,6 +1,6 @@
 # Node后端追问清单
 
-更新时间：2026-05-11
+更新时间：2026-05-21
 
 ## 使用方式
 
@@ -117,3 +117,37 @@
 - RAG 上传主链路：解析、切片、向量化必须能被接口或任务状态捕获失败
 - 图谱抽取：可作为后台增强任务，但失败时要记录为 `graph_failed`
 - 文件批处理或批量 embedding：不能无脑 `Promise.all`，需要分批或 `p-limit`
+
+---
+
+## 9. 你怎么设计一个创建文章接口？
+
+答题要点：
+
+- 使用 `POST /api/articles`
+- 请求体用 `application/json`
+- body 只传 `title`、`content` 等业务字段
+- `userId`、`role`、`permission` 从 `Authorization` token 解析，不让前端传 `userId`
+- JSON 解析失败返回 400
+- schema 校验失败返回 400
+- 未登录返回 401
+- 没权限返回 403
+- 创建成功返回 201
+- 标题重复或唯一冲突返回 409
+- 数据库或代码异常返回 500
+
+---
+
+## 10. CORS 跨域问题你一般怎么排查？
+
+答题要点：
+
+- 先确认协议、域名、端口是否不同源
+- 看请求 `Origin` 和响应 `Access-Control-Allow-Origin`
+- 带 Cookie 时，前端 fetch 要 `credentials: 'include'`，axios 要 `withCredentials: true`
+- 带 Cookie 时，后端要 `Access-Control-Allow-Credentials: true`，`Allow-Origin` 不能是 `*`
+- 检查 Cookie 的 `SameSite=None; Secure`，本地 HTTP 开发注意 Secure / HTTPS 限制
+- 带 `Authorization`、`Content-Type: application/json` 或自定义 header 时，检查 OPTIONS 预检是否通过
+- `Access-Control-Allow-Headers` 要包含实际请求头
+- `Access-Control-Allow-Methods` 要包含实际请求方法
+- OPTIONS 预检请求应先放行，真正业务请求再做认证鉴权
