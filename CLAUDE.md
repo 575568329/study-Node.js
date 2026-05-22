@@ -69,14 +69,14 @@
 - 所有代码必须验证（搜索官方文档）
 - 不自己启动项目（提供代码和命令，用户自己启动）
 
-**Gemini 协作验证流程**:
-- Gemini 作为"学习策略师"，Claude 作为"执行教练"，双 AI 交叉验证
-- 触发时机：
-  1. 每个新主题开始前 → `node tools/gemini-chat.mjs plan "问题"` 获取学习路径建议
-  2. 核心概念教完后 → `node tools/gemini-chat.mjs verify "内容"` 验证准确性
-  3. 阶段复习时 → `node tools/gemini-chat.mjs quiz` 出题检测盲区
-  4. 模块学完后 → `node tools/gemini-chat.mjs interview "主题"` 模拟面试
-- 交互记录自动保存到 `gemini-interactions/YYYY-MM-DD.md`
+**Gemini 协作模式（主教练 + 审查员/战略顾问）**:
+- Claude 是唯一教学执行者，Gemini 不直接教学
+- 教学前：Claude 准备内容 → 发 Gemini 验证准确性 → 整合后教学
+- 教学中：Gemini 不介入，保持连贯；不确定的点标记"待验证"课后确认
+- 教学后：用 Gemini 验证知识、检测盲区、模拟面试
+- 每周规划：Claude 提出草案 → Gemini 讨论调整 → 确认后执行
+- 冲突处理：向用户说明两种观点，优先查官方文档确定正误
+- 详细设计：`docs/plans/2026-05-22-dual-ai-collaboration-design.md`
 - 前置条件：需先执行 `node tools/gemini-chat.mjs open` 启动 Chrome 调试模式
 - Gemini Gem 系统指令：`docs/gemini-system-prompt.md`
 
