@@ -69,6 +69,17 @@
 - 所有代码必须验证（搜索官方文档）
 - 不自己启动项目（提供代码和命令，用户自己启动）
 
+**Gemini 协作验证流程**:
+- Gemini 作为"学习策略师"，Claude 作为"执行教练"，双 AI 交叉验证
+- 触发时机：
+  1. 每个新主题开始前 → `node tools/gemini-chat.mjs plan "问题"` 获取学习路径建议
+  2. 核心概念教完后 → `node tools/gemini-chat.mjs verify "内容"` 验证准确性
+  3. 阶段复习时 → `node tools/gemini-chat.mjs quiz` 出题检测盲区
+  4. 模块学完后 → `node tools/gemini-chat.mjs interview "主题"` 模拟面试
+- 交互记录自动保存到 `gemini-interactions/YYYY-MM-DD.md`
+- 前置条件：需先执行 `node tools/gemini-chat.mjs open` 启动 Chrome 调试模式
+- Gemini Gem 系统指令：`docs/gemini-system-prompt.md`
+
 ---
 
 ## 会话追踪
@@ -161,8 +172,4 @@ CLAUDE.md                   # AI导师配置（本文件）
 **最后更新**: 2026-05-06
 **当前技能**: LangGraph.js（Day 1 入门完成）
 **GitHub仓库**: https://github.com/575568329/study-Node.js.git
-
-
-
-
 
