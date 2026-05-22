@@ -206,6 +206,98 @@ async function setupGem() {
   }
 }
 
+// ── Context Management ───────────────────────
+const CONTEXT_FILE = join(PROJECT_ROOT, 'gemini-interactions', 'context.json');
+
+const DEFAULT_CONTEXT = {
+  session_id: `sess_${Date.now()}`,
+  updated_at: new Date().toISOString(),
+  stage: '面试准备',
+  milestones: [],
+  rolling_window: [],
+  mode_urls: {},  // mode → last conversation URL for reuse
+};
+
+function loadContext() {
+  try {
+    const saved = JSON.parse(readFileSync(CONTEXT_FILE, 'utf-8'));
+    return { ...DEFAULT_CONTEXT, ...saved };
+  } catch {
+    return { ...DEFAULT_CONTEXT };
+  }
+}
+
+function deepMerge(target, source) {
+  const result = { ...target };
+  for (const key of Object.keys(source)) {
+    if (Array.isArray(source[key])) {
+      result[key] = source[key];
+    } else if (source[key] && typeof source[key] === 'object' && !Array.isArray(source[key])) {
+      result[key] = { ...(target[key] || {}), ...source[key] };
+    } else {
+      result[key] = source[key];
+    }
+  }
+  return result;
+}
+
+function saveContext(updates) {
+  const current = loadContext();
+  const ctx = deepMerge(current, { ...updates, updated_at: new Date().toISOString() });
+  if (!existsSync(INTERACTIONS_DIR)) mkdirSync(INTERACTIONS_DIR, { recursive: true });
+  writeFileSync(CONTEXT_FILE, JSON.stringify(ctx, null, 2), 'utf-8');
+}
+
+function buildContextEnvelope(mode, userPrompt) {
+  const ctx = loadContext();
+  const modeLabel = MODES[mode] || '通用';
+
+  // Keep it short: just question + brief context footer
+  // Long context causes fill/type issues with contenteditable
+  const lastTurn = ctx.rolling_window && ctx.rolling_window.length > 0
+    ? ctx.rolling_window[ctx.rolling_window.length - 1]
+    : null;
+
+  const contextFooter = lastTurn
+    ? `\n\n[背景：${modeLabel}模式 | 阶段：${ctx.stage} | 上轮要点：${lastTurn.summary.substring(0, 120)}]`
+    : `\n\n[背景：${modeLabel}模式 | 阶段：${ctx.stage}]`;
+
+  return userPrompt + contextFooter;
+}
+
+async function ensureConversation(page, mode) {
+  const ctx = loadContext();
+  const savedUrl = ctx.mode_urls && ctx.mode_urls[mode];
+
+  if (savedUrl) {
+    console.log(`尝试复用对话: ${savedUrl}`);
+    try {
+      await page.goto(savedUrl, { waitUntil: 'domcontentloaded', timeout: 15000 });
+      await page.waitForTimeout(2000);
+      // Verify we landed on a valid conversation page
+      if (page.url().includes('gemini.google.com')) {
+        const inputEl = await findInput(page);
+        if (inputEl) {
+          console.log('复用对话成功');
+          return;
+        }
+      }
+    } catch {}
+    console.log('复用失败，发起新对话');
+  }
+
+  // Start fresh
+  console.log('发起新对话...');
+  await page.goto('https://gemini.google.com/', { waitUntil: 'domcontentloaded', timeout: 15000 });
+  await page.waitForTimeout(2000);
+
+  const newChatBtn = await findButton(page, ['New chat', '新对话', 'New conversation', '发起新对话']);
+  if (newChatBtn) {
+    await newChatBtn.click();
+    await page.waitForTimeout(1500);
+  }
+}
+
 // ── Ask (core command) ────────────────────────
 async function askGemini(mode, prompt) {
   if (!prompt) {
@@ -223,10 +315,11 @@ async function askGemini(mode, prompt) {
   }
 
   try {
-    // If mode is specific, prefix the prompt
-    const fullPrompt = mode !== 'ask' && MODES[mode]
-      ? `[${MODES[mode]}模式] ${prompt}`
-      : prompt;
+    // Reuse existing conversation or start fresh
+    await ensureConversation(page, mode);
+
+    // Build context envelope
+    const fullPrompt = buildContextEnvelope(mode, prompt);
 
     console.log(`[${mode.toUpperCase()}] ${prompt}`);
 
@@ -236,7 +329,18 @@ async function askGemini(mode, prompt) {
       console.log('已选择学习策略师 Gem');
     }
 
-    const inputEl = await findInput(page);
+    // Wait for input to be truly ready (retry up to 5 times)
+    let inputEl = null;
+    for (let attempt = 0; attempt < 5; attempt++) {
+      inputEl = await findInput(page);
+      if (inputEl) {
+        const isVisible = await inputEl.isVisible().catch(() => false);
+        if (isVisible) break;
+      }
+      console.log(`输入框未就绪，重试 ${attempt + 1}/5...`);
+      await page.waitForTimeout(2000);
+    }
+
     if (!inputEl) {
       const text = await page.innerText('body').catch(() => '');
       console.error('未找到输入框。页面文本前300字:');
@@ -244,31 +348,61 @@ async function askGemini(mode, prompt) {
       return;
     }
 
-    await inputEl.click();
-    await inputEl.fill('');
-    await page.waitForTimeout(300);
-    await inputEl.type(fullPrompt, { delay: 25 });
-    await page.waitForTimeout(800);
+    // Record current response count to detect NEW response later
+    const preCount = await page.evaluate(() => {
+      return document.querySelectorAll('model-response, div[class*="message-content"]').length;
+    }).catch(() => 0);
 
-    await inputEl.press('Enter');
+    // Input and send: keyboard.type is most reliable for contenteditable
+    await inputEl.click();
+    await page.waitForTimeout(300);
+    await page.keyboard.type(fullPrompt, { delay: 15 });
+    await page.waitForTimeout(800);
+    await page.keyboard.press('Enter');
     console.log('已发送，等待回复...');
 
-    // Wait for response
-    await page.waitForTimeout(4000);
-    let waited = 0;
-    while (waited < 120) {
+    // Wait for NEW response to appear and finish streaming
+    // Strategy: wait for response count to increase, then wait for streaming to stop
+    let newResponseAppeared = false;
+    for (let i = 0; i < 30; i++) {
       await page.waitForTimeout(1000);
-      waited++;
-      const generating = await page.evaluate(() => {
-        const btn = document.querySelector('button[aria-label*="Stop"], button[aria-label*="stop"]');
-        return btn ? btn.offsetParent !== null : false;
-      }).catch(() => false);
-
-      if (!generating && waited > 5) {
-        await page.waitForTimeout(2000);
+      const currentCount = await page.evaluate(() => {
+        return document.querySelectorAll('model-response, div[class*="message-content"]').length;
+      }).catch(() => preCount);
+      if (currentCount > preCount) {
+        newResponseAppeared = true;
+        console.log('检测到新回复，等待流式输出完成...');
         break;
       }
-      if (waited % 10 === 0) console.log(`  等待中... (${waited}s)`);
+      if (i % 5 === 4) console.log(`  等待新回复... (${i + 1}s)`);
+    }
+
+    if (!newResponseAppeared) {
+      console.log('警告：未检测到新回复，可能消息未发送成功');
+    }
+
+    // Wait for streaming to complete: monitor text length stability
+    let prevLen = 0;
+    let stableCount = 0;
+    for (let i = 0; i < 60; i++) {
+      await page.waitForTimeout(1000);
+      const curLen = await page.evaluate(() => {
+        const els = document.querySelectorAll('model-response, div[class*="message-content"]');
+        if (els.length === 0) return 0;
+        return els[els.length - 1].innerText.length;
+      }).catch(() => 0);
+
+      if (curLen === prevLen && curLen > 0) {
+        stableCount++;
+        if (stableCount >= 3) {
+          console.log(`回复完成 (${curLen} 字)`);
+          break;
+        }
+      } else {
+        stableCount = 0;
+        prevLen = curLen;
+      }
+      if (i % 10 === 9) console.log(`  等待输出完成... (${curLen} 字)`);
     }
 
     const response = await extractResponse(page);
@@ -278,6 +412,21 @@ async function askGemini(mode, prompt) {
 
     // Auto-save interaction
     saveInteraction(mode, prompt, response);
+
+    // Update context: rolling window + save conversation URL
+    const ctx = loadContext();
+    const rolling = ctx.rolling_window || [];
+    let summary = response.replace(/\s+/g, ' ');
+    if (summary.length > 600) summary = summary.substring(0, 600) + '...(下略)';
+    rolling.push({ query: prompt.substring(0, 150), summary });
+    if (rolling.length > 3) rolling.shift();
+
+    const currentUrl = page.url();
+    const modeUrls = { ...(ctx.mode_urls || {}) };
+    if (currentUrl.includes('gemini.google.com')) modeUrls[mode] = currentUrl;
+
+    saveContext({ rolling_window: rolling, mode_urls: modeUrls });
+    console.log('上下文已更新');
 
   } finally {
     await browser.close();
@@ -379,24 +528,44 @@ async function findInputField(page) {
 
 async function trySelectGem(page) {
   try {
-    // Look for Gem selector / dropdown
-    const gemBtn = await page.$(`[data-gem-name*="${GEM_NAME}"], button:has-text("${GEM_NAME}"), [role="option"]:has-text("${GEM_NAME}"), [role="menuitem"]:has-text("${GEM_NAME}")`);
-    if (gemBtn && await gemBtn.isVisible().catch(() => false)) {
-      await gemBtn.click();
-      await page.waitForTimeout(1000);
-      return true;
+    // Strategy A: find Gem link by href + text match
+    const gemLinks = await page.$$('a[href*="/gem/"], a[href*="/app/gem/"]');
+    for (const link of gemLinks) {
+      const text = await link.innerText().catch(() => '');
+      const aria = await link.getAttribute('aria-label').catch(() => '');
+      if (text.includes(GEM_NAME) || (aria && aria.includes(GEM_NAME))) {
+        await link.click();
+        await page.waitForTimeout(1500);
+        console.log(`[Gem] 策略A命中，已选择 ${GEM_NAME}`);
+        return true;
+      }
     }
 
-    // Try opening model selector
-    const modelSelector = await page.$('button[aria-label*="Model"], button[aria-label*="模型"]');
+    // Strategy B: XPath fallback
+    try {
+      const [xpathEl] = await page.$x(`//a[contains(@aria-label, "${GEM_NAME}")] | //div[contains(text(), "${GEM_NAME}")]/ancestor::a`);
+      if (xpathEl) {
+        await xpathEl.click();
+        await page.waitForTimeout(1500);
+        console.log(`[Gem] 策略B(XPath)命中`);
+        return true;
+      }
+    } catch {}
+
+    // Strategy C: open model selector dropdown and search
+    const modelSelector = await page.$('button[aria-label*="Model"], button[aria-label*="模型"], button[aria-label*="Gem"]');
     if (modelSelector) {
       await modelSelector.click();
       await page.waitForTimeout(1000);
-      const gemOption = await page.$(`[data-value*="${GEM_NAME}"], [role="option"]:has-text("${GEM_NAME}")`);
-      if (gemOption) {
-        await gemOption.click();
-        await page.waitForTimeout(1000);
-        return true;
+      const options = await page.$$('[role="option"], [role="menuitem"]');
+      for (const opt of options) {
+        const text = await opt.innerText().catch(() => '');
+        if (text.includes(GEM_NAME)) {
+          await opt.click();
+          await page.waitForTimeout(1500);
+          console.log(`[Gem] 策略C(下拉菜单)命中`);
+          return true;
+        }
       }
     }
     return false;
@@ -407,21 +576,33 @@ async function trySelectGem(page) {
 
 async function extractResponse(page) {
   return page.evaluate(() => {
-    const selectors = [
+    // Tier 1: stable semantic selectors
+    const stableSelectors = [
+      'div[class*="message-content"]',
+      'div[class*="model-outputs"]',
       'model-response',
-      '.model-response-text',
-      'message-content',
-      '.response-container-content',
     ];
-    for (const sel of selectors) {
-      const containers = document.querySelectorAll(sel);
-      if (containers.length > 0) return containers[containers.length - 1].innerText;
+    for (const sel of stableSelectors) {
+      const els = document.querySelectorAll(sel);
+      if (els.length > 0) {
+        const last = els[els.length - 1];
+        const text = last.innerText.trim();
+        if (text.length > 10) return text;
+      }
     }
-    const fallbacks = document.querySelectorAll(
-      '.conversation-container message-content, [data-message-id] .markdown, .message-content'
-    );
-    if (fallbacks.length > 0) return fallbacks[fallbacks.length - 1].innerText;
-    return document.body.innerText.substring(0, 3000) + '\n[未找到结构化回复]';
+
+    // Tier 2: find last meaningful text block in main content
+    const containers = document.querySelectorAll('main div, [role="main"] div');
+    for (let i = containers.length - 1; i >= 0; i--) {
+      const text = containers[i].innerText || '';
+      if (text.length > 100 && !containers[i].querySelector('textarea, input')) {
+        if (containers[i].children.length < 10) return text.trim();
+      }
+    }
+
+    // Tier 3: full main content (no hard truncation)
+    const main = document.querySelector('main') || document.body;
+    return main.innerText.trim();
   });
 }
 
