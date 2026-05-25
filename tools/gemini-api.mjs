@@ -156,8 +156,12 @@ function buildRequestBody(text, options = {}) {
   arr[1] = ['zh-CN'];
 
   // [2] conversation metadata [cid, rid, rcid, ...]
-  // For new conversations, use empty strings
-  arr[2] = ['', '', '', null, null, null, null, null, null, ''];
+  const conv = options.conversation;
+  if (conv && conv.cid) {
+    arr[2] = [conv.cid, conv.rid, conv.rcid, null, null, null, null, null, null, conv.nonce || ''];
+  } else {
+    arr[2] = ['', '', '', null, null, null, null, null, null, ''];
+  }
 
   // [3] nonce token (empty for new conversation)
   arr[3] = '';
@@ -222,7 +226,9 @@ function generateId() {
 }
 
 async function callStreamGenerate(prompt, cookieStr) {
-  const body = buildRequestBody(prompt);
+  const ctx = loadContext();
+  const conversation = ctx.conversation || null;
+  const body = buildRequestBody(prompt, { conversation });
   const atToken = getAtToken();
 
   const modelId = MODEL_IDS[CURRENT_MODEL];
@@ -265,7 +271,23 @@ async function callStreamGenerate(prompt, cookieStr) {
 
   // Read full response as text
   const rawText = await response.text();
-  return parseStreamResponse(rawText);
+  const { text, metadata } = parseStreamResponse(rawText);
+
+  // Save conversation metadata for continuity
+  if (metadata.cid) {
+    const ctx = loadContext();
+    saveContext({
+      conversation: {
+        cid: metadata.cid,
+        rid: metadata.rid,
+        rcid: metadata.rcid,
+        nonce: metadata.nonce,
+        updated_at: new Date().toISOString(),
+      },
+    });
+  }
+
+  return text;
 }
 
 function parseStreamResponse(raw) {
@@ -305,7 +327,9 @@ function parseStreamResponse(raw) {
     }
   }
 
-  return extractTextFromParsed(innerFrames);
+  const text = extractTextFromParsed(innerFrames);
+  const metadata = extractConversationMeta(innerFrames);
+  return { text, metadata };
 }
 
 function parseLengthPrefixedFrames(content) {
@@ -362,6 +386,37 @@ function extractTextFromParsed(frames) {
   if (lastText) return lastText;
 
   return `[无法提取文本] 帧数: ${frames.length}`;
+}
+
+function extractConversationMeta(frames) {
+  // Extract cid, rid, rcid, nonce from response frames
+  let cid = null, rid = null, rcid = null, nonce = null;
+
+  for (const frame of frames) {
+    if (!Array.isArray(frame)) continue;
+
+    // cid/rid at frame[1]
+    if (Array.isArray(frame[1]) && typeof frame[1][0] === 'string' && frame[1][0].startsWith('c_')) {
+      cid = frame[1][0];
+      rid = frame[1][1];
+    }
+
+    // rcid at frame[4][0][0][0]
+    const candidateList = frame[4];
+    if (Array.isArray(candidateList) && candidateList[0]) {
+      const candidate = candidateList[0];
+      if (Array.isArray(candidate) && typeof candidate[0] === 'string' && candidate[0].startsWith('rc_')) {
+        rcid = candidate[0];
+      }
+    }
+
+    // nonce at frame[2]["26"] (in metadata frames)
+    if (frame[2] && typeof frame[2] === 'object' && frame[2]['26']) {
+      nonce = frame[2]['26'];
+    }
+  }
+
+  return { cid, rid, rcid, nonce };
 }
 
 function getNested(obj, path) {
