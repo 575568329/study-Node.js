@@ -1,6 +1,7 @@
 import { chromium } from 'playwright';
 import { readFileSync, writeFileSync, existsSync, mkdirSync, appendFileSync } from 'fs';
 import { join } from 'path';
+import { randomUUID } from 'crypto';
 
 // ── Config ─────────────────────────────────────
 const CDP_PORT = 19222;
@@ -13,8 +14,20 @@ const AT_TOKEN_CACHE = join(INTERACTIONS_DIR, '.gemini-at-token.txt');
 const STREAM_URL = 'https://gemini.google.com/_/BardChatUi/data/assistant.lamda.BardFrontendService/StreamGenerate';
 const ROTATE_URL = 'https://accounts.google.com/RotateCookies';
 
-// Gemini 3 Flash model header (basic tier, capacity_tail=1)
-const FLASH_MODEL_HEADER = '[1,null,null,null,"fbb127bbb056c959",null,null,0,[4],null,null,1]';
+// Model headers - switch between models
+// 3.5 Flash (from browser): 56fdd199312815e2
+// 3.1 Flash: fbb127bbb056c959
+// 3.1 Pro: 9d8ca3786ebdfbea
+const MODEL_IDS = {
+  'flash35': '56fdd199312815e2',
+  'flash': 'fbb127bbb056c959',
+  'pro': '9d8ca3786ebdfbea',
+};
+const CURRENT_MODEL = process.env.GEMINI_MODEL || 'flash35';
+
+function buildModelHeader(modelId) {
+  return `[1,null,null,null,"${modelId}",null,null,0,[4,5,6,8],null,null,2,null,null,1,1,null]`;
+}
 
 const MODES = {
   plan: '规划',
@@ -133,20 +146,70 @@ async function ensureCookies() {
 
 // ── API Call ────────────────────────────────────
 function buildRequestBody(text, options = {}) {
-  // Gemini StreamGenerate uses a 69-element positional array
-  // Key indices: 0=message, 2=metadata, 7=streaming flag, 19=gem id
-  const arr = new Array(69).fill(null);
+  // Match browser's actual request format: 81-element array
+  const arr = new Array(81).fill(null);
 
-  // Index 0: message content [prompt, 0, None, file_data, None, None, 0]
+  // [0] message content
   arr[0] = [text, 0, null, null, null, null, 0];
 
-  // Index 2: chat metadata (9-element array)
+  // [1] locale
+  arr[1] = ['zh-CN'];
+
+  // [2] conversation metadata [cid, rid, rcid, ...]
+  // For new conversations, use empty strings
   arr[2] = ['', '', '', null, null, null, null, null, null, ''];
 
-  // Index 7: streaming flag (0 = synchronous, 1 = streaming)
-  arr[7] = 0;
+  // [3] nonce token (empty for new conversation)
+  arr[3] = '';
 
-  // Wrap as [null, JSON.stringify(inner)]
+  // [6] [0]
+  arr[6] = [0];
+
+  // [7] streaming flag (1 = streaming, needed for 3.5 Flash)
+  arr[7] = 1;
+
+  // [10] 1
+  arr[10] = 1;
+
+  // [11] 0
+  arr[11] = 0;
+
+  // [17] [[3]]
+  arr[17] = [[3]];
+
+  // [18] 0
+  arr[18] = 0;
+
+  // [27] 1
+  arr[27] = 1;
+
+  // [30] [4]
+  arr[30] = [4];
+
+  // [41] [1]
+  arr[41] = [1];
+
+  // [53] 0
+  arr[53] = 0;
+
+  // [59] request UUID
+  arr[59] = randomUUID();
+
+  // [61] []
+  arr[61] = [];
+
+  // [67] 0
+  arr[67] = 0;
+
+  // [68] 1
+  arr[68] = 1;
+
+  // [79] 1
+  arr[79] = 1;
+
+  // [80] 1
+  arr[80] = 1;
+
   return [null, JSON.stringify(arr)];
 }
 
@@ -162,21 +225,23 @@ async function callStreamGenerate(prompt, cookieStr) {
   const body = buildRequestBody(prompt);
   const atToken = getAtToken();
 
+  const modelId = MODEL_IDS[CURRENT_MODEL];
   const headers = {
     'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8',
     'X-Same-Domain': '1',
     'Origin': 'https://gemini.google.com',
     'Referer': 'https://gemini.google.com/',
     'Cookie': cookieStr,
-    'x-goog-ext-525001261-jspb': FLASH_MODEL_HEADER,
+    'x-goog-ext-525001261-jspb': buildModelHeader(modelId),
+    'x-goog-ext-525005358-jspb': JSON.stringify([randomUUID(), 1]),
     'x-goog-ext-73010989-jspb': '[0]',
-    'x-goog-ext-73010990-jspb': '[0]',
+    'x-goog-ext-73010990-jspb': '[0,0,0]',
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36',
   };
 
-  let url = STREAM_URL;
+  let url = `${STREAM_URL}?bl=boq_assistant-bard-web`;
   if (atToken) {
-    url += `?at=${encodeURIComponent(atToken)}`;
+    url += `&at=${encodeURIComponent(atToken)}`;
   }
 
   const formBody = `f.req=${encodeURIComponent(JSON.stringify(body))}`;
@@ -211,26 +276,27 @@ function parseStreamResponse(raw) {
     content = content.substring(content.indexOf('\n') + 1);
   }
 
-  // Try length-prefixed frame parsing
-  let frames = parseLengthPrefixedFrames(content);
+  content = content.trim();
 
-  // If that didn't work, try direct JSON parse
-  if (frames.length === 0) {
-    try {
-      frames = JSON.parse(content);
-      if (!Array.isArray(frames)) frames = [frames];
-    } catch {
+  // Try direct JSON parse first (most common for 3.5 Flash)
+  let outerFrames;
+  try {
+    outerFrames = JSON.parse(content);
+    if (!Array.isArray(outerFrames)) outerFrames = [outerFrames];
+  } catch {
+    // Fall back to length-prefixed frame parsing
+    outerFrames = parseLengthPrefixedFrames(content);
+    if (outerFrames.length === 0) {
       return `[解析失败] 原始响应前500字:\n${content.substring(0, 500)}`;
     }
   }
 
-  // Handle wrb.fr envelope: [["wrb.fr", null, "<json_string>", ...]]
+  // Unwrap wrb.fr envelope: [["wrb.fr", null, "<json_string>", ...]]
   const innerFrames = [];
-  for (const frame of frames) {
+  for (const frame of outerFrames) {
     if (Array.isArray(frame) && frame[0] === 'wrb.fr' && typeof frame[2] === 'string') {
       try {
-        const inner = JSON.parse(frame[2]);
-        innerFrames.push(inner);
+        innerFrames.push(JSON.parse(frame[2]));
       } catch {
         innerFrames.push(frame);
       }
@@ -272,25 +338,28 @@ function parseLengthPrefixedFrames(content) {
 }
 
 function extractTextFromParsed(frames) {
-  // Response structure: [null, [cid, rid], null, null, [[rcid, [text], ...], ...]]
+  // Streaming frames: each frame contains cumulative text (not delta)
+  // Text path: frame[4][0][1][0] = text string
+  // Take the LAST frame with text (most complete)
+
+  let lastText = null;
+
   for (const frame of frames) {
     if (!Array.isArray(frame)) continue;
 
-    // Path: frame[4][0][0][1][0] = response text
-    const candidates = getNested(frame, [4, 0, 0]);
-    if (candidates && Array.isArray(candidates) && candidates.length >= 2) {
-      const textArr = candidates[1];
-      if (Array.isArray(textArr) && typeof textArr[0] === 'string') {
-        return textArr[0];
-      }
+    const candidateList = frame[4];
+    if (!Array.isArray(candidateList) || candidateList.length === 0) continue;
+
+    const candidate = candidateList[0];
+    if (!Array.isArray(candidate) || candidate.length < 2) continue;
+
+    const textArr = candidate[1];
+    if (Array.isArray(textArr) && typeof textArr[0] === 'string' && textArr[0].length > 0) {
+      lastText = textArr[0];
     }
   }
 
-  // Fallback: search for long strings
-  for (const frame of frames) {
-    const text = findDeepString(frame, 0);
-    if (text) return text;
-  }
+  if (lastText) return lastText;
 
   return `[无法提取文本] 帧数: ${frames.length}`;
 }
