@@ -1,4 +1,9 @@
 {
+  "scripts": {
+    "gemini": "node tools/gemini/gemini-server.mjs",
+    "gemini:init": "node tools/gemini/gemini-api.mjs init",
+    "gemini:chat": "node tools/gemini/gemini-chat.mjs open"
+  },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.94.0",
     "@langchain/core": "^1.1.40",
@@ -12,7 +17,8 @@
     "helmet": "^8.1.0",
     "langchain": "^1.3.3",
     "playwright": "^1.60.0",
-    "react-router-dom": "^7.14.0"
+    "react-router-dom": "^7.14.0",
+    "ws": "^8.21.0"
   },
   "devDependencies": {
     "docx": "^9.6.1",

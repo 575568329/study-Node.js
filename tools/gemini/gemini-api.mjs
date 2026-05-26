@@ -5,11 +5,11 @@ import { randomUUID } from 'crypto';
 
 // ── Config ─────────────────────────────────────
 const CDP_PORT = 19222;
-const PROJECT_ROOT = join(import.meta.dirname, '..');
-const INTERACTIONS_DIR = join(PROJECT_ROOT, 'gemini-interactions');
-const CONTEXT_FILE = join(INTERACTIONS_DIR, 'context.json');
-const COOKIE_CACHE = join(INTERACTIONS_DIR, '.gemini-cookies.txt');
-const AT_TOKEN_CACHE = join(INTERACTIONS_DIR, '.gemini-at-token.txt');
+const DIR = import.meta.dirname;
+const INTERACTIONS_DIR = DIR;
+const CONTEXT_FILE = join(DIR, 'context.json');
+const COOKIE_CACHE = join(DIR, '.gemini-cookies.txt');
+const AT_TOKEN_CACHE = join(DIR, '.gemini-at-token.txt');
 
 const STREAM_URL = 'https://gemini.google.com/_/BardChatUi/data/assistant.lamda.BardFrontendService/StreamGenerate';
 const ROTATE_URL = 'https://accounts.google.com/RotateCookies';
@@ -56,20 +56,20 @@ function printHelp() {
   console.log(`
 Gemini HTTP API 工具 - 跳过浏览器 DOM，直接调用内部 API
 
-  node tools/gemini-api.mjs init              提取 Cookie 并缓存（首次/过期后执行）
-  node tools/gemini-api.mjs ask "问题"         直接提问
-  node tools/gemini-api.mjs plan "问题"        规划模式：学习路径建议
-  node tools/gemini-api.mjs verify "内容"      验证模式：审查教学内容
-  node tools/gemini-api.mjs quiz               盲区模式：出题测试
-  node tools/gemini-api.mjs interview "主题"   面试模式：模拟追问
-  node tools/gemini-api.mjs close             关闭 Chrome
+  node tools/gemini/gemini-api.mjs init              提取 Cookie 并缓存（首次/过期后执行）
+  node tools/gemini/gemini-api.mjs ask "问题"         直接提问
+  node tools/gemini/gemini-api.mjs plan "问题"        规划模式：学习路径建议
+  node tools/gemini/gemini-api.mjs verify "内容"      验证模式：审查教学内容
+  node tools/gemini/gemini-api.mjs quiz               盲区模式：出题测试
+  node tools/gemini/gemini-api.mjs interview "主题"   面试模式：模拟追问
+  node tools/gemini/gemini-api.mjs close             关闭 Chrome
 
   前置条件：
   1. 先执行 open（gemini-chat.mjs）启动 Chrome 并登录
   2. 再执行 init 提取 Cookie
   3. 之后可直接用 ask/plan/verify/quiz/interview
 
-  所有交互自动保存到 gemini-interactions/YYYY-MM-DD.md
+  所有交互自动保存到 tools/gemini/YYYY-MM-DD.md
 `);
 }
 

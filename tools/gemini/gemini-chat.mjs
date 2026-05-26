@@ -14,8 +14,8 @@ function findChrome() {
 }
 const CHROME_PATH = findChrome();
 const USER_DATA = join(import.meta.dirname, '.chrome-profile');
-const PROJECT_ROOT = join(import.meta.dirname, '..');
-const INTERACTIONS_DIR = join(PROJECT_ROOT, 'gemini-interactions');
+const PROJECT_ROOT = join(import.meta.dirname, '..', '..');
+const INTERACTIONS_DIR = import.meta.dirname;
 const SYSTEM_PROMPT_FILE = join(PROJECT_ROOT, 'docs', 'gemini-system-prompt.md');
 const GEM_NAME = '全栈学习策略师';
 const GEMS_URL = 'https://gemini.google.com/gems';
@@ -207,7 +207,7 @@ async function setupGem() {
 }
 
 // ── Context Management ───────────────────────
-const CONTEXT_FILE = join(PROJECT_ROOT, 'gemini-interactions', 'context.json');
+const CONTEXT_FILE = join(import.meta.dirname, 'context.json');
 
 const DEFAULT_CONTEXT = {
   session_id: `sess_${Date.now()}`,

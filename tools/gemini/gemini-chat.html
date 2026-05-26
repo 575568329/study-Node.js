@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gemini Chat</title>
+<style>
+/* ── CSS Token ──────────────────────────────── */
+:root {
+  /* Brand */
+  --brand-primary: #4f46e5;
+  --brand-primary-hover: #4338ca;
+  --brand-primary-light: #eef2ff;
+  --brand-primary-lighter: #e0e7ff;
+
+  /* Neutral */
+  --bg-base: #ffffff;
+  --bg-subtle: #f5f5f5;
+  --bg-sidebar: #fafafa;
+  --bg-sidebar-hover: #f0f0f2;
+  --bg-sidebar-active: #eeeeF0;
+  --bg-msg-user: var(--brand-primary);
+  --bg-msg-ai: #ffffff;
+  --bg-msg-claude: #eff6ff;
+  --bg-input: #ffffff;
+  --bg-code: #f8f9fa;
+
+  /* Text */
+  --text-primary: #1a1a2e;
+  --text-secondary: #6b7280;
+  --text-tertiary: #9ca3af;
+  --text-inverse: #ffffff;
+  --text-msg-user: #ffffff;
+  --text-msg-ai: var(--text-primary);
+  --text-msg-claude: #1e40af;
+  --text-link: var(--brand-primary);
+
+  /* Border */
+  --border-base: #e5e7eb;
+  --border-light: #f0f0f0;
+  --border-focus: var(--brand-primary);
+  --border-msg-ai: #e5e7eb;
+  --border-msg-claude: #3b82f6;
+
+  /* Spacing */
+  --sidebar-w: 240px;
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-full: 9999px;
+
+  /* Shadow */
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.07), 0 2px 4px -2px rgba(0,0,0,0.05);
+  --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.08);
+
+  /* Error */
+  --error-500: #ef4444;
+  --error-600: #dc2626;
+
+  /* Transition */
+  --transition-fast: .15s ease;
+  --transition-normal: .25s ease;
+}
+
+/* ── Reset & Base ───────────────────────────── */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', sans-serif;
+  height: 100vh;
+  display: flex;
+  background: var(--bg-subtle);
+  color: var(--text-primary);
+  font-size: 14px;
+  line-height: 1.5;
+  overflow: hidden;
+}
+
+/* ── Layout ─────────────────────────────────── */
+.main {
+  display: flex;
+  width: 100%;
+  height: 100vh;
+}
+
+/* ── Sidebar ────────────────────────────────── */
+.sidebar {
+  width: var(--sidebar-w);
+  min-width: var(--sidebar-w);
+  background: var(--bg-sidebar);
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid var(--border-light);
+}
+
+/* Logo area */
+.sidebar-logo {
+  padding: 20px 16px 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.sidebar-logo .logo-icon {
+  width: 28px; height: 28px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: var(--radius-sm);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--text-inverse); font-weight: 700; font-size: 14px;
+}
+.sidebar-logo .logo-text {
+  font-size: 16px; font-weight: 600; color: var(--text-primary);
+}
+
+/* New chat button */
+.sidebar-actions { padding: 0 12px 12px; }
+.btn-new {
+  width: 100%;
+  height: 36px;
+  display: flex; align-items: center; justify-content: center; gap: 6px;
+  background: var(--brand-primary);
+  color: var(--text-inverse);
+  border: none;
+  border-radius: var(--radius-md);
+  font-size: 14px;
+  cursor: pointer;
+  transition: background var(--transition-fast);
+}
+.btn-new:hover { background: var(--brand-primary-hover); }
+.btn-new svg { width: 16px; height: 16px; }
+
+/* History header */
+.history-header {
+  padding: 8px 12px 4px;
+  font-size: 12px;
+  color: var(--text-tertiary);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Conversation list */
+.conv-list {
+  flex: 1;
+  overflow-y: auto;
+  padding: 4px 8px;
+}
+.conv-list::-webkit-scrollbar { width: 4px; }
+.conv-list::-webkit-scrollbar-thumb { background: var(--border-base); border-radius: 2px; }
+
+.conv-item {
+  display: flex;
+  align-items: center;
+  padding: 7px 12px;
+  margin-bottom: 2px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: background var(--transition-fast);
+  gap: 4px;
+}
+.conv-item:hover { background: var(--bg-sidebar-hover); }
+.conv-item.active {
+  background: var(--bg-sidebar-active);
+  font-weight: 600;
+}
+.conv-info { flex: 1; min-width: 0; }
+.conv-title {
+  font-size: 13px;
+  color: var(--text-primary);
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.conv-time {
+  font-size: 11px;
+  color: var(--text-tertiary);
+  margin-top: 2px;
+}
+.conv-delete {
+  display: none;
+  width: 24px; height: 24px;
+  background: none; border: none;
+  color: var(--text-tertiary);
+  cursor: pointer;
+  border-radius: var(--radius-sm);
+  font-size: 16px;
+  align-items: center; justify-content: center;
+  flex-shrink: 0;
+  transition: all var(--transition-fast);
+}
+.conv-delete:hover { color: var(--error-500); background: #fef2f2; }
+.conv-item:hover .conv-delete { display: flex; }
+
+/* Sidebar footer */
+.sidebar-footer {
+  padding: 12px 16px;
+  border-top: 1px solid var(--border-light);
+  display: flex; align-items: center; gap: 8px;
+  font-size: 12px;
+}
+.sidebar-footer .status-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+}
+.sidebar-footer .status-dot.connected { background: #22c55e; }
+.sidebar-footer .status-dot.disconnected { background: var(--error-500); }
+.sidebar-footer .status-text { color: var(--text-secondary); }
+
+/* ── Chat Area ──────────────────────────────── */
+.chat-area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-base);
+  min-width: 0;
+}
+
+/* Messages container */
+.messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px 24px;
+  scroll-behavior: smooth;
+}
+.messages::-webkit-scrollbar { width: 6px; }
+.messages::-webkit-scrollbar-thumb { background: var(--border-base); border-radius: 3px; }
+
+/* Message wrapper */
+.msg {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  max-width: 75%;
+  animation: msgIn .25s ease-out;
+}
+.msg.user { align-self: flex-end; }
+.msg.gemini, .msg.claude-context { align-self: flex-start; max-width: 85%; }
+
+/* Role label */
+.msg-role {
+  display: flex; align-items: center; gap: 6px;
+  margin-bottom: 6px;
+  font-size: 13px; font-weight: 500;
+  color: var(--text-secondary);
+}
+.msg-role .role-avatar {
+  width: 24px; height: 24px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 600;
+  color: var(--text-inverse);
+}
+.msg.user .role-avatar { background: var(--brand-primary); }
+.msg.gemini .role-avatar { background: linear-gradient(135deg, #667eea, #764ba2); }
+.msg.claude-context .role-avatar { background: #3b82f6; }
+.msg.user .msg-role { justify-content: flex-end; }
+
+/* Bubble */
+.msg-bubble {
+  padding: 12px 16px;
+  border-radius: var(--radius-md);
+  font-size: 14px;
+  line-height: 1.7;
+  word-break: break-word;
+  box-shadow: var(--shadow-sm);
+}
+.msg.user .msg-bubble {
+  background: var(--bg-msg-user);
+  color: var(--text-msg-user);
+  border-bottom-right-radius: var(--radius-sm);
+}
+.msg.gemini .msg-bubble {
+  background: var(--bg-msg-ai);
+  color: var(--text-msg-ai);
+  border: 1px solid var(--border-msg-ai);
+  border-bottom-left-radius: var(--radius-sm);
+}
+.msg.claude-context .msg-bubble {
+  background: var(--bg-msg-claude);
+  color: var(--text-msg-claude);
+  border-left: 3px solid var(--border-msg-claude);
+  border-bottom-left-radius: var(--radius-sm);
+}
+
+/* Markdown styles */
+.msg.gemini .msg-bubble h1,
+.msg.gemini .msg-bubble h2,
+.msg.gemini .msg-bubble h3 { margin: 12px 0 6px; font-weight: 600; }
+.msg.gemini .msg-bubble h1 { font-size: 18px; }
+.msg.gemini .msg-bubble h2 { font-size: 16px; }
+.msg.gemini .msg-bubble h3 { font-size: 15px; }
+.msg.gemini .msg-bubble p { margin: 4px 0; }
+.msg.gemini .msg-bubble pre {
+  background: var(--bg-code);
+  padding: 12px;
+  border-radius: var(--radius-sm);
+  overflow-x: auto;
+  margin: 8px 0;
+  font-size: 13px;
+}
+.msg.gemini .msg-bubble code {
+  background: var(--bg-code);
+  padding: 2px 5px;
+  border-radius: 3px;
+  font-size: 13px;
+  font-family: 'Cascadia Code', 'Fira Code', 'Consolas', monospace;
+}
+.msg.gemini .msg-bubble pre code { background: none; padding: 0; }
+.msg.gemini .msg-bubble ul, .msg.gemini .msg-bubble ol { padding-left: 20px; margin: 6px 0; }
+.msg.gemini .msg-bubble blockquote {
+  border-left: 3px solid var(--brand-primary-lighter);
+  padding-left: 12px;
+  color: var(--text-secondary);
+  margin: 8px 0;
+}
+.msg.gemini .msg-bubble table { border-collapse: collapse; margin: 8px 0; width: 100%; }
+.msg.gemini .msg-bubble th, .msg.gemini .msg-bubble td {
+  border: 1px solid var(--border-base);
+  padding: 6px 10px;
+  font-size: 13px;
+  text-align: left;
+}
+.msg.gemini .msg-bubble th { background: var(--bg-code); font-weight: 500; }
+.msg.gemini .msg-bubble a { color: var(--text-link); text-decoration: underline; }
+
+/* User bubble markdown reset */
+.msg.user .msg-bubble code {
+  background: rgba(255,255,255,0.2);
+  padding: 1px 4px;
+  border-radius: 3px;
+  font-size: 13px;
+}
+
+/* Streaming cursor */
+.streaming::after { content: '▌'; animation: blink 1s step-end infinite; color: var(--text-tertiary); }
+
+/* ── Empty / Welcome States ──────────────────── */
+.empty-state {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  color: var(--text-tertiary);
+}
+.empty-state .empty-icon { font-size: 48px; opacity: 0.3; }
+.empty-state .empty-title { font-size: 18px; color: var(--text-secondary); font-weight: 500; }
+.empty-state .empty-desc { font-size: 14px; }
+
+/* Welcome screen: centered input + greeting */
+.welcome-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  padding: 0 24px;
+  animation: fadeInUp .4s ease-out;
+}
+.welcome-screen .welcome-greeting {
+  font-size: 32px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+}
+.welcome-screen .welcome-sub {
+  font-size: 16px;
+  color: var(--text-tertiary);
+  margin-bottom: 32px;
+}
+.welcome-screen .welcome-input {
+  width: 100%;
+  max-width: 680px;
+}
+.welcome-screen .quick-prompts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 20px;
+  max-width: 680px;
+  justify-content: center;
+}
+.welcome-screen .quick-prompt {
+  padding: 8px 16px;
+  border: 1px solid var(--border-base);
+  border-radius: var(--radius-full);
+  font-size: 13px;
+  color: var(--text-secondary);
+  background: var(--bg-base);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+.welcome-screen .quick-prompt:hover {
+  border-color: var(--brand-primary);
+  color: var(--brand-primary);
+  background: var(--brand-primary-light);
+}
+
+/* Hide bottom input when welcome is showing */
+.chat-area.welcome-mode .input-area { display: none; }
+.chat-area.chat-mode .welcome-screen { display: none; }
+
+/* ── Input Area ─────────────────────────────── */
+.input-area {
+  padding: 16px 24px 20px;
+  background: var(--bg-base);
+}
+.input-wrapper {
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+  background: var(--bg-input);
+  border: 1px solid var(--border-base);
+  border-radius: var(--radius-md);
+  padding: 10px 12px 10px 16px;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+.input-wrapper:focus-within {
+  border-color: var(--border-focus);
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+}
+.input-wrapper textarea {
+  flex: 1;
+  border: none;
+  outline: none;
+  resize: none;
+  font-size: 14px;
+  line-height: 1.5;
+  font-family: inherit;
+  color: var(--text-primary);
+  background: transparent;
+  min-height: 24px;
+  max-height: 120px;
+}
+.input-wrapper textarea::placeholder { color: var(--text-tertiary); }
+
+.btn-send {
+  width: 32px; height: 32px;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--brand-primary);
+  color: var(--text-inverse);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: all var(--transition-fast);
+}
+.btn-send:hover:not(:disabled) { background: var(--brand-primary-hover); transform: scale(1.05); }
+.btn-send:disabled { background: var(--border-base); cursor: not-allowed; }
+.btn-send svg { width: 16px; height: 16px; }
+
+/* ── Animations ─────────────────────────────── */
+@keyframes msgIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes blink { 50% { opacity: 0; } }
+
+/* ── Title Edit ─────────────────────────────── */
+.conv-title-input {
+  width: 100%;
+  padding: 3px 6px;
+  border: 1px solid var(--border-focus);
+  border-radius: 4px;
+  font-size: 13px;
+  font-family: inherit;
+  outline: none;
+}
+
+/* ── Responsive ─────────────────────────────── */
+@media (max-width: 768px) {
+  .sidebar { width: 56px; min-width: 56px; }
+  .sidebar-logo .logo-text,
+  .sidebar-actions .btn-new span,
+  .history-header,
+  .conv-info,
+  .sidebar-footer .status-text { display: none; }
+  .sidebar-actions { padding: 8px; }
+  .btn-new { padding: 0; }
+  .conv-item { padding: 7px 8px; justify-content: center; }
+  .conv-delete { display: none !important; }
+  .messages { padding: 16px; }
+  .input-area { padding: 12px 16px 16px; }
+}
+</style>
+</head>
+<body>
+
+<div class="main">
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <div class="sidebar-logo">
+      <div class="logo-icon">G</div>
+      <div class="logo-text">Gemini Chat</div>
+    </div>
+
+    <div class="sidebar-actions">
+      <button class="btn-new" id="btnNew">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="3" x2="8" y2="13"/><line x1="3" y1="8" x2="13" y2="8"/></svg>
+        <span>新对话</span>
+      </button>
+    </div>
+
+    <div class="history-header">历史对话</div>
+    <div class="conv-list" id="convList"></div>
+
+    <div class="sidebar-footer">
+      <div class="status-dot disconnected" id="statusDot"></div>
+      <div class="status-text" id="statusText">未连接</div>
+    </div>
+  </div>
+
+  <!-- Chat Area -->
+  <div class="chat-area welcome-mode" id="chatArea">
+    <!-- Welcome screen (centered, shown when no active conversation) -->
+    <div class="welcome-screen">
+      <div class="welcome-greeting">开始 Gemini 对话</div>
+      <div class="welcome-sub">输入你的问题，或选择下方快捷提示开始</div>
+      <div class="welcome-input">
+        <div class="input-wrapper">
+          <textarea id="welcomeInput" placeholder="向 Gemini 提问..." rows="2"></textarea>
+          <button class="btn-send" id="btnWelcomeSend" disabled>
+            <svg viewBox="0 0 16 16" fill="currentColor"><path d="M1.5 1.5L14.5 8L1.5 14.5V9.5L10 8L1.5 6.5V1.5Z"/></svg>
+          </button>
+        </div>
+      </div>
+      <div class="quick-prompts">
+        <div class="quick-prompt" data-text="用简单的语言解释 Node.js 的事件循环机制">解释事件循环</div>
+        <div class="quick-prompt" data-text="Express 中间件的执行顺序是怎样的？举例说明">中间件机制</div>
+        <div class="quick-prompt" data-text="Stream 在 Node.js 中有什么用？给我一个实际场景">Stream 流处理</div>
+        <div class="quick-prompt" data-text="帮我出一道 Node.js 面试题，考察异步编程的理解深度">面试题挑战</div>
+      </div>
+    </div>
+
+    <!-- Chat mode (messages + bottom input) -->
+    <div class="messages" id="messages"></div>
+    <div class="input-area">
+      <div class="input-wrapper">
+        <textarea id="input" placeholder="输入消息，Enter 发送，Shift+Enter 换行" rows="1"></textarea>
+        <button class="btn-send" id="btnSend" disabled>
+          <svg viewBox="0 0 16 16" fill="currentColor"><path d="M1.5 1.5L14.5 8L1.5 14.5V9.5L10 8L1.5 6.5V1.5Z"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script>
+const $ = id => document.getElementById(id);
+const statusDot = $('statusDot');
+const statusText = $('statusText');
+const convListEl = $('convList');
+const messagesEl = $('messages');
+const inputEl = $('input');
+const btnSend = $('btnSend');
+const chatArea = $('chatArea');
+const welcomeInput = $('welcomeInput');
+const btnWelcomeSend = $('btnWelcomeSend');
+
+let ws = null;
+let currentConvId = null;
+let conversations = [];
+let streamingEl = null;
+let isStreaming = false;
+
+// ── Mode Switch ─────────────────────────────────
+function setMode(mode) {
+  chatArea.className = `chat-area ${mode}`;
+}
+function getMode() {
+  return chatArea.classList.contains('welcome-mode') ? 'welcome' : 'chat';
+}
+
+// ── WebSocket ──────────────────────────────────
+function connectWs() {
+  const proto = location.protocol === 'https:' ? 'wss' : 'ws';
+  ws = new WebSocket(`${proto}://${location.host}/ws`);
+
+  ws.onopen = () => {
+    statusDot.className = 'status-dot connected';
+    statusText.textContent = '已连接';
+  };
+
+  ws.onclose = () => {
+    statusDot.className = 'status-dot disconnected';
+    statusText.textContent = '已断开';
+    setTimeout(connectWs, 3000);
+  };
+
+  ws.onerror = () => {};
+  ws.onmessage = (e) => handleMessage(JSON.parse(e.data));
+}
+
+function sendWs(data) {
+  if (ws?.readyState === 1) ws.send(JSON.stringify(data));
+}
+
+// ── Message Handler ────────────────────────────
+function handleMessage(msg) {
+  switch (msg.type) {
+    case 'conversation_list':
+      console.log('[DEBUG] conversation_list received:', msg.conversations?.length);
+      conversations = msg.conversations || [];
+      console.log('[DEBUG] conversations set to:', conversations.length);
+      renderConvList();
+      console.log('[DEBUG] renderConvList done, DOM children:', convListEl.children.length);
+      break;
+
+    case 'switched':
+      currentConvId = msg.conversationId;
+      renderMessages(msg.messages);
+      renderConvList();
+      setMode('chat-mode');
+      break;
+
+    case 'stream_start':
+      isStreaming = true;
+      btnSend.disabled = true;
+      if (getMode() === 'welcome') setMode('chat-mode');
+      const bubble = addMessage('gemini', '', true);
+      streamingEl = bubble;
+      break;
+
+    case 'stream_chunk':
+      if (streamingEl) {
+        streamingEl.textContent += msg.content;
+        scrollToBottom();
+      }
+      break;
+
+    case 'stream_end':
+      isStreaming = false;
+      btnSend.disabled = !inputEl.value.trim();
+      if (streamingEl) {
+        streamingEl.classList.remove('streaming');
+        const rawText = streamingEl.textContent;
+        streamingEl.innerHTML = marked.parse(rawText);
+        streamingEl = null;
+      }
+      scrollToBottom();
+      break;
+
+    case 'inject':
+      addMessage('claude-context', msg.content);
+      if (msg.geminiReply) addMessage('gemini', msg.geminiReply);
+      scrollToBottom();
+      break;
+
+    case 'error':
+      isStreaming = false;
+      btnSend.disabled = !inputEl.value.trim();
+      if (streamingEl) {
+        streamingEl.classList.remove('streaming');
+        streamingEl = null;
+      }
+      addMessage('error', msg.message);
+      break;
+
+    case 'deleted':
+      conversations = conversations.filter(c => c.id !== msg.conversationId);
+      renderConvList();
+      break;
+  }
+}
+
+// ── Render ─────────────────────────────────────
+function renderConvList() {
+  if (conversations.length === 0) {
+    convListEl.innerHTML = '<div style="padding:20px 12px;text-align:center;color:var(--text-tertiary);font-size:13px;">暂无对话记录</div>';
+    return;
+  }
+
+  convListEl.innerHTML = conversations.map(c => `
+    <div class="conv-item ${c.id === currentConvId ? 'active' : ''}" data-id="${c.id}">
+      <div class="conv-info">
+        <div class="conv-title" title="双击编辑">${escHtml(c.title)}</div>
+        <div class="conv-time">${formatTime(c.updatedAt)}</div>
+      </div>
+      <button class="conv-delete" title="删除">&times;</button>
+    </div>
+  `).join('');
+
+  convListEl.querySelectorAll('.conv-item').forEach(el => {
+    el.addEventListener('click', (e) => {
+      if (e.target.classList.contains('conv-delete')) return;
+      const id = el.dataset.id;
+      if (id === currentConvId) return;
+      sendWs({ type: 'switch', conversationId: id });
+    });
+    el.addEventListener('dblclick', () => {
+      const titleEl = el.querySelector('.conv-title');
+      const id = el.dataset.id;
+      const conv = conversations.find(c => c.id === id);
+      if (!conv) return;
+      titleEl.innerHTML = `<input class="conv-title-input" value="${escHtml(conv.title)}">`;
+      const input = titleEl.querySelector('input');
+      input.focus();
+      input.select();
+      const finish = () => {
+        const newTitle = input.value.trim() || conv.title;
+        sendWs({ type: 'rename', conversationId: id, title: newTitle });
+      };
+      input.addEventListener('blur', finish);
+      input.addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); finish(); } });
+    });
+    el.querySelector('.conv-delete').addEventListener('click', (e) => {
+      e.stopPropagation();
+      const id = el.dataset.id;
+      const conv = conversations.find(c => c.id === id);
+      if (conv && confirm(`删除对话「${conv.title}」？\n删除后数据无法恢复。`)) {
+        sendWs({ type: 'delete', conversationId: id });
+        if (currentConvId === id) {
+          currentConvId = null;
+          messagesEl.innerHTML = '';
+          setMode('welcome-mode');
+        }
+      }
+    });
+  });
+}
+
+function renderMessages(msgs) {
+  messagesEl.innerHTML = '';
+  if (msgs.length === 0) {
+    setMode('chat-mode');
+    messagesEl.innerHTML = '<div class="empty-state"><div class="empty-icon">✏️</div><div class="empty-title">开始对话吧</div><div class="empty-desc">输入你的问题，Gemini 会为你解答</div></div>';
+    return;
+  }
+  setMode('chat-mode');
+  for (const m of msgs) {
+    const bubble = addMessage(m.role, m.content);
+    if (m.role === 'gemini') bubble.innerHTML = marked.parse(m.content);
+  }
+  scrollToBottom();
+}
+
+function addMessage(role, content, streaming = false) {
+  const empty = messagesEl.querySelector('.empty-state');
+  if (empty) empty.remove();
+
+  const div = document.createElement('div');
+  div.className = `msg ${role === 'error' ? 'gemini' : role}`;
+
+  // Role label
+  const label = document.createElement('div');
+  label.className = 'msg-role';
+  const roleNames = { user: '你', gemini: 'Gemini', 'claude-context': 'Claude 注入', error: '系统' };
+  const roleInitials = { user: 'U', gemini: 'G', 'claude-context': 'C', error: '!' };
+
+  if (role === 'user') {
+    label.innerHTML = `<span>${roleNames[role]}</span><div class="role-avatar">${roleInitials[role]}</div>`;
+  } else {
+    label.innerHTML = `<div class="role-avatar">${roleInitials[role]}</div><span>${roleNames[role]}</span>`;
+  }
+
+  // Bubble
+  const bubble = document.createElement('div');
+  bubble.className = 'msg-bubble' + (streaming ? ' streaming' : '');
+  if (role === 'error') {
+    bubble.textContent = `[错误] ${content}`;
+    bubble.style.color = 'var(--error-500)';
+    bubble.style.borderLeft = '3px solid var(--error-500)';
+    bubble.style.background = '#fef2f2';
+  } else {
+    bubble.textContent = content;
+  }
+
+  div.appendChild(label);
+  div.appendChild(bubble);
+  messagesEl.appendChild(div);
+  scrollToBottom();
+
+  return bubble;
+}
+
+function scrollToBottom() {
+  messagesEl.scrollTop = messagesEl.scrollHeight;
+}
+
+function escHtml(s) {
+  const d = document.createElement('div');
+  d.textContent = s;
+  return d.innerHTML;
+}
+
+function formatTime(iso) {
+  if (!iso) return '';
+  const d = new Date(iso);
+  const now = new Date();
+  const diff = now - d;
+
+  if (diff < 60000) return '刚刚';
+  if (diff < 3600000) return `${Math.floor(diff / 60000)} 分钟前`;
+
+  const month = d.getMonth() + 1;
+  const day = d.getDate();
+  const hours = String(d.getHours()).padStart(2, '0');
+  const mins = String(d.getMinutes()).padStart(2, '0');
+
+  if (d.toDateString() === now.toDateString()) return `${hours}:${mins}`;
+  return `${month}-${day} ${hours}:${mins}`;
+}
+
+// ── Actions ────────────────────────────────────
+$('btnNew').addEventListener('click', () => {
+  sendWs({ type: 'new_conversation' });
+  setMode('chat-mode');
+});
+
+// Welcome input handlers
+welcomeInput.addEventListener('input', () => {
+  welcomeInput.style.height = 'auto';
+  welcomeInput.style.height = Math.min(welcomeInput.scrollHeight, 120) + 'px';
+  btnWelcomeSend.disabled = !welcomeInput.value.trim();
+});
+welcomeInput.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter' && !e.shiftKey) {
+    e.preventDefault();
+    sendWelcomeMessage();
+  }
+});
+btnWelcomeSend.addEventListener('click', sendWelcomeMessage);
+
+function sendWelcomeMessage() {
+  const content = welcomeInput.value.trim();
+  if (!content || isStreaming) return;
+  welcomeInput.value = '';
+  welcomeInput.style.height = 'auto';
+  setMode('chat-mode');
+  addMessage('user', content);
+  sendWs({ type: 'chat', conversationId: currentConvId, content });
+}
+
+// Quick prompts
+document.querySelectorAll('.quick-prompt').forEach(el => {
+  el.addEventListener('click', () => {
+    const text = el.dataset.text;
+    welcomeInput.value = text;
+    sendWelcomeMessage();
+  });
+});
+
+btnSend.addEventListener('click', sendMessage);
+
+inputEl.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter' && !e.shiftKey) {
+    e.preventDefault();
+    sendMessage();
+  }
+});
+
+inputEl.addEventListener('input', () => {
+  inputEl.style.height = 'auto';
+  inputEl.style.height = Math.min(inputEl.scrollHeight, 120) + 'px';
+  btnSend.disabled = !inputEl.value.trim() && !isStreaming;
+});
+
+function sendMessage() {
+  const content = inputEl.value.trim();
+  if (!content || isStreaming) return;
+  inputEl.value = '';
+  inputEl.style.height = 'auto';
+  btnSend.disabled = true;
+
+  addMessage('user', content);
+  sendWs({ type: 'chat', conversationId: currentConvId, content });
+}
+
+// ── Init ───────────────────────────────────────
+connectWs();
+</script>
+</body>
+</html>
