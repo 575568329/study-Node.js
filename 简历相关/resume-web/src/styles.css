@@ -18,6 +18,9 @@ body {
 .resume-page {
   width: 210mm;
   min-height: 297mm;
+  /* 保证标签底色、技能卡渐变、色条在 PDF 导出时不被浏览器丢弃 */
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
 }
 
 .resume-theme {
@@ -40,6 +43,12 @@ body {
 
 .resume-section {
   border-top: 1px solid var(--accent-border);
+}
+
+/* 防止 section 标题在页底成为孤儿（标题在 A 页、内容在 B 页） */
+.resume-section-heading {
+  break-after: avoid;
+  page-break-after: avoid;
 }
 
 .profile-tag {
@@ -69,19 +78,24 @@ body {
 
 @page {
   size: A4;
-  margin: 0;
+  /* 让每一页都有上下左右白边——padding 只在第一页起作用，必须用 @page margin */
+  margin: 10mm 12mm;
 }
 
 @media print {
   html,
   body {
     background: #fff;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
   }
 
+  /* 打印时 padding 交给 @page margin 处理；min-height 不强撑避免溢出空白页 */
   .resume-page {
-    width: 210mm;
-    min-height: 297mm;
-    padding: 10mm 12mm;
+    width: auto;
+    min-height: auto;
+    padding: 0;
+    box-shadow: none;
   }
 
   a {

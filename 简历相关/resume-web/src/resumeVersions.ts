@@ -9,14 +9,14 @@ const baseProfile = {
 
 const workExperiences = [
   {
-    company: '讯飞智学网项目组（百得思维派驻）',
+    company: '讯飞智学网项目组/百得思维',
     role: '前端负责人 / 前端开发工程师',
     period: '2025.07 - 至今',
-    description: '参与讯飞智学网澳门市场资源加工与题库国际化改造，本组约 20 人，整体项目预估约 60 人。',
+    description: '负责讯飞智学网澳门市场资源加工与题库国际化改造的相关前端工作，所在组约 20 人，整体项目约 60 人。',
     bullets: [
-      '个人负责澳门项目相关前端模块，覆盖资源管理、资源平台、题库、众包加工和专题教材等多个系统。',
-      '围绕资源 I18N、澳门业务参数链路和富文本公式链路进行前端改造，支撑澳门项目从需求落地到上线验证。',
-      '参与上线和页面路径验证，使用 AI 辅助需求拆解、代码生成、问题定位和回归验证，并负责代码审查和业务验证。',
+      '作为澳门项目相关前端负责人，统筹资源管理、题库、众包加工、专题教材等多个系统的国际化与澳门业务适配，保障在不影响大陆原有流程的前提下交付澳门市场上线。',
+      '主导前端方案设计与代码审查，把控澳门业务参数链路、资源语言隔离和富文本公式链路的实现质量，支撑项目从需求落地到上线验证。',
+      '借助 AI 辅助提升需求拆解与重复性改造效率，方案判断、代码审查和业务验证均由本人把关。',
     ],
   },
   {
@@ -25,9 +25,9 @@ const workExperiences = [
     period: '2022.06 - 2025.07',
     description: '负责气象监测、地灾监测、避险搬迁等 Web、App、小程序多端业务开发。',
     bullets: [
-      '参与甘肃、北京等地灾项目建设，负责地图可视化、监测点展示、图表分析、三维展示和移动端业务模块。',
-      '参与 Vue2 到 Vue3、.NET 到 Java 的系统迁移，维护公共组件并支持内网、麒麟、国密、UKey 等环境适配。',
-      '参与现场交付、客户培训和问题排查，能在复杂行业项目中推进前端交付和联调。',
+      '负责甘肃、北京等地灾项目的地图可视化与多端业务开发，支撑甘肃全省约 8000 个监测点的数据展示与预警。',
+      '负责 Vue2 到 Vue3、.NET 到 Java 系统迁移中的前端改造，维护公共组件并适配内网、麒麟、国密、UKey 等信创环境。',
+      '完成现场交付、客户培训和问题排查，推进复杂行业项目的前端交付与联调。',
     ],
   },
   {
@@ -36,9 +36,9 @@ const workExperiences = [
     period: '2020.12 - 2022.04',
     description: '参与 Web、移动端、车载终端项目开发，处理 IoT 实时数据和车机 H5 交互。',
     bullets: [
-      '开发 Vue2 后台管理、uni-app 移动应用和小程序，支撑车载终端状态展示和业务交互。',
       '处理 10 万+ WebSocket 实时数据回传，通过分段回传、数据缓冲和批量渲染降低页面刷新压力。',
-      '参与车机系统中 H5 与 Android 原生能力交互，通过 JS-Bridge 完成车机终端能力调用和页面通信。',
+      '实现车机系统中 H5 与 Android 原生能力交互，通过 JS-Bridge 完成车机终端能力调用和页面通信。',
+      '开发 Vue2 后台管理、uni-app 移动应用和小程序，支撑车载终端状态展示和业务交互。',
     ],
   },
 ]
@@ -71,9 +71,9 @@ const xunfeiProjectGeneral = {
 const xunfeiProjectFullstack = {
   ...xunfeiProjectBase,
   bullets: [
-    '在多系统遗留工程中负责前端链路改造，围绕澳门业务参数、资源语言和知识点体系完成跨页面、跨接口的数据贯通。',
-    '参与 Java Web 下拉数据和前端展示联调，处理资源语言、题型、试题来源等接口字段在不同系统中的兼容与隔离。',
-    '使用 AI 辅助进行需求拆解、代码定位、重复性改造和回归检查，个人负责方案判断、代码审查、业务验证和最终质量把控。',
+    '在 5 个遗留系统中设计并落地 macaoParams 参数传递链路，将业务来源、资源语言、知识点标签贯通到众包任务、题目编辑器、题目展示和接口层。',
+    '围绕资源 I18N 改造语言联动能力，透传 languageCode、isMacao 等标识实现澳门与大陆数据隔离，并完成 Java Web 接口字段在多系统间的兼容联调。',
+    '沉淀富文本公式编辑与展示链路的原子/通用/业务组件，兼容 Wiris 图片公式、LaTeX、MathJax 和图片兜底。',
   ],
 }
 
@@ -89,8 +89,8 @@ const gisProjectBase = {
 const gisProjectFullstack = {
   ...gisProjectBase,
   bullets: [
-    '负责地灾监测点、图层、图表和实时数据展示，覆盖甘肃全省约 8000 个监测点，具备复杂数据可视化和业务状态展示经验。',
-    '基于 OpenLayers 和 ECharts 处理分级加载、图层控制、监测点渲染和趋势图联动，首页加载速度优化后提升约 50%。',
+    '负责地灾监测点、图层、图表和实时数据的可视化展示，基于 OpenLayers 和 ECharts 实现分级加载、图层控制、监测点渲染和趋势图联动。',
+    '针对大规模监测点场景优化首页加载，通过分级加载和按需渲染将首页加载速度提升约 50%。',
     '在北京地灾项目中接入 5s/次实时数据更新和三维模型展示，配合 Vite/gzip 将首屏从约 3.5s 优化至 1.8s。',
   ],
 }
@@ -125,6 +125,18 @@ const aiProjectGeneral = {
   ],
 }
 
+const aiProjectFullstack = {
+  ...aiProject,
+  bullets: [
+    '基于 Next.js App Router 搭建数据、对话、图谱三工作区，通过 kbId 保持知识库选择、文档状态、对话上下文和图谱视图同步。',
+    '支持 .txt、.md、.pdf、.docx、.xlsx 文档上传，完成文件校验、同名去重、文本解析、切片和来源元数据保存。',
+    '基于 LangChain.js 封装可复用 RAG Pipeline（文档加载、切片、向量化、检索），使用 LangGraph.js 构建支持条件分支、工具调用和状态管理的 AI Agent 工作流。',
+    '实现 RAG 流式问答接口，将最近对话历史拼接为检索查询，结合向量相似度与关键词混合检索 Top-K 片段，通过 SSE 返回流式回答。',
+    '抽象向量存储接口，默认用本地 JSON FileStore 持久化并保留 ChromaDB 切换能力，支持向量写入、相似度检索和集合删除。',
+    '在回答中透出来源引用、文件名、章节和相关性分数，知识库无相关内容时明确标注为 AI 补充回答，降低回答与资料混淆风险。',
+  ],
+}
+
 export const resumes: ResumeData[] = [
   {
     key: 'general',
@@ -152,7 +164,7 @@ export const resumes: ResumeData[] = [
       ...baseProfile,
       title: '全栈型前端工程师｜React / Next.js / Node.js｜AI 应用方向',
       summary:
-        '具备 5-6 年前端复杂业务交付经验，正在向 AI 应用全栈方向升级。可基于 React/Next.js/TypeScript 承担前端工作台、API Route、文档上传解析、向量检索、流式问答、来源引用和知识图谱等 AI 应用闭环，定位为能端到端落地 AI 产品能力的全栈型前端。',
+        '6 年前端复杂业务交付经验，正向 AI 应用全栈方向升级。基于 React / Next.js / TypeScript 可独立完成文档上传解析、向量检索、RAG 流式问答、来源引用和知识图谱的端到端落地，能把 AI 能力做成可演示、可上线的产品闭环。',
       tags: ['Next.js', 'React', 'Node.js', 'API Route', 'RAG', 'LangChain.js', 'LangGraph.js', '向量检索', '知识图谱'],
     },
     skillGroups: [
@@ -161,7 +173,7 @@ export const resumes: ResumeData[] = [
       { title: '数据与工程', items: ['文件上传', '文档解析', '本地 JSON 持久化', 'FileStore / Chroma', 'Graphology', '代码审查与验证'] },
     ],
     workExperiences: compactWorkExperiences,
-    projects: [aiProject, xunfeiProjectFullstack, gisProjectFullstack],
+    projects: [aiProjectFullstack, xunfeiProjectFullstack, gisProjectFullstack],
     education: ['武昌工学院｜计算机科学与技术｜本科｜2021.06', '武汉职业技术学院｜专科'],
   },
 ]

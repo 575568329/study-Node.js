@@ -1,6 +1,79 @@
-# CLAUDE.md - AI导师配置
+# CLAUDE.md
 
-本文件指导Claude Code如何作为你的**全栈开发学习导师**。
+本文件为 Claude Code (claude.ai/code) 在本仓库中工作时提供指导。
+
+> 本仓库是“学习/求职准备工作区”，不是单一应用。它同时承载：学习笔记与会话记录、简历项目（`简历相关/resume-web`）、以及实际可运行的 Gemini 协作工具链（`tools/gemini/`）。下面两节是技术参考；其后是导师角色与工作流配置。
+
+---
+
+## 常用命令 (Commands)
+
+根目录 `package.json` 的脚本全部指向 Gemini 工具链：
+
+```bash
+npm run gemini        # 启动 Gemini Web Chat 服务（Express + WS，端口 3456）
+npm run gemini:init   # 提取并缓存 Gemini Cookie（首次/Cookie 过期后执行）
+npm run gemini:chat   # 启动 Chrome 调试模式（CDP 19222），用于登录 Gemini
+```
+
+Gemini CLI 协作（双 AI 流程，详见下方架构）。两条链路命令一致，区别只在底层实现：
+
+```bash
+# 一次性准备：先 open 登录，再 init 缓存 Cookie
+node tools/gemini/gemini-chat.mjs open        # 打开 Chrome 调试模式并登录
+node tools/gemini/gemini-api.mjs  init        # 提取 Cookie（依赖上一步的已登录 Chrome）
+
+# 之后可用的模式（ask/plan/verify/quiz/interview）
+node tools/gemini/gemini-api.mjs  verify "要审查的教学内容"
+node tools/gemini/gemini-api.mjs  quiz
+node tools/gemini/gemini-api.mjs  interview "面试主题"
+node tools/gemini/gemini-cli.mjs  verify "内容"   # 轻量版：直连智谱 API，无需浏览器
+```
+
+简历网页项目（独立子项目，自带 `package.json`）：
+
+```bash
+cd 简历相关/resume-web
+npm install
+npm run dev      # vite --host 127.0.0.1
+npm run build    # tsc -b && vite build —— 改完网页简历必须跑这个验证
+npm run preview
+```
+
+本仓库无统一测试/构建入口。学习路线规定的测试约定见下方 TDD 章节（curl 脚本放 `tests/curl/`，前端用 Vitest/Jest），但当前主要可运行代码是 Gemini 工具链和 resume-web。
+
+---
+
+## 代码架构 (Architecture)
+
+### Gemini 协作工具链 `tools/gemini/`
+
+实现“Claude 主教练 + Gemini 审查员”双 AI 协作。同一套 `ask/plan/verify/quiz/interview` 模式有**三种独立实现**，理解差异需要对照阅读：
+
+- **`gemini-chat.mjs`** — 浏览器 DOM 自动化。通过 Playwright `connectOverCDP` 连到调试端口 19222 的 Chrome，模拟在 gemini.google.com 页面输入/读取。`open` 负责拉起带 `--remote-debugging-port` 的 Chrome；`setup` 自动创建名为“全栈学习策略师”的 Gem。慢但最稳。
+- **`gemini-api.mjs`** — 跳过 DOM，直接 POST 到 Gemini 内部 `StreamGenerate` 接口。依赖从已登录 Chrome 提取的 Cookie + AT token（缓存在 `.gemini-cookies.txt` / `.gemini-at-token.txt`）。模型通过 `x-goog-ext-525001261-jspb` 头里的 model id 切换（`flash35`/`flash`/`pro`，见 `MODEL_IDS`，可用 `GEMINI_MODEL` 环境变量覆盖）。快。
+- **`gemini-cli.mjs`** — 完全不碰 Gemini，直连智谱 `glm-4-flash` API 模拟同样的协作模式。无浏览器依赖，作为降级/快速通道。
+- **`gemini-server.mjs`** — 独立的 Web Chat 服务（端口 3456）。Express 提供 `/api/chat`、`/api/inject`、`/api/conversations`，外加 `/ws` WebSocket 做流式输出；复用 `gemini-api.mjs` 的 `StreamGenerate` 调用。启动时生成随机 `AUTH_TOKEN` 做接口鉴权（`authCheck`）。对话持久化到 `tools/gemini/conversations/*.json`。
+
+公共数据流：`open`（登录）→ `init`（CDP 提 Cookie）→ 各模式命令携带 Cookie 调内部 API。对话上下文（cid/rid/rcid）写入 `context.json` / `api-context.json` 以实现续聊。Gemini 的系统人设在 `docs/gemini-system-prompt.md`。
+
+### 简历项目 `简历相关/resume-web`
+
+Vite + React 19 + TypeScript + Tailwind v4 的纯前端单页。核心是**数据驱动的多版本简历**：`src/resumeVersions.ts` 用同一份 `baseProfile`/`workExperiences` 基础数据，组合出 3 个版本——`general`（通用）、`frontend`（纯前端）、`nodeFullstack`（Node.js 全栈 AI）。改简历内容改这里，不改组件。类型定义在 `src/types.ts`。
+
+### 学习/求职资料区（非代码）
+
+`sessions/`（会话记录）、`progress/`（技能进度，唯一真相源）、`study-notes/`（Obsidian 笔记库）、`projects/`（学习 demo，**非简历主项目**，分层见 `projects/INDEX.md`）、`docs/`（工作入口与方案文档）、`memory/`（跨会话上下文）。RAG 主项目在**外部仓库** `rag-docs-assistant`，不在本仓库内。
+
+### Skills `.claude/skills/`
+
+`commit`（规范化 Git 提交）、`pre-session-review`（“开始今日学习”触发的课前小测）、`update-learning-progress`（“记录进度”触发，后台 agent 更新进度文件）。
+
+---
+
+## 角色与配置 (AI 导师配置)
+
+本文件同时指导 Claude Code 如何作为你的**全栈开发学习导师**。
 
 ---
 

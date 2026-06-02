@@ -4,8 +4,8 @@ import type { ProjectExperience, ResumeData, ResumeVersionKey, WorkExperience } 
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <section className="resume-section break-inside-avoid pt-2.5">
-      <h2 className="resume-section-title mb-1.5 text-[14px] font-bold tracking-wide">{title}</h2>
+    <section className="resume-section pt-3.5">
+      <h2 className="resume-section-title resume-section-heading mb-2 text-[16px] font-bold tracking-wide">{title}</h2>
       {children}
     </section>
   )
@@ -13,10 +13,10 @@ function Section({ title, children }: { title: string; children: React.ReactNode
 
 function BulletList({ items }: { items: string[] }) {
   return (
-    <ul className="space-y-1 text-[11.6px] leading-[1.48] text-slate-800">
+    <ul className="space-y-1 text-[12.5px] leading-[1.6] text-slate-800">
       {items.map((item) => (
-        <li key={item} className="grid grid-cols-[10px_1fr] gap-1">
-          <span className="resume-bullet-dot pt-[7px] text-[7px] leading-none">●</span>
+        <li key={item} className="grid grid-cols-[12px_1fr] gap-1.5">
+          <span className="resume-bullet-dot pt-[7px] text-[8px] leading-none">●</span>
           <span>{item}</span>
         </li>
       ))}
@@ -27,13 +27,13 @@ function BulletList({ items }: { items: string[] }) {
 function WorkBlock({ work }: { work: WorkExperience }) {
   return (
     <article className="break-inside-avoid">
-      <div className="mb-1 flex items-baseline justify-between gap-4">
-        <h3 className="text-[13px] font-bold text-slate-950">
+      <div className="mb-1.5 flex items-baseline justify-between gap-4">
+        <h3 className="text-[15.5px] font-bold text-slate-950">
           {work.company}｜{work.role}
         </h3>
-        <span className="shrink-0 text-[11px] text-slate-500">{work.period}</span>
+        <span className="shrink-0 text-[12.5px] text-slate-500">{work.period}</span>
       </div>
-      <p className="mb-1.5 text-[12px] leading-[1.5] text-slate-700">{work.description}</p>
+      <p className="mb-2 text-[13.5px] leading-[1.65] text-slate-700">{work.description}</p>
       <BulletList items={work.bullets} />
     </article>
   )
@@ -42,21 +42,21 @@ function WorkBlock({ work }: { work: WorkExperience }) {
 function ProjectBlock({ project }: { project: ProjectExperience }) {
   return (
     <article className="project-block break-inside-avoid">
-      <div className="mb-1 flex items-baseline justify-between gap-4">
-        <h3 className="project-title text-[13px] font-bold">
+      <div className="mb-1.5 flex items-baseline justify-between gap-4">
+        <h3 className="project-title text-[15.5px] font-bold">
           {project.name}
           {project.role ? <span className="font-medium text-slate-600">｜{project.role}</span> : null}
         </h3>
-        {project.period ? <span className="shrink-0 text-[11px] text-slate-500">{project.period}</span> : null}
+        {project.period ? <span className="shrink-0 text-[12.5px] text-slate-500">{project.period}</span> : null}
       </div>
-      <div className="mb-1.5 flex flex-wrap gap-1">
+      <div className="mb-2 flex flex-wrap gap-1.5">
         {project.stack.map((skill) => (
-          <span key={skill} className="skill-pill rounded-sm border px-1.5 py-0.5 text-[10px]">
+          <span key={skill} className="skill-pill rounded-sm border px-1.5 py-0.5 text-[11.5px]">
             {skill}
           </span>
         ))}
       </div>
-      <p className="mb-1.5 text-[12px] leading-[1.5] text-slate-700">{project.description}</p>
+      <p className="mb-2 text-[13.5px] leading-[1.65] text-slate-700">{project.description}</p>
       <BulletList items={project.bullets} />
     </article>
   )
@@ -64,7 +64,7 @@ function ProjectBlock({ project }: { project: ProjectExperience }) {
 
 function ResumeSheet({ children }: { children: React.ReactNode }) {
   return (
-    <main className="resume-page mx-auto bg-white px-[12mm] py-[10mm] text-slate-900 shadow-sm print:shadow-none">
+    <main className="resume-page mx-auto bg-white px-[14mm] py-[12mm] text-slate-900 shadow-sm print:shadow-none">
       {children}
     </main>
   )
@@ -72,22 +72,22 @@ function ResumeSheet({ children }: { children: React.ReactNode }) {
 
 function ResumeHeader({ data }: { data: ResumeData }) {
   return (
-    <header className="resume-header mb-3 pb-2.5">
+    <header className="resume-header mb-4 pb-3.5">
       <div className="flex items-end justify-between gap-6">
         <div>
-          <h1 className="resume-name text-[25px] font-black tracking-[0]">{data.profile.name}</h1>
-          <p className="mt-1 text-[14px] font-semibold text-slate-800">{data.profile.title}</p>
+          <h1 className="resume-name text-[30px] font-black tracking-[0]">{data.profile.name}</h1>
+          <p className="mt-1.5 text-[16px] font-semibold text-slate-800">{data.profile.title}</p>
         </div>
-        <div className="shrink-0 text-right text-[11px] leading-[1.6] text-slate-700">
+        <div className="shrink-0 text-right text-[12.5px] leading-[1.7] text-slate-700">
           <div>{data.profile.location}</div>
           <div>{data.profile.phone}</div>
           <div>{data.profile.email}</div>
         </div>
       </div>
-      <p className="mt-1.5 text-[11.8px] leading-[1.48] text-slate-700">{data.profile.summary}</p>
-      <div className="mt-1.5 flex flex-wrap gap-1">
+      <p className="mt-2.5 text-[13.5px] leading-[1.65] text-slate-700">{data.profile.summary}</p>
+      <div className="mt-2.5 flex flex-wrap gap-1.5">
         {data.profile.tags.map((tag) => (
-          <span key={tag} className="profile-tag rounded-sm px-1.5 py-0.5 text-[10.5px] font-medium">
+          <span key={tag} className="profile-tag rounded-sm px-2 py-0.5 text-[12px] font-medium">
             {tag}
           </span>
         ))}
@@ -99,11 +99,11 @@ function ResumeHeader({ data }: { data: ResumeData }) {
 function SkillSection({ data }: { data: ResumeData }) {
   return (
     <Section title="职业技能">
-      <div className="space-y-1.5">
+      <div className="space-y-2">
         {data.skillGroups.map((group) => (
-          <div key={group.title} className="skill-card rounded border p-1.5">
-            <h3 className="skill-card-title mb-1 text-[11.5px] font-bold">{group.title}</h3>
-            <p className="text-[11px] leading-[1.45] text-slate-700">{group.items.join('、')}</p>
+          <div key={group.title} className="skill-card rounded border p-2.5">
+            <h3 className="skill-card-title mb-1.5 text-[13.5px] font-bold">{group.title}</h3>
+            <p className="text-[13px] leading-[1.65] text-slate-700">{group.items.join('、')}</p>
           </div>
         ))}
       </div>
@@ -117,7 +117,7 @@ function ResumeDocument({ data }: { data: ResumeData }) {
 
   const workSection = hasWork ? (
     <Section title="工作经历">
-      <div className="space-y-2.5">
+      <div className="space-y-3">
         {data.workExperiences.map((work) => (
           <WorkBlock key={`${work.company}-${work.period}`} work={work} />
         ))}
@@ -136,7 +136,7 @@ function ResumeDocument({ data }: { data: ResumeData }) {
   )
 
   return (
-    <div className={`resume-theme theme-${data.key}`}>
+    <div className="resume-theme">
       <ResumeSheet>
       <ResumeHeader data={data} />
 
@@ -147,7 +147,7 @@ function ResumeDocument({ data }: { data: ResumeData }) {
         {isFullstackAi ? workSection : projectSection}
 
         <Section title="教育经历">
-          <div className="text-[12px] leading-[1.6] text-slate-800">{data.education.join('；')}</div>
+          <div className="text-[13px] leading-[1.7] text-slate-800">{data.education.join('；')}</div>
         </Section>
 
       </div>
