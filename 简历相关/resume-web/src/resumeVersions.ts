@@ -7,46 +7,33 @@ const baseProfile = {
   email: 'yfj575568329@163.com',
 }
 
-const workExperiences = [
+// 全栈版专用：只保留讯飞一段，叙事视角改为负责人 + 业务规模
+const fullstackWorkExperiences = [
   {
-    company: '讯飞智学网项目组/百得思维',
-    role: '前端负责人 / 前端开发工程师',
+    // 对外口径：百得思维派驻科大讯飞
+    company: '科大讯飞（百得思维派驻）',
+    role: '前端负责人',
     period: '2025.07 - 至今',
-    description: '负责讯飞智学网澳门市场资源加工与题库国际化改造的相关前端工作，所在组约 20 人，整体项目约 60 人。',
+    description:
+      '讯飞智学网澳门市场资源国际化项目，服务[待补充：学校/用户规模]，项目组约 60 人，前端组[待补充：人数]人。原前端骨干离职后，接手并主导 5 个遗留系统从需求落地到上线验收的全程交付，成为澳门项目前端从 0→1 交付的实际负责人。',
     bullets: [
-      '作为澳门项目相关前端负责人，统筹资源管理、题库、众包加工、专题教材等多个系统的国际化与澳门业务适配，保障在不影响大陆原有流程的前提下交付澳门市场上线。',
-      '主导前端方案设计与代码审查，把控澳门业务参数链路、资源语言隔离和富文本公式链路的实现质量，支撑项目从需求落地到上线验证。',
-      '借助 AI 辅助提升需求拆解与重复性改造效率，方案判断、代码审查和业务验证均由本人把关。',
+      '设计并落地资源 I18N 架构：以编译时预处理替代运行时逐请求翻译，通过三轮校对（AI 初筛 → 人工 → 产研）生成静态语言包，消除每用户调用 LLM 的重复成本；澳门与大陆数据通过 languageCode/isMacao 标识隔离，在不破坏大陆原有流程的前提下交付上线。',
+      '主导富文本公式编辑器的组件化沉淀：将 Wiris 图片公式、LaTeX、MathJax、图片兜底四条渲染链路抽象为原子组件、通用组件和业务组件三层，解决多系统复用与维护问题；识别系统级风险（子项目互相依赖、组件跨版本兼容）并制定隔离方案，把控代码审查和业务验证质量阀门。',
+      '借助 AI 工具（Claude Code / Cursor）提升需求拆解与重复性改造效率，输出方案文档和审查规范；方案判断、架构决策和上线验证均由本人把关。',
     ],
   },
   {
     company: '武汉地大信息工程股份有限公司',
     role: '前端开发工程师',
     period: '2022.06 - 2025.07',
-    description: '负责气象监测、地灾监测、避险搬迁等 Web、App、小程序多端业务开发。',
+    description:
+      '负责地质灾害监测、避险搬迁等 Web 管理端、移动端、小程序多端业务开发，服务甘肃全省约 8000 个监测点。',
     bullets: [
-      '负责甘肃、北京等地灾项目的地图可视化与多端业务开发，支撑甘肃全省约 8000 个监测点的数据展示与预警。',
-      '负责 Vue2 到 Vue3、.NET 到 Java 系统迁移中的前端改造，维护公共组件并适配内网、麒麟、国密、UKey 等信创环境。',
-      '完成现场交付、客户培训和问题排查，推进复杂行业项目的前端交付与联调。',
-    ],
-  },
-  {
-    company: '武汉英泰斯特电子技术有限公司',
-    role: '前端开发工程师',
-    period: '2020.12 - 2022.04',
-    description: '参与 Web、移动端、车载终端项目开发，处理 IoT 实时数据和车机 H5 交互。',
-    bullets: [
-      '处理 10 万+ WebSocket 实时数据回传，通过分段回传、数据缓冲和批量渲染降低页面刷新压力。',
-      '实现车机系统中 H5 与 Android 原生能力交互，通过 JS-Bridge 完成车机终端能力调用和页面通信。',
-      '开发 Vue2 后台管理、uni-app 移动应用和小程序，支撑车载终端状态展示和业务交互。',
+      '负责地灾监测点 GIS 可视化与多端业务开发（Web / uni-app / 小程序），通过分级加载和按需渲染将首页加载提升约 50%；北京地灾项目接入 5s/次实时数据更新和三维模型展示，首屏从 3.5s 优化至 1.8s。',
+      '承接 Vue2→Vue3、.NET→Java 系统迁移中的前端改造，适配内网、麒麟、国密、UKey 等信创环境，完成现场交付和客户培训。',
     ],
   },
 ]
-
-const compactWorkExperiences = workExperiences.map((work) => ({
-  ...work,
-  bullets: work.bullets.slice(0, 2),
-}))
 
 const xunfeiProjectBase = {
   name: '讯飞智学网澳门市场资源加工与题库国际化改造',
@@ -57,23 +44,13 @@ const xunfeiProjectBase = {
     '面向澳门教育市场，对资源管理、题库管理、众包加工、专题教材管理等既有系统进行国际化和澳门业务规则适配，在不影响大陆原流程的前提下支持资源语言、澳门题型、基本学力、澳门知识点等能力。',
 }
 
-const xunfeiProjectGeneral = {
-  ...xunfeiProjectBase,
-  bullets: [
-    '作为澳门项目相关前端负责人，覆盖 rmp、rpp-web、tkms-fresh-web、crowdsourced-new-web、gxh-erm 5 个系统，完成 270+ 次非合并提交与 900+ 文件变更。',
-    '设计并落地 macaoParams 参数传递链路，将业务来源、资源语言、知识点标签等信息贯通到众包任务、题目编辑器、题目展示、解析对比和接口层。',
-    '围绕资源 I18N 改造语言联动能力，在图书、教辅、需求管理、众包任务等页面透传 languageCode、isMacao、isMacaoStudio，实现澳门与大陆数据隔离。',
-    '适配基本学力第一/第二语言、澳门知识点、澳门题型和试题来源，支撑审核、校对、标注、纠错、解析对比、相似题/同类题等众包流程。',
-    '围绕富文本公式编辑与展示链路沉淀原子组件、通用组件和业务组件，兼容 Wiris 图片公式、LaTeX、MathJax 和图片兜底。',
-  ],
-}
-
+// 澳门项目 - 全栈版（聚焦 I18N 架构 + 富文本组件两条主线）
 const xunfeiProjectFullstack = {
   ...xunfeiProjectBase,
   bullets: [
-    '在 5 个遗留系统中设计并落地 macaoParams 参数传递链路，将业务来源、资源语言、知识点标签贯通到众包任务、题目编辑器、题目展示和接口层。',
-    '围绕资源 I18N 改造语言联动能力，透传 languageCode、isMacao 等标识实现澳门与大陆数据隔离，并完成 Java Web 接口字段在多系统间的兼容联调。',
-    '沉淀富文本公式编辑与展示链路的原子/通用/业务组件，兼容 Wiris 图片公式、LaTeX、MathJax 和图片兜底。',
+    '设计并落地资源 I18N 架构：以编译时预处理替代运行时逐请求翻译，通过三轮校对（AI 初筛 → 人工 → 产研）生成静态语言包，消除每用户调用 LLM 的重复成本；澳门与大陆数据通过 languageCode/isMacao 标识隔离。',
+    '主导富文本公式编辑器的组件化沉淀：将 Wiris 图片公式、LaTeX、MathJax、图片兜底四条渲染链路抽象为原子/通用/业务组件三层，解决多系统复用与维护问题。',
+    '识别系统级风险（子项目互相依赖、组件跨版本兼容）并制定隔离方案，借助 AI 工具提升重复性改造效率，把控代码审查和业务验证质量阀门。',
   ],
 }
 
@@ -95,84 +72,53 @@ const gisProjectFullstack = {
   ],
 }
 
-const aiProject = {
-  name: '智能知识管理平台 / RAG 文档问答系统',
+// RAG 项目 - 全栈版（问题导向 + 钩子）
+const aiProjectFullstack = {
+  name: 'RAG 文档问答系统',
   role: '个人项目',
   period: '2026.04 - 至今',
-  stack: ['Next.js App Router', 'React', 'TypeScript', 'RAG', 'SSE', 'LangChain.js', 'LangGraph.js', 'GLM', 'Chroma', 'Graphology'],
+  url: 'http://nodetime.cn/rag/chat',
+  stack: ['Next.js', 'React', 'TypeScript', 'Node.js', 'LangChain', 'LangGraph', 'RAG', 'SSE', 'Chroma', 'Graphology'],
   description:
-    '面向个人或小团队的 RAG 文档知识管理平台，围绕知识库管理、文档解析、向量检索、AI 问答和知识图谱三个工作区组织，支持本地持久化和可演示部署。',
+    '本地 RAG 文档知识管理系统，支持文档上传解析、向量检索、流式问答、来源引用和知识图谱。完整实现从文档到回答的端到端链路，可独立部署演示，已上线可访问。',
   bullets: [
-    '基于 Next.js App Router 搭建数据、对话、图谱三工作区，通过 kbId 保持知识库选择、文档状态、对话上下文和图谱视图同步。',
-    '实现多知识库创建、删除、选择与状态刷新，支持 .txt、.md、.pdf、.docx、.xlsx 文档上传，完成文件校验、同名去重、文本解析和处理状态展示。',
-    '设计文档切片与检索链路，按标题分段结合固定窗口切片，批量生成向量并保存文档、切片和来源元数据。',
-    '抽象向量存储接口，默认使用本地 JSON FileStore 持久化向量数据，同时保留 ChromaDB 切换能力，支持向量写入、相似度检索和集合删除。',
-    '实现 RAG 流式问答接口，将最近对话历史拼接为检索查询，结合向量相似度与关键词混合检索 Top-K 片段，并通过 SSE 返回流式回答。',
-    '在回答中透出来源引用、文件名、章节和相关性分数；当知识库无相关内容时明确标注为 AI 补充回答，降低回答与资料混淆风险。',
-    '接入实体关系抽取和知识图谱能力，文档上传后异步生成文档节点、实体节点和关系边，图谱页支持节点数量、关系状态、搜索、收藏和节点详情查看。',
-    '基于 LangChain.js 封装文档加载、文本切片、向量化与检索链路，实现可复用的 RAG Pipeline；使用 LangGraph.js 构建多步骤 AI Agent 工作流，支持条件分支、工具调用和状态管理。',
-  ],
-}
-
-const aiProjectGeneral = {
-  ...aiProject,
-  bullets: [
-    '基于 Next.js App Router 搭建数据、对话、图谱三工作区，通过 kbId 保持知识库选择、文档状态、对话上下文和图谱视图同步。',
-    '支持 .txt、.md、.pdf、.docx、.xlsx 文档上传，完成文件校验、同名去重、文本解析、切片、向量化和来源元数据保存。',
-    '基于 LangChain.js 封装 RAG Pipeline（文档加载、切片、向量化、检索），使用 LangGraph.js 构建 AI Agent 多步骤工作流。',
-    '实现 RAG 流式问答接口，结合向量相似度与关键词混合检索 Top-K 片段，通过 SSE 返回回答并展示来源引用。',
-    '接入实体关系抽取和知识图谱能力，文档上传后异步生成文档节点、实体节点和关系边，支持搜索、收藏和节点详情查看。',
-  ],
-}
-
-const aiProjectFullstack = {
-  ...aiProject,
-  bullets: [
-    '基于 Next.js App Router 搭建数据、对话、图谱三工作区，通过 kbId 保持知识库选择、文档状态、对话上下文和图谱视图同步。',
-    '支持 .txt、.md、.pdf、.docx、.xlsx 文档上传，完成文件校验、同名去重、文本解析、切片和来源元数据保存。',
-    '基于 LangChain.js 封装可复用 RAG Pipeline（文档加载、切片、向量化、检索），使用 LangGraph.js 构建支持条件分支、工具调用和状态管理的 AI Agent 工作流。',
-    '实现 RAG 流式问答接口，将最近对话历史拼接为检索查询，结合向量相似度与关键词混合检索 Top-K 片段，通过 SSE 返回流式回答。',
-    '抽象向量存储接口，默认用本地 JSON FileStore 持久化并保留 ChromaDB 切换能力，支持向量写入、相似度检索和集合删除。',
-    '在回答中透出来源引用、文件名、章节和相关性分数，知识库无相关内容时明确标注为 AI 补充回答，降低回答与资料混淆风险。',
+    '设计并落地 RAG 核心链路：文档上传 → 文本切片（按标题分段+固定窗口） → 向量化（批量生成） → 混合检索（向量相似度+关键词） → SSE 流式回答 → 来源引用透出（文件名/章节/相关性分数）；当知识库无相关内容时明确标注为 AI 补充回答，降低用户混淆风险。',
+    '解决 RAG 召回不准与幻觉问题的工程拦截：(1) 召回阶段设置相似度阈值，过滤低质量片段；(2) 回答阶段显式区分"知识库引用"与"AI 补充"，避免用户误以为 AI 推测即资料原文；(3) 透出 Top-K 来源和分数供用户验证。[待深化：召回过多/过少的打回策略、与产研定义的预值、大批量并发用户的限频与队列处理]',
+    '基于 LangChain 封装可复用 RAG Pipeline（文档加载、切片、向量化、检索），使用 LangGraph 构建支持条件分支、工具调用和状态管理的 AI Agent 工作流；抽象向量存储接口（默认本地 JSON FileStore 持久化，保留 ChromaDB 切换能力）。',
+    '实现知识图谱能力：文档上传后异步抽取实体和关系，生成文档节点、实体节点和关系边，支持图谱搜索、节点详情和收藏；基于 Next.js App Router 构建数据/对话/图谱三工作区，通过 kbId 保持知识库选择、文档状态、对话上下文和图谱视图同步。',
   ],
 }
 
 export const resumes: ResumeData[] = [
   {
-    key: 'general',
-    label: '通用版',
-    profile: {
-      ...baseProfile,
-      title: '全栈型前端工程师｜Vue / React / Node.js｜AI 应用实践',
-      summary:
-        '前端出身，擅长复杂 B 端、跨系统改造、RAG 应用落地和可视化性能优化，具备从需求拆解到上线验证的交付经验。',
-      tags: ['全栈型前端', 'Vue2/Vue3', 'React', 'TypeScript', 'Node.js', 'RAG', 'LangChain.js', 'LangGraph.js', '复杂 B 端'],
-    },
-    skillGroups: [
-      { title: 'AI 与全栈', items: ['RAG Pipeline', 'LangChain.js', 'LangGraph.js', 'SSE 流式响应', '混合检索', '来源引用', 'Next.js API Route', 'Node.js', '文件上传与解析'] },
-      { title: '前端开发', items: ['Vue2 / Vue3', 'React', 'TypeScript', 'Vue Router', 'Vuex / Pinia', 'Tailwind CSS', '组件化'] },
-      { title: '工程与业务', items: ['Webpack', 'Vite', 'Git / SVN', '资源 I18N', '富文本公式', 'WebSocket 实时数据', 'OpenLayers / ECharts'] },
-    ],
-    workExperiences,
-    projects: [xunfeiProjectGeneral, aiProjectGeneral, gisProjectFullstack],
-    education: ['武昌工学院｜计算机科学与技术｜本科｜2021.06', '武汉职业技术学院｜专科'],
-  },
-  {
     key: 'nodeFullstack',
     label: 'Node.js 全栈 AI',
     profile: {
       ...baseProfile,
-      title: '全栈型前端工程师｜React / Next.js / Node.js｜AI 应用方向',
+      title: '全栈工程师（前端出身）｜Node.js / React / Next.js｜AI 应用方向',
       summary:
-        '6 年前端复杂业务交付经验，正向 AI 应用全栈方向升级。基于 React / Next.js / TypeScript 可独立完成文档上传解析、向量检索、RAG 流式问答、来源引用和知识图谱的端到端落地，能把 AI 能力做成可演示、可上线的产品闭环。',
-      tags: ['Next.js', 'React', 'Node.js', 'API Route', 'RAG', 'LangChain.js', 'LangGraph.js', '向量检索', '知识图谱'],
+        '6 年前端经验，擅长复杂 B 端跨系统改造、RAG 应用端到端落地和前端性能优化。能独立完成从需求拆解、方案设计、代码实现到上线验收的全程交付，可将 AI 能力做成可演示、可上线的产品闭环。正向 AI 应用全栈方向升级。',
+      tags: ['React', 'Next.js', 'Node.js', 'TypeScript', 'RAG', 'LangChain', 'LangGraph', 'SSE', '向量检索', '知识图谱'],
     },
     skillGroups: [
-      { title: '前端与全栈', items: ['React', 'Next.js App Router', 'TypeScript', 'Tailwind CSS', 'Node.js', 'API Route'] },
-      { title: 'AI 应用链路', items: ['RAG Pipeline', 'LangChain.js', 'LangGraph.js', 'SSE 流式响应', '混合检索', '来源引用', '知识图谱', '多轮上下文检索'] },
-      { title: '数据与工程', items: ['文件上传', '文档解析', '本地 JSON 持久化', 'FileStore / Chroma', 'Graphology', '代码审查与验证'] },
+      {
+        title: 'AI 应用链路（能讲 3-5 分钟）',
+        items: ['MCP', 'OpenClaw', 'RAG', 'LangChain', 'LangGraph', 'Prompt Engineering', 'SSE 流式响应', '混合检索', '来源引用', '知识图谱'],
+      },
+      {
+        title: '前端与全栈',
+        items: ['Vue2 / Vue3', 'React', 'Next.js App Router', 'TypeScript', 'Node.js', 'Tailwind CSS', 'uni-app', '小程序', 'Web 组件化'],
+      },
+      {
+        title: '工程与数据',
+        items: ['Next.js API Route', '文件上传与解析', '本地 JSON 持久化', 'FileStore / Chroma', 'Graphology', 'Webpack / Vite', 'Docker（了解）', 'K8s（了解云原生）'],
+      },
+      {
+        title: '方法论与质量（SDD / TDD / BDD）',
+        items: ['代码审查与验证', '方案文档输出', 'AI 辅助开发（Claude Code / Cursor）', 'Git 协作', '现场交付与客户培训'],
+      },
     ],
-    workExperiences: compactWorkExperiences,
+    workExperiences: fullstackWorkExperiences,
     projects: [aiProjectFullstack, xunfeiProjectFullstack, gisProjectFullstack],
     education: ['武昌工学院｜计算机科学与技术｜本科｜2021.06', '武汉职业技术学院｜专科'],
   },

@@ -46,6 +46,9 @@ function ProjectBlock({ project }: { project: ProjectExperience }) {
         <h3 className="project-title text-[15.5px] font-bold">
           {project.name}
           {project.role ? <span className="font-medium text-slate-600">｜{project.role}</span> : null}
+          {project.url ? (
+            <span className="ml-1.5 text-[11px] font-normal text-slate-500">{project.url}</span>
+          ) : null}
         </h3>
         {project.period ? <span className="shrink-0 text-[12.5px] text-slate-500">{project.period}</span> : null}
       </div>
@@ -157,7 +160,7 @@ function ResumeDocument({ data }: { data: ResumeData }) {
 }
 
 export function App() {
-  const [activeKey, setActiveKey] = useState<ResumeVersionKey>('general')
+  const [activeKey, setActiveKey] = useState<ResumeVersionKey>('nodeFullstack')
   const activeResume = useMemo(() => resumes.find((resume) => resume.key === activeKey) ?? resumes[0], [activeKey])
   const handleExportPdf = () => {
     window.print()

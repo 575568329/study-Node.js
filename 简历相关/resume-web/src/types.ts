@@ -1,6 +1,4 @@
-export type ResumeVersionKey =
-  | 'general'
-  | 'nodeFullstack'
+export type ResumeVersionKey = 'nodeFullstack'
 
 export interface ResumeProfile {
   name: string
@@ -29,6 +27,7 @@ export interface ProjectExperience {
   name: string
   role?: string
   period?: string
+  url?: string
   stack: string[]
   description: string
   bullets: string[]
