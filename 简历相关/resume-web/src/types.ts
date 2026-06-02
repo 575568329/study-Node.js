@@ -1,6 +1,5 @@
 export type ResumeVersionKey =
   | 'general'
-  | 'frontend'
   | 'nodeFullstack'
 
 export interface ResumeProfile {

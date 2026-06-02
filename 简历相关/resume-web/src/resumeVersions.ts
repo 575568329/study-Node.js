@@ -68,17 +68,6 @@ const xunfeiProjectGeneral = {
   ],
 }
 
-const xunfeiProjectFrontend = {
-  ...xunfeiProjectBase,
-  bullets: [
-    '作为澳门项目相关前端负责人，负责 5 个系统前端改造，完成 270+ 次非合并提交与 900+ 文件变更，支撑澳门市场资源加工和题库流程上线。',
-    '围绕 macaoParams、languageCode、isMacao、isMacaoStudio 设计跨页面参数传递和数据隔离方案，避免澳门与大陆业务相互影响。',
-    '在 Vue2 + Angular 4 遗留工程中改造图书、教辅、需求管理、众包任务、题目编辑器、解析对比等页面，保证旧系统稳定迭代。',
-    '处理基本学力第一/第二语言、澳门知识点、澳门题型、试题来源等业务字段在审核、校对、标注、纠错流程中的展示和回填。',
-    '围绕 CKEditor / Wiris / LaTeX / MathJax 公式链路沉淀原子组件、通用组件和业务组件，对异常公式保留图片兜底。',
-  ],
-}
-
 const xunfeiProjectFullstack = {
   ...xunfeiProjectBase,
   bullets: [
@@ -97,16 +86,6 @@ const gisProjectBase = {
     '面向地质灾害监测、避险搬迁和综合防治场景，建设 Web 管理端、移动端和地图可视化能力，支撑监测点、预警、三维模型和业务流程展示。',
 }
 
-const gisProject = {
-  ...gisProjectBase,
-  bullets: [
-    '参与甘肃全省地灾系统前端开发，覆盖约 8000 个监测点，其中陇南区域点位最多，负责地图、监测点、图表和三维展示模块。',
-    '基于 OpenLayers 二次封装地图能力，支持省 / 市 / 县分级加载、业务图层控制和监测点展示，首页加载速度优化后提升约 50%。',
-    '在北京地灾项目中实现三维地图灾害模型展示、5s/次实时数据更新、专家会商等功能，配合 Vite/gzip 将首屏从约 3.5s 优化至 1.8s。',
-    '参与 Vue2 到 Vue3、.NET 到 Java 后端体系迁移，维护公共组件并支持内网、麒麟系统、国密和 UKey 等国产化环境适配。',
-  ],
-}
-
 const gisProjectFullstack = {
   ...gisProjectBase,
   bullets: [
@@ -116,26 +95,11 @@ const gisProjectFullstack = {
   ],
 }
 
-const vehicleProject = {
-  name: '上汽车载终端实时数据与跨端项目',
-  role: '前端开发',
-  period: '2020.12 - 2022.04',
-  stack: ['Vue2', 'uni-app', 'WebSocket', 'H5', '小程序', 'JS-Bridge'],
-  description:
-    '面向上汽合作车载终端和 IoT 场景，开发 Web 后台、移动应用、小程序和车机 H5 页面，处理车辆实时数据回传、终端展示和原生通信。',
-  bullets: [
-    '参与 Vue2 后台管理、uni-app 移动应用和小程序开发，支撑车载终端状态展示和业务交互。',
-    '处理 10 万+ WebSocket 实时数据回传，通过分段回传、数据缓冲和 10 秒批量渲染策略降低页面刷新压力。',
-    '参与车机系统中 H5 与 Android 原生能力交互，通过 JS-Bridge 完成车机终端能力调用和页面通信。',
-    '优化 Webpack 配置、Nginx 跨域和 mockjs 接口模型，降低前后端联调成本并提升开发效率。',
-  ],
-}
-
 const aiProject = {
   name: '智能知识管理平台 / RAG 文档问答系统',
   role: '个人项目',
   period: '2026.04 - 至今',
-  stack: ['Next.js App Router', 'React', 'TypeScript', 'RAG', 'SSE', 'GLM', 'FileStore / Chroma', 'Graphology'],
+  stack: ['Next.js App Router', 'React', 'TypeScript', 'RAG', 'SSE', 'LangChain.js', 'LangGraph.js', 'GLM', 'Chroma', 'Graphology'],
   description:
     '面向个人或小团队的 RAG 文档知识管理平台，围绕知识库管理、文档解析、向量检索、AI 问答和知识图谱三个工作区组织，支持本地持久化和可演示部署。',
   bullets: [
@@ -146,6 +110,7 @@ const aiProject = {
     '实现 RAG 流式问答接口，将最近对话历史拼接为检索查询，结合向量相似度与关键词混合检索 Top-K 片段，并通过 SSE 返回流式回答。',
     '在回答中透出来源引用、文件名、章节和相关性分数；当知识库无相关内容时明确标注为 AI 补充回答，降低回答与资料混淆风险。',
     '接入实体关系抽取和知识图谱能力，文档上传后异步生成文档节点、实体节点和关系边，图谱页支持节点数量、关系状态、搜索、收藏和节点详情查看。',
+    '基于 LangChain.js 封装文档加载、文本切片、向量化与检索链路，实现可复用的 RAG Pipeline；使用 LangGraph.js 构建多步骤 AI Agent 工作流，支持条件分支、工具调用和状态管理。',
   ],
 }
 
@@ -154,6 +119,7 @@ const aiProjectGeneral = {
   bullets: [
     '基于 Next.js App Router 搭建数据、对话、图谱三工作区，通过 kbId 保持知识库选择、文档状态、对话上下文和图谱视图同步。',
     '支持 .txt、.md、.pdf、.docx、.xlsx 文档上传，完成文件校验、同名去重、文本解析、切片、向量化和来源元数据保存。',
+    '基于 LangChain.js 封装 RAG Pipeline（文档加载、切片、向量化、检索），使用 LangGraph.js 构建 AI Agent 多步骤工作流。',
     '实现 RAG 流式问答接口，结合向量相似度与关键词混合检索 Top-K 片段，通过 SSE 返回回答并展示来源引用。',
     '接入实体关系抽取和知识图谱能力，文档上传后异步生成文档节点、实体节点和关系边，支持搜索、收藏和节点详情查看。',
   ],
@@ -168,34 +134,15 @@ export const resumes: ResumeData[] = [
       title: '全栈型前端工程师｜Vue / React / Node.js｜AI 应用实践',
       summary:
         '前端出身，擅长复杂 B 端、跨系统改造、RAG 应用落地和可视化性能优化，具备从需求拆解到上线验证的交付经验。',
-      tags: ['全栈型前端', 'Vue2/Vue3', 'React', 'TypeScript', 'Node.js', 'RAG', '复杂 B 端'],
+      tags: ['全栈型前端', 'Vue2/Vue3', 'React', 'TypeScript', 'Node.js', 'RAG', 'LangChain.js', 'LangGraph.js', '复杂 B 端'],
     },
     skillGroups: [
-      { title: 'AI 与全栈', items: ['RAG Pipeline', 'SSE 流式响应', '混合检索', '来源引用', 'Next.js API Route', 'Node.js', '文件上传与解析'] },
+      { title: 'AI 与全栈', items: ['RAG Pipeline', 'LangChain.js', 'LangGraph.js', 'SSE 流式响应', '混合检索', '来源引用', 'Next.js API Route', 'Node.js', '文件上传与解析'] },
       { title: '前端开发', items: ['Vue2 / Vue3', 'React', 'TypeScript', 'Vue Router', 'Vuex / Pinia', 'Tailwind CSS', '组件化'] },
       { title: '工程与业务', items: ['Webpack', 'Vite', 'Git / SVN', '资源 I18N', '富文本公式', 'WebSocket 实时数据', 'OpenLayers / ECharts'] },
     ],
     workExperiences,
     projects: [xunfeiProjectGeneral, aiProjectGeneral, gisProjectFullstack],
-    education: ['武昌工学院｜计算机科学与技术｜本科｜2021.06', '武汉职业技术学院｜专科'],
-  },
-  {
-    key: 'frontend',
-    label: '纯前端',
-    profile: {
-      ...baseProfile,
-      title: '前端开发工程师｜Vue / React / TypeScript｜复杂业务系统 / 可视化 / 国际化',
-      summary:
-        '5-6 年前端开发经验，长期参与复杂 B 端、教育出海、GIS 可视化、IoT 车载终端和跨端应用建设。熟悉 Vue2/Vue3、React、TypeScript、OpenLayers、ECharts、WebSocket、工程化和遗留系统改造，能在多系统、多角色流程中推进稳定交付。',
-      tags: ['Vue2/Vue3', 'React', 'TypeScript', 'OpenLayers', 'ECharts', 'WebSocket', '复杂 B 端'],
-    },
-    skillGroups: [
-      { title: '前端框架', items: ['Vue2 / Vue3', 'React', 'TypeScript', 'Vue Router', 'Vuex / Pinia', 'Element UI', 'Ant Design Vue'] },
-      { title: '工程化与性能', items: ['Webpack', 'Vite', 'Babel', 'gzip', '首屏优化', 'Git / SVN', '组件化'] },
-      { title: '复杂业务能力', items: ['国际化改造', '富文本公式', 'GIS 可视化', 'WebSocket 实时数据', 'uni-app', 'JS-Bridge'] },
-    ],
-    workExperiences,
-    projects: [xunfeiProjectFrontend, gisProject, vehicleProject],
     education: ['武昌工学院｜计算机科学与技术｜本科｜2021.06', '武汉职业技术学院｜专科'],
   },
   {
@@ -206,11 +153,11 @@ export const resumes: ResumeData[] = [
       title: '全栈型前端工程师｜React / Next.js / Node.js｜AI 应用方向',
       summary:
         '具备 5-6 年前端复杂业务交付经验，正在向 AI 应用全栈方向升级。可基于 React/Next.js/TypeScript 承担前端工作台、API Route、文档上传解析、向量检索、流式问答、来源引用和知识图谱等 AI 应用闭环，定位为能端到端落地 AI 产品能力的全栈型前端。',
-      tags: ['Next.js', 'React', 'Node.js', 'API Route', 'RAG', '向量检索', '知识图谱'],
+      tags: ['Next.js', 'React', 'Node.js', 'API Route', 'RAG', 'LangChain.js', 'LangGraph.js', '向量检索', '知识图谱'],
     },
     skillGroups: [
       { title: '前端与全栈', items: ['React', 'Next.js App Router', 'TypeScript', 'Tailwind CSS', 'Node.js', 'API Route'] },
-      { title: 'AI 应用链路', items: ['RAG Pipeline', 'SSE 流式响应', '混合检索', '来源引用', '知识图谱', '多轮上下文检索'] },
+      { title: 'AI 应用链路', items: ['RAG Pipeline', 'LangChain.js', 'LangGraph.js', 'SSE 流式响应', '混合检索', '来源引用', '知识图谱', '多轮上下文检索'] },
       { title: '数据与工程', items: ['文件上传', '文档解析', '本地 JSON 持久化', 'FileStore / Chroma', 'Graphology', '代码审查与验证'] },
     ],
     workExperiences: compactWorkExperiences,
