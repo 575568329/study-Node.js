@@ -88,13 +88,7 @@ function ResumeHeader({ data }: { data: ResumeData }) {
         </div>
       </div>
       <p className="mt-2.5 text-[13.5px] leading-[1.65] text-slate-700">{data.profile.summary}</p>
-      <div className="mt-2.5 flex flex-wrap gap-1.5">
-        {data.profile.tags.map((tag) => (
-          <span key={tag} className="profile-tag rounded-sm px-2 py-0.5 text-[12px] font-medium">
-            {tag}
-          </span>
-        ))}
-      </div>
+      {/* Tags 标签云已隐藏 */}
     </header>
   )
 }

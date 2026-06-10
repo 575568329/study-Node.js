@@ -31,7 +31,7 @@ body {
 }
 
 .resume-header {
-  border-bottom: 2px solid var(--accent-dark);
+  /* border-bottom 已移除 */
 }
 
 .resume-name,
