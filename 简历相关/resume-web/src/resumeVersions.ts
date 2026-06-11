@@ -5,6 +5,7 @@ const baseProfile = {
   location: '武汉',
   phone: '13129937969',
   email: 'yfj575568329@163.com',
+  github: 'https://github.com/575568329',
 }
 
 // 全栈版专用：只保留讯飞一段，叙事视角改为负责人 + 业务规模
@@ -97,9 +98,9 @@ export const resumes: ResumeData[] = [
     label: 'Node.js 全栈 AI',
     profile: {
       ...baseProfile,
-      title: 'AI Agent 全栈工程师｜LangGraph / Claude Code',
+      title: 'AI Agent 全栈工程师',
       summary:
-        'AI Agent 全栈工程师。现主导讯飞智学网澳门出海项目（内地服务 2500+ 学校，新拓港澳市场）试卷试题底层库前端交付，自研基于 LangGraph 的 AI 资源管理系统并端到端落地上线；深度使用 Claude Code / Codex 完成从需求设计、代码实现到审查的全流程，能独立交付从需求拆解、架构决策到上线验收的完整闭环。此前负责甘肃 / 云南 / 广西 / 青海等多省地质灾害 GIS 可视化项目（约 3000 万规模）的全链路前端开发。',
+        'AI Agent 全栈工程师 / LangGraph / Claude Code。现主导讯飞智学网澳门出海项目（内地服务 2500+ 学校，新拓港澳市场）试卷试题底层库前端交付，自研基于 LangGraph 的 AI 资源管理系统并端到端落地上线；深度使用 Claude Code / Codex 完成从需求设计、代码实现到审查的全流程，能独立交付从需求拆解、架构决策到上线验收的完整闭环。此前负责甘肃 / 云南 / 广西 / 青海等多省地质灾害 GIS 可视化项目（约 3000 万规模）的全链路前端开发。',
       tags: ['LangChain', 'LangGraph', 'RAG', 'React', 'Next.js', 'Node.js', 'TypeScript', 'SSE', '向量检索', '知识图谱'],
     },
     skillGroups: [
