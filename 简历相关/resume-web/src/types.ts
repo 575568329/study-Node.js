@@ -6,6 +6,7 @@ export interface ResumeProfile {
   location: string
   phone: string
   email: string
+  github?: string
   summary: string
   tags: string[]
 }

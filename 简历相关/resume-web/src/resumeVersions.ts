@@ -5,6 +5,7 @@ const baseProfile = {
   location: '武汉',
   phone: '13129937969',
   email: 'yfj575568329@163.com',
+  github: 'https://github.com/575568329',
 }
 
 // 全栈版专用：只保留讯飞一段，叙事视角改为负责人 + 业务规模
@@ -113,7 +114,7 @@ export const resumes: ResumeData[] = [
       },
       {
         title: '工程与数据',
-        items: ['文件上传与解析', '本地 JSON 持久化', 'FileStore / Chroma', 'Graphology', 'Webpack / Vite', 'Docker（了解）', 'K8s（了解云原生）'],
+        items: ['文件上传与解析', '本地 JSON 持久化', 'FileStore / Chroma', 'Graphology', 'Webpack / Vite', ],
       },
       {
         title: 'AI 开发工具',

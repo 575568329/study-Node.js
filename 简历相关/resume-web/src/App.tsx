@@ -85,6 +85,13 @@ function ResumeHeader({ data }: { data: ResumeData }) {
           <div>{data.profile.location}</div>
           <div>{data.profile.phone}</div>
           <div>{data.profile.email}</div>
+          {data.profile.github ? (
+            <div>
+              <a href={data.profile.github} target="_blank" rel="noreferrer" className="text-slate-700 hover:text-blue-700">
+                {data.profile.github.replace(/^https?:\/\//, '')}
+              </a>
+            </div>
+          ) : null}
         </div>
       </div>
       <p className="mt-2.5 text-[13.5px] leading-[1.65] text-slate-700">{data.profile.summary}</p>
