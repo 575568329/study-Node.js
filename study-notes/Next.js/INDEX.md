@@ -2,6 +2,8 @@
 
 > 状态: ✅ 基础+实战完成 | 最后更新: 2026-04-09
 
+> 🧠 **记忆锚点**:**Next.js = React 的全栈框架;文件路由(App Router)定页面,Server Component 默认(可直接查库/取数)、需交互加 `'use client'` 变 Client Component;内置 API Routes 写后端,SSR/SSG/ISR 管首屏与 SEO。**
+
 ---
 
 ## 📚 知识点总结

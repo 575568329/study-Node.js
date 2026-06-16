@@ -2,6 +2,8 @@
 
 > 状态: ✅ 核心完成 | 开始日期: 2026-03-31 | 完成度: 90%
 
+> 🧠 **记忆锚点**:**Vue3 相对 Vue2 的核心升级是 Composition API(setup 按「功能」而非「选项」组织逻辑);基本值用 ref、对象用 reactive,逻辑复用靠 Composables(useXxx),全局状态用 Pinia。**
+
 ---
 
 ## 学习路线

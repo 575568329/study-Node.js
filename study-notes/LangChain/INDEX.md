@@ -1,5 +1,7 @@
 # LangChain.js 学习笔记
 
+> 🧠 **记忆锚点**:**LangChain = 用 LLM 搭应用的框架;四大组件 Model/Prompt/Chain/Output Parser 串成链。两条主线:RAG(切块→embedding→向量库→检索→生成,治幻觉与私有数据)和 Agent(tool() 定义工具 + AgentExecutor 自主调用)。**
+
 ## 进度概览
 
 - **当前进度**: 14/14 主题（100%） ✅ 已完成

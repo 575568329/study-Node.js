@@ -2,6 +2,8 @@
 
 > 最后更新: 2026-03-15 | 状态: ✅ 已完成
 
+> 🧠 **记忆锚点**:**Node.js = 基于 V8 的 JS 运行时,靠单线程 + 事件循环 + 非阻塞 I/O 抗并发;主线:内置模块(fs/http/events)→ 异步(Promise/async-await)→ Express 建 API → Sequelize 操数据库 → JWT/CORS 管认证安全。**
+
 ---
 
 ## 知识点总结

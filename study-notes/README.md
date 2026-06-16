@@ -15,6 +15,9 @@
 | **React** | ✅ 已完成 | - | [[React/INDEX]] |
 | **Next.js** | ✅ 已完成 | - | [[Next.js/INDEX]] |
 | **LangChain** | 🔥 进行中 | 64% | [[LangChain/INDEX]] |
+| **MCP** | 🔥 学习中 | - | [[MCP/INDEX]] |
+| **Skill** | 🔥 学习中 | - | [[Skill/INDEX]] |
+| **LLM-API** | 🔥 学习中 | - | [[LLM-API/INDEX]] |
 
 ---
 
@@ -42,6 +45,9 @@ study-notes/
 ├── React/                # React（已完成）
 ├── Next.js/              # Next.js（已完成）
 ├── LangChain/            # LangChain.js（进行中）
+├── MCP/                  # MCP 协议（Claude Code 生态）
+├── Skill/                # Skill 技能（Claude Code 生态）
+├── LLM-API/              # LLM API 协议（OpenAI / Anthropic）
 ├── 共享/                  # 跨技能通用内容
 ├── Excalidraw/           # 思维导图
 └── templates/            # 笔记模板
@@ -70,4 +76,4 @@ study-notes/
 
 ---
 
-**最后更新**: 2026-04-18
+**最后更新**: 2026-06-16

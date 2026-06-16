@@ -2,6 +2,8 @@
 
 > 状态: ✅ 已完成 | 开始日期: 2026-03-31 | 完成日期: 2026-04-04
 
+> 🧠 **记忆锚点**:**React = JSX + 函数组件 + Hooks;没有响应式数据,靠状态变化驱动重渲染、单向数据流。核心是 Hooks(useState/useEffect/useRef/useMemo/useCallback),逻辑复用用自定义 Hook(useXxx)。**
+
 ---
 
 ## 学习路线
