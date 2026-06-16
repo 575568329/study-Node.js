@@ -7,7 +7,7 @@
 ## 进度概览
 
 - **状态**: 🔥 学习中（概念梳理 + 实战 demo 已完成）
-- **实战项目**: [tech-terms-mcp-server](../../projects/mcp/tech-terms-mcp-server/)（stdio 本地 server，3 个 tool）
+- **实战项目**: tech-terms-mcp-server（stdio 本地 server，3 个 tool）⏳ _计划中，待创建_
 - **关联**: Skill（Agent 技能）一并记录于此
 
 ---
@@ -44,6 +44,6 @@
 
 ## 下次学习
 
-1. 给 tech-terms 加一个「调线上 API + 环境变量凭证」的 tool（练凭证保管）
+1. 创建 tech-terms-mcp-server（含「调线上 API + 环境变量凭证」的 tool，练凭证保管）
 2. Streamable HTTP 传输模式（远程 server + OAuth 2.1）
 3. Resources / Prompts 两大原语实战

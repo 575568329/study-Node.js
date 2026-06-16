@@ -75,3 +75,6 @@ tools/gemini/.gemini-at-token.txt
 tools/gemini/conversations/
 tools/gemini/test-*.png
 tools/gemini/screenshot-*.png
+
+# Obsidian 工作区状态（频繁变动，不入库）
+study-notes/.obsidian/workspace.json

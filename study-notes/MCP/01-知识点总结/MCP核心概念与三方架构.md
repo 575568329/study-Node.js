@@ -107,4 +107,4 @@ MCP server 本质是程序（npm 包 / 二进制 / 容器）。**目前没有权
 ## 📚 参考资料
 
 - MCP 官方规范：modelcontextprotocol.io
-- 实战项目：[[../../../projects/mcp/tech-terms-mcp-server/README|tech-terms-mcp-server]]
+- 实战项目：tech-terms-mcp-server（计划中，待创建）

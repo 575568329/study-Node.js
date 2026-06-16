@@ -10,7 +10,7 @@ tags:
 
 # MCP-Server 开发语法 & Skill 语法
 
-> 本篇对照实战项目 [[../../../projects/mcp/tech-terms-mcp-server/README|tech-terms-mcp-server]] 学习。
+> 本篇建议对照实战项目学习（可按本篇自行实现一个 tech-terms MCP server）。
 
 ## 一、Skill（Agent 技能）
 
@@ -106,5 +106,5 @@ server.registerTool(
 
 ## 📚 参考资料
 
-- 实战：[[../../../projects/mcp/tech-terms-mcp-server/README|tech-terms-mcp-server]]
+- 实战：tech-terms-mcp-server（计划中，待创建）
 - SDK：`@modelcontextprotocol/sdk`
