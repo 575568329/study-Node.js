@@ -1,0 +1,4 @@
+# 统一文本文件换行符为 LF。
+# 防止 Windows 编辑器把 LF 翻成 CRLF 后产生"幻影脏状态"（全仓库 +N -N 的假修改）。
+# 二进制文件（图片、.pma、.db 等）由 text=auto 自动识别，不会被改动。
+* text=auto eol=lf
