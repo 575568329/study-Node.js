@@ -37,7 +37,6 @@ logs/
 *.log
 
 # 临时文件
-tmp/
 temp/
 *.tmp
 
@@ -46,12 +45,12 @@ temp/
 *.sqlite
 *.sqlite3
 
-# 项目特定
-projects/*/node_modules/
-projects/*/dist/
-projects/*/build/
-projects/*/uploads/  # 上传文件目录
-简历相关/resume-web/dist/
+# 项目特定：构建产物与上传目录
+# 用全局规则（无前导斜杠 = 匹配任意层级的同名目录），避免 projects/**/x/ 只匹配目录、
+# 不向下传播到文件的问题（曾导致 uploads 下的测试图被跟踪）
+dist/
+build/
+uploads/
 简历相关/resume-web/tsconfig.tsbuildinfo
 
 # Claude Code配置
@@ -65,7 +64,6 @@ projects/*/uploads/  # 上传文件目录
 # 可选：不提交会话笔记（如果包含敏感信息）
 # sessions/
 chroma/
-.ccode/
 gemini-interactions/.gemini-cookies.txt
 gemini-interactions/.gemini-at-token.txt
 
