@@ -42,9 +42,9 @@
   - `docs/03-面试资产目录.md`
   - `projects/INDEX.md`
   - `docs/04-全栈求职执行计划.md`
-  - `docs/组件库设计方案.md`
+  - `docs/component-library/设计方案.md`
 - 已新增组件库范围说明：
-  - `docs/组件库组件范围说明.md`
+  - `docs/component-library/组件范围.md`
   - 明确组件库主卖点为 AI / RAG / Agent / 前端复杂状态抽象，不做通用大而全 UI 库。
 - 已开始构建 `projects/fullstack-ui-kit`：
   - 创建了 Vite + React + TypeScript 子项目骨架。
@@ -59,7 +59,7 @@
   - 更新 `AGENTS.md` 增加子代理调度规范。
   - 新增 `docs/codex_with_cc子代理工作流.md` 作为可执行说明。
 - 已新增组件库说明文档：
-  - `docs/fullstack-ui-kit组件说明.md`
+  - `docs/component-library/组件说明.md`
   - 用于解释 `ChatMessage`、`SourceCard`、`StepTimeline`、`UploadPanel` 的作用和分层。
 - 已把 `D:\Study\fullstack-ui-kit` 改造成本地可浏览的 ElementUI 风格演示站：
   - 左侧目录 + 右侧组件展示区。
@@ -83,7 +83,7 @@
 ## 当前项目状态
 
 - `Node.js-Study` 不再以课程推进为核心。
-- `rag-docs-assistant` 是主项目，需要先做体检；同时组件库作为第二条证明线，按 `docs/组件库设计方案.md` 推进。
+- `rag-docs-assistant` 是主项目，需要先做体检；同时组件库作为第二条证明线，按 `docs/component-library/设计方案.md` 推进。
 - 组件库当前定位已收敛为 AI 相关组件、项目沉淀组件、前端疑难杂症组件，普通组件只做最小能力，不作为主卖点。
 - `projects/fullstack-ui-kit` 当前是可运行的最小版本，后续可以继续补 `StreamingText`、`ErrorStatePanel`、`RetryNotice`、`ConversationHistoryPanel`。
 - 真正要发布 npm 的版本现在在 `D:\Study\fullstack-ui-kit`，不是 `Node.js-Study` 子目录里的 demo 版本。

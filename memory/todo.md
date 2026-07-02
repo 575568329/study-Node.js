@@ -13,7 +13,7 @@
 ### P0：计划固化
 
 - [x] 新增 `docs/04-全栈求职执行计划.md`。
-- [x] 新增 `docs/组件库设计方案.md`。
+- [x] 新增 `docs/component-library/设计方案.md`。
 
 ### P1：项目体检
 
