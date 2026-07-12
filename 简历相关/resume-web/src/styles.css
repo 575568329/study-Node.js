@@ -45,8 +45,10 @@ body {
   border-top: 1px solid var(--accent-border);
 }
 
-/* 防止 section 标题在页底成为孤儿（标题在 A 页、内容在 B 页） */
-.resume-section-heading {
+/* 防止各级标题在页底成为孤儿（标题在 A 页、内容在 B 页） */
+.resume-section-heading,
+.skill-card-title,
+.project-title {
   break-after: avoid;
   page-break-after: avoid;
 }

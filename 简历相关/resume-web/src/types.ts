@@ -14,6 +14,8 @@ export interface ResumeProfile {
 export interface ResumeSection {
   title: string
   items: string[]
+  /** 第二行：这组技能能做到什么程度（程度 / 成果描述），可选 */
+  level?: string
 }
 
 export interface WorkExperience {

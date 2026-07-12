@@ -15,7 +15,7 @@ function BulletList({ items }: { items: string[] }) {
   return (
     <ul className="space-y-1 text-[12.5px] leading-[1.6] text-slate-800">
       {items.map((item) => (
-        <li key={item} className="grid grid-cols-[12px_1fr] gap-1.5">
+        <li key={item} className="grid grid-cols-[12px_1fr] gap-1.5 break-inside-avoid">
           <span className="resume-bullet-dot pt-[7px] text-[8px] leading-none">●</span>
           <span>{item}</span>
         </li>
@@ -26,7 +26,7 @@ function BulletList({ items }: { items: string[] }) {
 
 function WorkBlock({ work }: { work: WorkExperience }) {
   return (
-    <article className="break-inside-avoid">
+    <article>
       <div className="mb-1.5 flex items-baseline justify-between gap-4">
         <h3 className="text-[15.5px] font-bold text-slate-950">
           {work.company}｜{work.role}
@@ -41,7 +41,7 @@ function WorkBlock({ work }: { work: WorkExperience }) {
 
 function ProjectBlock({ project }: { project: ProjectExperience }) {
   return (
-    <article className="project-block break-inside-avoid">
+    <article className="project-block">
       <div className="mb-1.5 flex items-baseline justify-between gap-4">
         <h3 className="project-title text-[15.5px] font-bold">
           {project.name}
@@ -101,7 +101,10 @@ function SkillSection({ data }: { data: ResumeData }) {
         {data.skillGroups.map((group) => (
           <div key={group.title} className="skill-card rounded border p-2.5">
             <h3 className="skill-card-title mb-1.5 text-[13.5px] font-bold">{group.title}</h3>
-            <p className="text-[13px] leading-[1.65] text-slate-700">{group.items.join('、')}</p>
+            <p className="text-[13px] leading-[1.65] text-slate-800">{group.items.join(' · ')}</p>
+            {group.level ? (
+              <p className="mt-1 text-[12.5px] leading-[1.6] text-slate-600">{group.level}</p>
+            ) : null}
           </div>
         ))}
       </div>

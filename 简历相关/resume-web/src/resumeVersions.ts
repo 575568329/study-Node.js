@@ -106,20 +106,29 @@ export const resumes: ResumeData[] = [
     skillGroups: [
       {
         title: 'AI 应用链路',
-        items: ['LangChain', 'LangGraph', 'RAG', 'MCP', 'Prompt Engineering', 'SSE 流式响应', '混合检索', '来源引用', '知识图谱'],
+        items: ['LangChain', 'LangGraph', 'RAG', '混合检索', 'Prompt Engineering', 'SSE 流式响应', '知识图谱', 'MCP', 'Skills'],
+        level:
+          '能独立搭建并上线端到端 RAG 知识库（文档解析 → 切片 → 向量化 → 混合检索 → 流式问答 → 来源引用），用分层 Prompt + few-shot 显式区分"知识库引用 / AI 补充"拦截幻觉；LangGraph（状态机 / 条件分支 / HITL）、MCP、Skills 掌握原理与开发语法',
       },
       {
         title: '前端与全栈',
-        items: ['Vue2 / Vue3', 'React', 'Next.js', 'TypeScript', 'Node.js', 'Tailwind CSS', '小程序', 'Web 组件化'],
-      },
-      {
-        title: '工程与数据',
-        items: ['文件上传与解析', '本地 JSON 持久化', 'FileStore / Chroma', 'Graphology', 'Webpack / Vite', ],
+        items: ['Vue2 / Vue3', 'React','小程序开发', 'TypeScript','Tailwind CSS', 'Node.js','Next.js'],
+        level:
+          '6 年前端交付经验，Vue2 源码级精通；用 Next.js + React + Node.js 落地全栈 AI 项目',
       },
       {
         title: 'AI 开发工具',
-        items: ['Cursor（2024 起使用）', 'Claude Code（2026.01 起，负责需求设计与代码审阅）', 'Codex（2026.03 起，负责代码实现）'],
+        items: ['Cursor', 'Claude Code', 'Codex'],
+        level:
+          'Cursor（2024 起使用）；Claude Code（2026.01 起，主导需求设计与代码审阅）；Codex（2026.03 起，负责代码实现）',
       },
+      {
+        title: '工程与数据',
+        items: ['文件上传与解析', '本地 JSON 持久化', 'FileStore / Chroma', 'Graphology', 'Webpack / Vite'],
+        level:
+          '支撑 RAG 项目的多格式文档解析、向量存储抽象（FileStore 默认 / Chroma 可切换）与知识图谱建模；清楚 FileStore 并发局限与向 DB 演进路径',
+      },
+
     ],
     workExperiences: fullstackWorkExperiences,
     projects: [aiProjectFullstack, xunfeiProjectFullstack, gisProjectFullstack],
