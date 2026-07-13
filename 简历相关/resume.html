@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>余凤杰 - 简历</title>
+    <style>
+      :root {
+        --accent: #1d4f91;
+        --accent-dark: #172b4d;
+        --accent-soft: #edf4ff;
+        --accent-border: #bfd2ee;
+        --slate-950: #020617;
+        --slate-900: #0f172a;
+        --slate-800: #1e293b;
+        --slate-700: #334155;
+        --slate-600: #475569;
+        --slate-500: #64748b;
+        --slate-200: #e2e8f0;
+      }
+      * { box-sizing: border-box; }
+      html, body {
+        margin: 0;
+        font-family: "Microsoft YaHei", "PingFang SC", "Noto Sans CJK SC", Arial, sans-serif;
+        background: var(--slate-200);
+      }
+
+      .resume-page {
+        width: 210mm;
+        min-height: 297mm;
+        margin: 24px auto;
+        background: #fff;
+        color: var(--slate-900);
+        padding: 12mm 14mm;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      .resume-page > * + * { margin-top: 12px; }
+
+      .resume-header { margin-bottom: 0; padding-bottom: 0; }
+      .header-row { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; }
+      .resume-name { font-size: 30px; font-weight: 900; letter-spacing: 0; margin: 0; }
+      .profile-title { margin-top: 6px; font-size: 16px; font-weight: 600; color: var(--slate-800); }
+      .contact { font-size: 12.5px; line-height: 1.7; color: var(--slate-700); text-align: right; }
+      .contact a { color: inherit; text-decoration: none; }
+      .summary { margin-top: 10px; font-size: 13.5px; line-height: 1.65; color: var(--slate-700); }
+
+      .resume-section { padding-top: 14px; border-top: 1px solid var(--accent-border); }
+      .section-title {
+        font-size: 16px; font-weight: 700; letter-spacing: 0.025em;
+        color: var(--accent-dark); margin: 0 0 8px 0; break-after: avoid; page-break-after: avoid;
+      }
+
+      .skill-list > * + * { margin-top: 8px; }
+      .skill-card {
+        border: 1px solid var(--accent-border); border-radius: 4px; padding: 10px;
+        background: linear-gradient(90deg, var(--accent-soft), #fff 44%);
+      }
+      .skill-card-title {
+        font-size: 13.5px; font-weight: 700; color: var(--accent-dark);
+        margin: 0 0 6px 0; break-after: avoid; page-break-after: avoid;
+      }
+      .skill-items { font-size: 13px; line-height: 1.65; color: var(--slate-800); margin: 0; }
+      .skill-level { margin-top: 4px; font-size: 12.5px; line-height: 1.6; color: var(--slate-600); }
+
+      .work-list > * + * { margin-top: 12px; }
+      .title-row { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; margin-bottom: 6px; }
+      .work-title { font-size: 15.5px; font-weight: 700; color: var(--slate-950); margin: 0; }
+      .period { flex-shrink: 0; font-size: 12.5px; color: var(--slate-500); }
+      .desc { margin: 0 0 8px 0; font-size: 13.5px; line-height: 1.65; color: var(--slate-700); }
+
+      .project-block { border-left: 3px solid var(--accent); padding-left: 7px; }
+      .project-list > * + * { margin-top: 12px; }
+      .project-title { font-size: 15.5px; font-weight: 700; color: var(--accent-dark); margin: 0; break-after: avoid; page-break-after: avoid; }
+      .project-title .role { font-weight: 500; color: var(--slate-600); }
+      .stack { display: flex; flex-wrap: wrap; gap: 6px; margin: 6px 0 8px 0; }
+      .skill-pill {
+        border: 1px solid var(--accent-border); color: var(--accent-dark); background: #fff;
+        border-radius: 2px; padding: 2px 6px; font-size: 11.5px;
+      }
+
+      .bullets { list-style: none; padding: 0; margin: 0; }
+      .bullets > li {
+        display: grid; grid-template-columns: 12px 1fr; gap: 6px;
+        margin-top: 4px; break-inside: avoid; font-size: 12.5px; line-height: 1.6; color: var(--slate-800);
+      }
+      .bullets > li:first-child { margin-top: 0; }
+      .bullet-dot { padding-top: 7px; font-size: 8px; line-height: 1; color: var(--accent); }
+      /* 领词加粗：每条 bullet 开头的总结性短语 */
+      .resume-page strong { font-weight: 700; color: var(--slate-950); }
+
+      .edu { font-size: 13px; line-height: 1.7; color: var(--slate-800); }
+
+      /* 顶部工具条：屏幕显示，打印时隐藏 */
+      .toolbar {
+        position: sticky; top: 0; z-index: 10;
+        max-width: 210mm; margin: 16px auto 0;
+        padding: 10px 16px;
+        background: #fff;
+        border: 1px solid var(--accent-border);
+        border-radius: 6px;
+        display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+      }
+      .toolbar button {
+        border: 1px solid var(--accent); background: var(--accent); color: #fff;
+        padding: 6px 16px; border-radius: 4px; font-size: 14px; font-weight: 600; cursor: pointer;
+        white-space: nowrap;
+      }
+      .toolbar button:hover { background: #163e72; }
+      .toolbar-tip { font-size: 12px; color: var(--slate-600); }
+
+      @page { size: A4; margin: 10mm 12mm; }
+      @media print {
+        html, body { background: #fff; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+        .toolbar { display: none; }
+        .resume-page { width: auto; min-height: auto; margin: 0; padding: 0; box-shadow: none; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="toolbar">
+      <button onclick="window.print()">导出 PDF</button>
+      <span class="toolbar-tip">打印对话框：目标「另存为 PDF」· 纸张 A4 · 边距「无」· 勾选「背景图形」（否则蓝条 / 卡片底色 / 圆点丢失）</span>
+    </div>
+    <main class="resume-page">
+      <header class="resume-header">
+        <div class="header-row">
+          <div>
+            <h1 class="resume-name">余凤杰</h1>
+            <p class="profile-title">AI 全栈工程师 ｜ LangGraph ｜ Claude Code </p>
+          </div>
+          <div class="contact">
+            <div>武汉</div>
+            <div>13129937969</div>
+            <div>yfj575568329@163.com</div>
+            <div><a href="https://github.com/575568329">github.com/575568329</a></div>
+          </div>
+        </div>
+        <p class="summary">
+          AI 全栈工程师 / LangGraph / Claude Code。现主导讯飞智学网澳门出海项目（内地服务 2500+ 学校，新拓港澳市场）试卷试题底层库前端交付，自研基于 AgentScope 的 RAG 文档助手并端到端落地上线；深度使用 Claude Code / Codex 完成从需求设计、代码实现到审查的全流程，能独立交付从需求拆解、架构决策到上线验收的完整闭环。此前负责甘肃 / 云南 / 广西 / 青海等多省地质灾害 GIS 可视化项目（约 3000 万规模）的全链路前端开发。
+        </p>
+      </header>
+
+      <section class="resume-section">
+        <h2 class="section-title">职业技能</h2>
+        <div class="skill-list">
+          <div class="skill-card">
+            <h3 class="skill-card-title">AI 应用链路</h3>
+            <p class="skill-items">LangChain · LangGraph · AgentScope · MCP · Skills · Prompt Engineering</p>
+            <p class="skill-level">能独立搭建端到端 RAG；用通义千问（qwen-plus + text-embedding-v4）+ Prompt 拦截幻觉；清楚 LangChain / LangGraph / AgentScope 的区别与选型</p>
+          </div>
+          <div class="skill-card">
+            <h3 class="skill-card-title">前端与全栈</h3>
+            <p class="skill-items">Vue2 / Vue3 · React · 小程序 / uni-app · TypeScript · Node.js · Python · Java</p>
+            <p class="skill-level">6 年前端交付经验，主流前端框架应用经验；用 Next.js + React + Node.js / Python 落地全栈 AI 项目；能用 Java 进行日常后端开发（讯飞用 Spring AOP + 注解 + 切面完成后端多语言改造）</p>
+          </div>
+          <div class="skill-card">
+            <h3 class="skill-card-title">工程与交付</h3>
+            <p class="skill-items">TDD / SDD · Git Worktree · Docker · K8s（了解） · Webpack / Vite</p>
+            <p class="skill-level">用 spec-driven + subagent 工作流（superpowers）交付：brainstorming 出 spec → writing-plans 拆 TDD 任务 → subagent 编排执行；TDD 红绿循环；了解 K8s / 容器化部署（阿里云 ACK 可视化）；清楚 RAG 向量库演进（FileStore → Qdrant）</p>
+          </div>
+          <div class="skill-card">
+            <h3 class="skill-card-title">AI 开发工具</h3>
+            <p class="skill-items">Cursor · Claude Code · Codex · Open Code</p>
+            <p class="skill-level">Cursor（2024 起使用）；Claude Code（2026.01 起，Opus主导需求设计与代码审查）；Codex（2026.03 起，GPT/GLM负责代码实现）</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="resume-section">
+        <h2 class="section-title">工作经历</h2>
+        <div class="work-list">
+          <article>
+            <div class="title-row">
+              <h3 class="work-title">科大讯飞 · 百得思维｜前端负责人 / AI全栈工程师</h3>
+              <span class="period">2025.07 - 2026.07</span>
+            </div>
+            <p class="desc">智学网 - 澳门方向（项目组约 60 人）。原前端骨干离职后接手，主导 5 个遗留系统从需求到上线全程交付，成为澳门项目前端实际负责人。2026 年转型 AI 全栈工程师（公司推行 vibe coding），前端业务同时承担后端开发（Java 多语言、Python 等）。</p>
+            <ul class="bullets">
+              <li><span class="bullet-dot">●</span><span><strong>前端团队效能：</strong>归纳前端开发要点、复盘各期任务，沉淀前端 skill 与开发约束规范；推动前端小组开发效率提升 25%、线上错误率下降 50%，连续 4 个月无 P2 级事故。</span></li>
+              <li><span class="bullet-dot">●</span><span><strong>AI 全栈转型：</strong>借助 vibe coding 在完成前端开发任务的同时，熟悉后端业务、进行基本 CRUD 开发与后端设计，逐步转型为 AI 全栈工程师。</span></li>
+              <li><span class="bullet-dot">●</span><span><strong>i18n 双语言架构：</strong>主导资源加工平台国际化改造，设计"工作室语言"与"页面语言"双语言体系，统一决策入口按路由自动判断用哪种语言；自研 i18n-check 卡口脚本拦截漏翻与路径错位，完成澳门 4 语言（简/繁/英/葡）交付；并用 AI 工具（vibe coding）完成 Java 后端多语言改造（注解 + 切面自动国际化、异常按 Header 决策语言），前后端决策一脉相承。</span></li>
+            </ul>
+          </article>
+          <article>
+            <div class="title-row">
+              <h3 class="work-title">武汉地大信息工程股份有限公司｜前端核心开发 / 前端负责人</h3>
+              <span class="period">2022.06 - 2025.07</span>
+            </div>
+            <p class="desc">作为前端负责人，主导两条业务线的全链路前端交付：① 多省地质灾害 GIS 可视化项目（约 3000 万规模，甘肃 / 云南 / 广西 / 青海）；② 青海 / 甘肃地质灾害民生搬迁项目（约 500 万规模），承接灾害预防的下游民生闭环。</p>
+            <ul class="bullets">
+              <li><span class="bullet-dot">●</span><span><strong>前端负责人全流程：</strong>负责 3 省 5 个前端项目从 0 到 1 的全流程交付——参与设计讨论、搭建前端框架、制定开发计划，完成部署、验收与培训；探索初期 vibe coding，用 Cursor / 豆包等 agent 工具提升开发效率；多次出差现场支持交付及内网环境适配。</span></li>
+              <li><span class="bullet-dot">●</span><span><strong>驾驶舱性能优化：</strong>通过分级加载与显示时序控制，解决十万级监测数据卡顿与三维渲染拥堵，首页加载提升约 50%、首屏从约 3.5s 优化至 1.8s，保障省级大屏演示与日常调度体验。</span></li>
+              <li><span class="bullet-dot">●</span><span><strong>系统迁移与信创适配：</strong>承接 Vue2→Vue3、.NET→Java 系统迁移中的前端改造，适配内网、麒麟、国密、UKey 等信创环境，完成现场交付和客户培训。</span></li>
+            </ul>
+          </article>
+          <article>
+            <div class="title-row">
+              <h3 class="work-title">兴民智通 · 武汉英泰斯特｜前端开发</h3>
+              <span class="period">2020.12 - 2022.04</span>
+            </div>
+            <p class="desc">车联网 GIS 项目（上汽合作），负责 Web 大屏 + 移动端 + 车载终端多端前端，基于物联网实现车辆实时数据交互。</p>
+            <ul class="bullets">
+              <li><span class="bullet-dot">●</span><span><strong>多端开发与实时数据：</strong>Web 大屏 / 移动端 / 车载终端多端前端，基于物联网 WebSocket 实现车辆实时数据交互（分段缓冲 + 批量渲染应对十万级回传）；JS-Bridge 实现 H5 与车机原生能力互通（定位、传感器、通信）。</span></li>
+              <li><span class="bullet-dot">●</span><span><strong>工程优化：</strong>优化 Webpack 配置与 Nginx 跨域方案，JS 文件体积减少 35%、页面加载速度提升 20%；引入 mockjs 预设接口模型，缩短前后端沟通成本、开发效率提升 25%。</span></li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section class="resume-section">
+        <h2 class="section-title">项目经历</h2>
+        <div class="project-list">
+          <article class="project-block">
+            <div class="title-row">
+              <h3 class="project-title">自研 RAG 文档助手（AgentScope）<span class="role">｜个人项目</span></h3>
+              <span class="period">2026.04 - 2026.07</span>
+            </div>
+            <div class="stack">
+              <span class="skill-pill">AgentScope</span><span class="skill-pill">Python</span><span class="skill-pill">RAG</span><span class="skill-pill">通义千问 DashScope</span><span class="skill-pill">Qdrant</span><span class="skill-pill">Streamlit</span><span class="skill-pill">TypeScript</span>
+            </div>
+            <p class="desc">基于 AgentScope（阿里达摩院 Python 多 agent 框架，Actor 模型）的 RAG 文档助手，围绕文档管理与 AI 对话两个工作区组织，用 AgentScope 内置 RAG 模块跑通"上传→解析→向量化→检索→Agent 回答"端到端闭环，深度集成通义千问。</p>
+            <ul class="bullets">
+              <li><span class="bullet-dot">●</span><span><strong>RAG 端到端闭环：</strong>用 AgentScope RAG 模块跑通 文档上传 → 解析（TextParser/PDFParser）→ 切分（ApproxTokenChunker）→ 向量化（通义 text-embedding-v4）→ 入库（QdrantStore 本地持久化，免独立服务）→ 检索（KnowledgeBase.search）→ Agent 回答。</span></li>
+              <li><span class="bullet-dot">●</span><span><strong>防幻觉机制：</strong>用 RAGMiddleware（static 模式）把 RAG 挂进 Agent，每次提问自动检索 top-k 注入，Agent 基于知识库回答，无相关内容时明确"文档里没有提到"，从机制上拦截幻觉；工具调用经权限系统（PermissionMode）管控。</span></li>
+              <li><span class="bullet-dot">●</span><span><strong>多 Agent 架构：</strong>理解 AgentScope 多 agent 两层架构（脚本层手动编排 / 服务层原生团队 Leader-Worker + Redis 跨进程通信），以及它和 LangChain（拼"链"）、LangGraph（画"图"）的本质区别（建"Agent"，内置 ReAct 循环 + 事件流 + 权限）。</span></li>
+              <li><span class="bullet-dot">●</span><span><strong>同步异步桥接：</strong>Streamlit 双页 UI（文档管理 + 对话），用 asyncio.run 桥接同步 UI 与 AgentScope async API（reply_stream 事件流 / KnowledgeBase async 上下文）。</span></li>
+            </ul>
+          </article>
+          <article class="project-block">
+            <div class="title-row">
+              <h3 class="project-title">智学网 - 澳门方向<span class="role">｜前端负责人 / 前端开发</span></h3>
+              <span class="period">2025.08 - 2026.04</span>
+            </div>
+            <div class="stack">
+              <span class="skill-pill">Vue2</span><span class="skill-pill">Vuex</span><span class="skill-pill">Element UI</span><span class="skill-pill">webpack</span><span class="skill-pill">CKEditor</span><span class="skill-pill">MathJax</span><span class="skill-pill">Angular 4</span><span class="skill-pill">Java Web</span><span class="skill-pill">Spring AOP</span>
+            </div>
+            <p class="desc">面向澳门教育市场，对资源加工、题库管理等既有系统进行 i18n 改造和澳门业务规则适配，在不影响大陆原流程下支持简/繁/英/葡 4 语言；核心难点为"工作室语言（资源）"与"页面语言（界面）"并存的双语言决策体系。</p>
+            <ul class="bullets">
+              <li><span class="bullet-dot">●</span><span><strong>双语言决策架构：</strong>核心难点在于"工作室语言（资源加工区跟工作室）"与"页面语言（导航/菜单跟用户偏好）"同页面共存，统一决策入口按路由自动判断用哪种语言，并在请求层注入语言上下文请求头使前后端一致。</span></li>
+              <li><span class="bullet-dot">●</span><span><strong>工程化卡口：</strong>将 vue-i18n 语言文件按 8 个业务模块拆分为 32 个 JSON（webpack require.context 自动加载、多人零冲突协作）；主导设计自研 i18n-check 卡口脚本（借助 Claude Code / Codex 实现）接入 husky pre-commit，以基线增量策略拦截「路径错位 key」与「漏翻」，把"人工自检"升级为"机器拦截"，存量基线修复至 0。</span></li>
+              <li><span class="bullet-dot">●</span><span><strong>后端 i18n 改造（vibe coding）：</strong>用 Claude Code / Cursor 设计 @I18nField / @I18nMethod 注解 + I18nAspect 切面，对资源加工返回对象按 prefix / key / fieldName 三种模式自动国际化（覆盖选项值、环节名、学段学科）；统一异常处理器按 Header（locale / localeWorkShop / isInWorkShop）决策语言——工作室内用工作室语言、外用全局语言；翻译先查完整匹配、部分翻译（含中文）回退原文保可用。</span></li>
+              <li><span class="bullet-dot">●</span><span><strong>富文本组件化：</strong>将 Wiris 图片公式、LaTeX、MathJax、图片兜底四条渲染链路抽象为原子/通用/业务组件三层，解决多系统复用与维护问题。</span></li>
+              <li><span class="bullet-dot">●</span><span><strong>风险管控与把关：</strong>识别系统级风险（子项目互相依赖、组件跨版本兼容）并制定隔离方案，借助 AI 工具提升重复性改造效率，把控代码审查和业务验证质量阀门。</span></li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section class="resume-section">
+        <h2 class="section-title">教育经历</h2>
+        <div class="edu">武昌工学院｜计算机科学与技术｜本科｜2021.06</div>
+      </section>
+    </main>
+  </body>
+</html>

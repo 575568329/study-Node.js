@@ -11,13 +11,25 @@ function Section({ title, children }: { title: string; children: React.ReactNode
   )
 }
 
+function renderBold(text: string) {
+  // 解析 **加粗** 标记,把「兜得住」的关键短语高亮(引导面试官提问)
+  const parts = text.split(/(\*\*[^*]+\*\*)/g)
+  return parts.map((part, i) =>
+    part.startsWith('**') && part.endsWith('**') ? (
+      <strong key={i} className="font-bold text-slate-950">{part.slice(2, -2)}</strong>
+    ) : (
+      <span key={i}>{part}</span>
+    ),
+  )
+}
+
 function BulletList({ items }: { items: string[] }) {
   return (
     <ul className="space-y-1 text-[12.5px] leading-[1.6] text-slate-800">
       {items.map((item) => (
         <li key={item} className="grid grid-cols-[12px_1fr] gap-1.5 break-inside-avoid">
           <span className="resume-bullet-dot pt-[7px] text-[8px] leading-none">●</span>
-          <span>{item}</span>
+          <span>{renderBold(item)}</span>
         </li>
       ))}
     </ul>
@@ -144,8 +156,8 @@ function ResumeDocument({ data }: { data: ResumeData }) {
       <div className="space-y-3">
         <SkillSection data={data} />
 
-        {isFullstackAi ? projectSection : workSection}
         {isFullstackAi ? workSection : projectSection}
+        {isFullstackAi ? projectSection : workSection}
 
         <Section title="教育经历">
           <div className="text-[13px] leading-[1.7] text-slate-800">{data.education.join('；')}</div>

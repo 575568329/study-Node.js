@@ -18,6 +18,8 @@
 | **MCP** | 🔥 学习中 | - | [[MCP/INDEX]] |
 | **Skill** | 🔥 学习中 | - | [[Skill/INDEX]] |
 | **LLM-API** | 🔥 学习中 | - | [[LLM-API/INDEX]] |
+| **AgentScope** | ✅ P0-2 完成 | 100% | [[AgentScope/INDEX]] |
+| **Python** | 🔥 突击中 | - | [[Python/INDEX]] |
 
 ---
 
@@ -48,6 +50,8 @@ study-notes/
 ├── MCP/                  # MCP 协议（Claude Code 生态）
 ├── Skill/                # Skill 技能（Claude Code 生态）
 ├── LLM-API/              # LLM API 协议（OpenAI / Anthropic）
+├── AgentScope/           # AgentScope 多 agent 框架（P0-2 完成）
+├── Python/               # Python（速通 + 面试突击）
 ├── 共享/                  # 跨技能通用内容
 ├── Excalidraw/           # 思维导图
 └── templates/            # 笔记模板
@@ -76,4 +80,4 @@ study-notes/
 
 ---
 
-**最后更新**: 2026-06-16
+**最后更新**: 2026-07-11
