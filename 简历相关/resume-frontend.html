@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>余凤杰 - 简历</title>
+    <style>
+      :root {
+        --accent: #1d4f91;
+        --accent-dark: #172b4d;
+        --accent-soft: #edf4ff;
+        --accent-border: #bfd2ee;
+        --slate-950: #020617;
+        --slate-900: #0f172a;
+        --slate-800: #1e293b;
+        --slate-700: #334155;
+        --slate-600: #475569;
+        --slate-500: #64748b;
+        --slate-200: #e2e8f0;
+      }
+      * { box-sizing: border-box; }
+      html, body {
+        margin: 0;
+        font-family: "Microsoft YaHei", "PingFang SC", "Noto Sans CJK SC", Arial, sans-serif;
+        background: var(--slate-200);
+      }
+
+      .resume-page {
+        width: 210mm;
+        min-height: 297mm;
+        margin: 24px auto;
+        background: #fff;
+        color: var(--slate-900);
+        padding: 12mm 14mm;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      .resume-page > * + * { margin-top: 9px; }
+
+      .resume-header { margin-bottom: 0; padding-bottom: 0; }
+      .header-row { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; }
+      .resume-name { font-size: 30px; font-weight: 900; letter-spacing: 0; margin: 0; }
+      .profile-title { margin-top: 6px; font-size: 16px; font-weight: 600; color: var(--slate-800); }
+      .contact { font-size: 12.5px; line-height: 1.7; color: var(--slate-700); text-align: right; }
+      .contact a { color: inherit; text-decoration: none; }
+      .summary { margin-top: 8px; font-size: 13px; line-height: 1.55; color: var(--slate-700); }
+
+      .resume-section { padding-top: 10px; border-top: 1px solid var(--accent-border); }
+      .section-title {
+        font-size: 16px; font-weight: 700; letter-spacing: 0.025em;
+        color: var(--accent-dark); margin: 0 0 8px 0; break-after: avoid; page-break-after: avoid;
+      }
+
+      .skill-list > * + * { margin-top: 6px; }
+      .skill-card {
+        border: 1px solid var(--accent-border); border-radius: 4px; padding: 8px 10px;
+        background: linear-gradient(90deg, var(--accent-soft), #fff 44%);
+      }
+      .skill-card-title {
+        font-size: 13.5px; font-weight: 700; color: var(--accent-dark);
+        margin: 0 0 6px 0; break-after: avoid; page-break-after: avoid;
+      }
+      .skill-items { font-size: 13px; line-height: 1.65; color: var(--slate-800); margin: 0; }
+      .skill-level { margin-top: 4px; font-size: 12.5px; line-height: 1.6; color: var(--slate-600); }
+
+      .work-list > * + * { margin-top: 10px; }
+      .title-row { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; margin-bottom: 6px; }
+      .work-title { font-size: 15.5px; font-weight: 700; color: var(--slate-950); margin: 0; }
+      .period { flex-shrink: 0; font-size: 12.5px; color: var(--slate-500); }
+      .desc { margin: 0 0 6px 0; font-size: 13px; line-height: 1.55; color: var(--slate-700); }
+
+      .project-block { border-left: 3px solid var(--accent); padding-left: 7px; }
+      .project-list > * + * { margin-top: 10px; }
+      .project-title { font-size: 15.5px; font-weight: 700; color: var(--accent-dark); margin: 0; break-after: avoid; page-break-after: avoid; }
+      .project-title .role { font-weight: 500; color: var(--slate-600); }
+      .stack { display: flex; flex-wrap: wrap; gap: 6px; margin: 6px 0 8px 0; }
+      .skill-pill {
+        border: 1px solid var(--accent-border); color: var(--accent-dark); background: #fff;
+        border-radius: 2px; padding: 2px 6px; font-size: 11.5px;
+      }
+
+      .bullets { list-style: none; padding: 0; margin: 0; }
+      .bullets > li {
+        display: grid; grid-template-columns: 12px 1fr; gap: 6px;
+        margin-top: 3px; break-inside: avoid; font-size: 12.5px; line-height: 1.5; color: var(--slate-800);
+      }
+      .bullets > li:first-child { margin-top: 0; }
+      .bullet-dot { padding-top: 7px; font-size: 8px; line-height: 1; color: var(--accent); }
+      /* 领词加粗：每条 bullet 开头的总结性短语 */
+      .resume-page strong { font-weight: 700; color: var(--slate-950); }
+
+      .edu { font-size: 13px; line-height: 1.7; color: var(--slate-800); }
+
+      /* 顶部工具条：屏幕显示，打印时隐藏 */
+      .toolbar {
+        position: sticky; top: 0; z-index: 10;
+        max-width: 210mm; margin: 16px auto 0;
+        padding: 10px 16px;
+        background: #fff;
+        border: 1px solid var(--accent-border);
+        border-radius: 6px;
+        display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+      }
+      .toolbar button {
+        border: 1px solid var(--accent); background: var(--accent); color: #fff;
+        padding: 6px 16px; border-radius: 4px; font-size: 14px; font-weight: 600; cursor: pointer;
+        white-space: nowrap;
+      }
+      .toolbar button:hover { background: #163e72; }
+      .toolbar-tip { font-size: 12px; color: var(--slate-600); }
+
+      @page { size: A4; margin: 8mm 10mm; }
+      @media print {
+        html, body { background: #fff; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+        .toolbar { display: none; }
+        .resume-page { width: auto; min-height: auto; margin: 0; padding: 0; box-shadow: none; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="toolbar">
+      <button onclick="window.print()">导出 PDF</button>
+      <span class="toolbar-tip">打印对话框：目标「另存为 PDF」· 纸张 A4 · 边距「无」· 勾选「背景图形」（否则蓝条 / 卡片底色 / 圆点丢失）</span>
+    </div>
+    <main class="resume-page">
+      <header class="resume-header">
+        <div class="header-row">
+          <div>
+            <h1 class="resume-name">余凤杰</h1>
+            <p class="profile-title">高级前端工程师 / 前端负责人</p>
+          </div>
+          <div class="contact">
+            <div>武汉</div>
+            <div>13129937969</div>
+            <div>yfj575568329@163.com</div>
+            <div><a href="https://github.com/575568329">github.com/575568329</a></div>
+          </div>
+        </div>
+        <p class="summary">
+          6 年前端开发经验，前端负责人，Vue2/Vue3 精通。主导多个大型项目从 0 到 1 的全链路前端交付：多省地质灾害 GIS 可视化项目（约 3000 万规模，甘肃/云南/广西/青海）、讯飞智学网澳门出海项目（服务 2500+ 学校）；擅长大屏性能优化（十万级数据渲染）、复杂富文本/公式渲染、i18n 国际化架构与前端工程化。近一年深入 Node.js 全栈与 AI 应用开发，自研并上线 RAG 文档助手，具备全栈延展能力。
+        </p>
+      </header>
+
+      <section class="resume-section">
+        <h2 class="section-title">职业技能</h2>
+        <div class="skill-list">
+          <div class="skill-card">
+            <h3 class="skill-card-title">前端核心</h3>
+            <p class="skill-items">Vue2 / Vue3（精通）· React · TypeScript · 小程序 / uni-app · 大屏可视化 · i18n · 富文本 / 公式渲染</p>
+            <p class="skill-level">6 年前端交付经验，前端负责人；精通 Vue 全家桶，主导过多个大型项目从 0 到 1 全链路交付；擅长大屏性能优化（十万级数据渲染）、复杂富文本 / 公式（LaTeX / MathJax）渲染、i18n 双语言架构设计</p>
+          </div>
+          <div class="skill-card">
+            <h3 class="skill-card-title">工程与交付</h3>
+            <p class="skill-items">Webpack / Vite · Git · Docker · TDD · 前端规范与卡口</p>
+            <p class="skill-level">主导前端工程化与开发规范建设（如自研 i18n-check 卡口脚本接入 husky pre-commit）；Webpack / Nginx 优化经验；Docker 用于项目部署；推动小组开发效率提升、线上错误率下降</p>
+          </div>
+          <div class="skill-card">
+            <h3 class="skill-card-title">全栈与 AI 延展</h3>
+            <p class="skill-items">Node.js · Next.js · Python · RAG 全链路 · Vercel AI SDK · Prompt Engineering</p>
+            <p class="skill-level">近一年深入全栈与 AI 应用：用 Next.js + Node.js 自研并上线端到端 RAG 文档助手（解析 / 切片 / 向量检索 / 流式回答 + 知识图谱）；具备向后端 / 全栈延展的能力</p>
+          </div>
+          <div class="skill-card">
+            <h3 class="skill-card-title">AI 开发工具</h3>
+            <p class="skill-items">Cursor · Claude Code · Codex</p>
+            <p class="skill-level">日常以 Claude Code + Codex 协作完成需求设计、代码实现与审查，显著提升开发效率</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="resume-section">
+        <h2 class="section-title">工作经历</h2>
+        <div class="work-list">
+          <article>
+            <div class="title-row">
+              <h3 class="work-title">科大讯飞 · 百得思维｜前端负责人 / AI全栈工程师</h3>
+              <span class="period">2025.07 - 2026.07</span>
+            </div>
+            <p class="desc">智学网 - 澳门方向（项目组约 60 人）。原前端骨干离职后接手，主导 5 个遗留系统从需求到上线全程交付，成为澳门项目前端实际负责人。2026 年转型 AI 全栈工程师（公司推行 vibe coding），前端业务同时承担后端开发（Java、Python）。</p>
+            <ul class="bullets">
+              <li><span class="bullet-dot">●</span><span><strong>前端团队效能：</strong>归纳前端开发要点、复盘各期任务，沉淀前端开发规范与约束；推动小组开发效率明显提升、线上错误率显著下降，交付质量稳定。</span></li>
+              <li><span class="bullet-dot">●</span><span><strong>i18n 双语言架构：</strong>主导资源加工平台国际化改造，设计"工作室语言 / 页面语言"双语言体系并完成澳门 4 语言（简/繁/英/葡）交付，前后端（含 Java 后端）多语言改造一脉相承（细节见项目经历）。</span></li>
+              <li><span class="bullet-dot">●</span><span><strong>试题富文本与公式渲染：</strong>负责试卷试题中数学公式（LaTeX / MathJax）、图片公式、复杂排版等富文本场景的渲染与编辑器集成，保障多端一致与多系统复用，支撑资源加工与题库展示核心链路。</span></li>
+            </ul>
+          </article>
+          <article>
+            <div class="title-row">
+              <h3 class="work-title">武汉地大信息工程股份有限公司｜前端核心开发 / 前端负责人</h3>
+              <span class="period">2022.06 - 2025.07</span>
+            </div>
+            <p class="desc">作为前端负责人，主导两条业务线的全链路前端交付：① 多省地质灾害 GIS 可视化项目（约 3000 万规模，甘肃 / 云南 / 广西 / 青海）；② 青海 / 甘肃地质灾害民生搬迁项目（约 500 万规模），承接灾害预防的下游民生闭环。</p>
+            <ul class="bullets">
+              <li><span class="bullet-dot">●</span><span><strong>参与项目全流程：</strong>负责 3 省 5 个前端项目从 0 到 1 的全流程交付——参与设计讨论、搭建前端框架、制定开发计划，完成部署、验收与培训；多次出差现场支持交付及内网环境适配。</span></li>
+              <li><span class="bullet-dot">●</span><span><strong>驾驶舱性能优化：</strong>通过分级加载与显示时序控制，解决十万级监测数据卡顿与三维渲染拥堵，首屏加载时间大幅缩短，保障省级大屏演示与日常调度体验。</span></li>
+              <li><span class="bullet-dot">●</span><span><strong>系统迁移与信创适配：</strong>承接 Vue2→Vue3、.NET→Java 系统迁移中的前端改造，适配内网、麒麟、国密、UKey 等信创环境，完成现场交付和客户培训。</span></li>
+            </ul>
+          </article>
+          <article>
+            <div class="title-row">
+              <h3 class="work-title">兴民智通 · 武汉英泰斯特｜前端开发</h3>
+              <span class="period">2020.12 - 2022.04</span>
+            </div>
+            <p class="desc">车联网 GIS 项目（上汽合作），负责 Web 大屏 + 移动端 + 车载终端多端前端，基于物联网实现车辆实时数据交互。</p>
+            <ul class="bullets">
+              <li><span class="bullet-dot">●</span><span><strong>多端开发与实时数据：</strong>Web 大屏 / 移动端 / 车载终端多端前端，基于物联网 WebSocket 实现车辆实时数据交互（分段缓冲 + 批量渲染应对十万级回传）；JS-Bridge 实现 H5 与车机原生能力互通（定位、传感器、通信）。</span></li>
+              <li><span class="bullet-dot">●</span><span><strong>工程优化：</strong>优化 Webpack 配置与 Nginx 跨域方案，JS 文件体积与页面加载速度明显改善；引入 mockjs 预设接口模型，缩短前后端沟通成本、提升开发效率。</span></li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section class="resume-section">
+        <h2 class="section-title">项目经历</h2>
+        <div class="project-list">
+          <article class="project-block">
+            <div class="title-row">
+              <h3 class="project-title">自研 RAG 文档助手（Next.js 全栈）<span class="role">｜个人项目</span></h3>
+              <span class="period">2026.04 - 2026.07</span>
+            </div>
+            <div class="stack">
+              <span class="skill-pill">Next.js</span><span class="skill-pill">React</span><span class="skill-pill">TypeScript</span><span class="skill-pill">Vercel AI SDK</span><span class="skill-pill">智谱 GLM</span><span class="skill-pill">Chroma</span><span class="skill-pill">Docker</span>
+            </div>
+            <p class="desc">基于 Next.js + React + TypeScript 的 RAG 文档助手（前后端同栈全栈，Route Handlers 提供 API），围绕文档管理、AI 对话、知识图谱三个工作区组织，自研"上传→解析→切片→向量化→检索→流式回答"端到端链路，用 Docker 部署上线至个人阿里云。</p>
+            <ul class="bullets">
+              <li><span class="bullet-dot">●</span><span><strong>RAG 全链路自研：</strong>文档上传 → 解析（txt / md / pdf / docx / xlsx，PDF 在 Node 端补齐浏览器全局对象的 polyfill 解决运行环境差异）→ 按 Markdown 标题分段 + 定长重叠切片（切片携带标题保语义）→ 智谱 embedding 向量化 → 入库（向量库抽象接口，FileStore / Chroma 双实现可切换）→ 混合检索（向量 + 关键词）→ 流式回答。</span></li>
+              <li><span class="bullet-dot">●</span><span><strong>防幻觉与来源追溯：</strong>用相关性阈值过滤低分结果，并在系统提示里要求模型显式区分"有据引用"与"AI 补充"——引用时紧跟语句标注编号、资料不足先说明再补充并标注、无相关内容时开头声明"未在知识库找到"；来源（文件名 / 章节 / 分数）通过流式元数据回传前端，可点击溯源。</span></li>
+              <li><span class="bullet-dot">●</span><span><strong>多轮上下文检索：</strong>针对追问（如"详细说说"）优化检索：把最近若干轮历史拼进检索 query 再向量化，避免指代性问题匹配不到文档；多知识库按集合隔离，支持单库 / 全库检索范围切换。</span></li>
+              <li><span class="bullet-dot">●</span><span><strong>知识图谱：</strong>额外实现知识图谱工作区——用结构化输出让模型抽取实体（人物 / 组织 / 地点 / 概念 / 事件 / 文档）与关系，存入图库并支持 N 层邻居查询，前端用力导向图可视化，与向量检索互补。</span></li>
+            </ul>
+          </article>
+          <article class="project-block">
+            <div class="title-row">
+              <h3 class="project-title">智学网 - 澳门方向<span class="role">｜前端负责人 / 前端开发</span></h3>
+              <span class="period">2025.08 - 2026.04</span>
+            </div>
+            <div class="stack">
+              <span class="skill-pill">Vue2</span><span class="skill-pill">Vuex</span><span class="skill-pill">Element UI</span><span class="skill-pill">webpack</span><span class="skill-pill">CKEditor</span><span class="skill-pill">MathJax</span><span class="skill-pill">Java Web</span><span class="skill-pill">Spring AOP</span>
+            </div>
+            <p class="desc">面向澳门教育市场，对资源加工、题库管理等既有系统进行 i18n 改造和澳门业务规则适配，在不影响大陆原流程下支持简/繁/英/葡 4 语言；核心难点为"工作室语言（资源）"与"页面语言（界面）"并存的双语言决策体系。</p>
+            <ul class="bullets">
+              <li><span class="bullet-dot">●</span><span><strong>双语言决策架构：</strong>核心难点在于"工作室语言（资源加工区跟工作室）"与"页面语言（导航/菜单跟用户偏好）"同页面共存，统一决策入口按路由自动判断用哪种语言，并在请求层注入语言上下文请求头使前后端一致。</span></li>
+              <li><span class="bullet-dot">●</span><span><strong>工程化卡口：</strong>将 vue-i18n 语言文件按 8 个业务模块拆分为 32 个 JSON（webpack require.context 自动加载、多人零冲突协作）；主导设计自研 i18n-check 卡口脚本接入 husky pre-commit，以基线增量策略拦截「路径错位 key」与「漏翻」，把"人工自检"升级为"机器拦截"，存量基线修复至 0。</span></li>
+              <li><span class="bullet-dot">●</span><span><strong>后端 i18n 改造：</strong>用注解 + AOP 切面对资源加工返回对象自动国际化，覆盖选项值、环节名、学段学科三类字段；统一异常处理器按请求头决策语言——工作室内用工作室语言、外用全局语言；翻译先查完整匹配，部分翻译回退原文保可用。</span></li>
+              <li><span class="bullet-dot">●</span><span><strong>富文本组件化：</strong>将 Wiris 图片公式、LaTeX、MathJax、图片兜底四条渲染链路抽象为原子/通用/业务组件三层，解决多系统复用与维护问题。</span></li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section class="resume-section">
+        <h2 class="section-title">教育经历</h2>
+        <div class="edu">武昌工学院｜计算机科学与技术｜本科｜2021.06</div>
+      </section>
+    </main>
+  </body>
+</html>

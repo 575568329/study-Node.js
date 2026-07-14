@@ -5,12 +5,16 @@
       "Bash(\"c:\\\\Users\\\\about\\\\OneDrive\\\\桌面\\\\study\\\\study-Node.js\\\\sessions\\\\2026-03-20\\\\session-notes.md\":*)",
       "Bash(ls -d projects/*/)",
       "Bash(xargs -I {} basename {})",
-      "Bash(mysql -u root -proot123456 -D blog_database -e \"DESCRIBE users;\")"
+      "Bash(mysql -u root -proot123456 -D blog_database -e \"DESCRIBE users;\")",
+      "Bash(cd \"d:/study/java-learning\" && ls -la)",
+      "Read(//d/study/java-learning/**)",
+      "Bash(mv \"d:/study/java-learning/HelloWorld\" \"d:/study/study-Node.js/projects/java/HelloWorld\")"
     ],
     "additionalDirectories": [
       "c:\\Users\\about\\OneDrive\\桌面\\study\\study-Node.js\\sessions",
       "c:\\Users\\about\\OneDrive\\桌面\\study\\study-Node.js\\__TRACKED_VAR__\\.claude\\teams",
-      "C:\\Users\\about\\OneDrive\\桌面\\study\\study-Node.js\\__TRACKED_VAR__\\.claude"
+      "C:\\Users\\about\\OneDrive\\桌面\\study\\study-Node.js\\__TRACKED_VAR__\\.claude",
+      "d:\\study\\java-learning\\HelloWorld"
     ]
   }
 }
