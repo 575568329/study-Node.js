@@ -12,11 +12,16 @@
 
 ## P0：Java 学习（当前主线）
 
-### 第 1 周：Java 基础语法（立即开始）
+### 第 1 周：Java 基础语法（当前周 - Day 1 完成）
 
-- [ ] 安装 Java 开发环境（JDK 8 + Maven + IntelliJ IDEA）
-- [ ] 学习 Java 基础语法（变量、类型、流程控制）
-- [ ] 学习面向对象（类、对象、继承、接口、多态）
+- [x] 安装 Java 开发环境（JDK 8 Corretto + IntelliJ IDEA）
+- [x] 创建并运行第一个 Java 项目（HelloWorld）
+- [x] 理解编译 vs 解释执行
+- [x] main 方法、访问修饰符、基本类型、流程控制、包的概念
+- [x] 输出 Day1 笔记（study-notes/Java/）
+- [ ] 学习方法（Method）定义与重载
+- [ ] 学习数组操作
+- [ ] 学习面向对象（类、对象、继承、接口、��态）
 - [ ] 学习集合框架（List、Set、Map、泛型）
 - [ ] 学习异常处理（try-catch、自定义异常）
 - [ ] 读公司代码：找 3 个 Controller 接口，理解业务逻辑

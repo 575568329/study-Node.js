@@ -125,17 +125,39 @@ crowdsourced-new-api/      # API 定义
 
 ## 下一步行动
 
-### 立即开始（本周）
-1. 安装 Java 开发环境（JDK 8 + Maven + IDEA）
-2. 学习 Java 基础语法（Day 1-3）
-3. 读公司代码（从 Controller 层开始）
-4. 输出《Java vs Node.js 语法对比.md》
+### 本周剩余任务
+1. 方法（Method）定义与重载
+2. 数组操作
+3. 面向对象入门（类、对象、构造方法）
+4. 集合框架（List、Set、Map）
+5. 读公司代码：找 3 个 Controller 接口
 
 ### 第 1 周目标
-- [ ] 搭建本地 Java 开发环境
-- [ ] 完成 Java 基础语法学习
-- [ ] 读懂公司 3 个 Controller 接口
-- [ ] 能解释 Java 面向对象与 TS 的区别
+- [x] 搭建本地 Java 开发环境（JDK 8 Corretto 1.8.0_492 + IDEA）
+- [x] 创建并运行第一个 Java 项目（projects/java/HelloWorld）
+- [x] 理解编译 vs 解释执行
+- [x] main 方法、访问修饰符、基本类型、流程控制、包的概念
+- [ ] 方法定义与重载
+- [ ] 数组操作
+- [ ] 面向对象（类、对象、继承、接口、多态）
+- [ ] 集合框架（List、Set、Map）
+- [ ] 读公司代码：找 3 个 Controller 接口
+- [ ] 输出《Java vs Node.js 语法对比.md》
+
+### 当前进度（2026-07-14 Day1 完成）
+- JDK 8 + IDEA 安装配置
+- `public static void main(String[] args)` 入口逐字理解
+- 4 种访问修饰符：public / protected / default / private
+- 8 种基本类型 + String 引用类型
+- 类型提升规则（算术运算自动提升）
+- String 比较必须用 equals()，字符串常量池
+- 流程控制：if 必须 boolean、switch 穿透、增强 for
+- 包（package）的概念
+
+### 笔记位置
+- 知识点：`study-notes/Java/01-知识点总结/A-基础语法/Day1-Java程序结构与基础语法.md`
+- 易错点：`study-notes/Java/03-易错点与陷阱/Java易错点汇总.md`
+- 速查表：`study-notes/Java/05-速查表/Java速查表.md`
 
 ## 原有学习线（暂缓）
 
