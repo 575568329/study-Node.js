@@ -28,6 +28,10 @@ tmp/
 *.swo
 *~
 
+# IntelliJ IDEA 项目文件与编译产物（不入库）
+*.iml
+out/
+
 # 操作系统
 .DS_Store
 Thumbs.db
