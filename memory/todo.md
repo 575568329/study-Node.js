@@ -12,16 +12,27 @@
 
 ## P0：Java 学习（当前主线）
 
-### 第 1 周：Java 基础语法（当前周 - Day 1 完成）
+### 第 1 周：Java 基础语法（当前周 - Day 4 完成）
 
 - [x] 安装 Java 开发环境（JDK 8 Corretto + IntelliJ IDEA）
 - [x] 创建并运行第一个 Java 项目（HelloWorld）
 - [x] 理解编译 vs 解释执行
 - [x] main 方法、访问修饰符、基本类型、流程控制、包的概念
 - [x] 输出 Day1 笔记（study-notes/Java/）
-- [ ] 学习方法（Method）定义与重载
-- [ ] 学习数组操作
-- [ ] 学习面向对象（类、对象、继承、接口、��态）
+- [x] 学习方法（Method）定义与重载（Day 2）
+- [x] 学习数组操作与 ArrayList（Day 2）
+- [x] 理解基本类型与包装类、自动装箱/拆箱（Day 2）
+- [x] 输出 Day2 笔记（study-notes/Java/Day2-方法与数组.md）
+- [x] 学习面向对象：类、对象、封装（Day 3）
+- [x] 理解构造方法 vs 普通方法、private/getter/setter（Day 3）
+- [x] 理解包与 import、main 方法入口（Day 3）
+- [x] 输出 Day3 笔记（study-notes/Java/Day3-类与对象封装.md）
+- [x] 学习继承（extends、super）（Day 4）
+- [x] 学习方法重写（@Override、重写 vs 重载）（Day 4）
+- [x] 学习多态（向上转型、编译看左运行看右）（Day 4）
+- [x] 实战：Animal 继承体系 + Zoo.feedAll 多态应用（Day 4）
+- [x] 输出 Day4 笔记（study-notes/Java/Day4-继承与多态.md）
+- [ ] 学习接口（interface）与抽象类（abstract）
 - [ ] 学习集合框架（List、Set、Map、泛型）
 - [ ] 学习异常处理（try-catch、自定义异常）
 - [ ] 读公司代码：找 3 个 Controller 接口，理解业务逻辑

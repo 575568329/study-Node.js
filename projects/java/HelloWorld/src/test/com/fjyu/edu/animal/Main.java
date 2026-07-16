@@ -2,13 +2,13 @@
 // 点击装订区域中的 <icon src="AllIcons.Actions.Execute"/> 图标。
 package test.com.fjyu.edu.animal;
 public class Main {
-    public static void main(String[] args) {
-        Dog dog = new Dog("旺财",3);
-        dog.bark();
-        dog.setAge(10);
-        dog.setAge(40);
-        System.out.println("name=" + dog.getName() + ",age=" + dog.getAge());
-    }
+//    public static void main(String[] args) {
+//        Dog dog = new Dog("旺财",3);
+//        dog.bark();
+//        dog.setAge(10);
+//        dog.setAge(40);
+//        System.out.println("name=" + dog.getName() + ",age=" + dog.getAge());
+//    }
 //    public static void main(String[] args) {
 //        //TIP 当文本光标位于高亮显示的文本处时按 <shortcut actionId="ShowIntentionActions"/>
 //        // 查看 IntelliJ IDEA 建议如何修正。
@@ -57,4 +57,23 @@ public class Main {
 //        System.out.println("PI = " + PI);
         // PI = 3.14;           // 取消注释会编译错误
 //    }
+
+    //继承演示
+//    public static void main(String[] args) {
+//       Bird bird = new Bird("麻雀",10);
+//       bird.eat();
+//       bird.fly();
+//        Dog dog = new Dog("小狗",10);
+//        dog.eat();
+//    }
+    //**多态内容修改
+    public static void main(String[] args){
+//        Animal dog = new Dog("小狗",10);
+//        Animal bird = new Bird("麻雀",10);
+//        Animal cat = new Cat("小猫",10);
+//        dog.eat();
+//        bird.eat();
+//        cat.eat();
+        //动物园
+    }
 }
