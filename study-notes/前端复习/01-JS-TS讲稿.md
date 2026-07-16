@@ -182,12 +182,194 @@ p  →  Person.prototype  →  Object.prototype  →  null
 
 ---
 
+## Q7：事件循环（宏任务/微任务）✅
+
+**核心机制（记死）**：
+JS 是单线程，任务分三类，按优先级处理：
+
+```
+1. 同步代码      → 立即执行（主线程）
+2. 微任务队列    → 本轮事件循环结束前清空（Promise.then、queueMicrotask）
+3. 宏任务队列    → 下一轮事件循环才执行（setTimeout、setInterval、I/O）
+```
+
+**执行顺序（一句话）**：
+同步代码 → 清空微任务队列 → 取**一个**宏任务 → 清空微任务队列 → 取一个宏任务...
+
+**关键点**：
+- 微任务"插队"：每轮都要清空，一个都不剩
+- 宏任务"排队"：一次只取一个
+- **每个宏任务后必清空微任务**（核心循环）
+
+**宏任务 vs 微任务分类**：
+| 类型 | 常见 API |
+|------|----------|
+| 宏任务 | setTimeout、setInterval、setImmediate(Node)、I/O |
+| 微任务 | Promise.then/catch/finally、queueMicrotask、process.nextTick(Node 最高优先级) |
+
+**口诀**：Promise 系列 = 微任务；定时器系列 = 宏任务
+
+**坑**：`new Promise(executor)` 里的 executor 是**同步**的，只有 `.then` 才是微任务：
+```javascript
+new Promise((resolve) => {
+  console.log('A');   // 同步
+  resolve();
+}).then(() => {
+  console.log('B');   // 微任务
+});
+console.log('C');
+// A C B
+```
+
+**经典题 1**（基础）：
+```javascript
+console.log('1');
+setTimeout(() => console.log('2'), 0);
+Promise.resolve().then(() => console.log('3'));
+console.log('4');
+// 输出：1 4 3 2
+```
+
+**经典题 2**（进阶 - 宏任务里嵌套微任务）：
+```javascript
+console.log('1');
+setTimeout(() => {
+  console.log('2');
+  Promise.resolve().then(() => console.log('3'));
+}, 0);
+Promise.resolve().then(() => {
+  console.log('4');
+  setTimeout(() => console.log('5'), 0);
+});
+console.log('6');
+// 输出：1 6 4 2 3 5
+```
+关键：宏任务 A（打印2）后，先清空它产生的微任务（打印3），再取下一个宏任务（打印5）。
+
+**为什么微任务要"插队"？**
+设计意图：让"紧急的异步"（如接口回来后的 `.then` 处理）尽快执行，不用排在一堆定时器后面。
+
+**async/await 和事件循环**：
+`await` 后面的代码相当于 `.then` 里的回调 → 微任务。
+```javascript
+async function foo() {
+  console.log('A');        // 同步
+  await Promise.resolve(); // await 这行同步，但"暂停"函数
+  console.log('B');        // 相当于 .then(() => console.log('B'))，微任务
+}
+foo();
+console.log('C');
+// A C B
+```
+`await` 本质：把后续代码变成微任务。
+
+**我曾经的盲区**：
+- （首次学习，过程顺利）
+
+---
+
+## Q8：Promise 手写（进行中 - 已完成 70%）
+
+**目标**：理解 Promise 原理，自己实现一个基础版。
+
+### 已完成部分
+
+**第一步：状态机（pending/fulfilled/rejected）**
+```javascript
+class MyPromise {
+  constructor(executor) {
+    this.state = 'pending';
+    this.value = undefined;
+    this.reason = undefined;
+
+    const resolve = (value) => {
+      if (this.state === 'pending') {  // 状态不可逆
+        this.state = 'fulfilled';
+        this.value = value;
+      }
+    };
+
+    const reject = (reason) => {
+      if (this.state === 'pending') {
+        this.state = 'rejected';
+        this.reason = reason;
+      }
+    };
+
+    executor(resolve, reject);  // 立即同步执行
+  }
+}
+```
+
+**关键点**：
+- 状态只能从 pending → fulfilled/rejected，**不可逆**
+- `executor` 是同步执行的（`new Promise(() => console.log('A'))` 里的 A 立即打印）
+- `resolve/reject` 判断 `state === 'pending'` 防止重复改状态
+
+**第二步：支持异步 resolve + 回调数组**
+```javascript
+class MyPromise {
+  constructor(executor) {
+    this.state = 'pending';
+    this.value = undefined;
+    this.reason = undefined;
+    this.onFulfilledCallbacks = [];  // 存成功回调
+    this.onRejectedCallbacks = [];   // 存失败回调
+
+    const resolve = (value) => {
+      if (this.state === 'pending') {
+        this.state = 'fulfilled';
+        this.value = value;
+        // resolve 时，执行所有存的回调
+        this.onFulfilledCallbacks.forEach(fn => queueMicrotask(fn));
+      }
+    };
+
+    const reject = (reason) => {
+      if (this.state === 'pending') {
+        this.state = 'rejected';
+        this.reason = reason;
+        this.onRejectedCallbacks.forEach(fn => queueMicrotask(fn));
+      }
+    };
+
+    executor(resolve, reject);
+  }
+
+  then(onFulfilled, onRejected) {
+    if (this.state === 'fulfilled') {
+      queueMicrotask(() => onFulfilled(this.value));  // 已成功，包微任务
+    }
+    if (this.state === 'rejected') {
+      queueMicrotask(() => onRejected(this.reason));
+    }
+    if (this.state === 'pending') {
+      // 还在 pending，存起来等 resolve
+      this.onFulfilledCallbacks.push(() => onFulfilled(this.value));
+      this.onRejectedCallbacks.push(() => onRejected(this.reason));
+    }
+  }
+}
+```
+
+**为什么回调用数组**：一个 Promise 可以被多次 `.then`，所有回调都要执行。
+
+**第三步：回调变微任务**
+- 用 `queueMicrotask` 包回调，让 `.then` 的回调异步执行（符合规范）
+- 测试：`new MyPromise(resolve => resolve()).then(() => console.log('then')); console.log('sync');` 输出 `sync then` ✅
+
+### 待完成部分（下次继续）
+
+- [ ] 链式调用（`.then` 返回新 Promise）
+- [ ] 错误处理（executor 抛错要 reject）
+- [ ] 值穿透（`.then()` 不传参数时的默认行为）
+
+---
+
 ## 待复习（下一题起）
 
-- [ ] Q7：事件循环（宏任务/微任务）
-- [ ] Q8：Promise 手写
 - [ ] Q9：TS interface vs type、泛型、unknown/any/never
 
 ---
 
-**最后更新**：2026-07-15（闭包、原型链、new、this、call/apply/bind，全部过关）
+**最后更新**：2026-07-15（闭包、原型链、new、this、call/apply/bind、事件循环过关；Promise 进行中 70%）
