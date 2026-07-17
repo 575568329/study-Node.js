@@ -1,6 +1,6 @@
 package test.com.fjyu.edu.animal;
 
-public class Animal {
+public abstract class Animal {
     private String name;
     private int age;
     public Animal(String name, int age){
@@ -13,10 +13,7 @@ public class Animal {
     public String getName(){
         return this.name;
     }
-    public void eat(){
-        System.out.println(name + "在吃东西");
-    }
-
+    public abstract void eat();
 }
 
 

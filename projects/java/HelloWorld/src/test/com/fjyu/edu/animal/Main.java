@@ -68,12 +68,13 @@ public class Main {
 //    }
     //**多态内容修改
     public static void main(String[] args){
-//        Animal dog = new Dog("小狗",10);
-//        Animal bird = new Bird("麻雀",10);
-//        Animal cat = new Cat("小猫",10);
-//        dog.eat();
-//        bird.eat();
-//        cat.eat();
+        Animal dog = new Dog("小狗",10);
+        Animal bird = new Bird("麻雀",10);
+        Animal cat = new Cat("小猫",10);
+        dog.eat();
+        bird.eat();
+        cat.eat();
         //动物园
     }
+
 }
