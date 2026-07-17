@@ -268,45 +268,12 @@ console.log('C');
 
 ---
 
-## Q8：Promise 手写（进行中 - 已完成 70%）
+## Q8：Promise 手写 ✅
 
-**目标**：理解 Promise 原理，自己实现一个基础版。
+**目标**：理解 Promise 原理，自己实现一个支持状态机、异步 resolve、链式调用的版本。
 
-### 已完成部分
+### 完整实现（4 个核心）
 
-**第一步：状态机（pending/fulfilled/rejected）**
-```javascript
-class MyPromise {
-  constructor(executor) {
-    this.state = 'pending';
-    this.value = undefined;
-    this.reason = undefined;
-
-    const resolve = (value) => {
-      if (this.state === 'pending') {  // 状态不可逆
-        this.state = 'fulfilled';
-        this.value = value;
-      }
-    };
-
-    const reject = (reason) => {
-      if (this.state === 'pending') {
-        this.state = 'rejected';
-        this.reason = reason;
-      }
-    };
-
-    executor(resolve, reject);  // 立即同步执行
-  }
-}
-```
-
-**关键点**：
-- 状态只能从 pending → fulfilled/rejected，**不可逆**
-- `executor` 是同步执行的（`new Promise(() => console.log('A'))` 里的 A 立即打印）
-- `resolve/reject` 判断 `state === 'pending'` 防止重复改状态
-
-**第二步：支持异步 resolve + 回调数组**
 ```javascript
 class MyPromise {
   constructor(executor) {
@@ -320,8 +287,7 @@ class MyPromise {
       if (this.state === 'pending') {
         this.state = 'fulfilled';
         this.value = value;
-        // resolve 时，执行所有存的回调
-        this.onFulfilledCallbacks.forEach(fn => queueMicrotask(fn));
+        this.onFulfilledCallbacks.forEach(fn => fn());
       }
     };
 
@@ -329,47 +295,194 @@ class MyPromise {
       if (this.state === 'pending') {
         this.state = 'rejected';
         this.reason = reason;
-        this.onRejectedCallbacks.forEach(fn => queueMicrotask(fn));
+        this.onRejectedCallbacks.forEach(fn => fn());
       }
     };
 
-    executor(resolve, reject);
+    try {
+      executor(resolve, reject);  // 同步执行 executor
+    } catch (err) {
+      reject(err);   // executor 抛错自动 reject
+    }
   }
 
   then(onFulfilled, onRejected) {
-    if (this.state === 'fulfilled') {
-      queueMicrotask(() => onFulfilled(this.value));  // 已成功，包微任务
+    // 核心1:返回新 Promise,实现链式调用
+    const promise2 = new MyPromise((resolve, reject) => {
+      const handleFulfilled = () => {
+        queueMicrotask(() => {
+          try {
+            const x = onFulfilled(this.value);
+            this.resolvePromise(promise2, x, resolve, reject);
+          } catch (err) {
+            reject(err);
+          }
+        });
+      };
+
+      const handleRejected = () => {
+        queueMicrotask(() => {
+          try {
+            const x = onRejected(this.reason);
+            this.resolvePromise(promise2, x, resolve, reject);
+          } catch (err) {
+            reject(err);
+          }
+        });
+      };
+
+      if (this.state === 'fulfilled') {
+        handleFulfilled();
+      } else if (this.state === 'rejected') {
+        handleRejected();
+      } else {
+        this.onFulfilledCallbacks.push(handleFulfilled);
+        this.onRejectedCallbacks.push(handleRejected);
+      }
+    });
+
+    return promise2;
+  }
+
+  // 核心2:处理 then 回调的返回值
+  resolvePromise(promise2, x, resolve, reject) {
+    if (x === promise2) {
+      return reject(new TypeError('不能返回自身'));  // 防死循环
     }
-    if (this.state === 'rejected') {
-      queueMicrotask(() => onRejected(this.reason));
-    }
-    if (this.state === 'pending') {
-      // 还在 pending，存起来等 resolve
-      this.onFulfilledCallbacks.push(() => onFulfilled(this.value));
-      this.onRejectedCallbacks.push(() => onRejected(this.reason));
+    if (x instanceof MyPromise) {
+      x.then(resolve, reject);  // 返回 Promise → 等它,用它的结果
+    } else {
+      resolve(x);  // 返回普通值 → 直接 resolve
     }
   }
 }
 ```
 
-**为什么回调用数组**：一个 Promise 可以被多次 `.then`，所有回调都要执行。
+### 4 个核心点
 
-**第三步：回调变微任务**
-- 用 `queueMicrotask` 包回调，让 `.then` 的回调异步执行（符合规范）
-- 测试：`new MyPromise(resolve => resolve()).then(() => console.log('then')); console.log('sync');` 输出 `sync then` ✅
+**1. 状态机（pending/fulfilled/rejected）**
+- 状态只能从 pending → fulfilled/rejected，**不可逆**
+- `resolve/reject` 判断 `state === 'pending'` 防止重复改状态
 
-### 待完成部分（下次继续）
+**2. 异步 resolve 支持（回调数组）**
+- `.then` 时若 state 还在 pending，把回调存进数组
+- `resolve/reject` 跑的时候 `forEach` 执行所有回调
+- 用数组：因为一个 Promise 可以被多次 `.then`
 
-- [ ] 链式调用（`.then` 返回新 Promise）
-- [ ] 错误处理（executor 抛错要 reject）
-- [ ] 值穿透（`.then()` 不传参数时的默认行为）
+**3. 回调变微任务（queueMicrotask）**
+- 让 `.then` 的回调异步执行，符合 Promise 规范
+- 测试：`new MyPromise(r => r()).then(() => console.log('then')); console.log('sync');` → `sync then`
+
+**4. 链式调用（then 返回新 Promise + resolvePromise）**
+- `.then` 返回新的 MyPromise（promise2），所以能 `.then().then()`
+- **不是循环，是接力**：值从一个 then 传到下一个 then
+- `resolvePromise` 处理两种 return：
+  - return **普通值** → 直接 resolve，下一个 then 拿到这个值
+  - return **Promise** → `x.then(resolve, reject)`，等它完成，下一个 then 拿到它的结果
+- 防死循环：`.then(() => p)` 返回自己会 reject TypeError
+
+### 经典应用：接口接力
+
+```javascript
+login()
+  .then(res => getUserInfo())     // return Promise → 等它
+  .then(user => getOrders())      // 拿到 user,再 return Promise
+  .then(orders => console.log(orders));  // 拿到 orders
+```
+
+**可能的追问**：
+- 为什么 `.then` 返回新 Promise 而不是原 Promise？→ 为了接住上一个 then return 的新值，
+  特别是 return 另一个接口（Promise）时，下一个 then 要拿到那个接口的结果。
+- executor 里抛错怎么办？→ try-catch，自动 reject(err)。
+- `.then` 不传参数（值穿透）？→ 应加默认 `onFulfilled = v => v`、`onRejected = e => { throw e }`。
 
 ---
 
-## 待复习（下一题起）
+## Q9：TS 类型系统（interface/type、泛型、unknown/any/never）✅
 
-- [ ] Q9：TS interface vs type、泛型、unknown/any/never
+### 1. interface vs type
+
+**核心区别（3 点）**：
+
+| 区别 | interface | type |
+|------|-----------|------|
+| 能定义的类型 | 只能对象/类形状 | 联合、交叉、基本别名、元组都能 |
+| 扩展（继承）| `extends` | `&`（交叉类型）|
+| 同名声明 | 自动合并 | 报错 |
+
+```typescript
+// type 能定义联合、基本别名、元组(interface 做不到)
+type ID = string | number;
+type Name = string;
+type Pair = [string, number];
+
+// 扩展语法不同
+interface Animal { name: string; }
+interface Dog extends Animal { bark(): void; }
+
+type Animal2 = { name: string; };
+type Dog2 = Animal2 & { bark(): void; };
+
+// 声明合并:interface 同名合并,type 同名报错
+interface User { name: string; }
+interface User { age: number; }   // 合并成 { name, age }
+```
+
+**怎么选**：定义对象/类形状默认用 interface（可合并、可 extends）；需要联合/交叉/别名时用 type。React Props 社区多习惯用 type。
+
+**面试一句话**：interface 和 type 都能定义对象形状，但 type 能表达联合/交叉/别名，interface 能声明合并。
+
+### 2. 泛型（Generics）
+
+**解决什么问题**：保留类型信息 + 复用。
+- `any` 会让返回值丢掉类型（不安全）
+- 泛型 `<T>` 是"类型占位符"，定义时占位，调用时决定具体类型
+
+```typescript
+function identity<T>(value: T): T { return value; }
+identity<string>('hello');   // T = string,返回 string
+identity('hello');           // TS 自动推断 T = string
+
+// 实际场景:API 请求封装,一个函数适配所有接口
+function request<T>(url: string): Promise<T> { return fetch(url).then(r => r.json()); }
+const user = await request<User>('/api/user');  // user 是 User 类型,有提示
+```
+
+**面试一句话**：any 放弃类型检查（不安全），泛型 `<T>` 让类型变成参数，调用时决定，既复用又保留类型安全。
+
+### 3. unknown vs any vs never
+
+| 类型 | 含义 | 能不能直接用 |
+|------|------|------|
+| `any` | 放弃检查 | ✅ 随便用（危险）|
+| `unknown` | 不知道，先收窄 | ❌ 必须类型检查后才能用 |
+| `never` | 不可能发生 | —— 永远到不了 |
+
+```typescript
+let a: any = 1;
+a.foo();   // 行,TS 装没看见(危险)
+
+let u: unknown = getData();
+u.foo();   // ❌ 报错,必须先收窄
+if (typeof u === 'string') { u.toUpperCase(); }  // ✅
+
+// never:穷尽检查
+type Status = 'loading' | 'success' | 'error';
+function handle(s: Status) {
+  switch (s) {
+    case 'loading': return '加载中';
+    case 'success': return '成功';
+    case 'error': return '失败';
+    default:
+      const check: never = s;  // 以后加新状态忘了处理,这行报错
+  }
+}
+```
+
+**面试一句话**：any 是放弃类型检查（不安全），unknown 是安全的 any（必须收窄才能用），never 表示不可能的值（用于穷尽检查）。
+
+**unknown 为什么比 any 安全**：都能接收任何值，但 unknown 不能直接操作，必须先做类型检查（收窄），强制开发者处理类型；any 直接放行，错误留到运行时才爆。
 
 ---
 
-**最后更新**：2026-07-15（闭包、原型链、new、this、call/apply/bind、事件循环过关；Promise 进行中 70%）
+**最后更新**：2026-07-17（JS/TS 基础 9/9 全部收官）
