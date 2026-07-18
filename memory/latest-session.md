@@ -1,234 +1,140 @@
 # 最近会话
 
-**最后更新**：2026-07-14
+**最后更新**:2026-07-18(Day 5)
 
 ## 当前上下文
 
-- 项目：`Node.js-Study`
-- **重大方向调整**：从 Node.js 全栈转向 Java 全栈
-- 原因：公司后端技术栈是 Java（传统 SSM + Dubbo 微服务）
-- 目标：能读懂、维护、参与公司后端代码，最终具备真全栈能力
-- 时间窗口：约 1 个月后面临裁员风险
-- 学习策略：**稳扎稳打、理解原理、能讲清楚为什么**（不速成）
+- 项目:`study-Node.js`(学习/求职准备工作区)
+- **主线**:Java 全栈学习(2026-07-14 从 Node.js 转向 Java)
+- 原因:公司后端技术栈是 Java(传统 SSM + Dubbo 微服务)
+- 目标:能读懂、维护、参与公司后端代码,最终具备真全栈能力
+- 时间窗口:约 1 个月后面临裁员风险
+- 学习策略:**稳扎稳打、理解原理、能讲清楚为什么**(不速成)
 
 ## 公司技术栈分析
 
 ### 后端架构
-- **框架**：Spring 3.2.6（传统 SSM，非 Spring Boot）
-- **配置方式**：XML 配置为主
-- **RPC 框架**：Dubbo + Zookeeper
-- **ORM**：MyBatis（推测）
-- **数据库**：MySQL + MongoDB
-- **缓存**：Redis（Redisson）
-- **JDK**：Java 8
-- **构建工具**：Maven 多模块
+- **框架**:Spring 3.2.6(传统 SSM,非 Spring Boot),XML 配置为主
+- **RPC 框架**:Dubbo + Zookeeper
+- **ORM**:MyBatis(推测)
+- **数据库**:MySQL + MongoDB
+- **缓存**:Redis(Redisson)
+- **JDK**:Java 8
+- **构建工具**:Maven 多模块
 
 ### 项目结构
 ```
-crowdsourced-new/          # 服务层
-  ├── service/             # 业务层
-  └── impl/                # 实现层
-crowdsourced-new-web/      # Web 层
+crowdsourced-new/          # 服务层(service / impl)
+crowdsourced-new-web/      # Web 层(Controller)
 crowdsourced-new-api/      # API 定义
 ```
+典型分布式微服务,模块按 API/Service/Impl 分层,Dubbo 做服务调用。
 
-典型的分布式微服务架构，模块按 API/Service/Impl 分层，通过 Dubbo 做服务调用。
+## 学习进度(Week 1)
 
-## Java 学习路径（4-5 个月，稳扎稳打）
-
-已输出完整学习计划：
-- `docs/fullstack/Java学习路径-稳扎稳打版.md`
-- `docs/fullstack/技能优先级-运维技能版.md`
-
-### 核心理念
-1. **对比学习**：利用 Node.js 后端基础，对比理解 Java
-2. **三遍学习法**：跑通 → 理解 → 应用
-3. **边学边问**：主动理解原理，不死记硬背
-4. **实战驱动**：围绕公司代码和简历项目
-
-### 六个学习阶段
-
-| 阶段 | 时长 | 核心目标 |
-|------|------|----------|
-| 阶段一：Java 基础 | 2-3周 | 能读懂 Java 代码语法 |
-| 阶段二：Spring 框架 | 3-4周 | 理解 IoC/DI/AOP，读懂公司配置 |
-| 阶段三：数据库与 MyBatis | 2-3周 | 能写复杂 SQL，理解 ORM |
-| 阶段四：微服务（Dubbo + Spring Boot） | 3-4周 | 理解 RPC，对比 Spring Cloud |
-| 阶段五：运维基础（Linux/Docker/CI/CD） | 2-3周 | 能部署、排查问题 |
-| 阶段六：实战项目（Java 版 RAG） | 3-4周 | 简历核心项目 |
-
-**总计**：15-21 周（约 4-5 个月）
-
-## 最近学习进度（Week 1）
-
-### Day 1（2026-07-14）
-- ✅ 环境搭建：JDK 8 + IDEA
+### Day 1(2026-07-14)
+- ✅ 环境搭建:JDK 8 Corretto 1.8.0_492 + IDEA
 - ✅ Hello World + 编译执行理解
 - ✅ 基本类型、流程控制、类型转换
-- ⚠️ 需纠正："if 不能用变量"→"if 必须是 boolean 类型"
-- ⚠️ 需纠正：`byte` 不是"存年龄"，是二进制数据
-- ⚠️ 需纠正：`Double`（大写）是包装类，基本类型是 `double`
+- ⚠️ 已纠正:"if 必须是 boolean 类型"、`byte` 是二进制数据、`Double` 是包装类
 
-### Day 2（2026-07-15）
-- ✅ 方法定义与重载（理解方法签名）
-- ✅ 数组与 ArrayList（固定 vs 动态）
-- ✅ 基本类型与包装类（Integer/Character 特殊命名）
-- ✅ 自动装箱/拆箱（包括类型提升规则）
-- ✅ 课前小测：5题全对，理解深刻
-- 📝 输出笔记：`study-notes/Java/Day2-方法与数组.md`
+### Day 2(2026-07-15)
+- ✅ 方法定义与重载(方法签名)
+- ✅ 数组与 ArrayList(固定 vs 动态)
+- ✅ 基本类型与包装类(Integer/Character 命名)、自动装箱/拆箱
+- 📝 笔记:`Day2-方法与数组.md`
 
-### Day 3（2026-07-16）
-- ✅ 类与对象（类是模板，对象是实例）
-- ✅ 构造方法 vs 普通方法（名字=类名，无返回值）
-- ✅ 封装：private + getter/setter + 校验逻辑
-- ✅ main 方法作为程序入口
-- ✅ 包与 import 跨包引用
-- ✅ 实战：Dog 类完整实现
-- 📝 输出笔记：`study-notes/Java/Day3-类与对象封装.md`
+### Day 3(2026-07-16)
+- ✅ 类与对象、构造方法 vs 普通方法
+- ✅ 封装:private + getter/setter + 校验
+- ✅ main 入口、包与 import
+- 📝 笔记:`Day3-类与对象封装.md`
 
-**学生自我总结（Day 3）**：
-> public class 创建类，里面有构造方法和普通方法。构造方法和类的名字相同，new 的时候会自动调用这个构造方法，new 的时候会分配一个空间，改变当前类的指向为定义的内容，执行构造函数里面的方法。构造方法不能加 void。private 规定了 getter/setter 的访问权限。跨包引用使用 import。
+### Day 4(2026-07-17)
+- ✅ 继承(extends)、super 两个作用
+- ✅ 方法重写(@Override)、重写 vs 重载、两同两小一大
+- ✅ 多态(向上转型、编译看左运行看右)、feedAll 实战
+- 📝 笔记:`Day4-继承与多态.md`
 
-**评价**：核心概念全部抓住，理解准确。
+### Day 5(2026-07-18)⭐ 本次会话
+- ✅ 接口(interface)+ 抽象类(abstract class)
+- ✅ 抽象类 vs 接口对照(is-a vs can-do)
+- ✅ 面向接口编程(Service/Impl 分层 = 公司风格)
+- ✅ 集合框架:泛型、List、Map、Set(全部对标 JS Array/Object/Set)
+- ✅ 实战:`testList` 包(UserService 接口 + UserServiceImpl 实现,Map 存储)
+- 📝 笔记:`Day5-接口抽象类与集合框架.md`
 
-### 理解质量评估
-- **Day 1-2 基础语法**：✅ 优秀（能准确判断细节问题）
-- **Day 3 面向对象**：✅ 优秀（掌握类/对象/封装核心）
-- **学习态度**：主动思考、深入提问、善于对比、能自我总结
+**Day 5 课前小测成果**(5 题,关键纠正):
+- 🔴 **高信心错误纠正**:`AnimalServiceImpl s = new AnimalServiceImpl()` 误以为"不能跑"→ 实际能跑,区别在面向接口 vs 面向实现
+- 🔴 **Day1 易错点重犯**:字符串 `==` vs `equals`(Map 版 UserService 已修正)
+- ✅ 多态/抽象类不能 new(Q5 全对)
+- ✅ 抽象类 vs 接口选择(Q4 全对,口诀:is-a 抽象类 / can-do 接口)
 
-### 下次学习重点
-- 继承（extends）与方法重写（@Override）
-- super 关键字的使用
-- protected 修饰符在继承中的作用
-- 多态的初步概念
+## 盲区清单(待巩固)
+
+| 优先级 | 盲区 | 状态 |
+|--------|------|------|
+| **P0** | 字符串比较 `==` vs `equals` | 🔴 Day5 重犯,已纠正,需固化 |
+| **P0** | 接口引用 vs 实现类引用("能不能跑") | 🔴 高信心错误,已纠正 |
+| **P0** | `findByName` 找不到应返回 null(非 list[0]) | 🔴 逻辑 bug,已修正 |
+| **P1** | `printf` 第一参数是格式字符串(`%s`/`%d`/`%n`) | 🟡 已理解 |
+| ~~P1~~ | ~~泛型的意义(类型安全/免强转)~~ | ✅ 已掌握 |
+| **P2** | 接口运行时能力(DI / 动态分派) | ⚪ 待 Spring 阶段验证 |
+
+## 下一步学习
+
+### Week 1 剩余
+- [ ] **异常处理**:try-catch-finally、NullPointerException(已撞见)、自定义异常
+- [ ] 读公司代码:找 3 个 Controller 接口 + 3 处 `List<>`/`Map<>` 用法
+- [ ] 输出《Java vs Node.js 语法对比.md》
+- [ ] 周末总结:能讲清 Java 面向对象与 TS 的区别
+
+### Week 2:Java 核心 API
+- Stream API(map/filter/collect)、日期时间、字符串、文件 I/O
+
+## 理解质量评估(累计)
+
+| 阶段 | 评价 |
+|------|------|
+| Day 1-2 基础语法 | ✅ 优秀 |
+| Day 3 面向对象/封装 | ✅ 优秀 |
+| Day 4 继承/多态 | ✅ 优秀 |
+| Day 5 接口/抽象类/集合 | ✅ 优秀(课前小测纠正了 2 个高价值盲区) |
+
+**学习态度**:主动思考、深入提问、善于对比 JS、能自我总结、纠正后立刻应用(testList 从 List 改 Map 版,equals/判空一次到位)。
 
 ## 运维技能优先级
 
-### P0 级：核心开发技能（70% 时间）
-- Java 语言 + Spring + Spring Boot
-- MyBatis + MySQL
-- RESTful API + Git
+- **P0**(70% 时间):Java + Spring + MyBatis + MySQL + RESTful + Git
+- **P1**(20% 时间):Linux(30 命令)、Docker、CI/CD 概念
+- **P2**(10% 时间):K8s(可选,入职后再学)
 
-### P1 级：运维基础技能（20% 时间）
-- **Linux**：⭐⭐⭐⭐⭐ 必学（30个常用命令）
-- **Docker**：⭐⭐⭐⭐ 强烈推荐（容器化部署）
-- **CI/CD**：⭐⭐⭐ 了解概念（Jenkins Pipeline）
+## 验收标准(每阶段自测)
 
-### P2 级：Kubernetes（10% 时间）
-- ⭐⭐ 可选（入职后再学，或求职大厂时突击）
-
-### 关键结论
-- **不速成**：理解原理 > 赶进度
-- **不焦虑**：按需学习，够用就行
-- **K8s 不是必选项**：Docker 优先级更高
-
-## 验收标准（每阶段自测）
-
-### 阶段一（第 3 周）
-- [ ] 能读懂公司 Controller 层代码
-- [ ] 能解释 Java 集合框架设计思想
-- [ ] 能对比 Java vs Node.js 类型系统
-
-### 阶段二（第 7 周）
-- [ ] 能读懂公司 Spring 配置文件
-- [ ] 能解释 Spring IoC/DI/AOP 原理
-- [ ] 能画出一个接口的完整调用链
-
-### 阶段三（第 10 周）
-- [ ] 能读懂公司 MyBatis Mapper
-- [ ] 能写复杂动态 SQL
-- [ ] 能解释事务传播行为
-
-### 阶段四（第 14 周）
-- [ ] 能读懂公司 Dubbo 配置
-- [ ] 能解释 RPC 调用原理
-- [ ] 能画出公司微服务架构图
-
-### 阶段五（第 17 周）
-- [ ] 能在 Linux 部署 Java 应用
-- [ ] 能用 Docker 容器化项目
-- [ ] 能排查常见线上问题
-
-### 阶段六（第 21 周）
-- [ ] 有完整 Java 项目（可写进简历）
-- [ ] 能讲清楚技术选型和架构
-- [ ] 能回答 20+ 面试追问
+- 第 3 周:能读懂公司 Controller、解释集合框架设计、对比 Java vs Node.js 类型系统
+- 第 7 周:读懂 Spring 配置、解释 IoC/DI/AOP、画接口调用链
+- 第 10 周:读懂 MyBatis Mapper、写动态 SQL、解释事务传播
+- 第 14 周:读懂 Dubbo 配置、解释 RPC、画微服务架构图
+- 第 17 周:Linux 部署 Java 应用、Docker 容器化、排查线上问题
+- 第 21 周:完整 Java 项目(简历)、讲清技术选型、答 20+ 面试追问
 
 ## 学习节奏
 
-### 工作日（每天 4-5h）
-- 上午 1.5-2h：学新概念，读官方文档
-- 下午 1.5-2h：读公司代码，找对应实现
-- 晚上 1h：写代码练习，整理笔记
+- 工作日 4-5h:上午学新概念 → 下午读公司代码 → 晚上写代码+笔记
+- 周六集中做 demo,周日上午复习+输出总结
 
-### 周末
-- 周六：集中学习新知识，做完整 demo
-- 周日上午：复习本周内容，输出总结文档
-- 周日下午：休息或补充薄弱环节
+## 笔记位置
 
-## 下一步行动
+- `study-notes/Java/Day1~Day5-*.md`(主笔记)
+- `study-notes/Java/INDEX.md`(导航)
+- 代码:`projects/java/HelloWorld/src/test/com/fjyu/edu/`(animal / studyInterface / testList)
 
-### 本周剩余任务
-1. 方法（Method）定义与重载
-2. 数组操作
-3. 面向对象入门（类、对象、构造方法）
-4. 集合框架（List、Set、Map）
-5. 读公司代码：找 3 个 Controller 接口
+## 原有学习线(暂缓)
 
-### 第 1 周目标
-- [x] 搭建本地 Java 开发环境（JDK 8 Corretto 1.8.0_492 + IDEA）
-- [x] 创建并运行第一个 Java 项目（projects/java/HelloWorld）
-- [x] 理解编译 vs 解释执行
-- [x] main 方法、访问修饰符、基本类型、流程控制、包的概念
-- [ ] 方法定义与重载
-- [ ] 数组操作
-- [ ] 面向对象（类、对象、继承、接口、多态）
-- [ ] 集合框架（List、Set、Map）
-- [ ] 读公司代码：找 3 个 Controller 接口
-- [ ] 输出《Java vs Node.js 语法对比.md》
-
-### 当前进度（2026-07-14 Day1 完成）
-- JDK 8 + IDEA 安装配置
-- `public static void main(String[] args)` 入口逐字理解
-- 4 种访问修饰符：public / protected / default / private
-- 8 种基本类型 + String 引用类型
-- 类型提升规则（算术运算自动提升）
-- String 比较必须用 equals()，字符串常量池
-- 流程控制：if 必须 boolean、switch 穿透、增强 for
-- 包（package）的概念
-
-### 笔记位置
-- 知识点：`study-notes/Java/01-知识点总结/A-基础语法/Day1-Java程序结构与基础语法.md`
-- 易错点：`study-notes/Java/03-易错点与陷阱/Java易错点汇总.md`
-- 速查表：`study-notes/Java/05-速查表/Java速查表.md`
-
-## 原有学习线（暂缓）
-
-- RAG 项目体检和面试资产准备：暂缓
-- Node.js 全栈复习：已完成基础部分，暂停
-- 组件库开发：暂缓
-- 简历优化：待 Java 学习到阶段四后重新规划
-
-## 注意事项
-
-- 不追求速成，每个概念都要理解原理
-- 不被技能清单焦虑，按需学习
-- 运维技能为开发服务，边写代码边部署
-- 每周输出总结文档，检验理解深度
-- 遇到问题主动问"为什么这么设计"
-
-## 关键里程碑
-
-| 时间 | 里程碑 | 验证方式 |
-|------|--------|----------|
-| 第 3 周 | 能读懂公司 Java 代码 | 解释 5 段代码 |
-| 第 7 周 | 理解 Spring 核心原理 | 画流程图 |
-| 第 10 周 | 掌握数据库操作 | 写复杂 SQL |
-| 第 14 周 | 理解微服务架构 | 画架构图 |
-| 第 17 周 | 掌握运维基础 | 独立部署项目 |
-| 第 21 周 | 完成实战项目 | 20 分钟演示 |
+- RAG 项目体检 / 面试资产:暂缓
+- Node.js 全栈复习:已完成基础,暂停
+- 组件库 / 简历优化:待 Java 阶段四后重启
 
 ---
 
-**最后更新**：2026-07-14
-**当前状态**：已制定完整 Java 学习计划，准备开始第 1 周学习
+**当前状态**:Week 1 Day 5 完成,接口/抽象类 + 集合框架掌握,下一步异常处理
