@@ -34,7 +34,7 @@
 - [x] 输出 Day4 笔记（study-notes/Java/Day4-继承与多态.md）
 - [x] 学习接口（interface）与抽象类（abstract）（Day 5，含课前小测纠正）
 - [x] 学习集合框架（List、Set、Map、泛型）（Day 5，testList 项目实战）
-- [ ] 学习异常处理（try-catch、自定义异常）← 下一个
+- [x] 学习异常处理（try-catch、throw/throws、自定义异常）（Day 6，testList 改造实战）
 - [ ] 读公司代码：找 3 个 Controller 接口，理解业务逻辑
 - [ ] 输出《Java vs Node.js 语法对比.md》
 - [ ] 周末总结：能解释 Java 面向对象与 TS 的区别
@@ -213,5 +213,5 @@
 
 ---
 
-**最后更新**：2026-07-18
-**当前状态**：Week 1 Day 5 完成（接口/抽象类 + 集合框架），下一步异常处理
+**最后更新**：2026-07-19
+**当前状态**：Week 1 Day 6 完成（异常处理），Week 1 接近收官，下一步读公司代码 / Week2 Stream

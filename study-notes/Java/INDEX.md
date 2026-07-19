@@ -13,6 +13,7 @@
 - [Day3 - 类与对象封装](./Day3-类与对象封装.md)
 - [Day4 - 继承与多态](./Day4-继承与多态.md)
 - [Day5 - 接口抽象类与集合框架](./Day5-接口抽象类与集合框架.md) ⭐ 含课前小测盲区纠正
+- [Day6 - 异常处理](./Day6-异常处理.md)（try-catch / throw / 自定义异常）
 
 ---
 
@@ -32,8 +33,8 @@
 
 | 周 | 主题 | 状态 |
 |----|------|------|
-| Week 1 | Java 语法 + 面向对象 | 🔄 进行中（Day5 接口/抽象类/集合完成）|
+| Week 1 | Java 语法 + 面向对象 | 🔄 进行中（Day6 异常处理完成）|
 | Week 2 | 核心 API + Stream | ⬜ 未开始 |
 | Week 3 | Maven + 工程结构 | ⬜ 未开始 |
 
-> Week 1 剩余：异常处理（try-catch）、读公司 Controller、输出《Java vs Node.js 语法对比.md》
+> Week 1 剩余：读公司 Controller、输出《Java vs Node.js 语法对比.md》→ 接近收官

@@ -17,7 +17,7 @@ public class UserServiceImpl implements UserService{
                 return entry.getValue();                      // 找到立即返回,不浪费循环
             }
         }
-        return null;
+        throw new UserNotFoundException("用户不存在：" + name);
     }
 
     @Override
