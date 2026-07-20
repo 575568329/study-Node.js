@@ -99,12 +99,38 @@ crowdsourced-new-api/      # API 定义
 
 ### Week 1 剩余(接近收官)
 - [x] **异常处理**:try-catch / throw / throws / 自定义异常(Day 6 完成)
-- [ ] 读公司代码:找 3 个 Controller 接口 + 异常处理/List/Map 用法
+- [x] **读公司代码**:HelpCenterController + PaperServiceImpl 异常处理(Day 7 完成)
 - [ ] 输出《Java vs Node.js 语法对比.md》
 - [ ] 周末总结:能讲清 Java 面向对象与 TS 的区别
 
 ### Week 2:Java 核心 API
-- Stream API(map/filter/collect)、日期时间、字符串、文件 I/O
+- [x] **Stream API**(Day 7 启动):stream/filter/map/collect 三大核心已掌握
+- [ ] Stream 进阶:forEach/count/sorted/reduce + Optional(findFirst/orElseThrow)
+- [ ] 日期时间(LocalDate/DateTimeFormatter)
+- [ ] 字符串操作(String/StringBuilder)
+- [ ] 文件 I/O(Files/Path)
+
+## Day 7(2026-07-20)⭐ 本次会话
+- ✅ **读公司代码**:HelpCenterController(63行精简Controller)
+  - 看懂 @Controller/@RequestMapping/@Resource/@ResponseBody
+  - 理解 JsonResultHaveObj 统一返回结构
+  - 理解分层隔离(Controller 不见 Dao)
+  - 理解 if(null != x) 空指针防御
+- ✅ **公司异常处理**:PaperServiceImpl 的 throw new ELPBizException
+  - 校验失败抛业务异常(带上下文)
+  - try-catch 包装异常(技术异常→业务异常)
+  - **全局异常处理器** @ControllerAdvice 统一接(业务代码只 throw,不用到处 try-catch)
+- ✅ **Stream API 启动**:三大核心 stream/filter/map/collect
+  - 对比 JS array.filter().map(),几乎一一对应
+  - 方法引用简写 User::getName
+  - 实战:testList Main 里 filter+map+collect 一行搞定
+- 📝 笔记:待补 Day7-公司代码阅读与Stream.md
+
+**Day 7 理解题成果**:
+- ✅ Q1 为什么用接口类型(解耦)— 完全答对
+- ⚠️ Q2 List泛型作用 — 方向对,补充"类型安全+免强转"
+- ✅ Q3 null防御(避免NPE)— 理解正确
+- ✅ Stream 对比 JS filter/map — JS基础扎实,Java 对应快
 
 ## 理解质量评估(累计)
 

@@ -1,12 +1,21 @@
 package test.com.fjyu.edu.testList;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class Main {
     public static void main(String[] args) {
         UserService userService = new UserServiceImpl();
         userService.add("001",new User("小狗", 10));
         userService.add("002",new User("小猫", 10));
         userService.add("003",new User("小鸟", 10));
+        List<User> users = new ArrayList<>();
+        users.add(new User("大狗",18));
+        users.add(new User("大猫",8));
+        users.add(new User("大鸟",8));
 
+        System.out.println(users.stream().filter(u->u.getAge()>=18).map(User::getName).collect(Collectors.toList()));
         try {
             User findData = userService.findByName("不存在的狗");
             System.out.println(findData.getName());
