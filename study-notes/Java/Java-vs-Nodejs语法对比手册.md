@@ -479,5 +479,20 @@ try {
 
 ---
 
-**最后更新**：2026-07-20
+## 参考来源（已联网验证）
+
+| 章节 | 验证来源 |
+|------|---------|
+| Integer 缓存 -128~127 | JLS §5.1.7、[Stack Overflow](https://stackoverflow.com/) |
+| 字符串常量池 | [GeeksforGeeks - == vs equals](https://www.geeksforgeeks.org/java/difference-between-and-equals-method-in-java/) |
+| 泛型类型擦除 | [Oracle 官方 - Restrictions on Generics](https://docs.oracle.com/javase/tutorial/java/generics/restrictions.html)、[Stack Overflow](https://stackoverflow.com/questions/2721546/why-dont-java-generics-support-primitive-types) |
+| Checked vs Unchecked 异常 | [Baeldung](https://www.baeldung.com/java-checked-unchecked-exceptions)、[GeeksforGeeks](https://www.geeksforgeeks.org/java/java-checked-vs-unchecked-exceptions/) |
+| Lambda 与函数式接口 | [Oracle 官方 - Lambda Expressions](https://docs.oracle.com/javase/tutorial/java/javaOO/lambdaexpressions.html)（SAM 类型） |
+| 单继承与菱形问题 | [GeeksforGeeks - Diamond Problem](https://www.geeksforgeeks.org/java/diamond-problem-in-java/)、[Cornell CS](https://www.cs.cornell.edu/courses/JavaAndDS/abstractInterface/05diamond.pdf) |
+
+**验证结论**：六大核心技术点全部与权威来源一致，无错误。
+
+---
+
+**最后更新**：2026-07-20（已联网验证技术准确性）
 **作者**：fjyu9（6年前端，转型 Java 全栈）
