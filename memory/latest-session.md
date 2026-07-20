@@ -70,7 +70,7 @@ crowdsourced-new-api/      # API 定义
 - ✅ 多态/抽象类不能 new(Q5 全对)
 - ✅ 抽象类 vs 接口选择(Q4 全对,口诀:is-a 抽象类 / can-do 接口)
 
-### Day 6(2026-07-19)⭐ 本次会话
+### Day 6(2026-07-19)
 - ✅ 异常体系:Throwable → Error / Exception;Checked vs Unchecked(JS 没有的核心概念)
 - ✅ try-catch-finally(对比 JS:Java 按类型多 catch,JS 一个 catch 接所有)
 - ✅ throw(动作)vs throws(声明,JS 没有);处理 Checked 两方式
@@ -82,6 +82,26 @@ crowdsourced-new-api/      # API 定义
 - 🔴 **高信心错误纠正**:Checked 异常不处理 → 误以为"能编译运行时报错",实际**编译就过不了**(这是 Checked 名字的由来)
 - 💡 答疑:错误类型**不用全记**(记分类逻辑 + 6 个高频);工作中**很少手写异常类**(项目建几个 BusinessException 基类复用,`@ControllerAdvice` 全局接,日常只 `throw new`)
 - ✅ catch 顺序、异常 vs null 的取舍,已理解
+
+### Day 7(2026-07-20)⭐ 本次会话 - Week 2 启动
+- ✅ **读公司代码**:精读 HelpCenterController(63行样本)+ PaperServiceImpl 异常处理
+  - 分层隔离:Controller 看不到 Dao(CLAUDE.md"禁止跨层调用")
+  - 统一返回:JsonResultHaveObj<{code,message,result}>
+  - 异常实战:throw new ELPBizException + try-catch 包装 + @ControllerAdvice 全局接
+- ✅ **Stream API**(Week 2 核心):4 步 stream→filter/map→collect,对标 JS 链式
+- ✅ **惰性求值**:中间操作(filter/map/peek)不执行,终端操作(collect/findFirst/forEach)才触发
+- ✅ **短路终端**:findFirst 找到就停,效率等同 for 循环(踩坑:peek 不打印)
+- ✅ **groupingBy 分组**:一行实现分组,公司超常用(分+计/分+取属性)
+- ✅ **Optional**:优雅解决 null,对标 JS `?.`/`??`;已用过的 findFirst 返回值就是 Optional
+- ✅ **toString 重写**:解决 `User@30dae81` 打印问题(Object 三大方法:equals/toString/hashCode)
+- ✅ 实战:UserServiceImpl 串联 OOP/接口/异常/Stream/Optional/Map,达企业级水准
+- 📝 笔记:`Day7-读公司代码与Stream-API.md`
+
+**Day 7 学习成果**:
+- 💡 自主发现惰性求值陷阱:"Stream 版 filter 是不是多查询了?" → 深入理解惰性+短路
+- 💡 自主踩坑 peek 不打印 → 巩固惰性求值理解
+- ✅ JS→Java 映射能力极强(filter/map/groupingBy/Optional 一学就会)
+- ✅ UserServiceImpl 已是企业级水准(findByName 用 orElseThrow、findNameById 用 orElse)
 
 ## 盲区清单(待巩固)
 
@@ -110,7 +130,7 @@ crowdsourced-new-api/      # API 定义
 - [ ] 字符串操作(String/StringBuilder)
 - [ ] 文件 I/O(Files/Path)
 
-## Day 7(2026-07-20)⭐ 本次会话
+## Day 7(2026-07-20)⭐ 本次会话 - Week 2 启动
 - ✅ **读公司代码**:HelpCenterController(63行精简Controller)
   - 看懂 @Controller/@RequestMapping/@Resource/@ResponseBody
   - 理解 JsonResultHaveObj 统一返回结构
@@ -120,17 +140,28 @@ crowdsourced-new-api/      # API 定义
   - 校验失败抛业务异常(带上下文)
   - try-catch 包装异常(技术异常→业务异常)
   - **全局异常处理器** @ControllerAdvice 统一接(业务代码只 throw,不用到处 try-catch)
-- ✅ **Stream API 启动**:三大核心 stream/filter/map/collect
+- ✅ **Stream API**:三大核心 stream/filter/map/collect
   - 对比 JS array.filter().map(),几乎一一对应
   - 方法引用简写 User::getName
   - 实战:testList Main 里 filter+map+collect 一行搞定
-- 📝 笔记:待补 Day7-公司代码阅读与Stream.md
+- ✅ **惰性求值 + 短路终端**:中间操作不执行,终端操作才触发;findFirst 找到就停
+  - 踩坑:peek 不打印(中间操作),正确用 forEach
+  - 自主发现:"Stream 版 filter 是不是多查询了?" → 深入理解惰性+短路
+- ✅ **groupingBy 分组**:一行实现分组(基础/分组计数/分组取属性),公司超常用
+- ✅ **Optional**:优雅解决 null,对标 JS `?.`/`??`
+  - map 链式取值 / orElse 默认 / orElseThrow 抛异常 / ifPresent 有值才执行
+  - 已用过的 findFirst 返回值就是 Optional
+- ✅ **toString 重写**:解决 `User@30dae81` 打印问题(Object 三大方法)
+- ✅ 实战:UserServiceImpl 串联 OOP/接口/异常/Stream/Optional/Map,达企业级水准
+- 📝 笔记:`Day7-读公司代码与Stream-API.md`
 
 **Day 7 理解题成果**:
 - ✅ Q1 为什么用接口类型(解耦)— 完全答对
 - ⚠️ Q2 List泛型作用 — 方向对,补充"类型安全+免强转"
 - ✅ Q3 null防御(避免NPE)— 理解正确
 - ✅ Stream 对比 JS filter/map — JS基础扎实,Java 对应快
+- ✅ peek vs forEach(惰性) — 小测全对
+- ✅ Optional 练习(findNameById) — 一次写对
 
 ## 理解质量评估(累计)
 
@@ -141,6 +172,7 @@ crowdsourced-new-api/      # API 定义
 | Day 4 继承/多态 | ✅ 优秀 |
 | Day 5 接口/抽象类/集合 | ✅ 优秀(课前小测纠正了 2 个高价值盲区) |
 | Day 6 异常处理 | ✅ 优秀(纠正 Checked 编译错误的高信心误解,理解了公司异常工作流) |
+| Day 7 Stream/Optional/读公司代码 | ✅ 优秀(自主发现惰性求值陷阱,UserServiceImpl 达企业级水准) |
 
 **学习态度**:主动思考、深入提问、善于对比 JS、能自我总结、纠正后立刻应用(testList 从 List 改 Map 版,equals/判空一次到位)。
 

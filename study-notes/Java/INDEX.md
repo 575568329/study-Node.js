@@ -15,6 +15,9 @@
 - [Day5 - 接口抽象类与集合框架](./Day5-接口抽象类与集合框架.md) ⭐ 含课前小测盲区纠正
 - [Day6 - 异常处理](./Day6-异常处理.md)（try-catch / throw / 自定义异常）
 
+### B - 核心 API（Week 2）
+- [Day7 - 读公司代码与Stream API](./Day7-读公司代码与Stream-API.md) ⭐ Stream/groupingBy/Optional + 公司代码精读
+
 ---
 
 ## ⚠️ 易错点
@@ -33,8 +36,8 @@
 
 | 周 | 主题 | 状态 |
 |----|------|------|
-| Week 1 | Java 语法 + 面向对象 | 🔄 进行中（Day6 异常处理完成）|
-| Week 2 | 核心 API + Stream | ⬜ 未开始 |
+| Week 1 | Java 语法 + 面向对象 | ✅ 完成（Day1-6 + 公司代码阅读）|
+| Week 2 | 核心 API + Stream | 🔄 进行中（Day7 Stream/Optional 完成）|
 | Week 3 | Maven + 工程结构 | ⬜ 未开始 |
 
-> Week 1 剩余：读公司 Controller、输出《Java vs Node.js 语法对比.md》→ 接近收官
+> Week 2 剩余：LocalDate、StringBuilder、文件 I/O

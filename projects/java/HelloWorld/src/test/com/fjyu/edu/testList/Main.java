@@ -26,5 +26,21 @@ public class Main {
         System.out.println(findData.getName() + " " + findData.getAge());   // 小狗 10
 
         userService.printAll();
+
+        userService.groupByAge().forEach((age, userList) -> {
+            System.out.println("年龄" + age + "：" + userList);
+        });
+
+
+        User result = users.stream()
+                .filter(u -> {
+                    System.out.println("检查：" + u.getName());
+                    return u.getName().equals("大猫");
+                })
+                .findFirst()
+                .orElse(null);
+        // Optional
+        System.out.println(userService.findNameById("004"));
     }
+
 }
