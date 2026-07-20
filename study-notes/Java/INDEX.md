@@ -29,6 +29,7 @@
 ## 📋 速查表
 
 - [Java速查表](./05-速查表/Java速查表.md)
+- [Java vs Node.js 语法对比手册](./Java-vs-Nodejs语法对比手册.md) ⭐ 前端转 Java 核心文档
 
 ---
 
