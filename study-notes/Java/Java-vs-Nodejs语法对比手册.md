@@ -252,6 +252,10 @@ Map<String, User> userMap = new HashMap<>();   // 左接口，右实现
 - 类：单继承（is-a，基础能力，避免二义性）
 - 接口：多实现（can-do，能力扩展，灵活组合）
 
+**⚠️ 补充（Java 8+）**：接口引入了 `default` 方法（接口里可以有默认实现），这让接口层也会出现菱形问题。Java 的规则是：**如果实现的多个接口有同名 default 方法，实现类必须显式重写该方法**，由开发者手动解决冲突。所以"接口多实现绝对安全"在 Java 8 后要打个引号，但类继承的单继承铁律没变。
+
+> 来源验证：[GeeksforGeeks - Diamond Problem in Java](https://www.geeksforgeeks.org/java/diamond-problem-in-java/)、[Cornell CS2110 - Multiple Inheritance](https://www.cs.cornell.edu/courses/JavaAndDS/abstractInterface/05diamond.pdf)
+
 ### 多态
 
 **解决三个问题**：
