@@ -55,12 +55,15 @@ temp/
 dist/
 build/
 uploads/
-简历相关/resume-web/tsconfig.tsbuildinfo
+career/resume-web/tsconfig.tsbuildinfo
 
 # Claude Code配置
-.claude/settings.local.json  # 本地设置
-.claude/settings.backup.json  # 备份文件
-.ccode/  # IDE配置
+# 本地设置（每台机器各自一份，不入库）
+.claude/settings.local.json
+# 备份文件
+.claude/settings.backup.json
+# CCode 工具运行时配置（本地）
+.ccode/
 
 # VSCode其他配置
 .history/
@@ -79,4 +82,4 @@ tools/gemini/test-*.png
 tools/gemini/screenshot-*.png
 
 # Obsidian 工作区状态（频繁变动，不入库）
-study-notes/.obsidian/workspace.json
+knowledge/.obsidian/workspace.json

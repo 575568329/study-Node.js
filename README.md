@@ -1,155 +1,82 @@
-# Node.js-Study
+# study-workspace
 
-当前仓库已从“AI 应用全栈学习仓库”切换为“简历、面试和项目包装准备仓库”。
+> 个人学习与求职准备工作区。**三条学习线并行**：Java 全栈 · 前端复习（费曼法）· CCode（自建 AI Agent）。
 
-学习流程已经基本走完，后续不再按课程路线继续推进新技术，重点转为：
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
 
-- 三版简历维护。
-- RAG 项目包装。
-- 工作项目讲稿。
-- 技术面试追问。
-- Node.js 全栈 AI 方向查漏补缺。
+---
 
-## 当前定位
+## 目录结构（Repository Structure）
 
-目标岗位：
+| 目录 | 用途 |
+|------|------|
+| [`knowledge/`](./knowledge) | **Obsidian 知识库（唯一 vault）**。三条线的笔记、讲稿、纲领都在这 |
+| [`knowledge/00-驾驶舱/`](./knowledge/00-驾驶舱) | 三线总入口：`java线.md` / `复习线.md` / `ccode线.md` 三个 MOC + 进度文件 |
+| [`career/`](./career) | 求职资产：`resume-web/`（网页简历）· `resumes/` · `interview/` · `work-projects/` · `projects/` |
+| [`projects/`](./projects) | 代码 demo（含 `java/` 语法练习、Node.js/React 学习 demo）|
+| [`code-examples/`](./code-examples) | 代码片段练习（nodejs/react/typescript/vue3）|
+| [`tools/gemini/`](./tools/gemini) | Gemini 协作工具链（Claude 主教练 + Gemini 审查员双 AI 流程）|
+| [`docs/`](./docs) | 工具/配置说明（Git-SSH、工作入口）|
+| [`journal/`](./journal) | 学习日志、思考记录 |
+| [`archive/`](./archive) | Node.js 路线时代遗留（归档，不再维护）|
 
-- 通用前端 / 全栈型前端。
-- 纯前端。
-- Node.js 全栈 AI。
+> 单 Obsidian vault 原则：所有笔记放在 `knowledge/` 下，保证 `[[]]` 双向链接、反向链接、关系图谱正常工作。
 
-核心主线：
+---
 
-**6 年前端经验 + 复杂 B 端项目 + RAG 项目实践 + Node.js / Next.js 补强。**
+## 三条学习线
 
-## 当前主目录
+### ☕ Java 全栈线
+**目标**：Java 全栈工程师（Spring Boot / Dubbo / MySQL），以公司代码为教材（Spring 3.2.6 + Dubbo + MyBatis，Java 8）。
+**入口**：[`knowledge/00-驾驶舱/java线.md`](./knowledge/00-驾驶舱/java线.md)
 
-```text
-简历相关/
-├── resume-web/                         # React 网页简历项目
-├── 网页简历多方向方案审阅稿.md
-├── 三版本简历方向调研结论.md
-├── 架构师简历评价处理方案.md
-├── 架构师评价后的学习路径调整.md
-├── 基于study-Node.js的学习路径判断.md
-├── 个人背景与简历定位.md
-├── 项目盘点与简历素材.md
-└── ...
-```
+### 🔄 前端复习线（费曼学习法）
+**目标**：把 6 年前端已学内容变成"3 分钟能讲清 + 扛得住追问"的**面试讲稿**（合上资料自己讲）。
+**入口**：[`knowledge/00-驾驶舱/复习线.md`](./knowledge/00-驾驶舱/复习线.md)
 
-## 网页简历
+### 🤖 CCode 线
+**目标**：自建类 Claude Code 的 AI Agent 工具。技术基础沉淀在 `knowledge/ai-agents/`，源码在外部仓库 `D:\Study\CCode`。
+**入口**：[`knowledge/00-驾驶舱/ccode线.md`](./knowledge/00-驾驶舱/ccode线.md)
 
-项目位置：
+---
 
-```text
-简历相关/resume-web
-```
+## 环境与运行（Environment）
 
-当前保留 3 个版本：
+本仓库含多个可独立运行的子项目：
 
-- 通用版：`general`
-- 纯前端：`frontend`
-- Node.js 全栈 AI：`nodeFullstack`
-
-运行：
-
+### 网页简历 — `career/resume-web/`
+Vite + React 19 + TypeScript + Tailwind v4，数据驱动的多版本简历（general / frontend / nodeFullstack）。
 ```bash
-cd 简历相关/resume-web
+cd career/resume-web
 npm install
-npm run dev
+npm run dev      # 开发服务器
+npm run build    # 构建验证（改完简历必须跑）
 ```
 
-构建验证：
-
+### Gemini 协作工具链 — `tools/gemini/`
+Express + WebSocket 服务（端口 3456），三种实现：`gemini-chat.mjs`（DOM 自动化）/ `gemini-api.mjs`（直连 StreamGenerate）/ `gemini-cli.mjs`（智谱 glm-4-flash 降级）。
 ```bash
-npm run build
+npm run gemini        # 启动 Web Chat 服务
+npm run gemini:init   # 缓存 Cookie（首次/过期后）
+npm run gemini:chat   # 启动调试 Chrome（CDP 19222）登录
 ```
 
-## RAG 主项目
+### Java 示例 — `projects/java/`
+需 **JDK 8** + Maven（对齐公司技术栈）。
 
-项目位置：
+### Obsidian 知识库 — `knowledge/`
+用 Obsidian 打开 `knowledge/` 文件夹作为 vault，从 `00-驾驶舱/` 的三个 MOC 进入各线。
 
-```text
-C:\Users\about\OneDrive\桌面\study\rag-docs-assistant
-```
+---
 
-用途：
+## 相关文档
 
-- 支撑 Node.js 全栈 AI 版简历。
-- 准备项目演示。
-- 准备 RAG 讲稿和追问。
+- [工作入口](./docs/00-工作入口.md) — Java 转型声明与学习路径
+- [Git-SSH 配置说明](./docs/Git-SSH配置说明.md)
+- AI 导师配置：[CLAUDE.md](./CLAUDE.md)（Claude Code）/ [AGENTS.md](./AGENTS.md)（Codex）
 
-当前需要补：
+---
 
-- README。
-- 架构图。
-- 演示文档。
-- 演示问题。
-- 3 分钟讲稿。
-- 追问清单。
-- 组件化沉淀。
+## 许可证
 
-## 学习资料归档
-
-以下目录保留为面试复习和查漏补缺资料：
-
-```text
-sessions/
-progress/
-study-notes/
-projects/
-code-examples/
-```
-
-其中：
-
-- `projects/langchain-demo`：LangChain / RAG 学习 demo。
-- `projects/ai-chat`：Vercel AI SDK 学习 demo。
-- `projects/langgraph-demo`：LangGraph / Agent 学习 demo。
-- `projects/nodejs`：Node.js 基础练习。
-
-这些内容不作为当前简历主项目，只作为面试支撑材料。
-
-## 当前优先级
-
-1. 检查三版网页简历和 PDF 导出效果。
-2. 准备 RAG 项目 README、架构图、演示文档和演示问题。
-3. 准备 RAG 项目 3 分钟讲稿和追问清单。
-4. 准备讯飞澳门项目讲稿和追问清单。
-5. 准备 Node.js 全栈 AI 版自我介绍。
-6. 补 Node.js / SSE / 文件上传 / 错误处理 / 日志等面试追问。
-7. 从 RAG 项目和讯飞项目中沉淀组件化案例。
-
-## Codex 启动规则
-
-每次开始工作前先读取：
-
-```text
-memory/latest-session.md
-memory/todo.md
-memory/decisions.md
-memory/architecture.md
-```
-
-当前不再默认进入“开始今日学习”流程。除非明确要求学习新技术，否则默认围绕简历、面试和项目包装推进。
-
-## 当前工作入口（2026-05-07）
-
-当前仓库已从“学习进度仓库”切换为“全栈转型项目证明与面试准备仓库”。后续工作优先读取：
-
-| 文件 | 用途 |
-| --- | --- |
-| [docs/00-工作入口.md](docs/00-工作入口.md) | 当前主线、边界、读取顺序 |
-| [docs/01-全栈转型项目证明方案.md](docs/01-全栈转型项目证明方案.md) | 全栈转型定位和执行计划 |
-| [docs/02-RAG项目体检清单.md](docs/02-RAG项目体检清单.md) | RAG 主项目体检标准 |
-| [docs/03-面试资产目录.md](docs/03-面试资产目录.md) | 讲稿、追问、简历描述等产物清单 |
-| [projects/INDEX.md](projects/INDEX.md) | 当前仓库内项目分层与用途 |
-
-当前主项目：`rag-docs-assistant`（外部仓库）
-
-```text
-C:\Users\about\OneDrive\桌面\study\rag-docs-assistant
-GitHub: https://github.com/575568329/rag-docs-assistant
-```
-
-后续主线：先做 RAG 项目体检，再补 README、架构图、演示数据、3 分钟讲稿和面试追问清单。
+[MIT](./LICENSE)

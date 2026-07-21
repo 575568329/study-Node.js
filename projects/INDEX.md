@@ -1,42 +1,48 @@
-# projects 项目索引
+# projects — 代码 demo 索引
 
-更新时间：2026-05-07
+> 学习练习用的代码 demo，**非简历主项目**。按三条学习线分组。
+> 简历项目讲稿材料在 [`career/projects/`](../career/projects)（RAG 等），RAG 主项目代码在外部仓库。
 
-## 当前主项目
+更新时间：2026-07-21
 
-当前简历和面试的主项目是外部仓库：
+---
 
-```text
-C:\Users\about\OneDrive\桌面\study\rag-docs-assistant
-GitHub: https://github.com/575568329/rag-docs-assistant
-```
+## 按学习线分组
 
-`Node.js-Study/projects` 下的项目主要作为学习证明和面试追问素材，不作为当前唯一主项目。
+### ☕ Java 线
 
-## 项目分层
+| 项目 | 说明 |
+|------|------|
+| [`java/`](./java) | Java 语法练习（HelloWorld：animal/link/map/studyInterface/testList），公司栈 **Java 8** |
 
-| 层级 | 项目 | 路径 | 用途 |
-| --- | --- | --- | --- |
-| S | RAG 文档问答系统 | 外部 `rag-docs-assistant` | 全栈 AI 主项目，优先打磨 |
-| A | 全栈组件库 | `projects/fullstack-ui-kit/` | React + TypeScript 组件设计证明，计划创建 |
-| A | React 任务管理系统 | `projects/react/task-manager/` | 前端工程能力补充 |
-| A | Node.js 个人博客 API | `projects/nodejs/11-personal-blog/` | Node.js 后端基础补充 |
-| B | LangGraph demo | `projects/langgraph-demo/` | Agent 工作流学习证明 |
-| B | LangChain demo | `projects/langchain-demo/` | RAG / Agent 学习证明 |
-| B | Vercel AI SDK demo | `projects/ai-chat/` | AI SDK 学习证明 |
-| C | Vue3 / TypeScript / Node 小练习 | 其他目录 | 学习记录，不作为简历项目 |
+### 🔄 前端复习线（Node.js 路线时代 demo，现作复习参考）
 
-## 后续读取规则
+| 项目 | 说明 |
+|------|------|
+| [`nextjs-demo/`](./nextjs-demo) | Next.js 学习（App Router、SSR/SSG、auth）|
+| [`nodejs/`](./nodejs) | Node.js 基础练习（电影系统、JWT auth、个人博客等 11 个子项目）|
+| [`react/`](./react) | React 学习（task-manager 等）|
+| [`typescript/`](./typescript) | TypeScript 练习 |
+| [`vue3/`](./vue3) | Vue3 练习 |
 
-- 做简历或面试材料：优先读 `docs/` 和 `简历相关/`。
-- 做 RAG 主项目体检：切到外部 `rag-docs-assistant` 仓库。
-- 查学习过程：读 `sessions/`、`progress/`、`study-notes/`。
-- 查 LangGraph API 示例：读 `projects/langgraph-demo/`。
+### 🤖 CCode 线（AI Agent 技术栈实践）
 
-## 不建议操作
+| 项目 | 说明 |
+|------|------|
+| [`langchain-demo/`](./langchain-demo) | LangChain / RAG 学习 demo |
+| [`langgraph-demo/`](./langgraph-demo) | LangGraph / Agent 工作流 |
+| [`ai-chat/`](./ai-chat) | Vercel AI SDK 学习 |
+| [`ai-basics/`](./ai-basics) | AI 基础 |
+| [`agentscope-hello/`](./agentscope-hello) | AgentScope 多 agent 框架（⚠️ 含 154M `.venv`，已 gitignore 未入库）|
 
-- 不要把所有学习 demo 写进简历。
-- 不要把 `projects/langgraph-demo` 包装成主项目。
-- 不要为了整理而移动历史项目目录。
-- 不要在当前仓库记录 `.env` 密钥。
+---
 
+## 注意
+
+- 这些是学习 demo，**不写进简历**——简历项目要能讲 3-5 分钟 + 有演示
+- 依赖目录（`node_modules/` / `.venv/` / `.next/` / `out/`）均已 gitignore，不入库
+- CCode 自建工具源码在外部 `D:\Study\CCode`，不在本目录
+- 原 `fullstack-ui-kit` 组件库计划已归档（见 `archive/component-library/`）
+
+---
+**最后更新**: 2026-07-21
