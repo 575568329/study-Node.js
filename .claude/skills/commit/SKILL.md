@@ -30,10 +30,12 @@ description: 高效 Git 提交技能。自动分析变更、生成规范的 comm
 ### Step 2: 分类变更
 
 将变更文件分为几类：
-- **学习进度**: `progress/`, `sessions/` → `docs:`
-- **Obsidian笔记**: `study-notes/` → `docs:`
+- **知识库/笔记**: `knowledge/` → `docs:`
+- **求职资产**: `career/` → `docs:`
+- **归档迁移**: `archive/` → `chore:`
 - **项目代码**: `projects/` → `feat:` / `fix:` / `refactor:`
-- **配置文件**: `CLAUDE.md`, `.claude/`, `tsconfig.json` → `chore:`
+- **工具链**: `tools/` → `feat:` / `fix:`
+- **配置文件**: `CLAUDE.md`, `AGENTS.md`, `.claude/`, `tsconfig.json` → `chore:`
 - **代码示例**: `code-examples/` → `feat:`
 
 ### Step 3: 生成 commit message
@@ -102,10 +104,10 @@ docs: 完成TypeScript全部章节学习（TS.1-TS.8），重构笔记库支持�
 如果变更文件超过 10 个，按目录分组暂存：
 
 ```bash
-git add progress/ sessions/
-git add study-notes/
-git add projects/typescript/ts-api-demo/src/ projects/typescript/ts-api-demo/tsconfig.json projects/typescript/ts-api-demo/package.json
-git add CLAUDE.md .claude/skills/
+git add knowledge/
+git add career/
+git add projects/java/src/ projects/java/pom.xml
+git add CLAUDE.md AGENTS.md .claude/skills/
 ```
 
 ### 敏感文件检测
