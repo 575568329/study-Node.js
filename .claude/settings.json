@@ -20,5 +20,18 @@
       "C:\\Users\\about\\OneDrive\\桌面\\study\\study-Node.js\\__TRACKED_VAR__\\.claude",
       "d:\\study\\java-learning\\HelloWorld"
     ]
+  },
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"$CLAUDE_PROJECT_DIR/.claude/hooks/pre-session-trigger.js\""
+          }
+        ]
+      }
+    ]
   }
 }
