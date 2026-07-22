@@ -73,7 +73,7 @@ public class Main {
         List<User> reversedSorted = users.stream()
                 .sorted(Comparator.comparing(User::getAge).reversed())
                 .collect(Collectors.toList());
-        reversedSorte.forEach(u-> System.out.println(u.getName() + " - " + u.getAge()));
+        reversedSorted.forEach(u-> System.out.println("  " + u.getName() + " - " + u.getAge()));
 
         //按照年龄升序,年龄相同按照名字字典排序
         List<User> multiSorted = users.stream()
