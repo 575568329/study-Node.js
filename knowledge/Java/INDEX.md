@@ -18,6 +18,7 @@
 ### B - 核心 API（Week 2）
 - [Day7 - 读公司代码与Stream API](./Day7-读公司代码与Stream-API.md) ⭐ Stream/groupingBy/Optional + 公司代码精读
 - [Day8 - 日期时间API](./Day8-日期时间API.md) LocalDate/LocalDateTime/格式化/间隔计算
+- [Day9 - 文件IO](./Day9-文件IO.md) Files/Path/BufferedReader/try-with-resources
 
 ---
 
