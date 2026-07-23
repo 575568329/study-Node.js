@@ -1,6 +1,6 @@
 # 最近会话
 
-**最后更新**:2026-07-19(Day 6)
+**最后更新**:2026-07-23(Day 10)
 
 ## 当前上下文
 
@@ -210,4 +210,83 @@ crowdsourced-new-api/      # API 定义
 
 ---
 
-**当前状态**:Week 1 Day 6 完成(异常处理),Java 基础语法/面向对象/集合/异常四块已过,Week 1 接近收官
+**当前状态**:Week 3 Day 10 完成(Maven 基础),Week 2 核心 API 已完成(Stream/日期/字符串/文件),Week 3 Maven + 工程结构已开始
+
+---
+
+## Day 10 学习记录(2026-07-23)
+
+**主题**:Maven 基础 - 依赖管理 + 项目结构(Week 3 开始)
+
+### 学习成果
+
+**Maven 核心概念**:
+- Maven 是什么:Java 构建工具 + 依赖管理器(对标 npm)
+- 解决问题:自动下载 jar、版本管理、标准项目结构、多模块依赖
+- Maven 坐标 GAV:GroupId(组织)/ArtifactId(项目名)/Version(版本号)
+
+**标准项目结构**:
+- src/main/java/(源代码)
+- src/main/resources/(配置文件)
+- src/test/java/(测试代码)
+- target/(编译输出)
+- pom.xml(核心配置,对标 package.json)
+
+**Maven 本地仓库**:
+- 位置:`C:\Users\fjyu9\.m2\repository\`
+- 所有依赖按 groupId/artifactId/version 分层存储
+- IDEA 从本地仓库加载 jar 到 classpath
+
+**实战成果**:
+- ✅ 创建第一个 Maven 项目(hello-maven)
+- ✅ 引入 commons-lang3 依赖
+- ✅ 使用 StringUtils.isBlank()(Day 8 想用但没库,现在能用了)
+- ✅ 理解依赖下载 → 本地仓库 → IDEA 识别的完整流程
+
+### 课前小测(pre-session-review)
+
+**第 1 题:Maven 的作用** ✅
+- 答案:B(管理第三方库的下载和版本)
+- 信心:4/5
+- 判定:正确且高信心 — 已验证
+
+**第 2 题:pom.xml 是什么** ✅
+- 答案:写各个插件和各种引用的版本
+- 信心:4/5
+- 判定:正确且高信心 — Node.js 经验迁移成功
+
+**第 3 题:多模块依赖** ⚠️
+- 答案:互相引用,但要发到线上然后拉取到本地使用
+- 信心:2/5
+- 判定:低信心错误 — 新盲区
+
+### 错题本(迁移失败)
+
+**KP**:Maven 多模块依赖机制
+
+**学生原答案**:"互相引用,但要发到线上然后拉取到本地使用"
+
+**误解分析**:
+- 迁移失败:把 npm 发布到 npmjs.com 的流程错误类比到 Maven 多模块
+- 混淆了"本地模块"和"远程第三方库"两种依赖方式
+
+**正确理解**:
+- 本地模块(同一个父项目下):编译后直接从本地仓库(~/.m2/repository/)引用,不经过远程
+- 远程第三方库(Spring/MyBatis):才需要从 Maven Central 或公司私服下载
+- 公司的 crowdsourced-new/new-web/new-api 三个模块是本地互相引用,不需要发布
+
+**为什么会错**:
+- npm 包必须发布到 npmjs.com 才能被其他项目引用(除非 npm link)
+- Maven 多模块项目在本地就能互相引用,不需要发布
+
+### 遗留问题
+
+- Maven 多模块项目的 parent pom 怎么写
+- 模块间依赖如何声明
+- Maven 生命周期(clean/compile/package/install)的区别
+
+### 下次学习计划
+
+- Maven 多模块项目(parent pom、模块间依赖)
+- 读公司项目的 pom.xml
+- Maven 生命周期详解

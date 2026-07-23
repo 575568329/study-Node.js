@@ -27,6 +27,10 @@
 | this 绑定优先级 | 复习 | 原理 | 4.0 | 10 | 07-22 | 08-01 | G,G |
 | position 定位（5取值 + absolute锚点） | 复习 | 原理 | 5.5 | 4 | 07-22 | 07-26 | G |
 | z-index 层叠上下文 | 复习 | 原理 | 5.5 | 4 | 07-22 | 07-26 | G |
+| Maven 坐标 GAV | Java | 原理 | 4.4 | 4 | 07-23 | 07-27 | G |
+| pom.xml 结构 | Java | 原理 | 4.4 | 4 | 07-23 | 07-27 | G |
+| Maven 本地仓库机制 | Java | 原理 | 6.6 | 2 | 07-23 | 07-25 | H |
+| Maven 标准目录结构 | Java | 技能 | 4.4 | 4 | 07-23 | 07-27 | G |
 
 > 真实 KP 由 `update-progress` 在"记录进度"时写入；`pre-session-review` 在"开始今日学习"时读取并重打分。
 > 2026-07-22：pre-session-review 首填 4 行（队列原为空）+ update-progress 精修 + 新增 position/z-index 2 行。
