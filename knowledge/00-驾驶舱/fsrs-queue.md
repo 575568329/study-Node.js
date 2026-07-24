@@ -29,8 +29,13 @@
 | z-index 层叠上下文 | 复习 | 原理 | 5.5 | 4 | 07-22 | 07-26 | G |
 | Maven 坐标 GAV | Java | 原理 | 4.4 | 4 | 07-23 | 07-27 | G |
 | pom.xml 结构 | Java | 原理 | 4.4 | 4 | 07-23 | 07-27 | G |
-| Maven 本地仓库机制 | Java | 原理 | 6.6 | 2 | 07-23 | 07-25 | H |
+| Maven 本地仓库机制 | Java | 原理 | 7.2 | 1 | 07-24 | 07-25 | H,H |
 | Maven 标准目录结构 | Java | 技能 | 4.4 | 4 | 07-23 | 07-27 | G |
+| Maven 路径映射规则 | Java | 原理 | 7.8 | 1 | 07-24 | 07-25 | A |
+| 父 pom 的 modules 声明 | Java | 原理 | 4.4 | 4 | 07-24 | 07-28 | G |
+| dependencyManagement 作用 | Java | 原理 | 4.4 | 4 | 07-24 | 07-28 | G |
+| 模块间依赖 GAV 引用 | Java | 技能 | 4.4 | 4 | 07-24 | 07-28 | G |
+| parent 继承机制 | Java | 原理 | 4.4 | 4 | 07-24 | 07-28 | G |
 
 > 真实 KP 由 `update-progress` 在"记录进度"时写入；`pre-session-review` 在"开始今日学习"时读取并重打分。
 > 2026-07-22：pre-session-review 首填 4 行（队列原为空）+ update-progress 精修 + 新增 position/z-index 2 行。
