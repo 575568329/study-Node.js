@@ -36,7 +36,17 @@
 | dependencyManagement 作用 | Java | 原理 | 4.4 | 4 | 07-24 | 07-28 | G |
 | 模块间依赖 GAV 引用 | Java | 技能 | 4.4 | 4 | 07-24 | 07-28 | G |
 | parent 继承机制 | Java | 原理 | 4.4 | 4 | 07-24 | 07-28 | G |
+| Maven 生命周期三套 | Java | 原理 | 4.4 | 4 | 07-24 | 07-28 | G |
+| Maven 阶段自动联动 | Java | 原理 | 4.4 | 4 | 07-24 | 07-28 | G |
+| install vs deploy | Java | 原理 | 4.4 | 4 | 07-24 | 07-28 | G |
+| jar vs war vs pom | Java | 原理 | 4.4 | 4 | 07-24 | 07-28 | G |
+| 传递依赖 | Java | 原理 | 4.4 | 4 | 07-24 | 07-28 | G |
+| exclusions 排除依赖 | Java | 原理 | 4.4 | 4 | 07-24 | 07-28 | G |
+| 依赖调解规则（最近者优先）| Java | 原理 | 6.6 | 2 | 07-24 | 07-26 | H |
+| mvn dependency:tree | Java | 技能 | 4.4 | 4 | 07-24 | 07-28 | G |
+| Maven 命令行配置 | Java | 技能 | 4.4 | 4 | 07-24 | 07-28 | G |
 
 > 真实 KP 由 `update-progress` 在"记录进度"时写入；`pre-session-review` 在"开始今日学习"时读取并重打分。
 > 2026-07-22：pre-session-review 首填 4 行（队列原为空）+ update-progress 精修 + 新增 position/z-index 2 行。
 > Flex 因课前小测 Hard（值记得、三属性名淡忘）→ S 缩短至 2 天，07-24 快速复查。
+> 2026-07-24（Day 11）：新增 9 个 Maven KP（生命周期/exclusions/依赖调解等）。**依赖调解规则**曾误认为"最高版本"→纠正为"最近者优先"，标 Hard 重点复习。

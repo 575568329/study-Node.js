@@ -20,6 +20,10 @@
 - [Day8 - 日期时间API](./Day8-日期时间API.md) LocalDate/LocalDateTime/格式化/间隔计算
 - [Day9 - 文件IO](./Day9-文件IO.md) Files/Path/BufferedReader/try-with-resources
 
+### C - Maven 工程结构（Week 3）
+- [Day10 - Maven基础](./Day10-Maven基础.md) 依赖管理/坐标GAV/标准目录/本地仓库
+- [Day11 - Maven多模块与生命周期](./Day11-Maven多模块与生命周期.md) ⭐ 父子继承/生命周期/传递依赖/exclusions/读公司pom
+
 ---
 
 ## ⚠️ 易错点
