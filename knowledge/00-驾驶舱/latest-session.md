@@ -210,11 +210,85 @@ crowdsourced-new-api/      # API 定义
 
 ---
 
-**当前状态**:Week 3 Day 10 完成(Maven 基础),Week 2 核心 API 已完成(Stream/日期/字符串/文件),Week 3 Maven + 工程结构已开始
+**当前状态**:Week 3 Day 11 完成(Maven 多模块项目),已理解父子继承与模块间依赖机制
 
 ---
 
-## Day 10 学习记录(2026-07-23)
+## Day 11 学习记录(2026-07-24)
+
+**主题**:Maven 多模块项目 - 父子继承与模块间依赖
+
+### 课前复习（pre-session-review）
+
+**5 题小测结果**:
+1. Maven 本地仓库作用: ⚠️ 部分正确（AC，漏选 BD）
+2. Maven 路径映射: ❌ 高信心错误（选 C，正确是 A）🔴
+3. 父 pom 声明模块: ✅ 方向对（需要 `<modules>` 标签）
+4. 模块间依赖声明: ✅ 基本正确（GAV 格式对）
+5. parent 标签作用: ✅ 理解正确（继承父配置）
+
+### 学习成果
+
+**父 pom 的两个角色**:
+- 聚合器（Aggregator）:用 `<modules>` 声明所有子模块，`<packaging>pom</packaging>`
+- 配置继承者（Parent）:用 `<dependencyManagement>` 统一管理版本号
+
+**关键标签对比**:
+- `<dependencyManagement>`:只管理版本号，子模块要再声明（但不写 version）
+- `<dependencies>`:真引入，所有子模块自动继承
+
+**子模块 pom 结构**:
+- `<parent>` 声明父项目（groupId/artifactId/version）
+- 继承 groupId 和 version，只写 artifactId
+- 依赖其他模块:用 GAV 坐标引用
+
+**本地模块互相引用机制（纠正 Day 10 盲区）**:
+1. 在父项目运行 `mvn clean install`
+2. 每个模块编译后的 jar 安装到本地仓库（~/.m2/repository/）
+3. 其他模块从本地仓库引用（**不需要发布到远程**）
+
+**关键理解**:
+- 本地模块和远程依赖都存在本地仓库
+- Maven 不区分来源，只认 GAV 坐标
+- 先在本地仓库找，找不到才从远程下载
+
+**实战成果**:
+- ✅ 创建 hello-api 子模块（接口定义）
+- ✅ 创建 hello-impl 子模块（依赖 hello-api 的实现）
+- ✅ 理解本地模块编译 → 本地仓库 → 引用的完整流程
+
+### 错题本（高信心错误）🔴
+
+**错题 1:Maven 本地仓库存储范围**
+- 学生答案:AC（只选了本地模块 hello-maven 和 crowdsourced-new）
+- 正确答案:ABCD（本地模块 + 远程依赖都在本地仓库）
+- 误解:认为本地仓库只放本地编译的模块，远程依赖（commons-lang3/Spring）在别处
+- 正确理解:`~/.m2/repository/` 是**所有 Maven 依赖的统一缓存中心**，本地编译的和远程下载的都存这里
+- 分类:概念模糊
+
+**错题 2:Maven 坐标路径映射规则（高信心错误）**🔴
+- 学生答案:`~/.m2/repository/com.alibaba/fastjson-1.2.83.jar`（信心 4/5）
+- 正确答案:`~/.m2/repository/com/alibaba/fastjson/1.2.83/fastjson-1.2.83.jar`
+- 误解:认为 groupId 保持点号不分层，artifactId 直接拼到文件名
+- 正确理解:
+  - groupId 的每个点都是一层文件夹（`com.alibaba` → `com/alibaba/`）
+  - artifactId 是文件夹（`fastjson/`）
+  - version 也是文件夹（`1.2.83/`）
+  - jar 在最深层（`fastjson-1.2.83.jar`）
+- 记忆诀窍:Maven 坐标 = 目录树路径，每个点和字段都是一层文件夹
+- 分类:**高信心错误**（hypercorrection 金矿，优先复习）
+
+### 遗留问题
+
+- 父 pom 的完整配置（还需补充 `<modules>` 和 `<packaging>`）
+- 多模块项目的完整编译验证（mvn clean install）
+- Maven 生命周期详解（clean/compile/package/install 区别）
+
+### 下次学习计划
+
+- 完成 hello-maven 多模块项目实战（补充父 pom、编译验证）
+- Maven 生命周期详解
+- 读公司项目的 pom.xml（crowdsourced 系列）
 
 **主题**:Maven 基础 - 依赖管理 + 项目结构(Week 3 开始)
 
