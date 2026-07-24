@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+         http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- 声明父项目 -->
+    <parent>
+        <groupId>com.fjyu.edu</groupId>
+        <artifactId>hello-maven</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
+    <!-- 子模块的 artifactId -->
+    <artifactId>hello-impl</artifactId>
+    <packaging>jar</packaging>
+
+    <name>hello-impl</name>
+
+    <!-- 依赖其他模块 -->
+    <dependencies>
+        <!-- 依赖 hello-api 模块 -->
+        <dependency>
+            <groupId>com.fjyu.edu</groupId>
+            <artifactId>hello-api</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
+</project>
