@@ -33,9 +33,9 @@
 | Node 事件循环（阶段/nextTick/setImmediate vs setTimeout） | 复习 | 原理 | 5.5 | 4 | 07-24 | 07-28 | G |
 | Maven 坐标 GAV | Java | 原理 | 4.4 | 4 | 07-23 | 07-27 | G |
 | pom.xml 结构 | Java | 原理 | 4.4 | 4 | 07-23 | 07-27 | G |
-| Maven 本地仓库机制 | Java | 原理 | 7.2 | 1 | 07-24 | 07-25 | H,H |
+| Maven 本地仓库机制 | Java | 原理 | 6.0 | 8 | 07-25 | 08-02 | G,H,H |
 | Maven 标准目录结构 | Java | 技能 | 4.4 | 4 | 07-23 | 07-27 | G |
-| Maven 路径映射规则 | Java | 原理 | 7.8 | 1 | 07-24 | 07-25 | A |
+| Maven 路径映射规则 | Java | 原理 | 6.6 | 8 | 07-25 | 08-02 | G,A |
 | 父 pom 的 modules 声明 | Java | 原理 | 4.4 | 4 | 07-24 | 07-28 | G |
 | dependencyManagement 作用 | Java | 原理 | 4.4 | 4 | 07-24 | 07-28 | G |
 | 模块间依赖 GAV 引用 | Java | 技能 | 4.4 | 4 | 07-24 | 07-28 | G |
@@ -49,6 +49,16 @@
 | 依赖调解规则（最近者优先）| Java | 原理 | 6.6 | 2 | 07-24 | 07-26 | H |
 | mvn dependency:tree | Java | 技能 | 4.4 | 4 | 07-24 | 07-28 | G |
 | Maven 命令行配置 | Java | 技能 | 4.4 | 4 | 07-24 | 07-28 | G |
+
+### Spring 框架（Day 12 启动）
+
+| Spring IoC（控制反转） | Java | 原理 | 4.4 | 4 | 07-25 | 07-29 | G |
+| Spring DI 依赖注入（字段/构造器/Setter） | Java | 原理 | 4.4 | 4 | 07-25 | 07-29 | G |
+| @Resource vs @Autowired | Java | 原理 | 4.4 | 4 | 07-25 | 07-29 | G |
+| Spring 容器机制（工厂+仓库/扫描注入流程） | Java | 原理 | 4.4 | 4 | 07-25 | 07-29 | G |
+| @RequestMapping URL 映射（类前缀+方法路径） | Java | 原理 | 6.6 | 2 | 07-25 | 07-27 | H |
+| @GetMapping 家族（RESTful 语义） | Java | 原理 | 4.4 | 4 | 07-25 | 07-29 | G |
+| @ResponseBody 返回 JSON | Java | 原理 | 4.4 | 4 | 07-25 | 07-29 | G |
 
 ### Java 线历史补齐（Day 1-7 基础 + Day 10 Maven）
 

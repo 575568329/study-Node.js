@@ -24,6 +24,9 @@
 - [Day10 - Maven基础](./Day10-Maven基础.md) 依赖管理/坐标GAV/标准目录/本地仓库
 - [Day11 - Maven多模块与生命周期](./Day11-Maven多模块与生命周期.md) ⭐ 父子继承/生命周期/传递依赖/exclusions/读公司pom
 
+### D - Spring 框架（Week 4）
+- [Day12 - Spring入门 IoC/DI/MVC](./Day12-Spring入门-IoC-DI-MVC.md) ⭐ IoC控制反转/DI三种注入/@RequestMapping路由
+
 ---
 
 ## ⚠️ 易错点
