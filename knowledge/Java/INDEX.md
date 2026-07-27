@@ -26,6 +26,7 @@
 
 ### D - Spring 框架（Week 4）
 - [Day12 - Spring入门 IoC/DI/MVC](./Day12-Spring入门-IoC-DI-MVC.md) ⭐ IoC控制反转/DI三种注入/@RequestMapping路由
+- [Day13 - Spring AOP与Bean生命周期](./Day13-Spring-AOP与Bean生命周期.md) ⭐ AOP 5种Advice/Bean生命周期10步/BPP与代理/限流+加解密实战
 
 ---
 
@@ -48,6 +49,6 @@
 |----|------|------|
 | Week 1 | Java 语法 + 面向对象 | ✅ 完成（Day1-6 + 公司代码阅读）|
 | Week 2 | 核心 API + Stream | 🔄 进行中（Day7 Stream/Optional、Day8 日期时间 完成）|
-| Week 3 | Maven + 工程结构 | ⬜ 未开始 |
+| Week 4 | Spring 框架 | 🔄 进行中（Day12 IoC/DI/MVC ✅、Day13 AOP/Bean生命周期 ✅）|
 
 > Week 2 剩余：StringBuilder、文件 I/O

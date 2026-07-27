@@ -1,6 +1,84 @@
 # 最近会话
 
-**最后更新**:2026-07-25(Day 12)
+**最后更新**:2026-07-27(Day 13)
+
+## Day 13 学习记录（2026-07-27）
+
+**主题**：Spring AOP（面向切面编程）+ Bean 生命周期
+
+### 课前小测（pre-session-review）
+
+7 题结果：
+- Q1 AOP（预测试）：不知道 → 正常，新内容
+- Q2 Bean 生命周期（预测试）：用 Vue 生命周期类比 → 方向对但不同
+- Q3 Maven 依赖调解：🔴 **高信心错误重犯**（"B1.0 层级更低"→ 正确是"最近者优先"）
+- Q4 @RequestMapping URL：✅ 全对
+- Q5 Node 事件循环：✅ 核心对
+- Q6 Maven 本地仓库：✅ Day11 纠正成功
+- Q7 this 绑定优先级：✅ 全对
+
+### 学习成果
+
+**AOP 核心（5 术语 → Express 中间件类比）**：
+- Aspect（切面类）→ Pointcut（execution/@annotation 表达式）→ Advice（5 种时机）→ JoinPoint（被切的方法）→ Weaving（运行时动态代理）
+- 5 种 Advice：@Before / @AfterReturning / @AfterThrowing / @After / @Around
+- @Around 独有能力：控制 proceed() 调用（短路）+ 改参数 + 改返回值
+- Pointcut 两种写法：execution（按包/类/方法名匹配）vs @annotation（注解驱动，更灵活）
+
+**Bean 生命周期（10 步）**：
+- 实例化 → 属性填充 → Aware 回调 → BPP.before → @PostConstruct → BPP.after（**AOP 代理在这里生成**）→ 就绪 → @PreDestroy → 销毁
+- ⚠️ BPP 有 before + after 两个钩子，课后只记得 after（不对称认知）
+
+**公司代码实战**：
+- `LimitFrequencyAspect`：@Before + Guava RateLimiter + @annotation 驱动，IP/账号/方法维度限流
+- `HttpSensitiveAspect`：@Around + RSA 解密入参 + 执行原方法 + 掩码脱敏出参 + Token 机制
+- 掩码原理：正则捕获组保留头尾，中间换星号（手机号 138****5678）
+
+**技能验证**：
+- 写出 `@RateLimit` 注解 + `RateLimitAspect`（先 @Around 后改写 @Before + RateLimitException + @ControllerAdvice）
+- code-reviewer 发现 3 高严重度 bug：
+  1. computeIfAbsent key 只有 IP（不同 rate 的方法互相覆盖）→ 已修正为 `IP:方法名`
+  2. return null 触发原始类型拆箱 NPE → @Before 方案间接解决
+  3. String.isBlank() 是 Java 11 API，公司 JDK 8 不兼容 → **未修**
+- interviewer 5 道追问：Q1-Q3/Q5 过关，Q4 部分（JDK vs CGLIB 没解释 Spring Boot 2.0 为什么改默认）
+
+### 错题本
+
+**错题 1：Maven 依赖调解规则（高信心错误重犯）**🔴
+- 错误原文："B1.0，因为 B1.0 层级更低"
+- 误解分析：把"距离根最近"理解成"层级更低"；Day 11 已错过一次，今天又错
+- 正确：**最近者优先**——A→B(v1.0) 距离 1，A→C→B(v2.0) 距离 2，选 v1.0
+- 归类：概念模糊（持续 2 次，标 Again，最高优先级复习）
+
+**错题 2：BeanPostProcessor 只记 after 漏 before**
+- 错误原文："BeanPostProcessor 是后置钩子的时候执行"
+- 正确：BPP 有两个方法——postProcessBeforeInitialization（@PostConstruct 前）+ postProcessAfterInitialization（@PostConstruct 后，AOP 在这里）
+- 归类：概念模糊
+
+**错题 3：@After 与 @AfterReturning 时序混淆**
+- 错误原文：把 @After 和 @AfterReturning/@AfterThrowing 放在同一层级
+- 正确：@After 在 @AfterReturning / @AfterThrowing **之后**执行（真 finally 位置）
+- 归类：概念模糊
+
+**错题 4：isBlank() Java 版本不兼容（未自检）**
+- code-reviewer 指出后仍未修正
+- 归类：API 版本意识（Java 8 vs 11），需下次验证
+
+### 遗留问题
+
+- `isBlank()` Java 8 兼容修正（未修）
+- `RateLimitException` 自定义异常类（未写出完整代码）
+- Q4 JDK vs CGLIB 深度（Spring Boot 2.0 为什么改默认、private 方法失效）
+- `@After` 时序概念已理解但未固化
+
+### 下次学习计划
+
+- Spring AOP 深入：JDK 动态代理 vs CGLIB 源码级理解、自调用陷阱验证
+- 或 Spring 事务（@Transactional 与 AOP 的关系）
+- 优先复习：Maven 依赖调解（Again，最高优先级）
+
+---
+
 
 ## 当前上下文
 
