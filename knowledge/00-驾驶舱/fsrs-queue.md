@@ -26,7 +26,7 @@
 | Flex 布局（flex:1 三属性） | 复习 | 原理 | 5.0 | 8 | 07-24 | 08-01 | G,G,H,G |
 | this 绑定优先级 | 复习 | 原理 | 4.0 | 10 | 07-27 | 08-06 | G,G,G |
 | position 定位（5取值 + absolute锚点） | 复习 | 原理 | 5.5 | 8 | 07-25 | 08-02 | G,G,G |
-| z-index 层叠上下文 | 复习 | 原理 | 5.5 | 4 | 07-23 | 07-27 | G,G |
+| z-index 层叠上下文 | 复习 | 原理 | 5.5 | 4 | 07-28 | 08-01 | G,G,G |
 | 重排重绘（reflow/repaint + 布局抖动） | 复习 | 原理 | 5.5 | 4 | 07-23 | 07-27 | G |
 | CSS 单位（em/rem/vw/vh/%） | 复习 | 原理 | 5.0 | 4 | 07-23 | 07-27 | G |
 | 1px 边框（DPR/物理像素） | 复习 | 原理 | 4.5 | 4 | 07-23 | 07-27 | G |
@@ -38,7 +38,7 @@
 | Maven 标准目录结构 | Java | 技能 | 4.4 | 4 | 07-23 | 07-27 | G |
 | Maven 路径映射规则 | Java | 原理 | 6.6 | 8 | 07-25 | 08-02 | G,A |
 | 父 pom 的 modules 声明 | Java | 原理 | 4.4 | 4 | 07-24 | 07-28 | G |
-| dependencyManagement 作用 | Java | 原理 | 4.4 | 4 | 07-24 | 07-28 | G |
+| dependencyManagement 作用 | Java | 原理 | 4.4 | 4 | 07-28 | 08-01 | G,G |
 | 模块间依赖 GAV 引用 | Java | 技能 | 4.4 | 4 | 07-24 | 07-28 | G |
 | parent 继承机制 | Java | 原理 | 4.4 | 4 | 07-24 | 07-28 | G |
 | Maven 生命周期三套 | Java | 原理 | 4.4 | 4 | 07-24 | 07-28 | G |
@@ -47,7 +47,7 @@
 | jar vs war vs pom | Java | 原理 | 4.4 | 4 | 07-24 | 07-28 | G |
 | 传递依赖 | Java | 原理 | 4.4 | 4 | 07-24 | 07-28 | G |
 | exclusions 排除依赖 | Java | 原理 | 4.4 | 4 | 07-24 | 07-28 | G |
-| 依赖调解规则（最近者优先）| Java | 原理 | 6.6 | 2 | 07-27 | 07-28 | A,H |
+| 依赖调解规则（最近者优先）| Java | 原理 | 6.6 | 2 | 07-28 | 07-30 | G,A,H |
 | mvn dependency:tree | Java | 技能 | 4.4 | 4 | 07-24 | 07-28 | G |
 | Maven 命令行配置 | Java | 技能 | 4.4 | 4 | 07-24 | 07-28 | G |
 
@@ -64,10 +64,19 @@
 ### AOP + Bean 生命周期（Day 13）
 
 | AOP 5种Advice（时序/@Around控制权/选型决策） | Java | 原理 | 5.5 | 4 | 07-27 | 07-31 | G |
-| Bean 生命周期 + BPP与AOP关系 | Java | 原理 | 5.5 | 3 | 07-27 | 07-30 | H |
+| Bean 生命周期 + BPP与AOP关系 | Java | 原理 | 5.5 | 3 | 07-28 | 07-31 | G,H |
 | @Around vs @Before 控制流差异（proceed/短路/改返回值） | Java | 原理 | 5.0 | 4 | 07-27 | 07-31 | G |
-| AOP 代理机制（JDK动态代理/CGLIB/自调用陷阱） | Java | 原理 | 6.0 | 3 | 07-27 | 07-30 | H |
-| @Around 切面实战（限流/加解密/注解驱动） | Java | 技能 | 6.5 | 2 | 07-27 | 07-29 | H |
+| AOP 代理机制（JDK动态代理/CGLIB/自调用陷阱） | Java | 原理 | 7.5 | 1 | 07-28 | 07-29 | A,H |
+| @Around 切面实战（限流/加解密/注解驱动） | Java | 技能 | 6.5 | 2 | 07-28 | 07-31 | G,H |
+
+### Spring 事务（Day 14）
+
+| @Transactional 本质（AOP事务切面begin/commit/rollback） | Java | 原理 | 6.5 | 2 | 07-28 | 07-30 | H |
+| 事务回滚规则（RuntimeException回滚/Checked不回滚/rollbackFor） | Java | 原理 | 6.5 | 2 | 07-28 | 07-30 | H |
+| 事务自调用失效（this绕过代理，同AOP自调用根因） | Java | 原理 | 7.5 | 1 | 07-28 | 07-29 | A |
+| 事务传播行为（REQUIRED共用 vs REQUIRES_NEW独立） | Java | 原理 | 7.0 | 1 | 07-28 | 07-29 | A |
+| 异常被catch吞掉导致不回滚（必须rethrow） | Java | 原理 | 6.0 | 2 | 07-28 | 07-30 | H |
+| @Service vs @Autowired（存Bean vs 取Bean） | Java | 原理 | 4.5 | 4 | 07-28 | 08-01 | G |
 
 ### Java 线历史补齐（Day 1-7 基础 + Day 10 Maven）
 
@@ -112,3 +121,4 @@
 > 2026-07-24（Node 线启动）：新增 Node 事件循环 KP。课前 Flex 再次过关（H→G，S 延至 8 天）。Node 事件循环机制吃透，确定性判断全对；await 同步性、综合时序题初错已纠正。
 > 2026-07-25（Node 模块化）：新增 Node 模块化 KP。await 同步性混淆再度出现（"返回 Promise ≠ 代码变微任务"），事件循环 KP 追加 H。模块化 6 个子概念贯通（exports 陷阱/JSON导入/循环引用/动态import/后缀优先级/createRequire）。
 > 2026-07-27（Day 13 Spring AOP）：新增 5 个 AOP/Bean 生命周期 KP。@Around 切面实战标 Hard（3 高严重度 bug：key 设计自相矛盾/原始类型 NPE/isBlank Java 11→8 不兼容）。Bean 生命周期 BPP before/after 只记一半标 Hard。AOP 代理机制 Q4 部分答对标 Hard。@RequestMapping URL 映射课前 Hard→G（已巩固）。依赖调解高信心错误重犯→A（最优先复习）。
+> 2026-07-28（Day 14 Spring 事务）：课前小测昨天 2 盲区翻盘（依赖调解 A→G、BPP H→G）。新增 6 个事务 KP。**验证结果差（SOLO 单点2/5，多个 Again）**：事务自调用/传播行为 Q3/Q4 都滑到 @After Advice，暴露 AOP 代理机制（Day13）没打通 → **AOP 代理机制 KP 降级 A/H、S 砍到 1**，成最高优先级重学。诊断：Day13 AOP 过载学虚拖累 Day14。教学法已调整（feedback-cognitive-load-chunking）。下次开半天专讲"代理对象 vs this"主线，收口 AOP自调用=事务自调用。

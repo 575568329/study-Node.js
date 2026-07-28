@@ -1,6 +1,76 @@
 # 最近会话
 
-**最后更新**:2026-07-27(Day 13)
+**最后更新**:2026-07-28(Day 14)
+
+## Day 14 学习记录（2026-07-28）
+
+**主题**：Spring 事务 @Transactional
+
+### 课前小测（pre-session-review）
+
+7 题：**昨天两个盲区全部翻盘** 🎉
+- Q3 Maven 依赖调解：✅ 翻盘（连错 2 次后终于对"就近原则"）→ A→G
+- Q4 BeanPostProcessor：✅ 翻盘（昨天只记 after，今天两钩子都对）→ H→G
+- Q5 dependencyManagement / Q6 @Around proceed / Q7 z-index 失效：全对
+- Q1/Q2 @Transactional 预测试：不知道（正常，新内容）
+
+### 学习成果
+
+- **@Transactional 本质**：Spring 内置的 @Around 事务切面（begin→proceed→commit/rollback），由 TransactionInterceptor 实现
+- **回滚规则**：RuntimeException/Error 默认回滚；**Checked 异常默认不回滚**（Spring 认为可预期）；`rollbackFor = Exception.class` 全回滚
+- **事务自调用失效**：`this.method()` 绕过代理 → 事务不生效（和 Day13 AOP 自调用同根因）；修法：注入 self / 抽独立 Bean / AopContext
+- **传播行为**：REQUIRED（共用事务，同生共死）vs REQUIRES_NEW（挂起外层，独立事务，互不影响）
+- **@Service vs @Autowired**：@Service 存（登记 Bean），@Autowired 取（注入依赖）
+- **公司代码印证**：SensitiveViewAuditLogServiceImpl.cleanupLogs（rollbackFor + catch 里重新抛 RuntimeException 防止异常被吞）、135 个文件用 @Transactional、多数带 `value="transactionManagerCrowdsourced"` 指定事务管理器
+
+### ⚠️ 验证结果（诚实记录：不理想）
+
+**SOLO：单点结构（2/5）｜ FSRS：多个 Again**
+
+| 题 | 判定 | 问题 |
+|----|------|------|
+| Q1 回滚规则 | 部分正确 60% | 记住规则，没答"Spring 为什么区分 Checked/Unchecked" |
+| Q2 catch 吞异常 | 部分正确 70% | 会修，说不清"切面→异常传播→回滚"因果链 |
+| Q3 事务自调用 | ❌ 漏答 | 滑到 @After Advice，核心考点没打通 |
+| Q4 传播行为 | 先答错 @After，提示后答对 REQUIRES_NEW | 同样滑到 AOP Advice |
+
+### 错题本
+
+**错题 1：事务自调用失效（漏答，滑到 @After Advice）**🔴 迁移失败
+- 错误原文：Q3 问事务自调用，答成"@after 因为他最后执行"
+- 误解分析：把"事务问题"答成了"AOP Advice 时机"——AOP 和事务在脑中是两块，没连起来
+- 正确：this.method() 绕过代理对象 → 事务切面没触发 → 不生效；同 Day13 AOP 自调用
+- 归类：**迁移失败**（Day13 AOP 代理机制没吃透，无法迁移到事务场景）
+
+**错题 2：传播行为混淆 Advice（先答错）**🔴 迁移失败
+- 错误原文：Q4 问传播行为，先答"@after"，提示后才答对 REQUIRES_NEW
+- 正确：短信独立于下单事务用 REQUIRES_NEW（挂起外层开新事务，互不影响）
+- 归类：迁移失败（同错题1根因）
+
+**错题 3：回滚规则缺设计动机**
+- 错误原文：只说"IOException 默认必须处理"
+- 正确补充：Spring 认为 Checked = 可恢复业务异常（不回滚），RuntimeException = 编程错误（回滚）
+- 归类：概念模糊（记规则不记因果）
+
+### 核心诊断
+
+**今天验证印证了 Day13 AOP 学得虚（认知过载导致）**。Q3/Q4 需要用到"AOP 代理 + 自调用"，正是昨天没学透的部分，在它上面盖事务就塌了。→ AOP 代理机制 KP 降级 Again，成最高优先级重学。
+
+### 教学方法调整（本次重要产出）
+
+用户主动反馈 Day13"概念太多一次塞太满"。查证认知科学（工作记忆 3-4 chunk / Chunking / Worked Examples 均 🟢 强证据）后，新增 memory `feedback-cognitive-load-chunking`：
+1. 单次新概念控制 1-2 个，讲透再走
+2. 每块讲完显式问"继续还是消化"
+3. 先代码/场景，术语最后贴标签
+4. 深水区拆到独立 Day
+
+### 遗留问题 / 下次计划
+
+- **下次开半天专讲"代理对象 vs this"主线**（小步子）：① 容器存代理不存原始对象 → ② 为什么 this.method 绕过代理 → ③ 收口 AOP 自调用 = 事务自调用同一个坑
+- 地基稳后，重验事务 Q3/Q4
+- 回滚规则的"设计动机"补上
+
+---
 
 ## Day 13 学习记录（2026-07-27）
 
