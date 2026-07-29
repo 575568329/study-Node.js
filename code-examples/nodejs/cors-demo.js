@@ -21,7 +21,7 @@ app.get('/api/public', (req, res) => {
 
 // ==================== 场景2：只允许特定域名（推荐） ====================
 app.get('/api/protected', cors({
-  origin: ['http://localhost:3000', 'https://example.com']
+  origin: ['http://localhost:3000', 'https://example.com','http://172.30.16.1:5500']
 }), (req, res) => {
   res.json({
     message: '这是受保护接口，只允许白名单域名',
@@ -31,7 +31,7 @@ app.get('/api/protected', cors({
 
 // ==================== 场景3：动态白名单 ====================
 const corsOptionsDelegate = (req, callback) => {
-  const whitelist = ['http://localhost:3000', 'https://example.com'];
+  const whitelist = ['http://localhost:3000', 'https://example.com','http://172.30.16.1:5500'];
   const origin = req.headers.origin;
 
   if (!origin || whitelist.indexOf(origin) !== -1) {
@@ -49,14 +49,14 @@ app.get('/api/dynamic', cors(corsOptionsDelegate), (req, res) => {
 });
 
 // ==================== 场景4：处理预检请求 ====================
-app.options('/api/users', cors({
-  origin: 'http://localhost:3000',
+app.options('/api/users/:id', cors({
+  origin: 'http://172.30.16.1:5500',
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
 
 app.delete('/api/users/:id', cors({
-  origin: 'http://localhost:3000',
+  origin: 'http://172.30.16.1:5500',
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization']
 }), (req, res) => {

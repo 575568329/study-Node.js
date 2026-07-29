@@ -1,6 +1,89 @@
 # 最近会话
 
-**最后更新**:2026-07-28(Day 14)
+**最后更新**:2026-07-29（Node.js 复习：JWT + CORS）
+
+## Day 15 学习记录（2026-07-29）
+
+**主题**：Node.js 复习 - JWT 认证 + CORS 跨域
+
+### 课前小测（pre-session-review）
+
+9 题：**3 个重要翻盘** 🎉
+- Q3 Node 事件循环：✅ 翻盘（连续 2 次 Hard 后终于全对）→ H→G
+- Q6 @Transactional 回滚规则：✅ 翻盘（Day14 盲区）→ H→G
+- Q5 Maven 依赖调解：✅ 翻盘（**高信心错误第 3 次终于纠正**）→ A→G
+- Q1/Q2 JWT/CORS（预测试）：不知道（正常，新内容）
+- Q4/Q7/Q8/Q9（Spring IoC/DI/@RequestMapping）：全对
+
+### 学习成果
+
+**JWT 认证（Q5）**：
+- **Session vs JWT 对比**：Session 服务端存状态（跨服务器/存储压力/跨域问题）→ JWT 无状态（签名防篡改）
+- **三段结构**：Header.Payload.Signature（base64url 编码）
+- **签名机制**：HMAC-SHA256(Header+Payload, secret) → 签名非加密，是防篡改
+- **双 token 机制**：Access Token 短期（15分钟）+ Refresh Token 长期（7天），过期刷新无感
+- **主动失效难题**：JWT 无状态 → 退出登录/改密后 token 仍有效 → 4 种解法：
+  1. 黑名单（Redis 存失效 token）
+  2. 短过期（降低风险窗口）
+  3. 版本号（Payload 加 tokenVersion，改密时递增）
+  4. 密钥轮换（定期换 secret，旧 token 自然失效）
+- **手写实现**：从零实现 sign/verify 函数，深度理解 base64url 编码、HMAC 签名、验证流程
+- **Debug 2 处**：base64url 二次编码错误、throw 语法错误
+
+**CORS 跨域（Q6）**：
+- **为什么存在**：浏览器同源策略防 CSRF 攻击 → 跨域请求需服务器明确允许
+- **简单请求 vs 预检请求**：
+  - 简单请求：GET/POST/HEAD + 简单头 + Content-Type 仅 3 种 → 直接发送
+  - 预检请求：PUT/DELETE/PATCH / Content-Type: application/json / 自定义头（Authorization）→ 先 OPTIONS 预检
+- **记忆锚点**："简单请求 = 1995年HTML表单能发的请求；比表单高级的都要预检"
+- **OPTIONS 方法**：浏览器自动发起的预检请求（非开发者手动）
+- **CORS 配置**：
+  - `*`（全部允许，仅静态资源）
+  - 单域名（`Access-Control-Allow-Origin: http://example.com`）
+  - 白名单数组（遍历 origin 匹配）
+- **实战观察**：跨源测试页面 + 后端 OPTIONS 路由 → 看到完整预检流程（OPTIONS 204 + DELETE 200）
+- **Debug 1 处**：OPTIONS 路径 `/api/users` 匹配不上 DELETE `/api/users/:id` → 改为 `/api/users/:id`
+
+### 错题本
+
+**错题 1：Node 事件循环阶段（连续 2 次 Hard 后纠正）**
+- 错误原文：多次混淆 timers/poll/check 阶段、nextTick 位置
+- 正确：timers → poll → check，nextTick 在每阶段之间，setImmediate 在 check 阶段
+- 归类：概念模糊（已通过课前小测巩固）
+
+**错题 2：事务回滚规则（Day14 盲区）**
+- 错误原文：Day14 验证时只记住规则，说不清"为什么 Checked 不回滚"
+- 正确：Spring 认为 Checked = 可恢复业务异常（不回滚），RuntimeException = 编程错误（回滚）
+- 归类：概念模糊（今天课前小测纠正）
+
+**错误 3：Maven 依赖调解（高信心错误第 3 次终于纠正）**🎉
+- 错误原文：Day11 认为"层级更低"，Day13 认为"B1.0 层级更低"，Day14 又错
+- 正确：**最近者优先**（距离根最近）— A→B(v1.0) 距离 1，A→C→B(v2.0) 距离 2，选 v1.0
+- 归类：持续高信心错误，今天终于彻底纠正
+
+**编码错误 1：base64url 二次编码**
+- 错误原文：`const signature = base64url(crypto.createHmac(...).digest('base64'))`
+- 问题：digest('base64') 已返回 base64，base64url() 内部再调 toString('base64') → 二次编码
+- 正确：手动 replace：`.digest('base64').replace(/\+/g, '-').replace(/\//g, '_').replace(/=/g, '')`
+
+**编码错误 2：throw 语法错误**
+- 错误原文：`return throws('鉴权不通过')`
+- 问题：JavaScript 用 `throw` 不是 `throws`，且应 throw Error 对象
+- 正确：`throw new Error('鉴权不通过：token 被篡改')`
+
+### 技能验证成果
+
+- ✅ 手写 JWT sign/verify 实现（从零理解 HMAC 签名）
+- ✅ 实战观察 CORS 预检请求（跨源页面 + 后端 OPTIONS 路由）
+- ✅ Debug 并修复 OPTIONS 路径匹配问题（/:id 参数）
+- ✅ 完成 Node.js 讲稿 Q5（JWT）+ Q6（CORS）章节
+
+### 遗留问题 / 下次计划
+
+- Node.js 复习线下一主题：异步错误处理 / HTTP / Express / 数据库
+- JWT/CORS 已沉淀到讲稿，待后续面试前默写巩固
+
+---
 
 ## Day 14 学习记录（2026-07-28）
 
