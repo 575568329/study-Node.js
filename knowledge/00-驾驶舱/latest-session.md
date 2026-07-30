@@ -61,6 +61,50 @@
 2. `unhandledRejection` vs `uncaughtException`?→ Promise链漏catch vs 同步/定时器throw,兜底后 exit(1)
 3. Express 4.x 为何捕获不到 async 错误?→ async 抛错变游离 Promise,用 asyncHandler 包装转 next
 
+### 主线学习（第二个）：Node.js 数据库操作 ✅
+
+**连接池**：
+- 建连接昂贵(TCP握手+认证+资源分配,几十~几百ms),执行SQL仅~1ms → 别每次挖井喝水
+- 池化 = 预建N个连接,借了归还、归还再借(release≠end,归还非关闭)
+- 池满策略：waitForConnections(排队) / queueLimit(限队长) / false(快速失败)
+- ⚠️ queueLimit:0 无限排队是雪崩温床(DB慢→连接占住→队列爆→服务卡死)
+
+**事务**：
+- 原子性：多条SQL打包,commit全成/rollback全撤
+- ⚠️ 事务绑连接：必须 getConnection() 固定连接全程用,pool.query() 每次借不同连接→事务失效
+- 铁律：begin→SQL→commit,catch里必须 rollback+throw,finally里 release
+- catch吞异常 = 数据不一致(没rollback) + 上层误判成功(没throw)
+
+**对比 Java**：
+- @Transactional = 动态代理(AOP)自动插入 begin/commit/rollback
+- 失效场景：①catch吞异常②同类内部调用③非public(回扣Day14盲区)
+- Java连接池映射：max-active≈connectionLimit,max-wait≈acquireTimeout(Spring自动管,Node手动createPool)
+
+**实战判断题**：找出 catch 只 console.log 不 rollback+throw 的 bug（三知识点交汇：吞异常+连接归还+事务回滚）
+
+**🤖 AI 时代视角**：
+- AI能做：生成池配置模板、事务样板、CRUD SQL
+- 人类不可替代：判断 connectionLimit 大小(QPS/DB承载权衡)、排查连接泄漏/雪崩、决定catch处理策略(rollback+throw vs 补偿事务)
+
+### 今日面试题沉淀（数据库操作 3 道）
+1. 为什么用连接池?→ 建连接昂贵(握手+认证+资源),池化复用避免重复开销
+2. 事务为何必须同一连接?→ 事务状态绑连接,pool.query借不同连接则事务失效
+3. @Transactional 底层做了什么/为何失效?→ AOP代理自动begin/commit/rollback,吞异常/内部调用/非public 失效
+
+### 本次会话遗留 / 下次计划（总）
+
+**紧急复查(FSRS 到期)**：
+- 🔴 07-31：Promise 手写回调时机(今天异步错误处理已间接巩固,仍需亲手重写验证)
+- 🔴 08-01：Maven 路径映射实操(~/.m2/repository/ 找 3 依赖点进去)
+
+**数据库操作可深入(留待下次/按需)**：
+- ORM 对比(Sequelize/Prisma vs 原生 mysql2)
+- 事务隔离级别(读未提交/读已提交/可重复读/串行化 + 脏读/幻读)
+- N+1 查询问题
+- 预处理语句 `?` 占位符防 SQL 注入(今天代码用了但没深讲)
+
+**前端复习线进度**：Node.js 已完成 8 主题(事件循环/模块化/Stream/中间件/JWT/CORS/异步错误处理/数据库操作),下一候选:HTTP 模块 / Express 深入 / 进程与集群
+
 ---
 
 ### 【历史存档】Day 16 MyBatis 入门（同为 07-30，Java 线）
