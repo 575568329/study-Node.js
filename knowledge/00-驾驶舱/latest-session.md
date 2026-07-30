@@ -1,21 +1,69 @@
 # 最近会话
 
-**最后更新**:2026-07-30（Day 16 MyBatis 入门）
+**最后更新**:2026-07-30（课前小测 + Node.js 异步错误处理）
 
-## Day 16 学习记录（2026-07-30）
+## 2026-07-30 会话记录
 
-**主题**：MyBatis 入门（Java 主线，接 Spring AOP/事务之后）
+**主题**：课前小测（07-30）+ 前端复习线 - Node.js 异步错误处理
 
 ### 课前小测（pre-session-review）
 
-8 题：**1 个重要翻盘 + 1 个高信心错误第 3 次**
-- Q1 Spring事务 catch吞异常：✅ **翻盘**（Day14 盲区，H→G）
-- Q2 Maven 路径映射：🔴 **高信心错误第 3 次**（漏 artifactId 层 + 文件名写成 `mybatis:3.5.9`）→ A，S 砍到 1，07-31 紧急复查
-- Q3 CSS em/rem：✅ 完全正确
-- Q4 重排重绘布局抖动：✅ 理解到位（补术语"强制同步布局"）
-- Q5 this 绑定优先级：✅ 状态良好（升 E）
-- Q6 跨线 @Around vs Koa洋葱：✅ 核心对（共同点满分，不同点补"控制流/应用场景"）
-- Q7/Q8 MyBatis 预测试：方向对/不知道（正常）
+7 题：**1 个核心错误 + 1 个重要转机**
+- Q1 Promise 手写回调执行时机：🔴 **核心错误**（答 A 认为同步执行，实际应进微任务队列）→ A，D 升到 6.0，S 砍到 1，07-31 紧急复查
+- Q2 Maven 路径映射：✅ **重要转机**（从连续 A→G→A 摇摆中首次稳定答对）→ G，D 降到 6.8，S 升到 2，08-01 到期需巩固
+- Q3 1px 边框：✅ 正确（DPR + transform 方案完整）
+- Q4 Node 事件循环：✅ 正确（I/O 上下文中 setImmediate 快）
+- Q5 URL 映射拼接：✅ 正确（`/api/user/profile`）
+- Q6 Maven 本地仓库机制：✅ 正确（A+B 本地模块 + 远程依赖）
+- Q7 MyBatis 作用预测：✅ 正确（解决原生 SQL 写法麻烦）
+
+### 诊断与建议
+
+**⚠️ 核心问题 - Promise 手写（D=6.0, S=1, 明天 07-31 到期）**：
+- **问题根源**：混淆"状态同步改变"和"回调异步执行"
+- **错误认知**：认为 `.then()` 回调在 `resolve()` 时同步执行
+- **正确机制**：Promise 规范要求所有 `.then()` 回调必须进入微任务队列（即使 `resolve` 时已经注册）
+- **补救方式**：重写 Promise，重点测试"resolve 时已有 then 注册"场景，用 `queueMicrotask` 或 `setTimeout(fn, 0)` 包裹回调执行
+
+**✅ 重要转机 - Maven 路径映射（D=6.8, S=2, 08-01 到期）**：
+- 从连续 A→G→A 摇摆中首次稳定答对 `groupId/artifactId/version`
+- 仍需实操巩固：在 `~/.m2/repository/` 找 3 个依赖用手指头点进去验证路径结构
+
+### 主线学习：Node.js 异步错误处理 ✅
+
+**核心机制**：
+- try-catch 是【同步作用域守卫】,只在调用栈展开瞬间有效
+- Promise reject 是微任务,调用栈清空后才触发 → try-catch 接不住
+- `await` 把异步错误【拉回同步语境】,try-catch 重新生效
+- 少一个 `await` = 幽灵 bug(本地兜底不报错,生产丢数据)
+
+**两大兜底钩子**：
+- `unhandledRejection`：管 Promise 链漏掉的 `.catch()`(进程存活)
+- `uncaughtException`：管同步/定时器回调的 throw(默认崩溃退出)
+- 兜底后应 `process.exit(1)`：非0退出码触发 PM2/K8s 重启干净进程
+
+**Express 错误处理**：
+- Express 4.x 只捕获同步 throw,async 错误需 `asyncHandler` 包装 `Promise.resolve(fn).catch(next)`
+- Express 5.x 原生支持
+
+**对比 Java**：
+- `uncaughtException` ≈ `Thread.setDefaultUncaughtExceptionHandler`
+- 全局兜底 ≈ `@RestControllerAdvice`(Java 能恢复返回响应,Node 兜底不能)
+
+**演示代码**：`code-examples/nodejs/async-error-demo.js`(4 个演示 + 2 个兜底钩子,执行顺序直观证明同步先跑异步后到)
+
+**🤖 AI 时代视角**：
+- AI 能做：写 asyncHandler 包装器、生成 try-catch 样板、补 `.catch(next)`
+- 人类不可替代：判断"错误该不该兜底"(架构决策)、排查"忘 await 幽灵 bug"、设计全局错误处理策略(日志/告警/优雅关闭/事务回滚)
+
+### 今日面试题沉淀（异步错误处理 3 道）
+1. 为什么 try-catch 捕获不到 Promise 错误?→ 同步守卫 vs 微任务时序,await 拉回
+2. `unhandledRejection` vs `uncaughtException`?→ Promise链漏catch vs 同步/定时器throw,兜底后 exit(1)
+3. Express 4.x 为何捕获不到 async 错误?→ async 抛错变游离 Promise,用 asyncHandler 包装转 next
+
+---
+
+### 【历史存档】Day 16 MyBatis 入门（同为 07-30，Java 线）
 
 ### 学习成果
 
