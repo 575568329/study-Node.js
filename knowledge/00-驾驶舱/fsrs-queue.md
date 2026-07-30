@@ -24,11 +24,11 @@
 | BFC（块格式化上下文） | 复习 | 原理 | 5.0 | 8 | 07-25 | 08-02 | G,G |
 | Promise 手写 | 复习 | 技能 | 5.5 | 4 | 07-22 | 07-26 | G |
 | Flex 布局（flex:1 三属性） | 复习 | 原理 | 5.0 | 8 | 07-24 | 08-01 | G,G,H,G |
-| this 绑定优先级 | 复习 | 原理 | 4.0 | 10 | 07-27 | 08-06 | G,G,G |
+| this 绑定优先级 | 复习 | 原理 | 4.0 | 10 | 07-30 | 08-19 | E,G,G,G |
 | position 定位（5取值 + absolute锚点） | 复习 | 原理 | 5.5 | 8 | 07-25 | 08-02 | G,G,G |
 | z-index 层叠上下文 | 复习 | 原理 | 5.5 | 4 | 07-28 | 08-01 | G,G,G |
-| 重排重绘（reflow/repaint + 布局抖动） | 复习 | 原理 | 5.5 | 4 | 07-23 | 07-27 | G |
-| CSS 单位（em/rem/vw/vh/%） | 复习 | 原理 | 5.0 | 4 | 07-23 | 07-27 | G |
+| 重排重绘（reflow/repaint + 布局抖动） | 复习 | 原理 | 5.5 | 8 | 07-30 | 08-07 | G,G |
+| CSS 单位（em/rem/vw/vh/%） | 复习 | 原理 | 5.0 | 8 | 07-30 | 08-07 | G,G |
 | 1px 边框（DPR/物理像素） | 复习 | 原理 | 4.5 | 4 | 07-23 | 07-27 | G |
 | Node 事件循环（阶段/nextTick/setImmediate vs setTimeout） | 复习 | 原理 | 4.9 | 5 | 07-29 | 08-03 | G,G,G,H,H |
 | Node 模块化（CJS vs ESM/exports陷阱/循环引用/动态import） | 复习 | 原理 | 4.4 | 10 | 07-29 | 08-08 | G,G |
@@ -38,7 +38,7 @@
 | pom.xml 结构 | Java | 原理 | 4.4 | 4 | 07-23 | 07-27 | G |
 | Maven 本地仓库机制 | Java | 原理 | 6.0 | 8 | 07-27 | 08-04 | G,G,H,H |
 | Maven 标准目录结构 | Java | 技能 | 4.4 | 4 | 07-23 | 07-27 | G |
-| Maven 路径映射规则 | Java | 原理 | 6.6 | 8 | 07-25 | 08-02 | G,A |
+| Maven 路径映射规则 | Java | 原理 | 7.0 | 1 | 07-30 | 07-31 | A,G,A |
 | 父 pom 的 modules 声明 | Java | 原理 | 4.4 | 4 | 07-24 | 07-28 | G |
 | dependencyManagement 作用 | Java | 原理 | 4.4 | 4 | 07-28 | 08-01 | G,G |
 | 模块间依赖 GAV 引用 | Java | 技能 | 4.4 | 4 | 07-24 | 07-28 | G |
@@ -77,8 +77,17 @@
 | 事务回滚规则（RuntimeException回滚/Checked不回滚/rollbackFor） | Java | 原理 | 5.5 | 5 | 07-29 | 08-03 | G,H |
 | 事务自调用失效（this绕过代理，同AOP自调用根因） | Java | 原理 | 5.5 | 4 | 07-28 | 08-01 | G,A |
 | 事务传播行为（REQUIRED共用 vs REQUIRES_NEW独立） | Java | 原理 | 5.5 | 4 | 07-28 | 08-01 | G,A |
-| 异常被catch吞掉导致不回滚（必须rethrow） | Java | 原理 | 6.0 | 2 | 07-28 | 07-30 | H |
+| 异常被catch吞掉导致不回滚（必须rethrow） | Java | 原理 | 5.5 | 5 | 07-30 | 08-04 | G,H |
 | @Service vs @Autowired（存Bean vs 取Bean） | Java | 原理 | 4.5 | 4 | 07-28 | 08-01 | G |
+
+### MyBatis 入门（Day 16）
+
+| MyBatis 本质（解决JDBC样板/SQL外置/自动映射/动态代理） | Java | 原理 | 4.5 | 4 | 07-30 | 08-03 | G |
+| Mapper 接口+XML 绑定（namespace=接口全限定名/id=方法名=唯一StatementID） | Java | 原理 | 5.0 | 4 | 07-30 | 08-03 | G |
+| MyBatis 动态代理（接口无实现/代理"没里子"自己执行SQL，区别于AOP"有里子"） | Java | 原理 | 5.5 | 4 | 07-30 | 08-03 | G |
+| @Param 参数命名（编译丢参数名→手动贴标签，多参数必写） | Java | 原理 | 4.5 | 4 | 07-30 | 08-03 | G |
+| resultMap vs resultType（自定义映射/列名≠属性名/嵌套 vs 简单类型自动映射） | Java | 原理 | 4.5 | 4 | 07-30 | 08-03 | G |
+| 动态SQL foreach 批量插入（一条SQL多行，非多次插入/性能铁律） | Java | 原理 | 5.0 | 4 | 07-30 | 08-03 | G |
 
 ### Java 线历史补齐（Day 1-7 基础 + Day 10 Maven）
 
@@ -126,3 +135,4 @@
 > 2026-07-28（Day 14 Spring 事务）：课前小测昨天 2 盲区翻盘（依赖调解 A→G、BPP H→G）。新增 6 个事务 KP。**验证结果差（SOLO 单点2/5，多个 Again）**：事务自调用/传播行为 Q3/Q4 都滑到 @After Advice，暴露 AOP 代理机制（Day13）没打通 → **AOP 代理机制 KP 降级 A/H、S 砍到 1**，成最高优先级重学。诊断：Day13 AOP 过载学虚拖累 Day14。教学法已调整（feedback-cognitive-load-chunking）。下次开半天专讲"代理对象 vs this"主线，收口 AOP自调用=事务自调用。
 > 2026-07-28（Day 14.5 AOP 代理机制重学）：用纯 Java JDK 动态代理示例（Proxy.newProxyInstance / InvocationHandler / method.invoke）讲透"代理对象 vs 原始对象"。核心打通：① 代理=$Proxy0运行时生成的新类 ② @Autowired取容器=代理对象 ③ this=原始对象 ④ this.method()绕过代理→失效 ⑤ 注入的代理.method()走代理→生效。验证 Q1/Q2 全对（判断3场景事务生效+修复自调用失效）。AOP代理机制 A→G、事务自调用 A→G、传播行为 A→G（3个昨天 Again 今天翻盘）。
 > 2026-07-29（Node.js 复习：JWT + CORS）：课前小测 9 个到期 KP，3 个翻盘（Node事件循环 H→G、事务@Transactional H→G、Maven依赖调解 A→G 高信心错误终于彻底纠正）。新学 JWT 认证（手写 sign/verify 实现、HMAC签名机制、双token机制、主动失效难题4种解法）+ CORS 跨域（简单请求 vs 预检请求、OPTIONS 方法、实战观察预检流程、修复 OPTIONS 路径匹配 bug）。Node.js 复习线 6/? 完成。
+> 2026-07-30（Day 16 MyBatis 入门）：课前小测 8 题。**Q1 Spring事务catch吞异常翻盘 H→G**（Day14 盲区攻克）；**Q2 Maven 路径映射第 3 次高信心错误**（漏 artifactId 层 + 文件名格式错）→ 降 A、S 砍到 1、07-31 紧急复查；Q3 CSS单位/Q4 重排重绘/Q5 this绑定全对（this 升 E）；Q6 跨线 @Around vs Koa洋葱 核心答对（新测 G）。新学 MyBatis 6 个 KP（本质/Mapper绑定/动态代理"没里子"/@Param/resultMap vs resultType/foreach批量插入）。读公司代码 TopicRecordMapper（接口+XML 对照），发现 `delete *` 语法 bug（标记未改）。理解检查两轮全过。核心打通：MyBatis 动态代理与 Spring AOP 同底层技术、区别在"有无真实对象"。

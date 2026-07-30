@@ -1,6 +1,98 @@
 # 最近会话
 
-**最后更新**:2026-07-29（Node.js 复习：JWT + CORS）
+**最后更新**:2026-07-30（Day 16 MyBatis 入门）
+
+## Day 16 学习记录（2026-07-30）
+
+**主题**：MyBatis 入门（Java 主线，接 Spring AOP/事务之后）
+
+### 课前小测（pre-session-review）
+
+8 题：**1 个重要翻盘 + 1 个高信心错误第 3 次**
+- Q1 Spring事务 catch吞异常：✅ **翻盘**（Day14 盲区，H→G）
+- Q2 Maven 路径映射：🔴 **高信心错误第 3 次**（漏 artifactId 层 + 文件名写成 `mybatis:3.5.9`）→ A，S 砍到 1，07-31 紧急复查
+- Q3 CSS em/rem：✅ 完全正确
+- Q4 重排重绘布局抖动：✅ 理解到位（补术语"强制同步布局"）
+- Q5 this 绑定优先级：✅ 状态良好（升 E）
+- Q6 跨线 @Around vs Koa洋葱：✅ 核心对（共同点满分，不同点补"控制流/应用场景"）
+- Q7/Q8 MyBatis 预测试：方向对/不知道（正常）
+
+### 学习成果
+
+**MyBatis 本质（对比纯 JDBC）**：
+- 解决 JDBC 4 大痛点：样板代码多、SQL 散落、手动映射、资源泄漏
+- 三大核心：SQL 外置化（XML）+ 自动映射（ResultSet→对象）+ 动态代理
+- Node.js 类比：JDBC ≈ mysql2 原始 API，MyBatis ≈ Knex.js/Prisma
+
+**Mapper 接口 + XML 绑定机制**（Q2 之前答偏，本次打通）：
+- `namespace` = 接口全限定名，`id` = 方法名
+- 拼成唯一 **Statement ID**（`com.xxx.UserMapper.findById`）= MyBatis 内部 `Map<String, MappedStatement>` 的 key
+- 调方法 → 代理拼 key → 查 SQL → 执行
+
+**动态代理再现（继 Spring AOP 后）**：
+- MyBatis 用 JDK 动态代理生成接口代理对象（$Proxy）
+- **核心区别**：MyBatis 代理"**没里子**"（接口无实现，代理即全部执行逻辑），Spring AOP 代理"**有里子**"（包装真实 Bean，proceed 调原方法）
+- 记忆锚点：AOP 代理=保安（前后检查，放你进去办事），MyBatis 代理=外卖员（你说要啥，它自己跑腿，后厨不存在）
+- 底层同技术：Spring 事务/AOP、MyBatis Mapper、Dubbo RPC 全是动态代理
+
+**@Param 参数命名**：
+- Java 编译丢参数名（变 arg0/arg1）→ 多参数时 MyBatis 找不到 `#{taskId}`
+- `@Param("taskId")` 手动贴标签补回来（多参数必写）
+
+**resultMap vs resultType**：
+- `resultType`：简单类型（Integer/String）或列名=属性名的自动映射
+- `resultMap`：自定义映射（列名≠属性名如 task_id→taskId、嵌套对象、`<id>` 标主键）
+
+**动态 SQL foreach 批量插入**：
+- 一条 SQL 插多行 `VALUES (...),(...),(...)`，**非多次插入**（性能铁律）
+- Node 等价：Knex `insert([...])` / mysql2 `VALUES ?` 二维数组
+
+**公司代码实战**：
+- 精读 `TopicRecordMapper`（接口 6 方法 + XML 6 SQL 一一对应）
+- `<sql>`+`<include>` 复用列名片段（DRY）
+- 🐛 发现 bug：`delByTaskId` 里 `delete *` 语法错误（标准 DELETE 不带 *）→ 标记未改（遵守"不顺手重构"原则）
+
+### 错题本
+
+**错题 1：Maven 路径映射（高信心错误第 3 次）🔴**
+- 错误原文：`m2/repository/org/mybatis/3.5.9/mybatis:3.5.9`
+- 两处错：① 漏了 artifactId `mybatis` 那一层文件夹 ② 文件名写成 `mybatis:3.5.9`（冒号是坐标分隔符，不进路径）
+- 正确：`~/.m2/repository/org/mybatis/mybatis/3.5.9/mybatis-3.5.9.jar`
+- 强化锚点：groupId 每个点一层 + artifactId 一层 + version 一层 + 文件名 `artifactId-version.jar`
+- 归类：**持续高信心错误**（Day11/Day14/Day16 三次），07-31 紧急复查
+
+**错题 2：MyBatis 代理"不干预执行"说反了**
+- 错误原文：Q3 答"不干预执行过程，只是提供接口的查询内容"
+- 正确：MyBatis 代理恰恰是**全部执行过程**（自己查 SQL、执行、映射）；Spring AOP 才是"不干预核心，前后包一层"
+- 归类：概念混淆（已用"有里子/没里子"图示纠正）
+
+**错题 3：批量插入措辞"多次插入"**
+- 错误原文：Q3 对比 Node 时说"进行多次插入"
+- 正确：`<foreach>` 是一条 SQL 插多行，非多次插入（性能差 N 倍）
+- 归类：措辞不精确（本质理解对）
+
+### 今日面试题沉淀（3 道）
+
+1. Mapper 接口无实现类为何能注入调用？→ JDK 动态代理，namespace.方法名 定位 SQL
+2. `#{}` vs `${}`？→ `#{}` 预编译防注入（默认用），`${}` 字符串拼接有注入风险
+3. resultMap vs resultType 选择？→ 复杂/自定义映射用 resultMap，简单类型用 resultType
+
+### 教学/协作产出（本次重要）
+
+- **AI 时代视角固化**：应用户要求，"🤖 AI 时代视角"板块规范从 memory 迁入根 `CLAUDE.md`「会话追踪」开头（跨设备权威来源），每个知识点总结末尾必带
+- **Memory 跨设备备份**：memory 全量镜像到仓库 `docs/claude-memory/`（含 README 说明同步机制），解决换设备丢失问题；CLAUDE.md 加同步约定
+
+### 遗留问题 / 下次计划
+
+- 🔴 **07-31 紧急复查 Maven 路径映射**（高信心错误第 3 次）
+- MyBatis 下一步：`#{}` vs `${}` 深入（SQL 注入原理）、动态 SQL `<if>`/`<where>`/`<choose>`、一级/二级缓存、Spring 事务与 MyBatis 协调
+- 公司代码 `delete *` bug 待确认是否被调用
+
+---
+
+## 上次会话（存档）
+
+**2026-07-29（Node.js 复习：JWT + CORS）**
 
 ## Day 15 学习记录（2026-07-29）
 

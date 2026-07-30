@@ -182,11 +182,19 @@ Vite + React 19 + TypeScript + Tailwind v4 的纯前端单页。核心是**数�
 
 ## 会话追踪
 
+**每个知识点总结末尾必须加「🤖 AI 时代视角」板块**（跨三条线通用）：
+- 区分这个知识点里**哪些能力被 AI 贬值了**（语法/拼装/查 API/写样板 → 交给 AI）
+- 哪些**在 AI 时代反而更值钱**（原理/机制/调试判断力/读代码审代码/架构权衡 → 值得深挖）
+- 结合用户处境点明「学在刀刃上」：面试考的、AI 替代不了的理解型能力才是转型护城河
+- 简明扼要，2-4 条即可，不喧宾夺主
+
 每次 Java 学习对话完成后，完成两步更新：
 
 **步骤1: 更新学习进度**
 - 更新 `knowledge/00-驾驶舱/latest-session.md`（记录本次学习内容、理解程度、遗留问题）
 - 更新 `knowledge/00-驾驶舱/todo.md`（勾选完成任务，添加新发现的任务）
+
+> **Memory 跨设备同步约定**：memory 从本地固定路径 `~/.claude/projects/D--Study-Node-js-Study/memory/` 加载（不在仓库内，换设备会丢）。每次新增/修改 memory 文件后，必须镜像一份到仓库 `docs/claude-memory/` 并随进度一起提交。换新设备时把 `docs/claude-memory/*.md` 拷回本地加载路径。详见 `docs/claude-memory/README.md`。
 
 **步骤2: 输出阶段总结**（每周末）
 - 创建 `knowledge/java/Java学习笔记-Week{N}.md`
