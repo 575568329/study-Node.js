@@ -1,5 +1,85 @@
 # 最近会话
 
+**最后更新**:2026-07-31（Day 17 MyBatis 动态 SQL + 安全）
+
+## Day 17 学习记录（2026-07-31）
+
+**主题**：MyBatis 动态 SQL（`<if>`/`<where>`/`<choose>`）+ `#{}` vs `${}`（SQL 注入防御）
+
+### 课前小测（pre-session-review）
+
+3 题（精准打击高优先级盲区）：
+- Q1 Maven 路径映射：⚠️ **第 4 次错，但接近了**（框架全对：groupId每个点一层+artifactId层+version层+文件名格式，但 artifactId 截断 `mysql-connector-java` → `mysql-connector`）→ H，明天（08-01）必测
+- Q2 Promise 手写思路：✅ 核心全对（状态机/回调队列/链式调用/值穿透）→ A→G
+- Q3 MyBatis vs AOP 代理：❌ 答偏到用途，漏了"有里子/没里子"核心 → A
+
+### 学习成果
+
+**动态 SQL 三大标签（条件查询场景）**：
+
+**`<if>` 条件拼接**：
+- `test` 判空：`name != null and name != ''`（两个条件都要，空字符串 `""` 不是 `null`）
+- 条件成立拼进去，不成立跳过
+
+**`<where>` 智能 WHERE**：
+- 去掉 `WHERE 1=1` hack
+- 自动去掉**第一个** AND（只管开头，不管中间）
+- 所有 `<if>` 都不成立 → 不加 `WHERE`（查全部合法）
+
+**`<choose>`/`<when>`/`<otherwise>`**：
+- XML 版 `if-else if-else`
+- 第一个 `<when>` 成立就执行，后面全跳过
+- 都不成立 → 走 `<otherwise>` 默认
+
+**核心理解**：这些不是 SQL 关键字，是 MyBatis 发明的"XML 拼 SQL 工具"，最终生成标准 SQL。
+
+**`#{}` vs `${}`（安全红线）**：
+
+**`#{}` 预编译占位符**（默认用这个）：
+- 生成：`WHERE name = ?`（占位符）
+- **SQL 结构固定，参数只能是值**（不能变成代码）→ 防注入
+
+**`${}` 字符串拼接**（危险，极少用）：
+- 生成：`WHERE name = '${name}'`（参数直接拼进 SQL）
+- 黑客注入：`name = "' OR '1'='1"` → SQL：`WHERE name = '' OR '1'='1'`（查出所有用户）
+- 更危险：`name = "'; DELETE FROM user; --"` → 删库
+- **只用于表名/列名**（SQL 语法不支持 `ORDER BY ?`）
+
+**白名单校验**：
+- `${}` 用于表名/列名时，**必须白名单**验证：`Arrays.asList("id", "name").contains(column)`
+- 否则仍有注入风险
+
+**公司代码实战**：发现 `LIMIT ${...}` 历史遗留注入风险，更安全写法是 Java 里算好 offset，XML 用 `#{}`。
+
+### 错题本
+
+**错题 1：Maven 路径映射（第 4 次）⚠️**
+- 错误：`~/.m2/repository/com/mysql/mysql-connector/...`（artifactId 截断丢了 `-java`）
+- 正确：`~/.m2/repository/com/mysql/mysql-connector-java/8.0.28/mysql-connector-java-8.0.28.jar`
+- **进步**：框架全对，只是 artifactId 没完整拷贝
+- **根因**：路径映射是字面映射，一个字母都不能动
+- 08-01 必测
+
+**错题 2：MyBatis vs AOP 代理** → 答偏到用途，正确是"AOP 代理有里子（包装真实 Bean）；MyBatis 代理没里子（接口无实现）"
+
+**错题 3：`<where>` 去 AND 时机** → 只去开头的 AND，不去中间的
+
+### 今日面试题沉淀（3 道）
+
+1. `#{}` vs `${}`？→ `#{}` 预编译防注入（默认），`${}` 字符串拼接有风险（表名/列名且必须白名单）
+2. 为什么 `#{}` 能防 SQL 注入？→ 预编译让 SQL 结构固定，参数只能是值，不能变成代码
+3. `<where>` 标签做什么？→ 智能 WHERE：去第一个 AND、空条件不加 WHERE
+
+### 遗留问题 / 下次计划
+
+- 🔴 **08-01 必测 Maven 路径映射**（第 5 次机会）
+- MyBatis：一级/二级缓存、`<set>` 标签（动态 UPDATE）
+- SQL 基础系统过一遍
+
+---
+
+## 上次会话（存档）
+
 **最后更新**:2026-07-30（课前小测 + Node.js 异步错误处理）
 
 ## 2026-07-30 会话记录

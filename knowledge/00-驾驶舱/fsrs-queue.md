@@ -22,7 +22,7 @@
 | KP | 线 | 类型 | D | S(天) | 上次 | 下次到期 | ratings |
 |---|---|---|---|---|---|---|---|
 | BFC（块格式化上下文） | 复习 | 原理 | 5.0 | 8 | 07-25 | 08-02 | G,G |
-| Promise 手写 | 复习 | 技能 | 6.0 | 1 | 07-30 | 07-31 | A,G |
+| Promise 手写 | 复习 | 技能 | 6.2 | 4 | 07-31 | 08-04 | G,A,G |
 | Flex 布局（flex:1 三属性） | 复习 | 原理 | 5.0 | 8 | 07-24 | 08-01 | G,G,H,G |
 | this 绑定优先级 | 复习 | 原理 | 4.0 | 10 | 07-30 | 08-19 | E,G,G,G |
 | position 定位（5取值 + absolute锚点） | 复习 | 原理 | 5.5 | 8 | 07-25 | 08-02 | G,G,G |
@@ -41,7 +41,7 @@
 | pom.xml 结构 | Java | 原理 | 4.4 | 4 | 07-23 | 07-27 | G |
 | Maven 本地仓库机制 | Java | 原理 | 5.8 | 10 | 07-30 | 08-09 | G,G,G,H,H |
 | Maven 标准目录结构 | Java | 技能 | 4.4 | 4 | 07-23 | 07-27 | G |
-| Maven 路径映射规则 | Java | 原理 | 6.8 | 2 | 07-30 | 08-01 | G,A,G,A |
+| Maven 路径映射规则 | Java | 原理 | 7.2 | 1 | 07-31 | 08-01 | H,G,A,G,A |
 | 父 pom 的 modules 声明 | Java | 原理 | 4.4 | 4 | 07-24 | 07-28 | G |
 | dependencyManagement 作用 | Java | 原理 | 4.4 | 4 | 07-28 | 08-01 | G,G |
 | 模块间依赖 GAV 引用 | Java | 技能 | 4.4 | 4 | 07-24 | 07-28 | G |
@@ -88,6 +88,14 @@
 | MyBatis 本质（解决JDBC样板/SQL外置/自动映射/动态代理） | Java | 原理 | 4.5 | 4 | 07-30 | 08-03 | G |
 | Mapper 接口+XML 绑定（namespace=接口全限定名/id=方法名=唯一StatementID） | Java | 原理 | 5.0 | 4 | 07-30 | 08-03 | G |
 | MyBatis 动态代理（接口无实现/代理"没里子"自己执行SQL，区别于AOP"有里子"） | Java | 原理 | 5.5 | 4 | 07-30 | 08-03 | G |
+
+### MyBatis 动态 SQL + 安全（Day 17）
+
+| 动态 SQL <if> 标签（条件拼接/test 判空） | Java | 原理 | 4.5 | 4 | 07-31 | 08-04 | G |
+| 动态 SQL <where> 智能 WHERE（去第一个AND/空不加WHERE） | Java | 原理 | 4.8 | 4 | 07-31 | 08-04 | H,G |
+| 动态 SQL <choose>/<when>/<otherwise>（if-else分支） | Java | 原理 | 4.5 | 4 | 07-31 | 08-04 | G |
+| #{} vs ${}（预编译防注入 vs 字符串拼接/SQL注入原理） | Java | 原理 | 6.0 | 4 | 07-31 | 08-04 | G |
+| ${} 白名单校验（表名列名必须白名单防注入） | Java | 原理 | 5.5 | 4 | 07-31 | 08-04 | G |
 | @Param 参数命名（编译丢参数名→手动贴标签，多参数必写） | Java | 原理 | 4.5 | 4 | 07-30 | 08-03 | G |
 | resultMap vs resultType（自定义映射/列名≠属性名/嵌套 vs 简单类型自动映射） | Java | 原理 | 4.5 | 4 | 07-30 | 08-03 | G |
 | 动态SQL foreach 批量插入（一条SQL多行，非多次插入/性能铁律） | Java | 原理 | 5.0 | 4 | 07-30 | 08-03 | G |
@@ -139,3 +147,4 @@
 > 2026-07-28（Day 14.5 AOP 代理机制重学）：用纯 Java JDK 动态代理示例（Proxy.newProxyInstance / InvocationHandler / method.invoke）讲透"代理对象 vs 原始对象"。核心打通：① 代理=$Proxy0运行时生成的新类 ② @Autowired取容器=代理对象 ③ this=原始对象 ④ this.method()绕过代理→失效 ⑤ 注入的代理.method()走代理→生效。验证 Q1/Q2 全对（判断3场景事务生效+修复自调用失效）。AOP代理机制 A→G、事务自调用 A→G、传播行为 A→G（3个昨天 Again 今天翻盘）。
 > 2026-07-29（Node.js 复习：JWT + CORS）：课前小测 9 个到期 KP，3 个翻盘（Node事件循环 H→G、事务@Transactional H→G、Maven依赖调解 A→G 高信心错误终于彻底纠正）。新学 JWT 认证（手写 sign/verify 实现、HMAC签名机制、双token机制、主动失效难题4种解法）+ CORS 跨域（简单请求 vs 预检请求、OPTIONS 方法、实战观察预检流程、修复 OPTIONS 路径匹配 bug）。Node.js 复习线 6/? 完成。
 > 2026-07-30（Day 16 MyBatis 入门）：课前小测 8 题。**Q1 Spring事务catch吞异常翻盘 H→G**（Day14 盲区攻克）；**Q2 Maven 路径映射第 3 次高信心错误**（漏 artifactId 层 + 文件名格式错）→ 降 A、S 砍到 1、07-31 紧急复查；Q3 CSS单位/Q4 重排重绘/Q5 this绑定全对（this 升 E）；Q6 跨线 @Around vs Koa洋葱 核心答对（新测 G）。新学 MyBatis 6 个 KP（本质/Mapper绑定/动态代理"没里子"/@Param/resultMap vs resultType/foreach批量插入）。读公司代码 TopicRecordMapper（接口+XML 对照），发现 `delete *` 语法 bug（标记未改）。理解检查两轮全过。核心打通：MyBatis 动态代理与 Spring AOP 同底层技术、区别在"有无真实对象"。
+> 2026-07-31（Day 17 MyBatis 动态 SQL + 安全）：课前小测 3 题（精准打击高优先级盲区）。**Q1 Maven 路径映射第 4 次错但接近**（框架全对：groupId每个点一层+artifactId层+version层+文件名格式，但 artifactId 截断 `mysql-connector-java` 写成 `mysql-connector`）→ H，08-01 必测；Q2 Promise 手写思路全对 A→G；Q3 MyBatis vs AOP 代理答偏到用途（漏"有里子/没里子"核心）→ A。新学 MyBatis 动态 SQL 5 个 KP：`<if>` 条件拼接（`test` 判空 `!= null and != ''`）、`<where>` 智能 WHERE（去第一个 AND、空不加 WHERE）、`<choose>`/`<when>`/`<otherwise>`（if-else 分支）、`#{}` vs `${}`（预编译防注入 vs 字符串拼接/SQL 注入原理）、`${}` 白名单校验（表名/列名必须白名单）。理解检查两轮：动态 SQL 为何需要通过（用户可选条件拼接场景）、`#{}` 防注入原理全对（SQL 结构固定，参数只能是值）。公司代码：发现 `ORDER BY ${column}` 历史遗留注入风险。核心打通：预编译让参数和 SQL 分离，`${}` 只用于表名/列名且必须白名单。
