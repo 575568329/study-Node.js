@@ -23,10 +23,10 @@
 |---|---|---|---|---|---|---|---|
 | BFC（块格式化上下文） | 复习 | 原理 | 5.0 | 8 | 07-25 | 08-02 | G,G |
 | Promise 手写 | 复习 | 技能 | 6.2 | 4 | 07-31 | 08-04 | G,A,G |
-| Flex 布局（flex:1 三属性） | 复习 | 原理 | 5.0 | 8 | 07-24 | 08-01 | G,G,H,G |
+| Flex 布局（flex:1 三属性） | 复习 | 原理 | 5.2 | 4 | 08-01 | 08-05 | H,G,G,H,G |
 | this 绑定优先级 | 复习 | 原理 | 4.0 | 10 | 07-30 | 08-19 | E,G,G,G |
 | position 定位（5取值 + absolute锚点） | 复习 | 原理 | 5.5 | 8 | 07-25 | 08-02 | G,G,G |
-| z-index 层叠上下文 | 复习 | 原理 | 5.5 | 4 | 07-28 | 08-01 | G,G,G |
+| z-index 层叠上下文 | 复习 | 原理 | 5.0 | 8 | 08-01 | 08-09 | G,G,G,G |
 | 重排重绘（reflow/repaint + 布局抖动） | 复习 | 原理 | 5.5 | 8 | 07-30 | 08-07 | G,G |
 | CSS 单位（em/rem/vw/vh/%） | 复习 | 原理 | 5.0 | 8 | 07-30 | 08-07 | G,G |
 | 1px 边框（DPR/物理像素） | 复习 | 原理 | 4.4 | 5 | 07-30 | 08-04 | G,G |
@@ -37,11 +37,14 @@
 | 异步错误处理（try-catch局限/await拉回/两大兜底钩子） | 复习 | 原理 | 5.0 | 3 | 07-30 | 08-02 | G |
 | DB 连接池（池化/借还/池满策略/雪崩） | 复习 | 原理 | 5.0 | 3 | 07-30 | 08-02 | G |
 | DB 事务（原子性/事务绑连接/rollback+throw铁律） | 复习 | 原理 | 5.5 | 3 | 07-30 | 08-02 | G |
+| Node 原生 http（req/res 是流/手动收body/writeHead时序） | 复习 | 原理 | 5.0 | 3 | 08-01 | 08-04 | G |
+| 宏任务 vs 微任务边界（事件监听器是宏任务） | 复习 | 原理 | 6.5 | 1 | 08-01 | 08-02 | A |
+| cluster 多进程（主进程分发socket/worker不共享内存） | 复习 | 原理 | 5.0 | 3 | 08-01 | 08-04 | G |
 | Maven 坐标 GAV | Java | 原理 | 4.4 | 4 | 07-23 | 07-27 | G |
 | pom.xml 结构 | Java | 原理 | 4.4 | 4 | 07-23 | 07-27 | G |
 | Maven 本地仓库机制 | Java | 原理 | 5.8 | 10 | 07-30 | 08-09 | G,G,G,H,H |
 | Maven 标准目录结构 | Java | 技能 | 4.4 | 4 | 07-23 | 07-27 | G |
-| Maven 路径映射规则 | Java | 原理 | 7.2 | 1 | 07-31 | 08-01 | H,G,A,G,A |
+| Maven 路径映射规则 | Java | 原理 | 6.4 | 3 | 08-01 | 08-04 | G,H,G,A,G,A |
 | 父 pom 的 modules 声明 | Java | 原理 | 4.4 | 4 | 07-24 | 07-28 | G |
 | dependencyManagement 作用 | Java | 原理 | 4.4 | 4 | 07-28 | 08-01 | G,G |
 | 模块间依赖 GAV 引用 | Java | 技能 | 4.4 | 4 | 07-24 | 07-28 | G |
@@ -78,7 +81,7 @@
 
 | @Transactional 本质（AOP事务切面begin/commit/rollback） | Java | 原理 | 5.5 | 5 | 07-29 | 08-03 | G,H |
 | 事务回滚规则（RuntimeException回滚/Checked不回滚/rollbackFor） | Java | 原理 | 5.5 | 5 | 07-29 | 08-03 | G,H |
-| 事务自调用失效（this绕过代理，同AOP自调用根因） | Java | 原理 | 5.5 | 4 | 07-28 | 08-01 | G,A |
+| 事务自调用失效（this绕过代理，同AOP自调用根因） | Java | 原理 | 5.0 | 8 | 08-01 | 08-09 | G,G,A |
 | 事务传播行为（REQUIRED共用 vs REQUIRES_NEW独立） | Java | 原理 | 5.5 | 4 | 07-28 | 08-01 | G,A |
 | 异常被catch吞掉导致不回滚（必须rethrow） | Java | 原理 | 5.5 | 5 | 07-30 | 08-04 | G,H |
 | @Service vs @Autowired（存Bean vs 取Bean） | Java | 原理 | 4.5 | 4 | 07-28 | 08-01 | G |
@@ -147,4 +150,5 @@
 > 2026-07-28（Day 14.5 AOP 代理机制重学）：用纯 Java JDK 动态代理示例（Proxy.newProxyInstance / InvocationHandler / method.invoke）讲透"代理对象 vs 原始对象"。核心打通：① 代理=$Proxy0运行时生成的新类 ② @Autowired取容器=代理对象 ③ this=原始对象 ④ this.method()绕过代理→失效 ⑤ 注入的代理.method()走代理→生效。验证 Q1/Q2 全对（判断3场景事务生效+修复自调用失效）。AOP代理机制 A→G、事务自调用 A→G、传播行为 A→G（3个昨天 Again 今天翻盘）。
 > 2026-07-29（Node.js 复习：JWT + CORS）：课前小测 9 个到期 KP，3 个翻盘（Node事件循环 H→G、事务@Transactional H→G、Maven依赖调解 A→G 高信心错误终于彻底纠正）。新学 JWT 认证（手写 sign/verify 实现、HMAC签名机制、双token机制、主动失效难题4种解法）+ CORS 跨域（简单请求 vs 预检请求、OPTIONS 方法、实战观察预检流程、修复 OPTIONS 路径匹配 bug）。Node.js 复习线 6/? 完成。
 > 2026-07-30（Day 16 MyBatis 入门）：课前小测 8 题。**Q1 Spring事务catch吞异常翻盘 H→G**（Day14 盲区攻克）；**Q2 Maven 路径映射第 3 次高信心错误**（漏 artifactId 层 + 文件名格式错）→ 降 A、S 砍到 1、07-31 紧急复查；Q3 CSS单位/Q4 重排重绘/Q5 this绑定全对（this 升 E）；Q6 跨线 @Around vs Koa洋葱 核心答对（新测 G）。新学 MyBatis 6 个 KP（本质/Mapper绑定/动态代理"没里子"/@Param/resultMap vs resultType/foreach批量插入）。读公司代码 TopicRecordMapper（接口+XML 对照），发现 `delete *` 语法 bug（标记未改）。理解检查两轮全过。核心打通：MyBatis 动态代理与 Spring AOP 同底层技术、区别在"有无真实对象"。
+> 2026-08-01（Node 原生 http + cluster 多进程）：课前小测 6 题。**🎉 Q1 Maven 路径映射第 5 次终于全对**（4 个考点全中，artifactId 完整没截断）→ G，D 7.2→6.4，S 延到 3 天；Q2 事务自调用全对（连续 2 次 G，S 延到 8 天）；Q3 z-index"拼爹"原理对但没给最小复现结构 → G，S 延到 8；Q6 Flex 三属性名全对但含义/等分原理缺失 → H，S 砍到 4；Q4/Q5（http 模块/多核利用）不知道 → 今日新内容。新增 3 KP：原生 http、cluster 多进程、**宏任务 vs 微任务边界（新 KP，标 A 最高优先级）**。🔴 **核心错误**：`req.on('data')` 答成微任务，实际是 poll 阶段宏任务——这是"await 同步性"混淆的第 4 次变体（看到异步就归微任务）。已钉死口诀：微任务只有 nextTick + Promise.then，其他全是宏任务。
 > 2026-07-31（Day 17 MyBatis 动态 SQL + 安全）：课前小测 3 题（精准打击高优先级盲区）。**Q1 Maven 路径映射第 4 次错但接近**（框架全对：groupId每个点一层+artifactId层+version层+文件名格式，但 artifactId 截断 `mysql-connector-java` 写成 `mysql-connector`）→ H，08-01 必测；Q2 Promise 手写思路全对 A→G；Q3 MyBatis vs AOP 代理答偏到用途（漏"有里子/没里子"核心）→ A。新学 MyBatis 动态 SQL 5 个 KP：`<if>` 条件拼接（`test` 判空 `!= null and != ''`）、`<where>` 智能 WHERE（去第一个 AND、空不加 WHERE）、`<choose>`/`<when>`/`<otherwise>`（if-else 分支）、`#{}` vs `${}`（预编译防注入 vs 字符串拼接/SQL 注入原理）、`${}` 白名单校验（表名/列名必须白名单）。理解检查两轮：动态 SQL 为何需要通过（用户可选条件拼接场景）、`#{}` 防注入原理全对（SQL 结构固定，参数只能是值）。公司代码：发现 `ORDER BY ${column}` 历史遗留注入风险。核心打通：预编译让参数和 SQL 分离，`${}` 只用于表名/列名且必须白名单。

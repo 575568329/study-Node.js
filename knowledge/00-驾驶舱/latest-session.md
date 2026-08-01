@@ -1,5 +1,83 @@
 # 最近会话
 
+**最后更新**:2026-08-01（复习线：Node 原生 http + cluster 多进程）
+
+## 2026-08-01 会话记录（前端复习线）
+
+**主题**：Node 原生 `http` 模块 + cluster 多进程
+
+### 课前小测（6 题，跨线抽查）
+
+- 🎉 **Q1 Maven 路径映射：第 5 次终于全对**（A→G→A→H→**G**）→ D 7.2→6.4，S 延到 3 天，08-04 再确认
+- ✅ Q2 事务自调用（`self` 走代理 / `this` 走原始对象）→ 连续 2 次 G，S 延到 8 天
+- ✅ Q3 z-index "拼爹"→ 原理对，但没给最小复现结构
+- 🔴 Q4 原生 http 收 body / Q5 Node 吃满多核 → 不知道（今日新内容）
+- ⚠️ Q6 Flex 三属性 → 名字全对，**含义 + 等分原理缺失** → H，S 砍到 4 天
+
+### 学习成果
+
+**Node 原生 http**：
+- `req` 是 Readable 流，**`req.body` 不存在**（那是 `express.json()` 挂上去的）
+- 回调在请求头解析完就触发，body 还在网络上 → 必须 `req.on('data')` + `on('end')` 收
+- ⚠️ 生产 bug：别 `body += chunk`（中文 UTF-8 占 3 字节，切在 chunk 边界会乱码）→ 攒 Buffer 最后 `Buffer.concat().toString()`
+- `res` 是 Writable 流：`writeHead` 必须在 `end` 之前；漏 `end()` = 请求永久挂起
+- Express = http 外面包一层：路由 if-else / body 收集 / JSON 序列化全被封装
+- 三边同结构：原生 http 收流 ≈ Servlet `getInputStream()` ≈ Spring `@RequestBody`
+- 实战：`projects/nodejs/01-express-demo/http-test.js`
+
+**cluster 多进程**：
+- **只有主进程 listen**，worker 不 listen → 主进程收连接后 IPC 传 socket 句柄给 worker
+- cluster 劫持了 `listen`：worker 里调 `listen` 不真绑端口，只发"我准备好了"
+- ⚠️ **worker 之间不共享内存**：`let count = 0` 在 4 个 worker 里是 4 份 → Session/缓存/计数器/限流必须外置 Redis
+- 回扣 JWT：无状态所以任何 worker 都能独立验签（Session 跨服务器问题在 cluster 就出现，不用等多机）
+- 生产用 PM2：`-i max` 按核数起、`reload` 零停机滚动重启
+- 回扣异步错误处理：`uncaughtException` 后 `process.exit(1)` 就是让 PM2/cluster 看到非零码换干净进程
+- ⚠️ `worker_threads` 给 CPU 密集用（图片/加密），不是给 HTTP 并发用
+
+**对比 Java 并发哲学**：
+- Node：单线程事件循环 + 多进程 → **进程隔离换"不用写锁"**，代价是状态必须外置
+- Java：JVM 内多线程（Tomcat 默认 200）→ 内存共享用多核容易，代价是竞态/死锁/加锁
+
+### 错题本
+
+🔴 **宏任务 vs 微任务边界（新 KP，标 Again，最高优先级）**
+- 错误：`req.on('data', ...)` 答成"微任务"
+- 正确：`'data'` 是 I/O 事件，**poll 阶段宏任务**
+- **这是"await 同步性"混淆的第 4 次变体**（07-24 `await async2()` / 07-25 预测试 / 07-25 `import()` / 08-01 `'data'`）
+- 共同根因：**看到"异步"就归到微任务**
+- 钉死口诀：⚡ 微任务只有 `process.nextTick` + `Promise.then/catch/finally`，**其他全是宏任务**（事件监听器/定时器/setImmediate）
+
+⚠️ **Flex 三属性含义缺失**（名字对，含义和等分原理没答）
+- `flex: 1` = `flex-grow:1` + `flex-shrink:1` + **`flex-basis:0%`**
+- 等分关键在 `basis: 0%`：先归零初始宽度，整个容器都变"剩余空间"，再 1:1:1 分
+- 对比 `flex: auto`（`1 1 auto`）：先按内容撑开，只分多出来的空间 → **不等分**
+
+### 🤖 AI 时代视角
+
+- **AI 能做**：data/end 收集样板、cluster 样板、PM2 配置、curl 命令
+- **AI 替代不了**：
+  - 判断"这东西能不能放内存"（单机正常、多进程数据乱，AI 不会提醒）
+  - 排查中文乱码根因（**AI 生成的 `body += chunk` 恰恰是错的**）
+  - 决策进程数、`cluster`(I/O) vs `worker_threads`(CPU) 选型
+  - 协议层 bug 成因（漏 `end()` / 两次 `end()` / `writeHead` 时序）
+
+### 今日面试题沉淀（3 道）
+
+1. `express.json()` 里面做了什么？→ 监听 data/end 收流 + Buffer.concat + JSON.parse + 挂 req.body + 失败返 400
+2. Node 单线程怎么利用多核？→ cluster 起 N 进程，主进程 listen 并 IPC 分发 socket，**worker 不共享内存所以状态外置 Redis**
+3. 为什么不能 `body += chunk`？→ 中文 UTF-8 占 3 字节，切在 chunk 边界前半截解码成乱码
+
+### 遗留 / 下次计划
+
+- 🔴 **08-02 必测宏任务/微任务边界**（新 KP，Again，第 4 次变体）
+- 08-04 确认 Maven 路径映射（第 6 次，稳了就放长线）
+- 08-05 Flex 含义/等分原理复查
+- Node 复习线剩余候选：`res` 流式响应（大文件下载/SSE）、`worker_threads` CPU 密集、Express 深入
+
+---
+
+## 上次会话（存档）
+
 **最后更新**:2026-07-31（Day 17 MyBatis 动态 SQL + 安全）
 
 ## Day 17 学习记录（2026-07-31）
@@ -862,18 +940,19 @@ crowdsourced-new-api/      # API 定义
 
 ---
 
-## 复习线进度（并行，本设备）
+## 复习线进度（并行）
 
-**最后更新**：2026-07-25
+**最后更新**：2026-08-01
 
 ### 当前进度
 - JS/TS：✅ 9/9
 - Vue3：✅ 9/9
 - CSS：✅ 10/10（07-23 收官）
-- Node.js：⏳ 2/?（事件循环 ✅、模块化 ✅）
+- Node.js：⏳ 10/?（事件循环/模块化/Stream/中间件/JWT/CORS/异步错误/数据库/原生http/cluster ✅）
 - React/Next/AI：⬜
 
-### 最近会话（07-25 Node 模块化）
-- ✅ CJS vs ESM 6 个维度全部贯通
-- ⚠️ await 同步性混淆持续（第三天），"返回 Promise ≠ 代码变微任务"需继续巩固
-- 下一主题：Stream（流式处理）
+### 最近会话（08-01 原生 http + cluster）
+- ✅ 原生 http（req/res 是流、手动收 body、Express 封装了什么）
+- ✅ cluster 多进程（主进程 IPC 分发 socket、worker 不共享内存）
+- 🔴 宏任务/微任务边界成新 KP（Again）：`'data'` 事件答成微任务，"异步就是微任务"混淆第 4 次
+- 下一主题：res 流式响应 / worker_threads / Express 深入
