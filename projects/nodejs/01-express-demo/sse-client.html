@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta charset="utf-8"><title>SSE 流式对话</title></head>
+<body>
+  <div id="output" style="font-size:18px;line-height:1.8"></div>
+  <div id="stop" style="margin-top:10px;cursor:pointer;color:blue">停止</div>
+  <script>
+    const output = document.getElementById('output')
+    const es = new EventSource('http://127.0.0.1:3000/chat')
+
+    es.onmessage = (e) => {
+      if (e.data === '[DONE]') {
+        es.close()                 // ← 不写这句就无限重连
+        output.textContent += ' ✅'
+        return
+      }
+      const { content } = JSON.parse(e.data)
+      output.textContent += content
+    }
+
+    es.onerror = () => {
+      // 注意：正常 end 也会走这里（浏览器分不清），别在这里报错给用户看
+      console.log('连接断开，浏览器可能正在重连')
+    }
+
+    let stopped = false
+    document.getElementById('stop').onclick = () => {
+      if (stopped) return
+      stopped = true
+      es.close()
+      output.textContent += ' ❌'
+      document.getElementById('stop').style.color = 'gray'  // 视觉反馈
+    }
+  </script>
+</body>
+</html>
