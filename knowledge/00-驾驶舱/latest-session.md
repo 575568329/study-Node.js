@@ -1,53 +1,132 @@
 # 最近会话
 
-**最后更新**:2026-08-01（复习线：Node 原生 http + cluster 多进程）
+**最后更新**:2026-08-02（复习线：Node 事件循环深化 - setTimeout/setImmediate 确定性）
 
-## 2026-08-01 会话记录（前端复习线）
+## 2026-08-02 会话记录（前端复习线）
 
-**主题**：Node 原生 `http` 模块 + cluster 多进程
+**主题**：Node 事件循环深化 - setTimeout/setImmediate 确定性规则
 
-### 课前小测（6 题，跨线抽查）
+### 课前小测（7 题，4 个到期 + 3 个核心复查）
 
-- 🎉 **Q1 Maven 路径映射：第 5 次终于全对**（A→G→A→H→**G**）→ D 7.2→6.4，S 延到 3 天，08-04 再确认
-- ✅ Q2 事务自调用（`self` 走代理 / `this` 走原始对象）→ 连续 2 次 G，S 延到 8 天
-- ✅ Q3 z-index "拼爹"→ 原理对，但没给最小复现结构
-- 🔴 Q4 原生 http 收 body / Q5 Node 吃满多核 → 不知道（今日新内容）
-- ⚠️ Q6 Flex 三属性 → 名字全对，**含义 + 等分原理缺失** → H，S 砍到 4 天
+**宏微任务分类 ✅**：6 个任务正确分类（`nextTick`/`Promise.then` 是微，其他全宏）
+
+**事件循环排序 ❌→✅**：
+- 答案错误：`1 10 8 9 2 3 5 6 7 4`（正确：`1 10 8 9 2 7 3 5 6 4`）
+- 两个理解漏洞：
+  1. 以为 I/O 完成阻塞 setImmediate（实际：顶层 setImmediate 第一轮 check 就跑，不等 I/O）
+  2. 不知注册位置决定 setTimeout/setImmediate 顺序
+- **核心规则终于打通**：顶层注册看运气（1ms 阈值），I/O 回调里 setImmediate 必赢（poll→check 同轮）
+- A→G（D 4.8→4.5，S 延 8 天 08-10）
+
+**JWT 主动失效 ✅**：密钥轮换 + 状态管理 → Good
+
+**CORS 预检 ✅**：OPTIONS 确认连接、避免浏览器拦截响应 → Good
+
+**异步错误处理 ✅**：await 拉回同步 → Good
+
+**数据库事务 ❌**：
+- 答案只说"没回滚"（表层）
+- **核心缺失：事务绑连接**（`pool.query` 每次可能拿不同连接，事务包不住）
+- G→A（S 砍 1 天 08-03）
+
+**BFC ❌**：
+- 答对 4 点（定义/margin 合并/高度塌陷/触发方式）
+- **缺失**：与浮动元素重叠、`display:flow-root` 专用触发、Flex 是 FFC 不是 BFC
+- G→A（S 砍 1 天 08-03）
 
 ### 学习成果
 
-**Node 原生 http**：
-- `req` 是 Readable 流，**`req.body` 不存在**（那是 `express.json()` 挂上去的）
-- 回调在请求头解析完就触发，body 还在网络上 → 必须 `req.on('data')` + `on('end')` 收
-- ⚠️ 生产 bug：别 `body += chunk`（中文 UTF-8 占 3 字节，切在 chunk 边界会乱码）→ 攒 Buffer 最后 `Buffer.concat().toString()`
-- `res` 是 Writable 流：`writeHead` 必须在 `end` 之前；漏 `end()` = 请求永久挂起
-- Express = http 外面包一层：路由 if-else / body 收集 / JSON 序列化全被封装
-- 三边同结构：原生 http 收流 ≈ Servlet `getInputStream()` ≈ Spring `@RequestBody`
-- 实战：`projects/nodejs/01-express-demo/http-test.js`
+**setTimeout vs setImmediate 确定性规则**（核心打通）：
 
-**cluster 多进程**：
-- **只有主进程 listen**，worker 不 listen → 主进程收连接后 IPC 传 socket 句柄给 worker
-- cluster 劫持了 `listen`：worker 里调 `listen` 不真绑端口，只发"我准备好了"
-- ⚠️ **worker 之间不共享内存**：`let count = 0` 在 4 个 worker 里是 4 份 → Session/缓存/计数器/限流必须外置 Redis
-- 回扣 JWT：无状态所以任何 worker 都能独立验签（Session 跨服务器问题在 cluster 就出现，不用等多机）
-- 生产用 PM2：`-i max` 按核数起、`reload` 零停机滚动重启
-- 回扣异步错误处理：`uncaughtException` 后 `process.exit(1)` 就是让 PM2/cluster 看到非零码换干净进程
-- ⚠️ `worker_threads` 给 CPU 密集用（图片/加密），不是给 HTTP 并发用
+| 场景 | 顺序 | 原因 |
+|---|---|---|
+| 顶层注册 | 不固定 | 取决于事件循环启动时 setTimeout 是否已到 1ms 阈值 |
+| I/O 回调里注册 | setImmediate 必胜 | poll→check 同轮，setTimeout 要下轮 timers |
+| 顶层 timer vs I/O 回调 | timer 通常先 | I/O 要等磁盘（ms 级），timer 第一轮就进队列 |
 
-**对比 Java 并发哲学**：
-- Node：单线程事件循环 + 多进程 → **进程隔离换"不用写锁"**，代价是状态必须外置
-- Java：JVM 内多线程（Tomcat 默认 200）→ 内存共享用多核容易，代价是竞态/死锁/加锁
+**口诀**：**顶层看运气，I/O 里 setImmediate 赢，I/O 回调等磁盘**
+
+**注册位置决定论**（最关键的理解）：
+- 关键不是"有没有 I/O"，是"在哪注册的"
+- 顶层 setTimeout/setImmediate 和 I/O 回调是**两批任务**
+- I/O 回调要等磁盘完成才进队列（ms 级），顶层 timer 脚本执行完就进队列（微秒级）
+
+**验证代码**：
+```js
+const fs = require('node:fs')
+
+setTimeout(() => console.log('A'), 0)
+setImmediate(() => console.log('B'))
+
+fs.readFile(__filename, () => {
+  console.log('C')
+  setTimeout(() => console.log('D'), 0)
+  setImmediate(() => console.log('E'))
+  process.nextTick(() => console.log('F'))
+})
+
+// 输出：A/B 顺序不固定，但都在 C 前面
+// C 之后固定：F（微任务）→ E（check 阶段）→ D（下轮 timers）
+```
+
+**数据库事务绑连接**（补讲）：
+```js
+// ❌ 错误：pool.query 每次可能拿不同连接
+await pool.query('BEGIN')
+await pool.query('UPDATE ...', [1])  // 可能在连接 B
+await pool.query('COMMIT')           // 可能在连接 C
+
+// ✅ 正确：先捞连接，全程用它
+const conn = await pool.getConnection()
+try {
+  await conn.beginTransaction()
+  const [r1] = await conn.query('UPDATE ... WHERE id = ? AND balance >= 100', [1])
+  if (r1.affectedRows === 0) throw new Error('余额不足')
+  const [r2] = await conn.query('UPDATE ... WHERE id = ?', [2])
+  if (r2.affectedRows === 0) throw new Error('账户不存在')
+  await conn.commit()
+} catch (err) {
+  await conn.rollback()
+  throw err
+} finally {
+  conn.release()
+}
+```
+
+**两个要点**：
+1. **同一个 conn 贯穿 begin/query/commit/rollback**
+2. **查不到要自己抛**（`affectedRows === 0` 不报错，得检查）
+
+**BFC 完整触发条件**（补讲）：
+- 标准 BFC：`overflow` 非 visible / `float` 非 none / `position: absolute/fixed` / `display: inline-block/table-cell/flow-root`
+- **`display: flow-root`** 是专门为"只要 BFC 不要副作用"设计的
+- `display: flex` 严格说创建的是 **FFC**（flex formatting context），不是 BFC
 
 ### 错题本
 
-🔴 **宏任务 vs 微任务边界（新 KP，标 Again，最高优先级）**
-- 错误：`req.on('data', ...)` 答成"微任务"
-- 正确：`'data'` 是 I/O 事件，**poll 阶段宏任务**
-- **这是"await 同步性"混淆的第 4 次变体**（07-24 `await async2()` / 07-25 预测试 / 07-25 `import()` / 08-01 `'data'`）
-- 共同根因：**看到"异步"就归到微任务**
-- 钉死口诀：⚡ 微任务只有 `process.nextTick` + `Promise.then/catch/finally`，**其他全是宏任务**（事件监听器/定时器/setImmediate）
+🔴 **事件循环排序理解漏洞**（已攻克）：
+- 误以为 I/O 存在会改变 setTimeout/setImmediate 顺序
+- 正确：**注册位置决定论** > I/O 存在论
+- 顶层注册的 timer 和 I/O 回调是两批任务，不互相等待
 
-⚠️ **Flex 三属性含义缺失**（名字对，含义和等分原理没答）
+🔴 **数据库事务绑连接**（08-03 复查）：
+- 反复只答到"没回滚"，漏掉核心：`pool.query` 每次可能不同连接
+- Spring `@Transactional` 把连接绑 ThreadLocal，所以看起来"不用管连接"
+- Node 没这层魔法，得手动 `getConnection()` 贯穿始终
+
+🔴 **BFC 触发条件不完整**（08-03 复查）：
+- 忘记 `display: flow-root` 专用方案
+- 混淆 BFC 和 FFC（Flex 不是 BFC）
+
+### 复习线进度
+
+**Node.js**：⏳ 11/？（事件循环 ✅、模块化 ✅、Stream ✅、中间件 ✅、JWT ✅、CORS ✅、异步错误 ✅、数据库 ✅、原生 http ✅、cluster ✅、**事件循环深化 ✅**）
+**下一主题**：SSE 流式响应 / worker_threads / Express 深入
+
+### 明日复查（08-03）
+
+- 🔴 数据库事务绑连接（S=1）
+- 🔴 BFC 触发条件（S=1，重点 `flow-root`）
 - `flex: 1` = `flex-grow:1` + `flex-shrink:1` + **`flex-basis:0%`**
 - 等分关键在 `basis: 0%`：先归零初始宽度，整个容器都变"剩余空间"，再 1:1:1 分
 - 对比 `flex: auto`（`1 1 auto`）：先按内容撑开，只分多出来的空间 → **不等分**

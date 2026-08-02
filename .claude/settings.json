@@ -12,7 +12,8 @@
       "Skill(deep-research)",
       "Skill(deep-research:*)",
       "mcp__tavily__tavily_extract",
-      "mcp__tavily__tavily_search"
+      "mcp__tavily__tavily_search",
+      "Bash(git stash *)"
     ],
     "additionalDirectories": [
       "c:\\Users\\about\\OneDrive\\桌面\\study\\study-Node.js\\sessions",
