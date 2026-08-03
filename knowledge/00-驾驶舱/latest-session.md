@@ -328,3 +328,49 @@ Node.js 已完成 **13 个主题**（新增 WebSocket）。下一候选：worker
 
 ### 前端复习线进度（更新）
 Node.js 已完成 **14 个主题**（新增 Express 深入）。下一候选：worker_threads
+
+---
+
+## 2026-08-03 会话记录（续）：worker_threads
+
+### 主线学习：worker_threads ✅
+
+**单线程瓶颈**：
+- CPU 密集计算（递归/加密/图像处理）霸占事件循环 → 所有请求被阻塞
+- Node.js 单线程，不像 Java 可以多线程处理
+
+**cluster vs worker_threads**：
+- cluster = 多进程（独立内存、安全但重、充分利用多核跑完整服务）
+- worker_threads = 多线程（共享内存、轻量但危险、适合单个 CPU 密集任务）
+- 选型：并发扩展用 cluster/PM2，接口内 CPU 计算用 worker_threads
+
+**Worker 生命周期**：
+- 主线程 `new Worker(文件路径, { workerData })` 启动子线程
+- Worker 里 `parentPort.postMessage(结果)` 发回主线程
+- 主线程 `worker.on('message', callback)` 接收结果
+- 用完 `worker.terminate()` 释放资源
+
+**Worker 线程池（回扣数据库连接池）**：
+- 每个请求 new Worker → 100 请求 100 线程抢 N 核 → 上下文切换开销 > 计算收益
+- 预建固定数量 Worker（匹配 CPU 核心数），借出→计算→归还，和数据库连接池同模式
+
+**SharedArrayBuffer（零拷贝共享内存）**：
+- `parentPort.postMessage()` 默认也是序列化拷贝（和 cluster 一样慢）
+- `SharedArrayBuffer` 是 worker_threads 独门绝技：真正共享同一块内存，零拷贝
+- cluster 做不到（进程内存隔离）
+
+**理解验证**：
+- Q1 100 个 Worker 问题：⚠️ 方向对但说成"进程"应说"线程"，漏线程池概念
+- Q2 数据拷贝：✅ 大方向对（共用数据 vs 独立内存），漏 SharedArrayBuffer 细节
+
+**🤖 AI 时代视角**：
+- AI 能做：生成 Worker 线程池模板、写计算任务 Worker
+- 人类不可替代：判断"该不该用 Worker"（CPU 密集 vs I/O 阻塞）、池大小决策、SharedArrayBuffer 数据竞争
+
+### 面试题沉淀（worker_threads 3 道）
+1. Node.js 为什么需要 worker_threads？→ 单线程 CPU 密集任务阻塞事件循环，Worker 独立线程计算
+2. cluster vs worker_threads？→ 多进程(安全重/多核扩展) vs 多线程(轻量危险/CPU密集任务)
+3. 每个请求 new Worker 有什么问题？→ 线程数远超CPU核心→上下文切换反慢，需Worker池(同DB连接池)
+
+### 前端复习线进度（最终更新）
+Node.js 已完成 **15 个主题**（新增 worker_threads）
