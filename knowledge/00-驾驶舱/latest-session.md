@@ -242,3 +242,49 @@ document.getElementById('stop').onclick = () => {
 - worker_threads（CPU 密集计算）
 - Express 深入（中间件源码/错误处理机制）
 - WebSocket（双向通信对比）
+
+---
+
+## 2026-08-03 会话记录（第二台设备）
+
+**主题**：前端复习线 - WebSocket（双向实时通信）
+
+### 课前小测（另一台设备已完成，跳过）
+
+### 主线学习：WebSocket ✅
+
+**协议机制**：
+- 独立协议（ws:// / wss://），通过 HTTP Upgrade 握手后脱离 HTTP
+- 全双工：客户端和服务端随时互发消息
+- 同端口复用 80/443，穿过代理和防火墙（运维友好）
+
+**WebSocket vs SSE 对比**：
+- SSE = 单向（服务端→客户端）+ EventSource 自动重连 + 纯文本
+- WebSocket = 双向 + 手动重连（指数退避+熔断）+ 文本+二进制
+- 选型看"客户端需不需要主动推数据"：AI 流式→SSE，聊天/协同→WebSocket
+
+**生产三大坑**：
+1. broadcast 无 try-catch → 单个 send 异常中断整个循环（已修复）
+2. 无自动重连 → 需 onclose 里 setTimeout + 指数退避 + 最大重试（已实现）
+3. Nginx 60 秒超时断空闲连接 → proxy_read_timeout 延长 + 心跳保活
+
+**实战代码**：`code-examples/nodejs/ws-chat.js` + `ws-client.html`
+- 服务端：broadcast try-catch + Set 管理连接
+- 客户端：自动重连（指数退避 3s→6s→9s→12s→15s，最多 5 次）+ 手动断开/重连按钮
+
+**理解验证（3 题）**：
+- Q1 自动重连熔断：✅ 正确（指数退避+最大重试，比 SSE 无脑重连更生产级）
+- Q2 readyState 检查：✅ 正确（防御性编程+try-catch 双保险）
+- Q3 Nginx 缓冲：✅ 正确（握手后走 ws 协议不走 HTTP，不存在 SSE 的 buffer 问题，但有 60s 超时坑）
+
+**🤖 AI 时代视角**：
+- AI 能做：生成 WebSocket 样板代码、broadcast/reconnect 逻辑
+- 人类不可替代：技术选型判断（SSE vs WebSocket 成本收益）、生产坑排查（Nginx 超时/broadcast 异常/内存泄漏）、心跳重连策略设计（架构决策）
+
+### 面试题沉淀（WebSocket 3 道）
+1. WebSocket vs SSE 怎么选？→ 单向推送用 SSE（简单自动重连），双向实时用 WebSocket
+2. WebSocket 需手动实现什么？→ 自动重连（指数退避+熔断）、心跳保活、离线消息队列
+3. WebSocket 和 HTTP 关系？→ 独立协议，HTTP Upgrade 握手建立，握手后脱离 HTTP 变全双工
+
+### 前端复习线进度
+Node.js 已完成 **13 个主题**（新增 WebSocket）。下一候选：worker_threads / Express 深入 / 进程与集群（已有 cluster 基础）

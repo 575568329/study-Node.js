@@ -1,0 +1,76 @@
+<!-- ws-client.html -->
+<!DOCTYPE html>
+<html>
+<head><title>WebSocket 聊天室</title></head>
+<body>
+  <h2>WebSocket 聊天室</h2>
+  <input id="msg" placeholder="输入消息" />
+  <button onclick="send()">发送</button>
+  <button onclick="disconnect()" style="margin-left:10px">断开</button>
+  <button onclick="manualReconnect()" style="margin-left:10px">手动重连</button>
+  <div id="output" style="margin-top:20px;border:1px solid #ccc;padding:10px;height:300px;overflow-y:auto"></div>
+
+  <script>
+    const output = document.getElementById('output');
+    let ws = null;
+    let reconnectCount = 0;
+
+    // ✅ 改进 2：自动重连（onclose 里 setTimeout 重连）
+    function connect() {
+      ws = new WebSocket('ws://127.0.0.1:8080');
+
+      ws.onopen = () => {
+        reconnectCount = 0;
+        output.innerHTML += '<p>✅ 已连接</p>';
+      };
+
+      ws.onmessage = (e) => {
+        const { type, message } = JSON.parse(e.data);
+        const color = type === 'system' ? 'gray' : 'black';
+        output.innerHTML += `<p style="color:${color}">${message}</p>`;
+        output.scrollTop = output.scrollHeight;
+      };
+
+      ws.onclose = () => {
+        output.innerHTML += '<p style="color:red">❌ 连接关闭</p>';
+        // 3 秒后自动重连（指数退避，最多重试 5 次）
+        if (reconnectCount < 5) {
+          reconnectCount++;
+          const delay = Math.min(3000 * reconnectCount, 15000);
+          output.innerHTML += `<p style="color:orange">🔄 ${delay / 1000}秒后第 ${reconnectCount} 次重连...</p>`;
+          setTimeout(connect, delay);
+        } else {
+          output.innerHTML += '<p style="color:red">⛔ 重连失败次数过多，请手动重连</p>';
+        }
+      };
+
+      ws.onerror = () => {
+        output.innerHTML += '<p style="color:red">❌ 连接错误</p>';
+      };
+    }
+
+    function send() {
+      const input = document.getElementById('msg');
+      if (ws && ws.readyState === WebSocket.OPEN) {
+        ws.send(input.value);
+        input.value = '';
+      } else {
+        output.innerHTML += '<p style="color:red">未连接</p>';
+      }
+    }
+
+    function disconnect() {
+      if (ws) ws.close();
+    }
+
+    function manualReconnect() {
+      reconnectCount = 0;
+      connect();
+      output.innerHTML += '<p>🔄 手动重连中...</p>';
+    }
+
+    // 启动
+    connect();
+  </script>
+</body>
+</html>
