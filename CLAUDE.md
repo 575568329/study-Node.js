@@ -99,8 +99,8 @@ Vite + React 19 + TypeScript + Tailwind v4 的纯前端单页。核心是**数�
 - 目标：真全栈能力（前端经验 + Java 后端）
 
 **三条学习线并行**（总入口 `knowledge/00-驾驶舱/`）：
-- ☕ **Java 全栈线**（主线）— Spring Boot / Dubbo / MySQL，公司代码为教材
-- 🔄 **前端复习线** — 费曼学习法，产出面试讲稿（独立于 Java 线，JS/TS 9/9、Vue3 9/9 已收官，下一个 CSS）
+- ☕ **Java 全栈线**（主线）— Spring Boot / Dubbo / MySQL，公司代码为教材（Day 18，阶段三 MyBatis）
+- 🔄 **前端复习线** — 费曼学习法，产出面试讲稿（JS/TS 9/9、Vue3 9/9、CSS 10/10 已收官，Node.js 15/? 进行中）
 - 🤖 **CCode 线** — 自建 AI Agent 工具（源码在外部 `D:\Study\CCode`）
 
 > 注意：前端复习线和 CCode 线是**活跃**的求职/学习资产，不是 Node.js 路线遗留。
@@ -115,7 +115,7 @@ Vite + React 19 + TypeScript + Tailwind v4 的纯前端单页。核心是**数�
 
 > Java 线为主，复习线 / ccode 线并行。
 
-- **当前阶段**: Java 全栈学习 - 阶段一：Java 基础（第 1 周）
+- **当前阶段**: Java 全栈学习 - 阶段三：数据库与 MyBatis（Day 18 已完成）
 - **三线总入口**: `knowledge/00-驾驶舱/`（`java线.md` / `复习线.md` / `ccode线.md`）
 - **主控文档**: `docs/00-工作入口.md`
 - **学习路径**: `knowledge/00-驾驶舱/Java学习路径-稳扎稳打版.md`
@@ -304,7 +304,9 @@ LICENSE                     # MIT
 
 ---
 
-**最后更新**: 2026-07-21
+**最后更新**: 2026-08-03
+**当前主线**: Java 全栈学习 - 阶段三 数据库与 MyBatis（Day 18）
+**并行线**: 前端复习线 Node.js 15/? / CCode 线
 **当前主线**: Java 全栈学习 - 阶段一 Java 基础（Week 1）
 **并行线**: 前端复习线（下一个 CSS）/ CCode 线
 **GitHub仓库**: https://github.com/575568329/study-Node.js.git
