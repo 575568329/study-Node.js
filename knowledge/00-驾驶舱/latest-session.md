@@ -1,7 +1,69 @@
 # 最近一次学习记录
 
-**日期**: 2026-08-02 下午
-**主题**: SSE (Server-Sent Events) 流式响应
+**最后更新**:2026-08-03（Day 18 MyBatis 缓存机制）
+
+## Day 18 学习记录（2026-08-03）
+
+**主题**：MyBatis 缓存机制（一级缓存 + 二级缓存 + 适用场景判断）
+
+### 课前小测（pre-session-review）
+
+5 题：**1 个重要翻盘 + 1 个需关注**
+- Q1 事务绑连接：❌ 方向对但归因错（说"线程不同"→ 应该是"连接不同"，事务绑连接不是绑线程，是绑同一个 Connection）→ A
+- Q2 BFC 触发条件：✅ **翻盘**（position/overflow:hidden/float）→ A→G
+- Q3 @Transactional 回滚规则：✅ 结论对（`rollbackFor=Exception.class` 回滚了 IOException）→ G→H（因果表述含糊）
+- Q4 #{} vs ${}：✅ 正确（ORDER BY 列名用 `${}`）→ G
+- Q5 MyBatis 缓存：不知道（正常，预测试）→ 今日新内容
+
+### 学习成果
+
+**一级缓存（SqlSession 级别）**：
+- 默认开启，关不掉
+- 同一个 SqlSession 内相同查询 → 命中缓存不发 SQL
+- **缓存 Key = Statement ID + 参数值**（两个维度，缺一不可）
+- 清空 4 种场景：SqlSession 关闭 / INSERT/UPDATE/DELETE / 手动 clearCache
+- SqlSession 不是进程，是"数据库操作上下文"，包裹连接 + 一级缓存，用完 close()
+
+**二级缓存（Mapper 级别）**：
+- **默认关闭**（一级默认开、二级默认关——重要区别）
+- 跨 SqlSession 共享缓存
+- 查询路径：一级缓存 → 二级缓存 → 数据库
+- 3 项配置：全局 `cacheEnabled=true` + Mapper 加 `<cache/>` + 实体类 `implements Serializable`
+- 增删改时清空**整个 Mapper 的二级缓存（不是只清自己的）
+
+**缓存适用场景**：
+- ✅ 字典表、配置表（查多改少，非常适合）
+- ❌ 订单、库存（频繁改动 → 缓存命中率极低 + 一致性问题）
+- 公司项目几乎不用 `<cache/>`（业务数据频繁变更）
+
+**SqlSession / Mapper / Spring 的关系**：
+- SqlSession = 数据库连接 + 一级缓存的包装对象（MyBatis 自动管）
+- Mapper = 你写的接口（UserMapper.java），通过动态代理生成实现
+- Spring 环境下不用手写 SqlSession / getMapper → `@Autowired` 自动注入
+
+### 错题本
+
+**错题 1：事务绑连接（归因错误）🔴**
+- 错误原文："因为他们没有用同一个线程"
+- 正确：**事务绑的是 Connection（连接），不是线程**。两个连接 = 两个独立事务，conn1 commit 了就回不了
+- Node 对比：`conn1.query()` 和 `conn2.query()` 各自独立，conn1 提交不影响 conn2
+- 归类：概念混淆（线程 vs 连接，昨天 A 的延续，根因是"await 同步性混淆"的第 5 次变体）
+
+### 今日面试题沉淀（2 道）
+
+1. MyBatis 两级缓存区别？→ 一级：SqlSession 级（默认开、同 session 内），二级：Mapper 级（默认关、跨 session 共享）。查询路径：一级→二级→DB。增删改清空。
+2. 为什么公司项目不用二级缓存？→ 业务数据频繁变更，缓存命中率低 + 一致性难保证。字典表/配置表适合。
+
+### 遗留问题 / 下次计划
+
+- MyBatis 下一步：`<set>` 标签（动态 UPDATE）、与 Spring 事务协调
+- 🔴 事务绑连接 Again 第 2 次（08-04 测，记住：绑的是 Connection 不是线程）
+
+---
+
+## 上次会话（存档）
+
+**2026-08-02（Node.js 复习：SSE 流式响应）**
 
 ---
 
