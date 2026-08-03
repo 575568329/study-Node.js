@@ -288,3 +288,43 @@ document.getElementById('stop').onclick = () => {
 
 ### 前端复习线进度
 Node.js 已完成 **13 个主题**（新增 WebSocket）。下一候选：worker_threads / Express 深入 / 进程与集群（已有 cluster 基础）
+
+---
+
+## 2026-08-03 会话记录（续）：Express 深入
+
+### 主线学习：Express 深入 ✅
+
+**核心本质**：
+- Express = 中间件数组 + 逐个调用的循环（next() 驱动）
+- req/res 是原生 http 增强版（Express 挂了 json/send/params/query/body 等便捷方法）
+- next 是 Express 独有的"接力棒"，调用=传递控制权给数组下一个 handler
+- 路由 = 带方法+路径匹配条件的中间件（本质同 use，多了匹配逻辑）
+
+**洋葱模型真面目**：
+- next() 把控制权交给下一层，下一层结束后回到上一层继续执行
+- 铁律：next() 和 res.send() 只能选一个（调了 next 别 res.send，res.send 后别 next）
+- res.send 后还调 next → 后续中间件再次 res.send → "Cannot set headers after sent" 报错
+
+**错误处理机制**：
+- next(err) 传入错误 → Express 跳过所有普通中间件，直奔 4 参数错误处理中间件
+- 靠 handler.length（参数个数）区分：3 个 = 普通，4 个 = 错误处理
+- 即使 err 是 null，4 参数函数仍被当成错误处理中间件（看签名不看值）
+- async 错误需 asyncHandler 包装（回扣 07-30 异步错误处理）
+
+**理解验证**：
+- Q1 洋葱执行顺序 A→B→A-after：✅ 正确
+- Q2 不调 next 截断链：✅ 正确
+- Q3 错误处理中间件识别机制：⚠️ 方向对但没答到"靠参数个数区分"
+
+**🤖 AI 时代视角**：
+- AI 能做：生成 Express 路由/中间件样板、写 asyncHandler 包装器
+- 人类不可替代：中间件执行顺序调试（next/res.send 链路分析）、错误处理中间件识别机制（参数个数 vs 错误值）、Express 源码级理解（面试从"会用"到"懂原理"的差距）
+
+### 面试题沉淀（Express 深入 3 道）
+1. Express 中间件原理？→ 中间件数组+next()循环驱动，路由=带匹配条件的中间件
+2. next() 和 res.send() 能同时用吗？→ 不能，只能选一个，否则重复响应报错
+3. Express 错误处理中间件怎么识别？→ 靠函数参数个数（4个=错误处理，3个=普通），不看 err 值
+
+### 前端复习线进度（更新）
+Node.js 已完成 **14 个主题**（新增 Express 深入）。下一候选：worker_threads
