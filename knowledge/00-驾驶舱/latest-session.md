@@ -1,376 +1,141 @@
 # 最近一次学习记录
 
-**最后更新**:2026-08-03（Day 18 MyBatis 缓存机制）
+**最后更新**:2026-08-04（Day 19 MyBatis 动态 UPDATE + 关联查询）
 
-## Day 18 学习记录（2026-08-03）
+## Day 19 学习记录（2026-08-04）
 
-**主题**：MyBatis 缓存机制（一级缓存 + 二级缓存 + 适用场景判断）
+**主题**：MyBatis `<set>` 标签（动态 UPDATE）+ ResultMap 关联查询（一对一/一对多）
 
 ### 课前小测（pre-session-review）
 
-5 题：**1 个重要翻盘 + 1 个需关注**
-- Q1 事务绑连接：❌ 方向对但归因错（说"线程不同"→ 应该是"连接不同"，事务绑连接不是绑线程，是绑同一个 Connection）→ A
-- Q2 BFC 触发条件：✅ **翻盘**（position/overflow:hidden/float）→ A→G
-- Q3 @Transactional 回滚规则：✅ 结论对（`rollbackFor=Exception.class` 回滚了 IOException）→ G→H（因果表述含糊）
-- Q4 #{} vs ${}：✅ 正确（ORDER BY 列名用 `${}`）→ G
-- Q5 MyBatis 缓存：不知道（正常，预测试）→ 今日新内容
+8 题：**通过率 1/8**，3 个 Again + 3 个 Hard + 1 个 Again 第 2 次
+- Q1 Promise 手写：⚠️ Hard（核心对，then 返回值"永远返回新 Promise"没说清）→ H
+- Q2 Flex flex:1：❌ Again（三属性名对，但 `flex-basis: 0%` 等分原理没打通）→ A
+- Q3 1px 边框：✅ Good（DPR 原理全对，伪类+scale 方案正确）→ G
+- Q4 Node 原生 http：❌ Again（req/res 方向搞反，流式读取原理错）→ A
+- Q5 cluster 多进程：❌ Again（答偏到线程池，端口共享机制没答）→ A
+- Q6 MyBatis `<if>`：⚠️ Hard（语法对，原因说偏"浪费资源"，应说"防空字符串污染查询条件"）→ H
+- Q7 MyBatis `<where>`：⚠️ Hard（方向对，没说清去第一个 AND 的核心 + WHERE 1=1 缺点）→ H
+- Q8 事务绑连接：❌ **Again 第 2 次**（核心原理对"不是同一个→回滚找不到"，但术语说"线程"应该说"连接"）→ A
 
 ### 学习成果
 
-**一级缓存（SqlSession 级别）**：
-- 默认开启，关不掉
-- 同一个 SqlSession 内相同查询 → 命中缓存不发 SQL
-- **缓存 Key = Statement ID + 参数值**（两个维度，缺一不可）
-- 清空 4 种场景：SqlSession 关闭 / INSERT/UPDATE/DELETE / 手动 clearCache
-- SqlSession 不是进程，是"数据库操作上下文"，包裹连接 + 一级缓存，用完 close()
+**`<set>` 标签（动态 UPDATE）**：
+- 2 个智能行为：自动去掉最后一个逗号 / 条件全空时不加 SET（但会报错，需业务层校验）
+- 与 `<where>` 对称：`<where>` 去第一个 AND/OR，`<set>` 去最后一个逗号
+- 使用场景判断：有可选字段用 `<set>`，全是必填/固定直接 SET（不过度设计）
+- 对比 `<where>` 全空时不加 WHERE（优雅），`<set>` 全空时不加 SET 会报错（需业务校验）
 
-**二级缓存（Mapper 级别）**：
-- **默认关闭**（一级默认开、二级默认关——重要区别）
-- 跨 SqlSession 共享缓存
-- 查询路径：一级缓存 → 二级缓存 → 数据库
-- 3 项配置：全局 `cacheEnabled=true` + Mapper 加 `<cache/>` + 实体类 `implements Serializable`
-- 增删改时清空**整个 Mapper 的二级缓存（不是只清自己的）
+**OGNL 假值陷阱（⚠️ 高频坑）**：
+- `test="status != null"` 传 `status=0` (int) → false（OGNL 把 0/false/"" 当假值）
+- 解决：用包装类 Integer/Boolean（对象的 `!= null` 判引用不是值）
+- 判空铁律：String 判 `!= null and != ''`，Integer/Boolean 只判 `!= null`
+- 数字/布尔字段用包装类是铁律
 
-**缓存适用场景**：
-- ✅ 字典表、配置表（查多改少，非常适合）
-- ❌ 订单、库存（频繁改动 → 缓存命中率极低 + 一致性问题）
-- 公司项目几乎不用 `<cache/>`（业务数据频繁变更）
-
-**SqlSession / Mapper / Spring 的关系**：
-- SqlSession = 数据库连接 + 一级缓存的包装对象（MyBatis 自动管）
-- Mapper = 你写的接口（UserMapper.java），通过动态代理生成实现
-- Spring 环境下不用手写 SqlSession / getMapper → `@Autowired` 自动注入
+**ResultMap 关联查询**：
+- 两种方式：嵌套查询（Nested Select，简单但有 N+1）vs 嵌套结果（Nested Results，复杂但推荐）
+- N+1 问题的 N = **父记录数**（不是子记录数），10 个用户 = 11 条 SQL
+- JOIN 笛卡尔积：结果行数 = 父记录数 × 每条父记录的子记录数（10 用户 × 5 订单 = 50 行）
+- LEFT JOIN 保留无子记录的父记录（填 NULL），INNER JOIN 过滤掉
+- `<collection>` = 一对多（User → List\<Order\>），`<association>` = 一对一（Order → User）
+- MyBatis 根据 `<id>` 标签分组，相同 id 的行合并成一个对象
 
 ### 错题本
 
-**错题 1：事务绑连接（归因错误）🔴**
-- 错误原文："因为他们没有用同一个线程"
-- 正确：**事务绑的是 Connection（连接），不是线程**。两个连接 = 两个独立事务，conn1 commit 了就回不了
-- Node 对比：`conn1.query()` 和 `conn2.query()` 各自独立，conn1 提交不影响 conn2
-- 归类：概念混淆（线程 vs 连接，昨天 A 的延续，根因是"await 同步性混淆"的第 5 次变体）
+**错题 1：Flex flex:1 等分原理 🔴**
+- 错误原文："基准领零严格等分"
+- 正确：**`flex-basis: 0%` 让所有空间变成剩余空间，`flex-grow: 1` 按比例等分剩余空间**
+- 对比 `flex: auto`（flex-basis: auto → 保留内容宽度 → 不等分）
 
-### 今日面试题沉淀（2 道）
+**错题 2：Node 原生 http req/res 🔴**
+- 错误原文："一个是用户返回的数据一个是请求头数据"
+- 正确：**req = 请求（客户端→服务端，可读流），res = 响应（服务端→客户端，可写流）**
+- req.body 不存在的原因：req 是流，数据分块到达，需 `req.on('data')` 手动拼接
 
-1. MyBatis 两级缓存区别？→ 一级：SqlSession 级（默认开、同 session 内），二级：Mapper 级（默认关、跨 session 共享）。查询路径：一级→二级→DB。增删改清空。
-2. 为什么公司项目不用二级缓存？→ 业务数据频繁变更，缓存命中率低 + 一致性难保证。字典表/配置表适合。
+**错题 3：cluster 端口共享 🔴**
+- 错误原文：描述了线程池的任务调度逻辑
+- 正确：**主进程真监听端口，worker 假监听（内部拦截），主进程接收 socket 轮询分发给 worker**
+- Round-Robin（默认，Linux）vs OS 调度（Windows）
+
+**错题 4：事务绑连接 第 2 次 🔴🔴**
+- 错误原文："获取的线程不是同一个线程"
+- 正确：**事务绑的是 Connection（连接），不是 Thread（线程）**
+- 08-02 同一个错误，08-04 仍然说"线程"→ 高频术语混淆
+
+**错题 5：OGNL 假值陷阱（理解检查 2）🔴**
+- 错误原文："没啥问题"
+- 正确：`status=0` 在 OGNL `test` 里被当 false，条件不通过，不更新
+- 解决：用 Integer 包装类，或只判 `!= null`
+
+**错题 6：N+1 的 N 理解（理解检查 3）🔴**
+- 错误原文：N+1 = 55 条（10 用户 × 5 订单）
+- 正确：**N = 父记录数（10），N+1 = 11 条 SQL（1 主查 + 10 子查）**
+- JOIN 笛卡尔积行数 = 10 × 5 = 50 行（不是 10 行）
+
+### 今日面试题沉淀（4 道）
+
+1. MyBatis `<set>` 标签作用？→ 动态 UPDATE，自动去最后一个逗号，与 `<where>` 去第一个 AND 对称
+2. MyBatis `<if test="status != null">` 传 `status=0` 有什么坑？→ OGNL 把 0 当假值，用包装类 Integer
+3. MyBatis N+1 问题？→ 嵌套查询查 N 个父记录发 N+1 条 SQL（1 主查 + N 子查），用嵌套结果 JOIN 一次查解决
+4. LEFT JOIN vs INNER JOIN？→ LEFT 保留左表全记录（无匹配填 NULL），INNER 只保留两边都有匹配的
 
 ### 遗留问题 / 下次计划
 
-- MyBatis 下一步：`<set>` 标签（动态 UPDATE）、与 Spring 事务协调
-- 🔴 事务绑连接 Again 第 2 次（08-04 测，记住：绑的是 Connection 不是线程）
+- MyBatis 与 Spring 事务协调（SqlSession 如何参与 @Transactional）
+- 🔴 Flex 等分原理 08-05 复查
+- 🔴 Node http / cluster / 事务绑连接 08-05 复查
+- 🔴 OGNL 假值陷阱 / ResultMap 08-05 复查
 
 ---
 
 ## 上次会话（存档）
 
-**2026-08-02（Node.js 复习：SSE 流式响应）**
+**2026-08-03（Day 18 MyBatis 缓存机制）**
 
 ---
 
 ## 学习内容
 
-### SSE 协议格式
+### 一级缓存（SqlSession 级别）
+- 默认开启，关不掉
+- 同一个 SqlSession 内相同查询 → 命中缓存不发 SQL
+- 缓存 Key = Statement ID + 参数值
+- 清空 4 种场景：SqlSession 关闭 / INSERT/UPDATE/DELETE / 手动 clearCache
 
-**服务端三响应头**：
-- `Content-Type: text/event-stream`
-- `Cache-Control: no-cache`
-- `Connection: keep-alive`
+### 二级缓存（Mapper 级别）
+- 默认关闭
+- 跨 SqlSession 共享缓存
+- 查询路径：一级缓存 → 二级缓存 → 数据库
+- 3 项配置：全局 cacheEnabled=true + Mapper 加 <cache/> + 实体类 implements Serializable
 
-**消息格式**：
-- `data: xxx\n\n`（双换行 `\n\n` 是消息终止符）
-- 单个 `\n` 只分隔多行消息内的字段
+### 缓存适用场景
+- ✅ 字典表、配置表（查多改少）
+- ❌ 订单、库存（频繁改动）
+- 公司项目几乎不用 <cache/>
 
-**客户端 API**：
-- `EventSource` 自动处理重连
-
-### 流式响应本质
-
-- `res.write()` 边缘触发，立即发送，不等 `res.end()`
-- 区别于 `await res.json()` 全量缓冲后解析
-- AI 应用流式输出的技术基础
-
-### EventSource 生命周期
-
-1. **服务端断开**（`res.end()` / 网络故障）：
-   - 触发客户端 `onerror`
-   - 自动重连（默认 3 秒）
-   
-2. **客户端主动关闭**（`es.close()`）：
-   - 设置 `readyState = CLOSED`
-   - **不触发 `onerror`**
-   - **阻止重连**
-
-3. **约定**：服务端发 `[DONE]` 标记 → 客户端收到后调 `close()` 优雅关闭
-
-### 技术选型洞察
-
-**SSE vs WebSocket**：
-- SSE：单向低成本（无协议升级、自动重连、标准 HTTP）
-- WebSocket：双向高成本（协议升级、心跳维护）
-- AI 对话场景：客户端不回推数据 → WebSocket 是过度设计
-
-### 生产三大坑
-
-1. **Nginx 缓冲**
-   - 默认攒够 4KB 才转发
-   - 几十字节的消息会卡十几秒
-   - 解决：`proxy_buffering off` 或后端 `X-Accel-Buffering: no`
-
-2. **连接泄漏**
-   - 客户端断开，服务端 timer 继续运行
-   - 解决：`req.on('close')` 监听断开，`clearInterval(timer)` 清理
-
-3. **CORS**
-   - `file://` 协议打开 HTML，origin 是 `null`
-   - 解决：`Access-Control-Allow-Origin: *`
-
-### 排查顺序（面试亮点）
-
-1. **第一步**：抓包/DevTools Network 对比服务器发送时间戳 vs 浏览器接收时间戳
-2. **第二步**：检查 Nginx/网关配置 `proxy_buffering` / `X-Accel-Buffering`
-3. **第三步**：代码层（`res.write()` 时机、`\n\n` 终止符）
+### SqlSession / Mapper / Spring 的关系
+- SqlSession = 数据库连接 + 一级缓存的包装对象
+- Mapper = 你写的接口（UserMapper.java），通过动态代理生成实现
+- Spring 环境下不用手写 SqlSession / getMapper → @Autowired 自动注入
 
 ---
 
-## 实战代码
+## 上次会话（存档）
 
-**文件**：
-- `projects/nodejs/01-express-demo/sse-chat.js`（服务端）
-- `projects/nodejs/01-express-demo/sse-client.html`（客户端）
+**2026-08-03（前端复习线）**
 
-**服务端关键实现**：
-```javascript
-res.writeHead(200, {
-  'Content-Type': 'text/event-stream',
-  'Cache-Control': 'no-cache',
-  'Connection': 'keep-alive',
-  'X-Accel-Buffering': 'no',          // 防 Nginx 缓冲
-  'Access-Control-Allow-Origin': '*'  // 防 CORS
-})
-res.flushHeaders()  // 立即发送响应头
+### WebSocket（13/?）
+- 独立协议（ws:// / wss://），HTTP Upgrade 握手后脱离 HTTP
+- 全双工，同端口复用 80/443
+- vs SSE：双向+手动重连 vs 单向+自动重连
+- 生产三坑：broadcast 无 try-catch / 无自动重连 / Nginx 60s 超时
 
-const timer = setInterval(() => {
-  res.write(`data: ${JSON.stringify({ content: char })}\n\n`)
-}, 80)
+### Express 深入（14/?）
+- Express = 中间件数组 + next() 循环驱动
+- next() 和 res.send() 只能选一个
+- 错误处理中间件靠参数个数（4 个）区分
 
-req.on('close', () => clearInterval(timer))  // 防连接泄漏
-```
-
-**客户端停止按钮**：
-```javascript
-const es = new EventSource('http://127.0.0.1:3000/chat')
-
-es.onmessage = (e) => {
-  if (e.data === '[DONE]') {
-    es.close()
-    output.textContent += ' ✅'
-    return
-  }
-  const { content } = JSON.parse(e.data)
-  output.textContent += content
-}
-
-document.getElementById('stop').onclick = () => {
-  es.close()
-  output.textContent += ' ❌'
-}
-```
-
-**验证结果**：
-- ✅ 逐字流式输出正常
-- ✅ 服务端完成时显示 ✅
-- ✅ 点击停止按钮显示 ❌，无重连
-- ✅ 服务端 `req.on('close')` 正确清理 timer
-
----
-
-## 理解盲区修正
-
-### 1. 误认为 `res.write()` 会等流执行完再返回
-- ❌ 错误理解：以为要等所有 `write()` 执行完才发送
-- ✅ 纠正：流是边缘触发，每次 `write()` 立即发送（这是 `await res.json()` 的行为，不是流）
-
-### 2. 反向理解 `req.on('close')` 方向
-- ❌ 错误表述："客户端会监听 close 事件"
-- ✅ 纠正：服务端的 `req` 对象监听客户端断开事件（方向：客户端发起 → 服务端检测）
-
-### 3. 误以为 `es.close()` 会触发 `onerror`
-- ❌ 错误理解：以为所有断开都触发 `onerror` + 重连
-- ✅ 纠正：
-  - 服务端断开（`res.end()` / 网络故障）→ 触发 `onerror` + 自动重连
-  - 客户端 `es.close()` → 设置 `readyState = CLOSED`，不触发 `onerror`，阻止重连
-
----
-
-## 🤖 AI 时代视角
-
-**被 AI 贬值**：
-- `data: xxx\n\n` 格式拼装
-- 三个响应头复制粘贴
-- `EventSource` API 查文档
-
-**AI 时代更值钱**：
-- **技术选型判断力**：为什么不用 WebSocket（成本 vs 收益）
-- **跨层排查能力**：本地好线上不流式（抓包时间戳 → Nginx 配置 → 代码）
-- **资源清理意识**：`req.on('close')` 防内存泄漏
-- **协议生命周期理解**：`res.end()` vs `es.close()` 对重连的不同影响
-
-**对你的意义**：
-- 简历 AI 应用方向必问
-- 答出"Nginx 缓冲排查顺序"拉开差距
-- 连接生命周期管理体现工程成熟度
-
----
-
-## 进度更新
-
-- **Node.js 复习线**：12/? 完成（新增 SSE）
-- **新增 KP**：`SSE 流式响应（格式/EventSource/重连机制/生产坑）` G，S=3 天，08-05 复查
-- **课前复查**：DB 连接池 G（S 延至 6 天，08-08）
-
----
-
-## 明日复查（08-03）
-
-- 数据库事务绑连接（S=1，`pool.query` 每次可能拿不同连接，必须 `getConnection`）
-- BFC 触发条件（S=1，漏 `display: flow-root` 专用触发）
-
----
-
-## 下次学习方向
-
-- worker_threads（CPU 密集计算）
-- Express 深入（中间件源码/错误处理机制）
-- WebSocket（双向通信对比）
-
----
-
-## 2026-08-03 会话记录（第二台设备）
-
-**主题**：前端复习线 - WebSocket（双向实时通信）
-
-### 课前小测（另一台设备已完成，跳过）
-
-### 主线学习：WebSocket ✅
-
-**协议机制**：
-- 独立协议（ws:// / wss://），通过 HTTP Upgrade 握手后脱离 HTTP
-- 全双工：客户端和服务端随时互发消息
-- 同端口复用 80/443，穿过代理和防火墙（运维友好）
-
-**WebSocket vs SSE 对比**：
-- SSE = 单向（服务端→客户端）+ EventSource 自动重连 + 纯文本
-- WebSocket = 双向 + 手动重连（指数退避+熔断）+ 文本+二进制
-- 选型看"客户端需不需要主动推数据"：AI 流式→SSE，聊天/协同→WebSocket
-
-**生产三大坑**：
-1. broadcast 无 try-catch → 单个 send 异常中断整个循环（已修复）
-2. 无自动重连 → 需 onclose 里 setTimeout + 指数退避 + 最大重试（已实现）
-3. Nginx 60 秒超时断空闲连接 → proxy_read_timeout 延长 + 心跳保活
-
-**实战代码**：`code-examples/nodejs/ws-chat.js` + `ws-client.html`
-- 服务端：broadcast try-catch + Set 管理连接
-- 客户端：自动重连（指数退避 3s→6s→9s→12s→15s，最多 5 次）+ 手动断开/重连按钮
-
-**理解验证（3 题）**：
-- Q1 自动重连熔断：✅ 正确（指数退避+最大重试，比 SSE 无脑重连更生产级）
-- Q2 readyState 检查：✅ 正确（防御性编程+try-catch 双保险）
-- Q3 Nginx 缓冲：✅ 正确（握手后走 ws 协议不走 HTTP，不存在 SSE 的 buffer 问题，但有 60s 超时坑）
-
-**🤖 AI 时代视角**：
-- AI 能做：生成 WebSocket 样板代码、broadcast/reconnect 逻辑
-- 人类不可替代：技术选型判断（SSE vs WebSocket 成本收益）、生产坑排查（Nginx 超时/broadcast 异常/内存泄漏）、心跳重连策略设计（架构决策）
-
-### 面试题沉淀（WebSocket 3 道）
-1. WebSocket vs SSE 怎么选？→ 单向推送用 SSE（简单自动重连），双向实时用 WebSocket
-2. WebSocket 需手动实现什么？→ 自动重连（指数退避+熔断）、心跳保活、离线消息队列
-3. WebSocket 和 HTTP 关系？→ 独立协议，HTTP Upgrade 握手建立，握手后脱离 HTTP 变全双工
-
-### 前端复习线进度
-Node.js 已完成 **13 个主题**（新增 WebSocket）。下一候选：worker_threads / Express 深入 / 进程与集群（已有 cluster 基础）
-
----
-
-## 2026-08-03 会话记录（续）：Express 深入
-
-### 主线学习：Express 深入 ✅
-
-**核心本质**：
-- Express = 中间件数组 + 逐个调用的循环（next() 驱动）
-- req/res 是原生 http 增强版（Express 挂了 json/send/params/query/body 等便捷方法）
-- next 是 Express 独有的"接力棒"，调用=传递控制权给数组下一个 handler
-- 路由 = 带方法+路径匹配条件的中间件（本质同 use，多了匹配逻辑）
-
-**洋葱模型真面目**：
-- next() 把控制权交给下一层，下一层结束后回到上一层继续执行
-- 铁律：next() 和 res.send() 只能选一个（调了 next 别 res.send，res.send 后别 next）
-- res.send 后还调 next → 后续中间件再次 res.send → "Cannot set headers after sent" 报错
-
-**错误处理机制**：
-- next(err) 传入错误 → Express 跳过所有普通中间件，直奔 4 参数错误处理中间件
-- 靠 handler.length（参数个数）区分：3 个 = 普通，4 个 = 错误处理
-- 即使 err 是 null，4 参数函数仍被当成错误处理中间件（看签名不看值）
-- async 错误需 asyncHandler 包装（回扣 07-30 异步错误处理）
-
-**理解验证**：
-- Q1 洋葱执行顺序 A→B→A-after：✅ 正确
-- Q2 不调 next 截断链：✅ 正确
-- Q3 错误处理中间件识别机制：⚠️ 方向对但没答到"靠参数个数区分"
-
-**🤖 AI 时代视角**：
-- AI 能做：生成 Express 路由/中间件样板、写 asyncHandler 包装器
-- 人类不可替代：中间件执行顺序调试（next/res.send 链路分析）、错误处理中间件识别机制（参数个数 vs 错误值）、Express 源码级理解（面试从"会用"到"懂原理"的差距）
-
-### 面试题沉淀（Express 深入 3 道）
-1. Express 中间件原理？→ 中间件数组+next()循环驱动，路由=带匹配条件的中间件
-2. next() 和 res.send() 能同时用吗？→ 不能，只能选一个，否则重复响应报错
-3. Express 错误处理中间件怎么识别？→ 靠函数参数个数（4个=错误处理，3个=普通），不看 err 值
-
-### 前端复习线进度（更新）
-Node.js 已完成 **14 个主题**（新增 Express 深入）。下一候选：worker_threads
-
----
-
-## 2026-08-03 会话记录（续）：worker_threads
-
-### 主线学习：worker_threads ✅
-
-**单线程瓶颈**：
-- CPU 密集计算（递归/加密/图像处理）霸占事件循环 → 所有请求被阻塞
-- Node.js 单线程，不像 Java 可以多线程处理
-
-**cluster vs worker_threads**：
-- cluster = 多进程（独立内存、安全但重、充分利用多核跑完整服务）
-- worker_threads = 多线程（共享内存、轻量但危险、适合单个 CPU 密集任务）
-- 选型：并发扩展用 cluster/PM2，接口内 CPU 计算用 worker_threads
-
-**Worker 生命周期**：
-- 主线程 `new Worker(文件路径, { workerData })` 启动子线程
-- Worker 里 `parentPort.postMessage(结果)` 发回主线程
-- 主线程 `worker.on('message', callback)` 接收结果
-- 用完 `worker.terminate()` 释放资源
-
-**Worker 线程池（回扣数据库连接池）**：
-- 每个请求 new Worker → 100 请求 100 线程抢 N 核 → 上下文切换开销 > 计算收益
-- 预建固定数量 Worker（匹配 CPU 核心数），借出→计算→归还，和数据库连接池同模式
-
-**SharedArrayBuffer（零拷贝共享内存）**：
-- `parentPort.postMessage()` 默认也是序列化拷贝（和 cluster 一样慢）
-- `SharedArrayBuffer` 是 worker_threads 独门绝技：真正共享同一块内存，零拷贝
-- cluster 做不到（进程内存隔离）
-
-**理解验证**：
-- Q1 100 个 Worker 问题：⚠️ 方向对但说成"进程"应说"线程"，漏线程池概念
-- Q2 数据拷贝：✅ 大方向对（共用数据 vs 独立内存），漏 SharedArrayBuffer 细节
-
-**🤖 AI 时代视角**：
-- AI 能做：生成 Worker 线程池模板、写计算任务 Worker
-- 人类不可替代：判断"该不该用 Worker"（CPU 密集 vs I/O 阻塞）、池大小决策、SharedArrayBuffer 数据竞争
-
-### 面试题沉淀（worker_threads 3 道）
-1. Node.js 为什么需要 worker_threads？→ 单线程 CPU 密集任务阻塞事件循环，Worker 独立线程计算
-2. cluster vs worker_threads？→ 多进程(安全重/多核扩展) vs 多线程(轻量危险/CPU密集任务)
-3. 每个请求 new Worker 有什么问题？→ 线程数远超CPU核心→上下文切换反慢，需Worker池(同DB连接池)
-
-### 前端复习线进度（最终更新）
-Node.js 已完成 **15 个主题**（新增 worker_threads）
+### worker_threads（15/?）
+- 单线程 CPU 密集任务阻塞事件循环
+- cluster 多进程（安全重）vs worker_threads 多线程（轻量危险）
+- 线程池模式（同 DB 连接池），SharedArrayBuffer 零拷贝

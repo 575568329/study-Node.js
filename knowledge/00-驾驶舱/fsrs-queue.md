@@ -22,14 +22,14 @@
 | KP | 线 | 类型 | D | S(天) | 上次 | 下次到期 | ratings |
 |---|---|---|---|---|---|---|---|
 | BFC（块格式化上下文） | 复习 | 原理 | 4.5 | 4 | 08-03 | 08-07 | G,G,G |
-| Promise 手写 | 复习 | 技能 | 6.2 | 4 | 07-31 | 08-04 | G,A,G |
-| Flex 布局（flex:1 三属性） | 复习 | 原理 | 5.2 | 4 | 08-01 | 08-05 | H,G,G,H,G |
+| Promise 手写 | 复习 | 技能 | 6.6 | 5 | 08-04 | 08-09 | H,G,A,G |
+| Flex 布局（flex:1 三属性） | 复习 | 原理 | 6.3 | 1 | 08-04 | 08-05 | A,H,G,G,H,G |
 | this 绑定优先级 | 复习 | 原理 | 4.0 | 10 | 07-30 | 08-19 | E,G,G,G |
 | position 定位（5取值 + absolute锚点） | 复习 | 原理 | 5.5 | 8 | 07-25 | 08-02 | G,G,G |
 | z-index 层叠上下文 | 复习 | 原理 | 5.0 | 8 | 08-01 | 08-09 | G,G,G,G |
 | 重排重绘（reflow/repaint + 布局抖动） | 复习 | 原理 | 5.5 | 8 | 07-30 | 08-07 | G,G |
 | CSS 单位（em/rem/vw/vh/%） | 复习 | 原理 | 5.0 | 8 | 07-30 | 08-07 | G,G |
-| 1px 边框（DPR/物理像素） | 复习 | 原理 | 4.4 | 5 | 07-30 | 08-04 | G,G |
+| 1px 边框（DPR/物理像素） | 复习 | 原理 | 4.5 | 13 | 08-04 | 08-17 | G,G,G |
 | Node 事件循环（阶段/nextTick/setImmediate vs setTimeout） | 复习 | 原理 | 4.5 | 8 | 08-02 | 08-10 | G,G,G,G,G,H,H |
 | Node 模块化（CJS vs ESM/exports陷阱/循环引用/动态import） | 复习 | 原理 | 4.4 | 10 | 07-29 | 08-08 | G,G |
 | JWT 认证（签名机制/双token/主动失效难题） | 复习 | 原理 | 4.5 | 6 | 08-02 | 08-08 | G,G |
@@ -40,10 +40,10 @@
 | Express 深入（中间件数组+next循环/路由本质/错误处理/asyncHandler） | 复习 | 原理 | 5.0 | 3 | 08-03 | 08-06 | G |
 | worker_threads（单线程瓶颈/线程池/SharedArrayBuffer/cluster对比） | 复习 | 原理 | 5.0 | 3 | 08-03 | 08-06 | G |
 | DB 连接池（池化/借还/池满策略/雪崩） | 复习 | 原理 | 5.0 | 6 | 08-02 | 08-08 | G,G |
-| DB 事务（原子性/事务绑连接/rollback+throw铁律） | 复习 | 原理 | 5.5 | 3 | 08-03 | 08-06 | G,G |
-| Node 原生 http（req/res 是流/手动收body/writeHead时序） | 复习 | 原理 | 5.0 | 3 | 08-01 | 08-04 | G |
+| DB 事务（原子性/事务绑连接/rollback+throw铁律） | 复习 | 原理 | 6.5 | 1 | 08-04 | 08-05 | A,G,G |
+| Node 原生 http（req/res 是流/手动收body/writeHead时序） | 复习 | 原理 | 6.1 | 1 | 08-04 | 08-05 | A,G |
 | 宏任务 vs 微任务边界（事件监听器是宏任务） | 复习 | 原理 | 6.2 | 2 | 08-02 | 08-04 | G,A |
-| cluster 多进程（主进程分发socket/worker不共享内存） | 复习 | 原理 | 5.0 | 3 | 08-01 | 08-04 | G |
+| cluster 多进程（主进程分发socket/worker不共享内存） | 复习 | 原理 | 6.1 | 1 | 08-04 | 08-05 | A,G |
 | Maven 坐标 GAV | Java | 原理 | 4.4 | 4 | 07-23 | 07-27 | G |
 | pom.xml 结构 | Java | 原理 | 4.4 | 4 | 07-23 | 07-27 | G |
 | Maven 本地仓库机制 | Java | 原理 | 5.8 | 10 | 07-30 | 08-09 | G,G,G,H,H |
@@ -98,8 +98,8 @@
 
 ### MyBatis 动态 SQL + 安全（Day 17）
 
-| 动态 SQL <if> 标签（条件拼接/test 判空） | Java | 原理 | 4.5 | 4 | 07-31 | 08-04 | G |
-| 动态 SQL <where> 智能 WHERE（去第一个AND/空不加WHERE） | Java | 原理 | 4.8 | 4 | 07-31 | 08-04 | H,G |
+| 动态 SQL <if> 标签（条件拼接/test 判空） | Java | 原理 | 5.1 | 5 | 08-04 | 08-09 | H,G |
+| 动态 SQL <where> 智能 WHERE（去第一个AND/空不加WHERE） | Java | 原理 | 5.4 | 5 | 08-04 | 08-09 | H,H,G |
 | 动态 SQL <choose>/<when>/<otherwise>（if-else分支） | Java | 原理 | 4.5 | 4 | 07-31 | 08-04 | G |
 | #{} vs ${}（预编译防注入 vs 字符串拼接/SQL注入原理） | Java | 原理 | 6.0 | 4 | 07-31 | 08-04 | G |
 | ${} 白名单校验（表名列名必须白名单防注入） | Java | 原理 | 5.5 | 4 | 07-31 | 08-04 | G |
@@ -112,6 +112,12 @@
 | MyBatis 一级缓存（SqlSession级/默认开启/Key=StatementID+参数/4种清空场景） | Java | 原理 | 5.0 | 4 | 08-03 | 08-07 | G |
 | MyBatis 二级缓存（Mapper级/默认关闭/跨SqlSession共享/3项配置/增删改清空） | Java | 原理 | 5.0 | 4 | 08-03 | 08-07 | G |
 | 缓存适用场景判断（字典表✅/频繁变更❌/公司项目几乎不用/一致性代价） | Java | 原理 | 5.0 | 4 | 08-03 | 08-07 | G |
+
+### MyBatis 动态 UPDATE 与关联查询（Day 19）
+
+| `<set>` 标签（动态UPDATE/去尾逗号/与<where>对称/使用场景判断） | Java | 原理 | 5.0 | 2 | 08-04 | 08-06 | H |
+| OGNL 假值陷阱（0/false在test当假值/Integer包装类/判空铁律） | Java | 原理 | 5.5 | 1 | 08-04 | 08-05 | A |
+| ResultMap 关联查询（嵌套查询vs嵌套结果/N+1/笛卡尔积/collection+association/LEFT JOIN） | Java | 原理 | 5.5 | 1 | 08-04 | 08-05 | A |
 
 ### Java 线历史补齐（Day 1-7 基础 + Day 10 Maven）
 
@@ -164,3 +170,4 @@
 > 2026-08-02（Node 事件循环深化：setTimeout/setImmediate 确定性）：课前小测 7 题。**Q1.1 宏任务分类全对**（6 个宏微任务正确分类），但 **Q1.2 事件循环排序错误**（输出 `1 10 8 9 2 3 5 6 7 4`，正确 `1 10 8 9 2 7 3 5 6 4`），错因：① 以为 I/O 回调里的 setImmediate 要等 I/O 后执行（实际：check 阶段不等 I/O，`7` 第一轮就跑）；② 不知 setImmediate 在 I/O 回调里永远赢 setTimeout（注册位置决定论）。**核心打通**：顶层 setTimeout/setImmediate 看运气（1ms 阈值），I/O 回调里 setImmediate 必胜（poll→check 同轮，setTimeout 要下轮 timers）。Q2 JWT 主动失效（密钥轮换+状态管理）G；Q3 CORS 预检 G；Q4 异步错误 await 拉回 G；**Q5 事务错误只说"没回滚"，漏核心：事务绑连接**（pool.query 每次可能拿不同连接，事务包不住）→ A；**Q6 BFC 答对 4 点但忘 display:flow-root 专用触发**→ A；Q7 SSE 流式传输不知道 → 今日新内容候选。事件循环 A→G（D 4.8→4.5，S 延 8 天）、宏微任务边界 A→G（D 6.5→6.2，S 延 2 天）、事务绑连接 G→A（S 砍 1 天 08-03 测）、BFC G→A（S 砍 1 天 08-03 测）。
 > 2026-08-02（SSE 流式响应）：下午学习 SSE（Server-Sent Events），手写代码实现 AI 对话流式输出（[sse-chat.js](d:\study\study-Node.js\projects\nodejs\01-express-demo\sse-chat.js) + [sse-client.html](d:\study\study-Node.js\projects\nodejs\01-express-demo\sse-client.html)）。**核心打通**：① SSE 格式（三响应头 `text/event-stream` / `Cache-Control: no-cache` / `Connection: keep-alive` + `data: xxx\n\n` 双换行终止符）；② EventSource API（`onmessage` / `onerror` / `close()`，只有服务端 `res.end()` 触发 `onerror` 自动重连，客户端 `es.close()` 不触发且阻止重连）；③ 流式本质（`res.write()` 立即发送，不等 `res.end()`，区别于 `await res.json()` 缓冲等待）；④ 生产三坑（Nginx 缓冲 `X-Accel-Buffering: no`、连接泄漏 `req.on('close')` 清理 timer、CORS `file://` 跨域）；⑤ 技术选型（SSE 单向低成本 vs WebSocket 双向高成本，AI 应用不需要客户端回推）。验证：独立实现停止按钮（`es.close()` + `[DONE]` 标记）。**🤖 AI 时代值钱点**：技术选型判断力（为什么不用 WebSocket）、跨层排查（Nginx 缓冲排查顺序：抓包时间戳→网关配置→代码）、资源清理（`req.on('close')` 防内存泄漏）。新增 SSE KP（初始 G，S=3 天，08-05 复查）。Node.js 复习线 12/? 完成。DB 连接池课前复查 Good（S 延至 6 天 08-08）。
 > 2026-07-31（Day 17 MyBatis 动态 SQL + 安全）：课前小测 3 题（精准打击高优先级盲区）。**Q1 Maven 路径映射第 4 次错但接近**（框架全对：groupId每个点一层+artifactId层+version层+文件名格式，但 artifactId 截断 `mysql-connector-java` 写成 `mysql-connector`）→ H，08-01 必测；Q2 Promise 手写思路全对 A→G；Q3 MyBatis vs AOP 代理答偏到用途（漏"有里子/没里子"核心）→ A。新学 MyBatis 动态 SQL 5 个 KP：`<if>` 条件拼接（`test` 判空 `!= null and != ''`）、`<where>` 智能 WHERE（去第一个 AND、空不加 WHERE）、`<choose>`/`<when>`/`<otherwise>`（if-else 分支）、`#{}` vs `${}`（预编译防注入 vs 字符串拼接/SQL 注入原理）、`${}` 白名单校验（表名/列名必须白名单）。理解检查两轮：动态 SQL 为何需要通过（用户可选条件拼接场景）、`#{}` 防注入原理全对（SQL 结构固定，参数只能是值）。公司代码：发现 `ORDER BY ${column}` 历史遗留注入风险。核心打通：预编译让参数和 SQL 分离，`${}` 只用于表名/列名且必须白名单。
+> 2026-08-04（Day 19 MyBatis 动态 UPDATE + 关联查询）：课前小测 8 题，**通过率 1/8（仅 1px 边框 Good）**，3 个 Again（Flex/Node http/cluster）、3 个 Hard（Promise/`<if>`/`<where>`）、1 个 Again 第 2 次（事务绑连接 线程vs连接术语混淆持续）。新增 3 个 KP：`<set>` 标签（H，使用场景判断选 A 错）、OGNL 假值陷阱（A，status=0 陷阱完全没发现）、ResultMap 关联查询（A，N+1 的 N 理解成用户×订单、JOIN 笛卡尔积行数理解成用户数）。理解检查 4 轮：① 写法 A vs B 选 A（过度设计判断错误）H ② status=0 OGNNL 陷阱说"没啥问题" A ③ N+1/行数全错 A ④ 班级学生 Q1/Q2 翻盘 G、Q3 LEFT JOIN 说"不会" H。
