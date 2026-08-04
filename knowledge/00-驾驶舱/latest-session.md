@@ -1,6 +1,80 @@
 # 最近一次学习记录
 
-**最后更新**:2026-08-04（Day 19 MyBatis 动态 UPDATE + 关联查询）
+**最后更新**:2026-08-04（Day 19 MyBatis 动态 UPDATE + 关联查询 / 08-03 React Hooks 复习）
+
+## 2026-08-03 会话记录（前端复习线）：React Hooks 基础
+
+**主题**：React 面试复习 - Hooks 底层原理与性能优化（未完整收官，待续）
+
+### 学习成果
+
+**Hooks 调用顺序原理**：
+- React 用 Fiber 链表按调用顺序存储 Hook 状态，第 N 次调用对应链表第 N 个节点
+- 不能写在 if 里：条件导致调用顺序变化 → 链表错位 → 报错
+- 记忆锚点：Hooks = 按顺序排队领号，不能插队/跳号
+
+**useEffect 闭包陷阱**：
+- 依赖数组空 `[]` → Effect 只执行一次 → 闭包捕获初始值 → count 永远是 0
+- 修复方案 1：加依赖 `[count]`（每次 count 变都重新执行）
+- 修复方案 2：函数式更新 `setCount(c => c + 1)`（不读外部变量，拿 React 传的最新值）
+
+**useCallback vs useMemo**：
+- `useMemo(() => 计算(), deps)` = 缓存**计算结果**（值）
+- `useCallback(fn, deps)` = 缓存**函数本身**（引用）
+- 等价：`useCallback(fn, deps) === useMemo(() => fn, deps)`
+- 场景：缓存值用 useMemo，缓存函数用 useCallback
+
+**性能优化三件套**：
+- `React.memo`：props 没变 → 跳过渲染（浅比较 props）
+- 陷阱：传引用类型（对象/数组/函数）每次都是新引用 → memo 失效
+- 配合 useMemo 保持对象/数组引用稳定
+- 配合 useCallback 保持函数引用稳定
+
+**待续部分**：
+- 虚拟 DOM diff 算法
+- key 的作用与陷阱（index 当 key 的 bug）
+- useState vs useReducer
+- useRef 的三大用途
+- 自定义 Hooks
+
+### 错题本
+
+**错题 1：Hooks 为什么不能写在 if 里 🔴**
+- 错误原文："不知道"
+- 误解类型：盲区（不了解 Hooks 底层原理）
+- 正确理解：React 用 Fiber 链表按调用顺序存储 Hook 状态，第 N 次调用对应链表第 N 个节点。if 导致调用顺序变化 → 链表错位 → 报错
+- 关键点：Hooks = 按顺序排队领号，不能插队/跳号
+
+**错题 2：useEffect 闭包修复方案 🟡**
+- 错误原文："需要用 function 方式更新和声明成对象"
+- 误解类型：概念模糊
+- 答对的部分："function 方式更新"= 函数式更新 `setCount(c => c + 1)` ✅
+- 答错的部分："声明成对象"不是解决方案
+- 正确理解：修复方案 1 加依赖 `[count]`，方案 2 函数式更新不读外部变量
+
+**错题 3：useCallback vs useMemo 区别 🔴**
+- 错误原文："忘了"
+- 误解类型：盲区（遗忘）
+- 正确理解：
+  - `useMemo(() => 计算(), deps)` = 缓存**计算结果**（值）
+  - `useCallback(fn, deps)` = 缓存**函数本身**（引用）
+  - 等价：`useCallback(fn, deps) === useMemo(() => fn, deps)`
+
+**错题 4：useMemo 写法 A vs B 的区别 🟡**
+- 错误原文："B 更好，因为计算不复杂没必要用 useMemo"
+- 误解类型：概念模糊（判断对了但没说清区别）
+- 答对的部分：判断"计算不复杂用 B"✅
+- 答错的部分：没说清两种写法的本质区别
+- 正确理解：
+  - A（useMemo）：deps 不变 → 不重新计算，返回缓存
+  - B（直接调用）：每次渲染都执行
+  - 区别是"每次都算 vs 缓存按需算"
+
+### 自评
+
+理解程度：Again（需要重学）— Hooks 底层原理、闭包陷阱、性能优化配合都是新知识或遗忘知识
+
+---
 
 ## Day 19 学习记录（2026-08-04）
 
