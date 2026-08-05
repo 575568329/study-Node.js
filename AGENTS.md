@@ -20,10 +20,10 @@
 ## 会话开始流程
 
 1. 自动加载：`AGENTS.md`（本文件）
-2. 读取三线驾驶舱（总入口）：
+2. 读取驾驶舱（总入口）：
    - `knowledge/00-驾驶舱/java线.md`
    - `knowledge/00-驾驶舱/复习线.md`
-   - `knowledge/00-驾驶舱/ccode线.md`
+   - （CCode 线已归档至 `archive/驾驶舱归档-2026-08-05/`，暂缓，不加载）
 3. 读取进度：`knowledge/00-驾驶舱/latest-session.md`、`todo.md`
 4. 按任务读取 `career/`、`projects/`、`knowledge/` 对应内容
 

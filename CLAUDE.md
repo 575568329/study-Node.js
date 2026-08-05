@@ -116,7 +116,7 @@ Vite + React 19 + TypeScript + Tailwind v4 的纯前端单页。核心是**数�
 > Java 线为主，复习线 / ccode 线并行。
 
 - **当前阶段**: Java 全栈学习 - 阶段三：数据库与 MyBatis（Day 18 已完成）
-- **三线总入口**: `knowledge/00-驾驶舱/`（`java线.md` / `复习线.md` / `ccode线.md`）
+- **总入口**: `knowledge/00-驾驶舱/`（`java线.md` / `复习线.md`）｜CCode 线已归档至 `archive/驾驶舱归档-2026-08-05/`（暂缓，不在当前视野）
 - **主控文档**: `docs/00-工作入口.md`
 - **学习路径**: `knowledge/00-驾驶舱/Java学习路径-稳扎稳打版.md`
 - **技能优先级**: `knowledge/00-驾驶舱/技能优先级-运维技能版.md`
@@ -153,7 +153,7 @@ Vite + React 19 + TypeScript + Tailwind v4 的纯前端单页。核心是**数�
 ## 会话开始流程
 
 1. 自动加载: `CLAUDE.md`（本文件）
-2. 读取三线驾驶舱: `knowledge/00-驾驶舱/java线.md`、`复习线.md`、`ccode线.md`
+2. 读取驾驶舱: `knowledge/00-驾驶舱/java线.md`、`复习线.md`（CCode 线已归档，不加载）
 3. 读取: `docs/00-工作入口.md`
 4. 读取: `knowledge/00-驾驶舱/Java学习路径-稳扎稳打版.md`
 5. 读取: `knowledge/00-驾驶舱/latest-session.md` 和 `knowledge/00-驾驶舱/todo.md`
@@ -272,7 +272,7 @@ const userService = {
 ```
 knowledge/                  # Obsidian 知识库（唯一 vault）
   00-驾驶舱/                # 三线 MOC + 进度 + 纲领（总入口）
-    java线.md 复习线.md ccode线.md
+    java线.md 复习线.md          # CCode 线已归档至 archive/
     latest-session.md todo.md 前端复习进度.md
   java/                     # Java 笔记
   前端复习/                 # 费曼讲稿（JS-TS、Vue3…）

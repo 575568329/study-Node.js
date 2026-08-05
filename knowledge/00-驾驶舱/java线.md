@@ -27,7 +27,7 @@
 - **技术栈**：Spring 3.2.6 + Dubbo 微服务 + MyBatis + MySQL/MongoDB + Redis + Maven（**Java 8**）
 - **重点模块**：`crowdsourced-new-web`（Controller 层）/ `crowdsourced-new`（Service/Impl 层）
 - **说明文档**：`D:\xunfei\zyjg\CLAUDE.md`
-- 待澄清业务：`docs/待澄清业务清单.md`
+- 待澄清业务：`archive/驾驶舱归档-2026-08-05/待澄清业务清单.md`（已归档）
 
 ---
 

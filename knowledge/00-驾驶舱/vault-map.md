@@ -10,7 +10,7 @@
 | FSRS 复习队列 | `knowledge/00-驾驶舱/fsrs-queue.md` |
 | 最近会话记录 | `knowledge/00-驾驶舱/latest-session.md` |
 | 待办 | `knowledge/00-驾驶舱/todo.md` |
-| 三线 MOC | `knowledge/00-驾驶舱/java线.md` / `复习线.md` / `ccode线.md` |
+| 学习线 MOC | `knowledge/00-驾驶舱/java线.md` / `复习线.md`（CCode 线已归档至 `archive/驾驶舱归档-2026-08-05/`，暂缓） |
 | 前端复习进度 | `knowledge/00-驾驶舱/前端复习进度.md` |
 | Java 学习路径 | `knowledge/00-驾驶舱/Java学习路径-稳扎稳打版.md` |
 | Java 笔记根 | `knowledge/java/` |
