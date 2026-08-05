@@ -1,7 +1,7 @@
 # ☕ Java 全栈学习线
 
 > **定位**：Java 全栈工程师（Spring Boot / Dubbo / MySQL），以公司代码为教材，前端复合背景
-> **当前阶段**：阶段三 · 数据库与 MyBatis（Day 19 已完成）
+> **当前阶段**：阶段三 · 数据库与 MyBatis（Day 20 已完成）✅
 > **时间窗口**：稳扎稳打不速成
 
 ---
@@ -10,7 +10,7 @@
 
 - [[Java学习路径-稳扎稳打版]] — 4-5 个月 / 6 阶段完整路线
 - [[技能优先级-运维技能版]] — 技能优先级排序
-- [[latest-session|最近学习记录]] — Day 1-19（当前 Day 19 MyBatis 动态 UPDATE + 关联查询）
+- [[latest-session|最近学习记录]] — Day 1-20（当前 Day 20 MyBatis 与 Spring 事务协调）
 - [[todo|任务清单]] — P0 Java 学习任务
 
 ---

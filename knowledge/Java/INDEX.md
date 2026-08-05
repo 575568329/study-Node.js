@@ -32,6 +32,7 @@
 - [Day17 - MyBatis 动态 SQL 与安全](./Day17-MyBatis动态SQL与安全.md) ⭐ `<if>`/`<where>`/`<choose>`条件查询/`#{}`防注入 vs `${}`字符串拼接/SQL注入原理/白名单校验
 - [Day18 - MyBatis 缓存机制](./Day18-MyBatis缓存机制.md) ⭐ 一级缓存(SqlSession级)/二级缓存(Mapper级/跨Session共享)/清空场景/适用场景判断/公司项目几乎不用
 - [Day19 - MyBatis 动态 UPDATE 与关联查询](./Day19-MyBatis动态UPDATE与关联查询.md) ⭐ `<set>`标签/OGNL假值陷阱(0当false)/ResultMap嵌套查询vs嵌套结果/N+1问题/LEFT JOIN vs INNER JOIN
+- [Day20 - MyBatis 与 Spring 事务协调](./Day20-MyBatis与Spring事务协调.md) ⭐ ThreadLocal绑连接/嵌套事务REQUIRED/rollback-only机制
 
 ---
 
@@ -55,7 +56,7 @@
 | Week 1 | Java 语法 + 面向对象 | ✅ 完成（Day1-6 + 公司代码阅读）|
 | Week 2 | 核心 API + Stream | 🔄 进行中（Day7 Stream/Optional、Day8 日期时间 完成）|
 | Week 4 | Spring 框架 | ✅ 完成（Day12 IoC/DI/MVC、Day13 AOP/Bean生命周期、Day14 事务、Day14.5 AOP代理重学）|
-| Week 7 | 数据库 + MyBatis | 🔄 进行中（Day16 入门 ✅、Day17 动态SQL+安全 ✅、Day18 缓存机制 ✅、Day19 动态UPDATE+关联查询 ✅）|
+| Week 7 | 数据库 + MyBatis | ✅ 完成（Day16 入门、Day17 动态SQL+安全、Day18 缓存机制、Day19 动态UPDATE+关联查询、Day20 Spring事务协调）|
 
 > Week 2 剩余：StringBuilder、文件 I/O
-> MyBatis 下一步：Spring 事务协调、公司代码 ResultMap 关联查询
+> MyBatis 阶段收官，下一步：公司代码实战 / 进入阶段四（微服务 Dubbo）

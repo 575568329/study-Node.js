@@ -24,7 +24,7 @@
 | React Hooks 基础（链表原理/闭包陷阱/useCallback vs useMemo/性能优化） | 复习 | 原理 | 6.4 | 1 | 08-03 | 08-04 | A |
 | BFC（块格式化上下文） | 复习 | 原理 | 4.5 | 4 | 08-03 | 08-07 | G,G,G |
 | Promise 手写 | 复习 | 技能 | 6.6 | 5 | 08-04 | 08-09 | H,G,A,G |
-| Flex 布局（flex:1 三属性） | 复习 | 原理 | 6.3 | 1 | 08-04 | 08-05 | A,H,G,G,H,G |
+| Flex 布局（flex:1 三属性） | 复习 | 原理 | 6.3 | 3 | 08-05 | 08-08 | G,A,H,G,G,H,G |
 | this 绑定优先级 | 复习 | 原理 | 4.0 | 10 | 07-30 | 08-19 | E,G,G,G |
 | position 定位（5取值 + absolute锚点） | 复习 | 原理 | 5.5 | 8 | 07-25 | 08-02 | G,G,G |
 | z-index 层叠上下文 | 复习 | 原理 | 5.0 | 8 | 08-01 | 08-09 | G,G,G,G |
@@ -41,10 +41,10 @@
 | Express 深入（中间件数组+next循环/路由本质/错误处理/asyncHandler） | 复习 | 原理 | 5.0 | 3 | 08-03 | 08-06 | G |
 | worker_threads（单线程瓶颈/线程池/SharedArrayBuffer/cluster对比） | 复习 | 原理 | 5.0 | 3 | 08-03 | 08-06 | G |
 | DB 连接池（池化/借还/池满策略/雪崩） | 复习 | 原理 | 5.0 | 6 | 08-02 | 08-08 | G,G |
-| DB 事务（原子性/事务绑连接/rollback+throw铁律） | 复习 | 原理 | 6.5 | 1 | 08-04 | 08-05 | A,G,G |
-| Node 原生 http（req/res 是流/手动收body/writeHead时序） | 复习 | 原理 | 6.1 | 1 | 08-04 | 08-05 | A,G |
+| DB 事务（原子性/事务绑连接/rollback+throw铁律） | 复习 | 原理 | 6.5 | 3 | 08-05 | 08-08 | G,A,G,G |
+| Node 原生 http（req/res 是流/手动收body/writeHead时序） | 复习 | 原理 | 6.1 | 3 | 08-05 | 08-08 | G,A,G |
 | 宏任务 vs 微任务边界（事件监听器是宏任务） | 复习 | 原理 | 6.2 | 2 | 08-02 | 08-04 | G,A |
-| cluster 多进程（主进程分发socket/worker不共享内存） | 复习 | 原理 | 6.1 | 1 | 08-04 | 08-05 | A,G |
+| cluster 多进程（主进程分发socket/worker不共享内存） | 复习 | 原理 | 6.1 | 3 | 08-05 | 08-08 | G,A,G |
 | Maven 坐标 GAV | Java | 原理 | 4.4 | 4 | 07-23 | 07-27 | G |
 | pom.xml 结构 | Java | 原理 | 4.4 | 4 | 07-23 | 07-27 | G |
 | Maven 本地仓库机制 | Java | 原理 | 5.8 | 10 | 07-30 | 08-09 | G,G,G,H,H |
@@ -117,8 +117,14 @@
 ### MyBatis 动态 UPDATE 与关联查询（Day 19）
 
 | `<set>` 标签（动态UPDATE/去尾逗号/与<where>对称/使用场景判断） | Java | 原理 | 5.0 | 2 | 08-04 | 08-06 | H |
-| OGNL 假值陷阱（0/false在test当假值/Integer包装类/判空铁律） | Java | 原理 | 5.5 | 1 | 08-04 | 08-05 | A |
-| ResultMap 关联查询（嵌套查询vs嵌套结果/N+1/笛卡尔积/collection+association/LEFT JOIN） | Java | 原理 | 5.5 | 1 | 08-04 | 08-05 | A |
+| OGNL 假值陷阱（0/false在test当假值/Integer包装类/判空铁律） | Java | 原理 | 5.5 | 3 | 08-05 | 08-08 | G,A |
+| ResultMap 关联查询（嵌套查询vs嵌套结果/N+1/笛卡尔积/collection+association/LEFT JOIN） | Java | 原理 | 5.5 | 3 | 08-05 | 08-08 | G,A |
+
+### MyBatis 与 Spring 事务协调（Day 20）
+
+| ThreadLocal 绑连接（Spring 用 ThreadLocal 存 Connection/MyBatis 取/线程隔离） | Java | 原理 | 5.0 | 4 | 08-05 | 08-09 | G |
+| 嵌套事务 REQUIRED（加入外层事务/同一Connection/只有最外层commit） | Java | 原理 | 5.5 | 4 | 08-05 | 08-09 | G |
+| rollback-only 机制（内层异常标记/外层catch阻止不了回滚/UnexpectedRollbackException） | Java | 原理 | 5.5 | 4 | 08-05 | 08-09 | G |
 
 ### Java 线历史补齐（Day 1-7 基础 + Day 10 Maven）
 
