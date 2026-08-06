@@ -1,99 +1,105 @@
 # 最近一次学习记录
 
-**最后更新**:2026-08-05（Day 20 MyBatis 与 Spring 事务协调）
+**最后更新**:2026-08-06（Day 21 Dubbo RPC 微服务入门 + 公司代码精读）
 
-## Day 20 学习记录（2026-08-05）
+## Day 21 学习记录（2026-08-06）
 
-**主题**：MyBatis 与 Spring 事务协调（ThreadLocal 绑连接 / 嵌套事务 / rollback-only）
+**主题**：Dubbo RPC 原理（RPC vs HTTP / 三角关系 / 公司 XML 配置精读 / 重试与幂等）
 
 ### 课前小测（pre-session-review）
 
-7 题：**6 个 Again 全翻盘 + 1 个跨线 Good 🎉**
-- Q1 Flex 等分：✅ **翻盘 A→G**（flex:1 basis 0 等分 + flex:auto 保留内容宽度）
-- Q2 Node http：✅ **翻盘 A→G**（req 客户端→服务端 + res 服务端→客户端 + req.body 原生没有是 Express 处理）
-- Q3 cluster：✅ **翻盘 A→G**（主进程真监听，worker 假监听，主进程分配）
-- Q4 事务绑连接：✅ **翻盘 A→G（第 3 次终于过）**（填空"连接"✅，解释"不是同一个连接"✅，第二空应答"不是绑线程"）
-- Q5 OGNL 陷阱：✅ **翻盘 A→G**（识别 0 当 false 陷阱 + 解法 `|| age==0` 可行，最优是 Integer 包装类）
-- Q6 ResultMap：✅ **翻盘 A→G**（21 条 SQL = 1 + 20，N+1 的 N 对了 + collection 一对多）
-- Q7 React Hooks：✅ Good（跨线抽查，依赖调用顺序 + if 导致顺序不一致）
-
-**通过率 7/7**，昨天 6 个 Again 今天全收复。间隔复习起效，盲区清零。
+7 题：2 个 Good + 3 个 Hard + 1 个 Again + 1 个预测试
+- Q1 React Hooks：⚠️ H（"Hook 不能在 if 里"规则对，但底层"数组按调用顺序存状态"没说）
+- Q2 Maven 路径映射：✅ **翻盘 A→G**（`~/.m2/repository/mysql/mysql-connector-java/8.0.33/mysql-connector-java-8.0.33.jar` 全对，历史错 5+ 次终于稳）
+- Q3 `<set>` + OGNL：⚠️ H（识别 age=0 被当 false，但没说修法是 Integer 包装类）
+- Q4 WebSocket/SSE：⚠️ H（选型对 + Nginx 配置对，但生产 3 件事只答 1，漏自动重连/心跳保活）
+- Q5 worker_threads：❌ A（"每个请求走一个连接"混淆线程/连接，"主进程监听分配"描述成了 cluster）
+- Q6 宏任务 vs 微任务：✅ G（fs.readFile 宏任务 + Promise.then 微任务 + "微任务只有 then/nextTick 其他都宏任务"口诀对）
+- Q7 Dubbo 预测试：✅ 直觉对（"内部走 RPC 不用 HTTP 握手"）
 
 ### 学习成果
 
-**Spring + MyBatis 事务协调三要素**：
-- **ThreadLocal** — Spring 用它绑定 Connection 到当前线程（线程的"私有柜子"，互不干扰）
-- **TransactionSynchronizationManager** — Spring 的资源管理器（存/取 Connection 的核心类）
-- **MyBatis 集成** — MyBatis 执行 SQL 前先问 Spring："有事务吗？"，有就从 ThreadLocal 取 Connection
+**RPC 本质**：
+- 目标：像调本地方法一样调远程服务（`userService.getUserById(1L)` 代码和本地一样）
+- 底层：动态代理藏网络细节（和 MyBatis "没里子"同套路）→ 序列化方法名+参数 → Netty TCP 长连接 → 远程执行 → 结果序列化返回
+- 序列化用 Hessian2/Protobuf（二进制紧凑），不是 JSON
 
-**完整流程**：
-1. `@Transactional` 方法开始 → Spring AOP 拦截 → 从连接池拿 Connection → 存到 ThreadLocal → setAutoCommit(false)
-2. Mapper 执行 SQL → MyBatis 问 Spring → Spring 从 ThreadLocal 取 → MyBatis 拿到同一个 Connection
-3. 方法结束 → Spring AOP 拦截 → commit/rollback → 归还连接 → 清空 ThreadLocal
+**RPC vs HTTP**：
+- 协议：二进制 vs 文本；连接：长连接 vs 短连接
+- 服务发现：注册中心自动 vs 手动配 IP；负载均衡：框架内置 vs Nginx
+- 场景：对内微服务 vs 对外前端/第三方
 
-**嵌套事务（REQUIRED 默认传播行为）**：
-- 内层方法检测到 ThreadLocal 里已有 Connection → 不开新事务，直接加入
-- 3 条 SQL（外层 2 条 + 内层 1 条）用同一个 Connection
-- 只有最外层方法才 commit/rollback，内层不 commit
-- 对比自调用失效（Day 14）：跨类调用走代理 ✅，同类内部调用 this.method() 绕过代理 ❌
+**Dubbo 三角关系**：
+- Provider 注册（启动写 IP+Port 到 ZK）、Consumer 订阅（启动查地址缓存本地）、Registry（Zookeeper）
+- ⚠️ 关键：ZK 只在**启动订阅 + 地址变化推送**时参与，**业务调用不查 ZK**（本地缓存地址 + 长连接），否则 ZK 成瓶颈
 
-**异常回滚机制（rollback-only 坑点）**：
-- 内层方法抛异常 → Spring 标记事务为 "rollback-only"
-- 外层 catch 住异常继续执行 → 最后 Spring 检测到 rollback-only → 强制 rollback → 抛 UnexpectedRollbackException
-- 结果：外层 catch 也阻止不了回滚（SQL 1/2/3 全部回滚）
-- 设计理念：嵌套事务是整体，任何一部分出错整个都回滚，不允许部分提交
-- REQUIRES_NEW 可开独立事务：挂起外层 Connection，开新 Connection → 内层异常只回滚内层，外层可继续提交
+**公司代码精读（XML 配置，非注解）**：
+- 公司 Spring 3.2.6 + 老 Dubbo（code.alibabatech.com）用 XML，不是 @Reference/@Service
+- 四个标签分层：application（身份）/ registry（注册中心）/ consumer（消费默认）/ reference（引用具体服务）
+- reference 覆盖 consumer（类似 CSS 优先级）：全局 timeout=3000，登录 reference 单独 6000
+- 提供方：protocol 定端口 + service+ref 发布（interface 对外暴露，ref 指向本地 Spring Bean，职责分离）
+- file="...registry.cache" 本地缓存文件 → ZK 挂了也能用缓存地址继续调用（印证"业务调用不查 ZK"）
+- 多注册中心：主 ZK + 英语引擎 ZK + 语文引擎 ZK，AI 引擎 timeout=30000（算法计算慢）
 
-**事务传播行为对比**：
-- **REQUIRED（默认）**：有事务加入，没事务开新 → 嵌套用同一个 Connection
-- **REQUIRES_NEW**：挂起外层，开新事务 → 独立 Connection，内层失败不影响外层
-- **SUPPORTS**：有事务加入，没事务非事务执行
-- **NOT_SUPPORTED**：挂起外层，非事务执行
+**重试与幂等（🔴 重点）**：
+- 公司全局 retries="0"（关重试），原因：重试导致重复执行，非幂等接口出事
+- 幂等 = 同一操作执行 1 次和 N 次结果一样
+- 查询接口幂等可重试；写接口（createOrder/扣款/发短信）非幂等，重试会重复执行（用户点一次产生 2 个订单）
+- 公司有大量写操作（SendMessageService/SupplementalFeeService）→ 关重试是保守安全策略
+- 连接 Day 8 Node 事务"rollback+throw 铁律"：写操作出错要让上层知道，不偷偷重试掩盖
+
+**负载均衡 + 集群容错**：
+- 负载均衡决定打哪台（默认 Random，还有 RoundRobin/LeastActive/ConsistentHash）
+- 一台挂了两层保护：① ZK 心跳超时删节点推送新列表 ② Failover 容错重试其他机器
+- 公司关了 retries，主要靠 ZK 推送 + 业务层处理
 
 ### 错题本
 
-**理解检查 2 错误 🔴**
-- 错误原文："不是，嵌套的用一个，另外单独执行的用一个"
-- 正确：**嵌套事务默认 REQUIRED，3 条 SQL 都用同一个 Connection**
-- 误解根源：没意识到内层方法会检测 ThreadLocal 里已有 Connection，直接复用
-- 纠正：默认传播行为 REQUIRED = 加入已有事务，不开新事务
+**错题 1：worker_threads 混淆线程/连接 🔴**
+- 错误原文："相当于还是每个请求走了一个连接"
+- 正确：是**线程**不是连接。每请求 new Worker → 线程数远超 CPU 核心 → 上下文切换开销 > 计算收益
+- 正确方案：Worker 线程池（预建固定数=CPU 核心数，借出/归还，同 DB 连接池模式）
+- 归类：概念混淆（线程 vs 连接，又一次术语混淆）
+
+**错题 2：worker_threads 描述成 cluster 🔴**
+- 错误原文："主进程监听端口，主进程负责一个内容处理，其他交给 worker，按核分配"
+- 正确：这描述的是 **cluster 多进程**。worker_threads 是线程池，不是主进程分发 socket
+- cluster = 多进程并发扩展（跑完整服务）；worker_threads = 线程级 CPU 密集计算
+
+**错题 3：重试与幂等只答表层 🔴**
+- 错误原文："避免长时间等待，错误直接暴露不重连"
+- 正确：核心是**重试导致重复执行**，非幂等写接口会重复扣款/重复发短信
+- 归类：盲区（幂等概念此前没接触）
 
 ### 今日面试题沉淀（4 道）
 
-1. Spring + MyBatis 怎么保证同一个事务内多条 SQL 用同一个 Connection？→ ThreadLocal 绑 Connection 到当前线程，MyBatis 从 ThreadLocal 取
-2. 嵌套事务默认行为？→ REQUIRED，内层加入外层事务，用同一个 Connection，只有最外层 commit
-3. 内层方法抛异常，外层 catch 住了，事务会回滚吗？→ 会，Spring 标记 rollback-only，外层 catch 也阻止不了，最终抛 UnexpectedRollbackException
-4. REQUIRED vs REQUIRES_NEW？→ REQUIRED 共用 Connection（整体成功/失败），REQUIRES_NEW 独立 Connection（内层失败不影响外层）
+1. RPC 和 HTTP 区别？→ 二进制 vs 文本、长连接 vs 短连接、注册中心自动发现 vs 手配、对内 vs 对外
+2. Dubbo 调用时 Zookeeper 参与吗？→ 不参与。ZK 只在启动订阅+地址变化推送时用，业务调用走本地缓存地址+长连接
+3. 为什么写接口不能随便重试？→ 非幂等，重试会重复执行（重复下单/扣款/发短信），公司全局 retries=0
+4. Dubbo 一台机器挂了怎么办？→ ① ZK 心跳删节点推送新列表 ② Failover 重试其他机器
 
 ### 遗留问题 / 下次计划
 
-- 公司代码里找嵌套事务的实际用法（REQUIRED / REQUIRES_NEW 使用场景）
-- MyBatis 剩余内容：一级/二级缓存实战、动态 SQL 高级用法
-- Java 学习路径后续阶段规划
+- 找 Controller 看怎么用注入的 Dubbo 服务（真实调用链）
+- Zookeeper 注册中心原理深入
+- 分布式事务（跨服务事务一致性，RPC 无法共享 Connection）
+- 🔴 worker_threads 08-07 复查（线程 vs 连接、线程池 vs cluster）
+- 🔴 React Hooks 08-08 复查（底层数组存状态机制）
 
 ---
 
 ## 上次会话（存档）
 
-**2026-08-04（Day 19 MyBatis 动态 UPDATE + 关联查询）**
+**2026-08-05（Day 20 MyBatis 与 Spring 事务协调）**
 
----
+### Spring + MyBatis 事务协调三要素
+- ThreadLocal 绑 Connection 到当前线程
+- TransactionSynchronizationManager 存/取 Connection
+- MyBatis 执行 SQL 前问 Spring："有事务吗？"
 
-## 学习内容
+### 嵌套事务 REQUIRED
+- 内层加入外层事务，用同一个 Connection，只有最外层 commit
 
-### `<set>` 标签（动态 UPDATE）
-- 2 个智能行为：自动去掉最后一个逗号 / 条件全空时不加 SET（但会报错）
-- 与 `<where>` 对称：`<where>` 去第一个 AND/OR，`<set>` 去最后一个逗号
-- 使用场景判断：有可选字段用 `<set>`，全是必填/固定直接 SET
-
-### OGNL 假值陷阱
-- `test="status != null"` 传 `status=0` (int) → false
-- OGNL 把 0/false/"" 当假值
-- 解决：用包装类 Integer/Boolean
-- 判空铁律：String 判 `!= null and != ''`，Integer/Boolean 只判 `!= null`
-
-### ResultMap 关联查询
-- 嵌套查询（Nested Select）：简单但 N+1 问题（N = 父记录数）
-- 嵌套结果（Nested Results）：一条 JOIN SQL，笛卡尔积（10 用户 × 5 订单 = 50 行）
-- LEFT JOIN 保留无子记录的父记录，INNER JOIN 过滤
-- `<collection>` 一对多，`<association>` 一对一
+### rollback-only 机制
+- 内层异常标记 rollback-only，外层 catch 也阻止不了回滚，抛 UnexpectedRollbackException
+- REQUIRES_NEW 可独立事务，内层失败不影响外层

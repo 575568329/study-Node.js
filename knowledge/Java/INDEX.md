@@ -34,6 +34,9 @@
 - [Day19 - MyBatis 动态 UPDATE 与关联查询](./Day19-MyBatis动态UPDATE与关联查询.md) ⭐ `<set>`标签/OGNL假值陷阱(0当false)/ResultMap嵌套查询vs嵌套结果/N+1问题/LEFT JOIN vs INNER JOIN
 - [Day20 - MyBatis 与 Spring 事务协调](./Day20-MyBatis与Spring事务协调.md) ⭐ ThreadLocal绑连接/嵌套事务REQUIRED/rollback-only机制
 
+### E - 微服务与分布式（阶段四）
+- [Day21 - Dubbo RPC 微服务入门](./Day21-Dubbo-RPC微服务入门.md) ⭐ RPC本质(动态代理藏网络)/RPC vs HTTP/三角关系(ZK只启动订阅不参与调用)/公司XML配置精读/重试与幂等(retries=0)
+
 ---
 
 ## ⚠️ 易错点
@@ -57,6 +60,7 @@
 | Week 2 | 核心 API + Stream | 🔄 进行中（Day7 Stream/Optional、Day8 日期时间 完成）|
 | Week 4 | Spring 框架 | ✅ 完成（Day12 IoC/DI/MVC、Day13 AOP/Bean生命周期、Day14 事务、Day14.5 AOP代理重学）|
 | Week 7 | 数据库 + MyBatis | ✅ 完成（Day16 入门、Day17 动态SQL+安全、Day18 缓存机制、Day19 动态UPDATE+关联查询、Day20 Spring事务协调）|
+| Week 9 | 微服务 Dubbo | 🔄 进行中（Day21 RPC入门+公司代码精读 ✅）|
 
 > Week 2 剩余：StringBuilder、文件 I/O
-> MyBatis 阶段收官，下一步：公司代码实战 / 进入阶段四（微服务 Dubbo）
+> Dubbo 下一步：Controller 调用链、Zookeeper 原理、分布式事务

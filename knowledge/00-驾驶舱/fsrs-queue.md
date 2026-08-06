@@ -21,7 +21,7 @@
 
 | KP | 线 | 类型 | D | S(天) | 上次 | 下次到期 | ratings |
 |---|---|---|---|---|---|---|---|
-| React Hooks 基础（链表原理/闭包陷阱/useCallback vs useMemo/性能优化） | 复习 | 原理 | 6.4 | 1 | 08-03 | 08-04 | A |
+| React Hooks 基础（链表原理/闭包陷阱/useCallback vs useMemo/性能优化） | 复习 | 原理 | 7.0 | 2 | 08-06 | 08-08 | H,A |
 | React 组件通信（props/子父回调/状态提升/useContext/createContext本质） | 复习 | 原理 | 4.5 | 3 | 08-05 | 08-08 | G |
 | BFC（块格式化上下文） | 复习 | 原理 | 4.5 | 4 | 08-03 | 08-07 | G,G,G |
 | Promise 手写 | 复习 | 技能 | 6.6 | 5 | 08-04 | 08-09 | H,G,A,G |
@@ -38,19 +38,19 @@
 | CORS 跨域（简单请求 vs 预检请求/OPTIONS） | 复习 | 原理 | 4.5 | 6 | 08-02 | 08-08 | G,G |
 | 异步错误处理（try-catch局限/await拉回/两大兜底钩子） | 复习 | 原理 | 4.6 | 6 | 08-02 | 08-08 | G,G |
 | SSE 流式响应（格式/EventSource/重连机制/生产坑） | 复习 | 原理 | 5.0 | 3 | 08-02 | 08-05 | G |
-| WebSocket（协议升级/全双工/SSE对比/手动重连/生产坑） | 复习 | 原理 | 5.0 | 3 | 08-03 | 08-06 | G |
-| Express 深入（中间件数组+next循环/路由本质/错误处理/asyncHandler） | 复习 | 原理 | 5.0 | 3 | 08-03 | 08-06 | G |
-| worker_threads（单线程瓶颈/线程池/SharedArrayBuffer/cluster对比） | 复习 | 原理 | 5.0 | 3 | 08-03 | 08-06 | G |
+| WebSocket（协议升级/全双工/SSE对比/手动重连/生产坑） | 复习 | 原理 | 5.5 | 4 | 08-06 | 08-10 | H,G |
+| Express 深入（中间件数组+next循环/路由本质/错误处理/asyncHandler） | 复习 | 原理 | 5.5 | 4 | 08-06 | 08-10 | H,G |
+| worker_threads（单线程瓶颈/线程池/SharedArrayBuffer/cluster对比） | 复习 | 原理 | 6.1 | 1 | 08-06 | 08-07 | A,G |
 | DB 连接池（池化/借还/池满策略/雪崩） | 复习 | 原理 | 5.0 | 6 | 08-02 | 08-08 | G,G |
 | DB 事务（原子性/事务绑连接/rollback+throw铁律） | 复习 | 原理 | 6.5 | 3 | 08-05 | 08-08 | G,A,G,G |
 | Node 原生 http（req/res 是流/手动收body/writeHead时序） | 复习 | 原理 | 6.1 | 3 | 08-05 | 08-08 | G,A,G |
-| 宏任务 vs 微任务边界（事件监听器是宏任务） | 复习 | 原理 | 6.2 | 2 | 08-02 | 08-04 | G,A |
+| 宏任务 vs 微任务边界（事件监听器是宏任务） | 复习 | 原理 | 6.0 | 4 | 08-06 | 08-10 | G,G,A |
 | cluster 多进程（主进程分发socket/worker不共享内存） | 复习 | 原理 | 6.1 | 3 | 08-05 | 08-08 | G,A,G |
 | Maven 坐标 GAV | Java | 原理 | 4.4 | 4 | 07-23 | 07-27 | G |
 | pom.xml 结构 | Java | 原理 | 4.4 | 4 | 07-23 | 07-27 | G |
 | Maven 本地仓库机制 | Java | 原理 | 5.8 | 10 | 07-30 | 08-09 | G,G,G,H,H |
 | Maven 标准目录结构 | Java | 技能 | 4.4 | 4 | 07-23 | 07-27 | G |
-| Maven 路径映射规则 | Java | 原理 | 6.4 | 3 | 08-01 | 08-04 | G,H,G,A,G,A |
+| Maven 路径映射规则 | Java | 原理 | 6.3 | 6 | 08-06 | 08-12 | G,G,H,G,A,G,A |
 | 父 pom 的 modules 声明 | Java | 原理 | 4.4 | 4 | 07-24 | 07-28 | G |
 | dependencyManagement 作用 | Java | 原理 | 4.4 | 4 | 07-28 | 08-01 | G,G |
 | 模块间依赖 GAV 引用 | Java | 技能 | 4.4 | 4 | 07-24 | 07-28 | G |
@@ -117,7 +117,7 @@
 
 ### MyBatis 动态 UPDATE 与关联查询（Day 19）
 
-| `<set>` 标签（动态UPDATE/去尾逗号/与<where>对称/使用场景判断） | Java | 原理 | 5.0 | 2 | 08-04 | 08-06 | H |
+| `<set>` 标签（动态UPDATE/去尾逗号/与<where>对称/使用场景判断） | Java | 原理 | 5.5 | 3 | 08-06 | 08-09 | H,H |
 | OGNL 假值陷阱（0/false在test当假值/Integer包装类/判空铁律） | Java | 原理 | 5.5 | 3 | 08-05 | 08-08 | G,A |
 | ResultMap 关联查询（嵌套查询vs嵌套结果/N+1/笛卡尔积/collection+association/LEFT JOIN） | Java | 原理 | 5.5 | 3 | 08-05 | 08-08 | G,A |
 
@@ -126,6 +126,15 @@
 | ThreadLocal 绑连接（Spring 用 ThreadLocal 存 Connection/MyBatis 取/线程隔离） | Java | 原理 | 5.0 | 4 | 08-05 | 08-09 | G |
 | 嵌套事务 REQUIRED（加入外层事务/同一Connection/只有最外层commit） | Java | 原理 | 5.5 | 4 | 08-05 | 08-09 | G |
 | rollback-only 机制（内层异常标记/外层catch阻止不了回滚/UnexpectedRollbackException） | Java | 原理 | 5.5 | 4 | 08-05 | 08-09 | G |
+
+### Dubbo RPC 微服务入门（Day 21）
+
+| RPC 本质（动态代理藏网络细节/像调本地方法/序列化+长连接） | Java | 原理 | 5.0 | 4 | 08-06 | 08-10 | G |
+| RPC vs HTTP（二进制vs文本/长连接vs短连接/对内vs对外/注册中心vs手配） | Java | 原理 | 5.0 | 4 | 08-06 | 08-10 | G |
+| Dubbo 三角关系（Provider注册/Consumer订阅/Zookeeper注册中心/调用不查ZK） | Java | 原理 | 5.5 | 4 | 08-06 | 08-10 | G |
+| Dubbo XML 配置（application/registry/consumer默认+reference具体/service+ref发布） | Java | 原理 | 5.5 | 4 | 08-06 | 08-10 | G |
+| 重试与幂等（retries=0原因/写接口非幂等重试重复执行/查询可重试） | Java | 原理 | 6.0 | 3 | 08-06 | 08-09 | H |
+| 负载均衡+集群容错（Random默认/Failover重试其他机器/ZK心跳删节点推送） | Java | 原理 | 5.5 | 4 | 08-06 | 08-10 | G |
 
 ### Java 线历史补齐（Day 1-7 基础 + Day 10 Maven）
 
@@ -179,3 +188,5 @@
 > 2026-08-02（SSE 流式响应）：下午学习 SSE（Server-Sent Events），手写代码实现 AI 对话流式输出（[sse-chat.js](d:\study\study-Node.js\projects\nodejs\01-express-demo\sse-chat.js) + [sse-client.html](d:\study\study-Node.js\projects\nodejs\01-express-demo\sse-client.html)）。**核心打通**：① SSE 格式（三响应头 `text/event-stream` / `Cache-Control: no-cache` / `Connection: keep-alive` + `data: xxx\n\n` 双换行终止符）；② EventSource API（`onmessage` / `onerror` / `close()`，只有服务端 `res.end()` 触发 `onerror` 自动重连，客户端 `es.close()` 不触发且阻止重连）；③ 流式本质（`res.write()` 立即发送，不等 `res.end()`，区别于 `await res.json()` 缓冲等待）；④ 生产三坑（Nginx 缓冲 `X-Accel-Buffering: no`、连接泄漏 `req.on('close')` 清理 timer、CORS `file://` 跨域）；⑤ 技术选型（SSE 单向低成本 vs WebSocket 双向高成本，AI 应用不需要客户端回推）。验证：独立实现停止按钮（`es.close()` + `[DONE]` 标记）。**🤖 AI 时代值钱点**：技术选型判断力（为什么不用 WebSocket）、跨层排查（Nginx 缓冲排查顺序：抓包时间戳→网关配置→代码）、资源清理（`req.on('close')` 防内存泄漏）。新增 SSE KP（初始 G，S=3 天，08-05 复查）。Node.js 复习线 12/? 完成。DB 连接池课前复查 Good（S 延至 6 天 08-08）。
 > 2026-07-31（Day 17 MyBatis 动态 SQL + 安全）：课前小测 3 题（精准打击高优先级盲区）。**Q1 Maven 路径映射第 4 次错但接近**（框架全对：groupId每个点一层+artifactId层+version层+文件名格式，但 artifactId 截断 `mysql-connector-java` 写成 `mysql-connector`）→ H，08-01 必测；Q2 Promise 手写思路全对 A→G；Q3 MyBatis vs AOP 代理答偏到用途（漏"有里子/没里子"核心）→ A。新学 MyBatis 动态 SQL 5 个 KP：`<if>` 条件拼接（`test` 判空 `!= null and != ''`）、`<where>` 智能 WHERE（去第一个 AND、空不加 WHERE）、`<choose>`/`<when>`/`<otherwise>`（if-else 分支）、`#{}` vs `${}`（预编译防注入 vs 字符串拼接/SQL 注入原理）、`${}` 白名单校验（表名/列名必须白名单）。理解检查两轮：动态 SQL 为何需要通过（用户可选条件拼接场景）、`#{}` 防注入原理全对（SQL 结构固定，参数只能是值）。公司代码：发现 `ORDER BY ${column}` 历史遗留注入风险。核心打通：预编译让参数和 SQL 分离，`${}` 只用于表名/列名且必须白名单。
 > 2026-08-04（Day 19 MyBatis 动态 UPDATE + 关联查询）：课前小测 8 题，**通过率 1/8（仅 1px 边框 Good）**，3 个 Again（Flex/Node http/cluster）、3 个 Hard（Promise/`<if>`/`<where>`）、1 个 Again 第 2 次（事务绑连接 线程vs连接术语混淆持续）。新增 3 个 KP：`<set>` 标签（H，使用场景判断选 A 错）、OGNL 假值陷阱（A，status=0 陷阱完全没发现）、ResultMap 关联查询（A，N+1 的 N 理解成用户×订单、JOIN 笛卡尔积行数理解成用户数）。理解检查 4 轮：① 写法 A vs B 选 A（过度设计判断错误）H ② status=0 OGNNL 陷阱说"没啥问题" A ③ N+1/行数全错 A ④ 班级学生 Q1/Q2 翻盘 G、Q3 LEFT JOIN 说"不会" H。
+> 2026-08-05（Day 20 MyBatis 与 Spring 事务协调）：课前小测 7 题，**6 个 Again 全翻盘 + 1 跨线 Good 🎉**（Flex/Node http/cluster/事务绑连接第3次/OGNL/ResultMap 全部 A→G，React Hooks 跨线 G）。间隔复习起效。新增 3 KP：ThreadLocal 绑连接、嵌套事务 REQUIRED、rollback-only 机制（均 G）。理解检查：① 并发线程隔离 G ② 嵌套事务是否同 Connection → 答"不是"错（应 REQUIRED 共用）③ 内层异常外层 catch 是否回滚 → 核心对（会回滚）。事务绑连接术语混淆终于收口（连接 vs 线程）。
+> 2026-08-06（Day 21 Dubbo RPC 微服务入门）：课前小测 7 题，2 G（Maven路径映射翻盘A→G历史错5+次终于稳、宏任务微任务）+ 3 H（React Hooks 知规则不知底层、`<set>`+OGNL 诊断对修法缺、WebSocket 选型对生产3件事漏2）+ 1 A（worker_threads 混淆线程/连接、描述成 cluster）+ 预测试直觉对。新增 6 KP：RPC本质、RPC vs HTTP、Dubbo三角关系、Dubbo XML配置、重试与幂等(H)、负载均衡+容错（均首学 G，幂等 H）。公司代码精读：XML配置非注解、reference覆盖consumer、file本地缓存印证"调用不查ZK"、多注册中心、retries=0 因写接口非幂等。理解检查：Q1 超时分级判断对、Q2 关重试只答表层（漏"重试重复执行非幂等"核心）。错题：worker_threads 线程vs连接混淆 + 描述成 cluster（08-07 复查）。
