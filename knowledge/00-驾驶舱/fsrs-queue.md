@@ -21,7 +21,8 @@
 
 | KP | 线 | 类型 | D | S(天) | 上次 | 下次到期 | ratings |
 |---|---|---|---|---|---|---|---|
-| React 心智模型（重渲染=函数重跑/不可变/单向流/不监听） | 复习 | 原理 | 5.0 | 3 | 08-06 | 08-09 | G |
+| React 心智模型（重渲染=函数重跑/不可变/单向流/不监听） | 复习 | 原理 | 6.0 | 1 | 08-12 | 08-13 | A,G |
+| React 受控vs非受控 + 虚拟DOM + Fiber可中断 | 复习 | 原理 | 5.0 | 3 | 08-12 | 08-15 | G |
 | React Hooks（闭包陷阱+依赖数组+useCallback vs useMemo） | 复习 | 原理 | 6.0 | 3 | 08-11 | 08-13 | H,G |
 | React 组件通信（props/子父回调/状态提升/useContext/createContext本质） | 复习 | 原理 | 4.5 | 3 | 08-05 | 08-08 | G |
 | 自定义 Hook（复用逻辑不复用state/state存组件Fiber/use前缀给lint识别） | 复习 | 原理 | 5.5 | 2 | 08-11 | 08-13 | G,A |
@@ -43,7 +44,7 @@
 | SSE 流式响应（格式/EventSource/重连机制/生产坑） | 复习 | 原理 | 5.0 | 3 | 08-02 | 08-05 | G |
 | WebSocket（协议升级/全双工/SSE对比/手动重连/生产坑） | 复习 | 原理 | 5.5 | 4 | 08-06 | 08-10 | H,G |
 | Express 深入（中间件数组+next循环/路由本质/错误处理/asyncHandler） | 复习 | 原理 | 5.5 | 4 | 08-06 | 08-10 | H,G |
-| worker_threads（单线程瓶颈/线程池/SharedArrayBuffer/cluster对比） | 复习 | 原理 | 6.1 | 1 | 08-11 | 08-12 | H,A,G |
+| worker_threads（单线程瓶颈/线程池/SharedArrayBuffer/cluster对比） | 复习 | 原理 | 5.5 | 4 | 08-12 | 08-16 | G,H,A,G |
 | DB 连接池（池化/借还/池满策略/雪崩） | 复习 | 原理 | 5.0 | 6 | 08-02 | 08-08 | G,G |
 | DB 事务（原子性/事务绑连接/rollback+throw铁律） | 复习 | 原理 | 6.5 | 3 | 08-05 | 08-08 | G,A,G,G |
 | Node 原生 http（req/res 是流/手动收body/writeHead时序） | 复习 | 原理 | 6.1 | 3 | 08-05 | 08-08 | G,A,G |
