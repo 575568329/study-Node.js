@@ -36,6 +36,9 @@
 
 ### E - 微服务与分布式（阶段四）
 - [Day21 - Dubbo RPC 微服务入门](./Day21-Dubbo-RPC微服务入门.md) ⭐ RPC本质(动态代理藏网络)/RPC vs HTTP/三角关系(ZK只启动订阅不参与调用)/公司XML配置精读/重试与幂等(retries=0)
+- [Day22 - Dubbo 真实调用链分析](./Day22-Dubbo真实调用链分析.md) ⭐ Controller注入代理/14步调用链/@Resource vs @Autowired/跨服务事务无法共享(不同进程不同Connection)
+- [Day23 - 分布式事务入门](./Day23-分布式事务入门.md) ⭐ 2PC(强一致阻塞)/TCC(Try冻结+Confirm+Cancel)/Saga(正向执行+补偿)/MQ本地消息表(异步首选)/选型铁律
+- [Day24 - Zookeeper 注册中心原理](./Day24-Zookeeper注册中心原理.md) ⭐ 树形结构/临时节点(Session断自动删)/Watcher变更通知/ZK挂了Dubbo照常调用(本地缓存+长连接)
 
 ---
 
@@ -60,7 +63,7 @@
 | Week 2 | 核心 API + Stream | 🔄 进行中（Day7 Stream/Optional、Day8 日期时间 完成）|
 | Week 4 | Spring 框架 | ✅ 完成（Day12 IoC/DI/MVC、Day13 AOP/Bean生命周期、Day14 事务、Day14.5 AOP代理重学）|
 | Week 7 | 数据库 + MyBatis | ✅ 完成（Day16 入门、Day17 动态SQL+安全、Day18 缓存机制、Day19 动态UPDATE+关联查询、Day20 Spring事务协调）|
-| Week 9 | 微服务 Dubbo | 🔄 进行中（Day21 RPC入门+公司代码精读 ✅）|
+| Week 9 | 微服务 Dubbo | 🔄 进行中（Day21 RPC入门 ✅ / Day22 调用链 ✅ / Day23 分布式事务 ✅ / Day24 ZK原理 ✅）|
 
 > Week 2 剩余：StringBuilder、文件 I/O
-> Dubbo 下一步：Controller 调用链、Zookeeper 原理、分布式事务
+> Dubbo 下一步：Spring Boot 自动配置、看公司 MQ 使用
