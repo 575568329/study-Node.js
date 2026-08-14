@@ -21,7 +21,7 @@
 
 | KP | 线 | 类型 | D | S(天) | 上次 | 下次到期 | ratings |
 |---|---|---|---|---|---|---|---|
-| React 心智模型（重渲染=函数重跑/不可变/单向流/不监听） | 复习 | 原理 | 5.0 | 5 | 08-13 | 08-18 | G,A,G |
+| React 心智模型（重渲染=函数重跑/不可变/单向流/不监听） | 复习 | 原理 | 5.0 | 8 | 08-14 | 08-22 | G,G,A,G |
 | React 受控vs非受控 + 虚拟DOM + Fiber可中断 | 复习 | 原理 | 5.0 | 3 | 08-12 | 08-15 | G |
 | React Hooks（闭包陷阱+依赖数组+useCallback vs useMemo） | 复习 | 原理 | 5.0 | 5 | 08-13 | 08-18 | G,H,G |
 | React 组件通信（props/子父回调/状态提升/useContext/createContext本质） | 复习 | 原理 | 4.5 | 3 | 08-05 | 08-08 | G |
@@ -121,8 +121,8 @@
 
 ### MyBatis 动态 UPDATE 与关联查询（Day 19）
 
-| `<set>` 标签（动态UPDATE/去尾逗号/与<where>对称/使用场景判断） | Java | 原理 | 5.5 | 3 | 08-06 | 08-09 | H,H |
-| OGNL 假值陷阱（0/false在test当假值/Integer包装类/判空铁律） | Java | 原理 | 5.8 | 2 | 08-11 | 08-13 | H,G,A |
+| `<set>` 标签（动态UPDATE/去尾逗号/与<where>对称/使用场景判断） | Java | 原理 | 5.5 | 5 | 08-14 | 08-19 | G,H,H |
+| OGNL 假值陷阱（0/false在test当假值/Integer包装类/判空铁律） | Java | 原理 | 5.8 | 1 | 08-14 | 08-15 | A,H,G,A |
 | ResultMap 关联查询（嵌套查询vs嵌套结果/N+1/笛卡尔积/collection+association/LEFT JOIN） | Java | 原理 | 5.5 | 3 | 08-05 | 08-08 | G,A |
 
 ### MyBatis 与 Spring 事务协调（Day 20）
@@ -137,7 +137,7 @@
 | RPC vs HTTP（二进制vs文本/长连接vs短连接/对内vs对外/注册中心vs手配） | Java | 原理 | 5.0 | 4 | 08-06 | 08-10 | G |
 | Dubbo 三角关系（Provider注册/Consumer订阅/Zookeeper注册中心/调用不查ZK） | Java | 原理 | 5.8 | 2 | 08-11 | 08-13 | H,G |
 | Dubbo XML 配置（application/registry/consumer默认+reference具体/service+ref发布） | Java | 原理 | 5.5 | 4 | 08-06 | 08-10 | G |
-| 重试与幂等（retries=0原因/写接口非幂等重试重复执行/查询可重试/幂等键+唯一索引+状态机） | Java | 原理 | 6.0 | 3 | 08-11 | 08-14 | G,H |
+| 重试与幂等（retries=0原因/写接口非幂等重试重复执行/查询可重试/Failover换机器重试） | Java | 原理 | 6.0 | 3 | 08-14 | 08-17 | H,G,H |
 | 负载均衡+集群容错（Random默认/Failover重试其他机器/ZK心跳删节点推送） | Java | 原理 | 5.5 | 4 | 08-06 | 08-10 | G |
 
 ### Java 线历史补齐（Day 1-7 基础 + Day 10 Maven）
