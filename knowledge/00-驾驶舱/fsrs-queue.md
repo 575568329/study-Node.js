@@ -22,11 +22,11 @@
 | KP | 线 | 类型 | D | S(天) | 上次 | 下次到期 | ratings |
 |---|---|---|---|---|---|---|---|
 | React 心智模型（重渲染=函数重跑/不可变/单向流/不监听） | 复习 | 原理 | 5.0 | 8 | 08-14 | 08-22 | G,G,A,G |
-| React 受控vs非受控 + 虚拟DOM + Fiber可中断 | 复习 | 原理 | 5.0 | 3 | 08-12 | 08-15 | G |
+| React 受控vs非受控 + 虚拟DOM + Fiber可中断 | 复习 | 原理 | 5.0 | 5 | 08-15 | 08-20 | G,G |
 | React Hooks（闭包陷阱+依赖数组+useCallback vs useMemo） | 复习 | 原理 | 5.0 | 5 | 08-13 | 08-18 | G,H,G |
 | React 组件通信（props/子父回调/状态提升/useContext/createContext本质） | 复习 | 原理 | 4.0 | 8 | 08-14 | 08-22 | G,G |
 | 自定义 Hook（复用逻辑不复用state/state存组件Fiber/use前缀给lint识别） | 复习 | 原理 | 5.0 | 8 | 08-13 | 08-21 | G,G,A |
-| useReducer 基础（痛点:一动多state/数据流/reducer纯函数造新对象/适用判断） | 复习 | 原理 | 5.5 | 3 | 08-11 | 08-14 | G |
+| useReducer 基础（痛点:一动多state/数据流/reducer纯函数造新对象/适用判断） | 复习 | 原理 | 5.5 | 5 | 08-15 | 08-20 | G,G |
 | BFC（块格式化上下文） | 复习 | 原理 | 4.0 | 8 | 08-14 | 08-22 | G,G,G,G |
 | Promise 手写（三态/单向转换/原理过关） | 复习 | 技能 | 5.5 | 8 | 08-14 | 08-22 | H,G,A,G,G |
 | Flex 布局（flex:1 三属性） | 复习 | 原理 | 5.0 | 8 | 08-14 | 08-22 | G,A,H,G,G,H,G,G |
@@ -48,7 +48,7 @@
 | DB 连接池（池化/借还/池满策略/雪崩） | 复习 | 原理 | 4.5 | 8 | 08-14 | 08-22 | G,G,G |
 | DB 事务（原子性/事务绑连接/rollback+throw铁律） | 复习 | 原理 | 5.5 | 8 | 08-14 | 08-22 | G,A,G,G,G |
 | Node 原生 http（req/res 是流/手动收body/writeHead时序） | 复习 | 原理 | 5.0 | 8 | 08-14 | 08-22 | G,A,G,G |
-| 宏任务 vs 微任务边界（事件监听器是宏任务） | 复习 | 原理 | 6.5 | 2 | 08-14 | 08-16 | G,G,A,A |
+| 宏任务 vs 微任务边界（事件监听器是宏任务） | 复习 | 原理 | 6.5 | 4 | 08-15 | 08-19 | G,G,A,A,G |
 | cluster 多进程（主进程分发socket/worker不共享内存） | 复习 | 原理 | 5.0 | 8 | 08-14 | 08-22 | G,A,G,G |
 | Maven 坐标 GAV | Java | 原理 | 4.4 | 4 | 07-23 | 07-27 | G |
 | pom.xml 结构 | Java | 原理 | 4.4 | 4 | 07-23 | 07-27 | G |
@@ -122,7 +122,7 @@
 ### MyBatis 动态 UPDATE 与关联查询（Day 19）
 
 | `<set>` 标签（动态UPDATE/去尾逗号/与<where>对称/使用场景判断） | Java | 原理 | 5.5 | 5 | 08-14 | 08-19 | G,H,H |
-| OGNL 假值陷阱（0/false在test当假值/Integer包装类/判空铁律） | Java | 原理 | 5.8 | 1 | 08-14 | 08-15 | A,H,G,A |
+| OGNL 假值陷阱（0/false在test当假值/Integer包装类/数值类型只判!=null） | Java | 原理 | 5.8 | 4 | 08-15 | 08-19 | G,A,H,G,A |
 | ResultMap 关联查询（嵌套查询vs嵌套结果/N+1/笛卡尔积/collection+association/LEFT JOIN） | Java | 原理 | 5.5 | 3 | 08-05 | 08-08 | G,A |
 
 ### MyBatis 与 Spring 事务协调（Day 20）
@@ -137,7 +137,7 @@
 | RPC vs HTTP（二进制vs文本/长连接vs短连接/对内vs对外/注册中心vs手配） | Java | 原理 | 5.0 | 4 | 08-06 | 08-10 | G |
 | Dubbo 三角关系（Provider注册/Consumer订阅/Zookeeper注册中心/调用不查ZK） | Java | 原理 | 5.8 | 2 | 08-11 | 08-13 | H,G |
 | Dubbo XML 配置（application/registry/consumer默认+reference具体/service+ref发布） | Java | 原理 | 5.5 | 4 | 08-06 | 08-10 | G |
-| 重试与幂等（retries=0原因/写接口非幂等重试重复执行/查询可重试/Failover换机器重试） | Java | 原理 | 6.0 | 3 | 08-14 | 08-17 | H,G,H |
+| 重试与幂等（retries=0原因/写接口非幂等重试重复执行/查询可重试/Failover换机器重试） | Java | 原理 | 6.0 | 5 | 08-15 | 08-20 | G,H,H,G |
 | 负载均衡+集群容错（Random默认/Failover重试其他机器/ZK心跳删节点推送） | Java | 原理 | 5.5 | 4 | 08-06 | 08-10 | G |
 
 ### Java 线历史补齐（Day 1-7 基础 + Day 10 Maven）
