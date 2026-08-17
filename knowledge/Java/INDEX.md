@@ -41,6 +41,7 @@
 - [Day24 - Zookeeper 注册中心原理](./Day24-Zookeeper注册中心原理.md) ⭐ 树形结构/临时节点(Session断自动删)/Watcher变更通知/ZK挂了Dubbo照常调用(本地缓存+长连接)
 - [Day25 - Spring Boot 自动配置](./Day25-SpringBoot自动配置.md) ⭐ 自动配置原理(@ConditionalOnXxx条件注解)/Starter依赖/排除自动配置/传统XML vs Spring Boot对比
 - [Day26 - Spring Boot Web](./Day26-SpringBootWeb.md) ⭐ @RestController(@Controller+@ResponseBody)/@GetMapping简写/内嵌Tomcat/main()直接启动
+- [Day27 - Spring Cloud vs Dubbo](./Day27-SpringCloud-vs-Dubbo.md) ⭐ 两条微服务路线对比/RPC vs HTTP REST/选型判断/面试回答策略/RPC同步vs MQ异步
 
 ---
 
@@ -65,7 +66,7 @@
 | Week 2 | 核心 API + Stream | 🔄 进行中（Day7 Stream/Optional、Day8 日期时间 完成）|
 | Week 4 | Spring 框架 | ✅ 完成（Day12 IoC/DI/MVC、Day13 AOP/Bean生命周期、Day14 事务、Day14.5 AOP代理重学）|
 | Week 7 | 数据库 + MyBatis | ✅ 完成（Day16 入门、Day17 动态SQL+安全、Day18 缓存机制、Day19 动态UPDATE+关联查询、Day20 Spring事务协调）|
-| Week 9 | 微服务 Dubbo | 🔄 进行中（Day21-26 ✅ / Spring Boot 自动配置+Web ✅）|
+| Week 9 | 微服务 Dubbo | 🔄 进行中（Day21-27 ✅ / Spring Boot + Spring Cloud 对比 ✅）|
 
 > Week 2 剩余：StringBuilder、文件 I/O
 > Dubbo 下一步：Spring Boot Web、Spring Cloud 选型、看公司 MQ 使用

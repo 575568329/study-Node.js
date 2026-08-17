@@ -1,56 +1,54 @@
 # 最近一次学习记录
 
-**最后更新**:2026-08-15（Java 线 Day 26 Spring Boot Web）
+**最后更新**:2026-08-16（Java 线 Day 27 Spring Cloud vs Dubbo）
 
-## 2026-08-15 学习记录（Java 线）
+## 2026-08-16 学习记录（Java 线）
 
-### 课前小测（7 题，🎉 最佳表现）
+### 课前小测（7 题）
 
-2 预测试 + 1 红标必查（S=1） + 2 到期复查 + 2 随机抽查。
+2 预测 + 1 S=1 必查 + 2 到期 + 2 抽查。
 
-- ✅ **Q1 OGNL 假值陷阱（🔴 S=1 必查）**：**终于过关！！！** 逐个判断全对（`status != null` → true，`status != ''` → false）。顽固盲区攻克（H,G,A,A... 今天终于拆掉）
-- ✅ **Q2 React 受控/非受控（🔴 到期）**：确认巩固（有 value 受控，去掉非受控）
-- ✅ **Q3 useReducer（🔴 到期）**：确认巩固（超过 2 个 state 联动就用）
-- ✅ **Q4 重试 Failover（📦 上次 H）**：**翻盘 H→G**（"挂了找负载均衡另外的机器"= Failover 换机器重试，不再混淆缓存）
-- ✅ **Q5 宏微任务边界（📦 上次 A）**：**翻盘 A→G**（宏任务，微任务只有 nextTick/then/catch/finally，口诀钉死）
-- ❌ Q6 Spring Boot Web（预测）：不知道，正常（今日新内容）
-- ❌ Q7 Spring Cloud vs Dubbo（预测）：不知道，正常（下次新内容）
+- ✅ Q1 宏微任务边界（🔴 S=1）：全对（setTimeout/回调都是宏任务）
+- ✅ Q2 React Hooks 依赖数组（🔴 Hard）：`[]` mount 一次，不写每次渲染都执行
+- ✅ Q3 worker_threads（到期）：cluster 多进程并发，worker_threads CPU 密集
+- ⚠️ Q4 异步错误（到期）：结论对（不加 await catch 不到），表述模糊
+- ✅ Q5 事务绑连接（抽查）：两个连接回滚管不到另一个
+- ❌ Q6 Dubbo vs Spring Cloud（预测）：不知道，正常
+- ⚠️ Q7 MQ vs RPC 选型（预测）：方向对但"RPC 同步不阻塞"说反了
 
-**5/5 实际题全过，2 预测正常。课前小测最佳表现 🎉**
+**4/5 实际题过关，队列状态良好**
 
 ### 学习成果
 
-**Spring Boot Web（Day 26）**
+**Spring Cloud vs Dubbo（Day 27）**
 
-两个核心简化：
+**Dubbo 特点**：RPC 二进制长连接（性能好）、接口级调用（像本地方法）、国内老项目主流
+**Spring Cloud 特点**：HTTP REST（生态全/跨语言）、注解+自动配置（配置简单）、全球社区
 
-**1. 接口写法简化**
-- `@RestController` = `@Controller` + `@ResponseBody`（类级别搞定，不用每个方法加）
-- `@GetMapping` / `@PostMapping` = `@RequestMapping(method = ...)` 简写
+**公司用 Dubbo 的原因**：老项目历史选型 + 内部调用频繁 RPC 性能优 + 和 Spring XML 兼容
 
-**2. 启动方式简化（内嵌 Tomcat）**
-- 传统：打包 war → 手动部署到外部 Tomcat → 启动
-- Spring Boot：`main()` → 启动 Spring 容器 + 启动内嵌 Tomcat → 直接能访问
-- `spring-boot-starter-web` 依赖引入 Tomcat jar 包，`main()` 时自动创建 Tomcat 实例
-- 端口配置：`server.port: 3000` yml 一行
+**2026 面试回答策略**：说现状 → 说原因 → 说如果重来怎么选（体现判断力）
 
-**类比 Node.js**：`java -jar app.jar` = `node app.js`，不需要外部服务器
+**RPC 同步 vs MQ 异步选型**（纠正 Q7 矛盾）：
+| 场景 | 选型 | 原因 |
+|------|------|------|
+| 强一致（银行转账） | RPC 同步 | 要立即知道结果 |
+| 高并发最终一致（电商下单） | MQ 异步 | 不阻塞，可接受短暂不一致 |
+| 长流程（OTA 订票） | Saga | RPC 链太深 |
 
-### 今日面试题沉淀（4 道）
+### 今日面试题沉淀（2 道）
 
-1. `@RestController` 和 `@Controller` 区别？→ `@RestController` = `@Controller` + `@ResponseBody`，所有方法默认返回 JSON
-2. Spring Boot 为什么不需要外部 Tomcat？→ 内嵌 Tomcat（starter-web 引入），`main()` 启动时自动创建监听端口
-3. OGNL 假值陷阱？→ Integer 0 在 OGNL 里 `!= ''` 为 false（`''` 当 `0` 比较），数值类型只判 `!= null`，删掉 `!= ''`
-4. Dubbo 重试 Failover？→ Provider 挂了自动换其他机器重试（Failover 策略），不是拿缓存
+1. Dubbo vs Spring Cloud？→ Dubbo RPC 性能好但生态窄，Spring Cloud HTTP REST 生态全但性能略低。公司用 Dubbo 是历史选型+性能需求。新项目我会考虑 Spring Cloud 或 Dubbo 3 混合
+2. 同步 RPC vs 异步 MQ 怎么选？→ 强一致用 RPC，高并发最终一致用 MQ，长流程用 Saga
 
 ### 遗留问题 / 下次计划
 
-- Spring Cloud vs Dubbo 选型（面试高频"为什么用 Dubbo 不用 Spring Cloud"）
-- 看公司代码里有没有 MQ 使用
-- Spring Boot 内嵌容器原理深入（可选）
+- 看公司代码里有没有 MQ 使用（RabbitMQ/Kafka）
+- Dubbo 3 + Spring Cloud 混合架构（可选）
+- Spring Cloud 组件深入（Gateway/Config/Nacos）
 
 ---
 
 ## 上次会话（存档）
 
-**2026-08-14（Java 线 Day 25 Spring Boot 自动配置）**
+**2026-08-15（Java 线 Day 26 Spring Boot Web）**
