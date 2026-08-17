@@ -24,6 +24,9 @@
 | React Router v6（三层嵌套/Outlet=router-view/守卫组件包裹/useParams/useSearchParams/懒加载） | 复习 | 原理 | 5.5 | 3 | 08-15 | 08-18 | G |
 | TanStack Query（服务端状态/queryKey缓存共享/invalidateQueries/useMutation/三层状态分工） | 复习 | 原理 | 5.5 | 3 | 08-15 | 08-18 | G |
 | Zustand（create返回hook/set浅合并只管第一层/选择器精准订阅/对比Pinia） | 复习 | 原理 | 5.0 | 3 | 08-15 | 08-18 | G |
+| axios封装（配置收口/token自动塞/错误统一出口/剥壳/拦截器两方向） | 复习 | 原理 | 4.5 | 4 | 08-17 | 08-21 | G |
+| React Hook Form（register非受控/handleSubmit/reset/setValue/watch/defaultValues） | 复习 | 技能 | 5.0 | 4 | 08-17 | 08-21 | G |
+| Zod（schema定义校验规则/z.infer类型推断/zodResolver桥接RHF/一份schema三用途） | 复习 | 原理 | 4.5 | 4 | 08-17 | 08-21 | G |
 | React 心智模型（重渲染=函数重跑/不可变/单向流/不监听） | 复习 | 原理 | 5.0 | 8 | 08-14 | 08-22 | G,G,A,G |
 | React 受控vs非受控 + 虚拟DOM + Fiber可中断 | 复习 | 原理 | 5.0 | 5 | 08-15 | 08-20 | G,G |
 | React Hooks（闭包陷阱+依赖数组+useCallback vs useMemo） | 复习 | 原理 | 5.0 | 8 | 08-16 | 08-24 | G,H,G,G |
@@ -38,7 +41,7 @@
 | z-index 层叠上下文（拼爹/隐形触发） | 复习 | 原理 | 4.5 | 10 | 08-14 | 08-24 | G,G,G,G,G |
 | 重排重绘（reflow/repaint + 布局抖动） | 复习 | 原理 | 4.5 | 10 | 08-14 | 08-24 | G,G,G |
 | CSS 单位（em/rem/vw/vh/%） | 复习 | 原理 | 4.5 | 10 | 08-14 | 08-24 | G,G,G |
-| 1px 边框（DPR/物理像素） | 复习 | 原理 | 4.5 | 13 | 08-04 | 08-17 | G,G,G |
+| 1px 边框（DPR/物理像素） | 复习 | 原理 | 4.5 | 16 | 08-17 | 09-02 | G,G,G,G |
 | Node 事件循环（阶段/nextTick/setImmediate vs setTimeout） | 复习 | 原理 | 4.0 | 10 | 08-14 | 08-24 | G,G,G,G,G,H,H,G |
 | Node 模块化（CJS vs ESM/exports陷阱/循环引用/动态import） | 复习 | 原理 | 4.0 | 10 | 08-14 | 08-24 | G,G,G |
 | JWT 认证（签名机制/双token/主动失效难题） | 复习 | 原理 | 4.5 | 8 | 08-14 | 08-22 | G,G,G |
@@ -47,7 +50,7 @@
 | SSE 流式响应（格式/EventSource/重连机制/生产坑） | 复习 | 原理 | 4.5 | 8 | 08-14 | 08-22 | G,G |
 | WebSocket（协议升级/全双工/SSE对比/手动重连/生产坑） | 复习 | 原理 | 4.5 | 8 | 08-14 | 08-22 | H,G,G |
 | Express 深入（中间件数组+next循环/路由本质/错误处理/asyncHandler） | 复习 | 原理 | 4.5 | 8 | 08-14 | 08-22 | H,G,G |
-| worker_threads（单线程瓶颈/线程池/SharedArrayBuffer/cluster对比） | 复习 | 原理 | 5.5 | 4 | 08-12 | 08-16 | G,H,A,G |
+| worker_threads（单线程瓶颈/线程池/SharedArrayBuffer/cluster对比） | 复习 | 原理 | 5.7 | 4 | 08-17 | 08-21 | H,G,H,A,G |
 | DB 连接池（池化/借还/池满策略/雪崩） | 复习 | 原理 | 4.5 | 8 | 08-14 | 08-22 | G,G,G |
 | DB 事务（原子性/事务绑连接/rollback+throw铁律） | 复习 | 原理 | 5.5 | 8 | 08-14 | 08-22 | G,A,G,G,G |
 | Node 原生 http（req/res 是流/手动收body/writeHead时序） | 复习 | 原理 | 5.0 | 8 | 08-14 | 08-22 | G,A,G,G |
@@ -55,7 +58,7 @@
 | cluster 多进程（主进程分发socket/worker不共享内存） | 复习 | 原理 | 5.0 | 8 | 08-14 | 08-22 | G,A,G,G |
 | Maven 坐标 GAV | Java | 原理 | 4.4 | 4 | 07-23 | 07-27 | G |
 | pom.xml 结构 | Java | 原理 | 4.4 | 4 | 07-23 | 07-27 | G |
-| Maven 本地仓库机制 | Java | 原理 | 5.8 | 10 | 07-30 | 08-09 | G,G,G,H,H |
+| Maven 本地仓库机制 | Java | 原理 | 5.5 | 13 | 08-17 | 08-30 | G,G,G,G,H,H |
 | Maven 标准目录结构 | Java | 技能 | 4.4 | 4 | 07-23 | 07-27 | G |
 | Maven 路径映射规则 | Java | 原理 | 6.3 | 6 | 08-06 | 08-12 | G,G,H,G,A,G,A |
 | 父 pom 的 modules 声明 | Java | 原理 | 4.4 | 4 | 07-24 | 07-28 | G |
@@ -138,7 +141,7 @@
 
 | RPC 本质（动态代理藏网络细节/像调本地方法/序列化+长连接） | Java | 原理 | 5.0 | 4 | 08-06 | 08-10 | G |
 | RPC vs HTTP（二进制vs文本/长连接vs短连接/对内vs对外/注册中心vs手配） | Java | 原理 | 5.0 | 4 | 08-06 | 08-10 | G |
-| Dubbo 三角关系（Provider注册/Consumer订阅/Zookeeper注册中心/调用不查ZK） | Java | 原理 | 5.8 | 2 | 08-11 | 08-13 | H,G |
+| Dubbo 三角关系（Provider注册/Consumer订阅/Zookeeper注册中心/调用不查ZK） | Java | 原理 | 5.5 | 4 | 08-17 | 08-21 | G,H,G |
 | Dubbo XML 配置（application/registry/consumer默认+reference具体/service+ref发布） | Java | 原理 | 5.5 | 4 | 08-06 | 08-10 | G |
 | 重试与幂等（retries=0原因/写接口非幂等重试重复执行/查询可重试/Failover换机器重试） | Java | 原理 | 6.0 | 5 | 08-15 | 08-20 | G,H,H,G |
 | 负载均衡+集群容错（Random默认/Failover重试其他机器/ZK心跳删节点推送） | Java | 原理 | 5.5 | 4 | 08-06 | 08-10 | G |
@@ -197,3 +200,4 @@
 > 2026-08-04（Day 19 MyBatis 动态 UPDATE + 关联查询）：课前小测 8 题，**通过率 1/8（仅 1px 边框 Good）**，3 个 Again（Flex/Node http/cluster）、3 个 Hard（Promise/`<if>`/`<where>`）、1 个 Again 第 2 次（事务绑连接 线程vs连接术语混淆持续）。新增 3 个 KP：`<set>` 标签（H，使用场景判断选 A 错）、OGNL 假值陷阱（A，status=0 陷阱完全没发现）、ResultMap 关联查询（A，N+1 的 N 理解成用户×订单、JOIN 笛卡尔积行数理解成用户数）。理解检查 4 轮：① 写法 A vs B 选 A（过度设计判断错误）H ② status=0 OGNNL 陷阱说"没啥问题" A ③ N+1/行数全错 A ④ 班级学生 Q1/Q2 翻盘 G、Q3 LEFT JOIN 说"不会" H。
 > 2026-08-05（Day 20 MyBatis 与 Spring 事务协调）：课前小测 7 题，**6 个 Again 全翻盘 + 1 跨线 Good 🎉**（Flex/Node http/cluster/事务绑连接第3次/OGNL/ResultMap 全部 A→G，React Hooks 跨线 G）。间隔复习起效。新增 3 KP：ThreadLocal 绑连接、嵌套事务 REQUIRED、rollback-only 机制（均 G）。理解检查：① 并发线程隔离 G ② 嵌套事务是否同 Connection → 答"不是"错（应 REQUIRED 共用）③ 内层异常外层 catch 是否回滚 → 核心对（会回滚）。事务绑连接术语混淆终于收口（连接 vs 线程）。
 > 2026-08-06（Day 21 Dubbo RPC 微服务入门）：课前小测 7 题，2 G（Maven路径映射翻盘A→G历史错5+次终于稳、宏任务微任务）+ 3 H（React Hooks 知规则不知底层、`<set>`+OGNL 诊断对修法缺、WebSocket 选型对生产3件事漏2）+ 1 A（worker_threads 混淆线程/连接、描述成 cluster）+ 预测试直觉对。新增 6 KP：RPC本质、RPC vs HTTP、Dubbo三角关系、Dubbo XML配置、重试与幂等(H)、负载均衡+容错（均首学 G，幂等 H）。公司代码精读：XML配置非注解、reference覆盖consumer、file本地缓存印证"调用不查ZK"、多注册中心、retries=0 因写接口非幂等。理解检查：Q1 超时分级判断对、Q2 关重试只答表层（漏"重试重复执行非幂等"核心）。错题：worker_threads 线程vs连接混淆 + 描述成 cluster（08-07 复查）。
+> 2026-08-17（复习线 ⑩ axios/RHF/Zod 课前小测）：1px G（S 13→16）、Maven本地仓库 G（S 10→13）、Dubbo三角 G（S 2→4）、worker_threads H——应用层对但机制说反（"cluster分配线程/worker_threads分配CPU核心"），钉死：cluster=进程级复制多份、worker_threads=单进程内开线程共享内存（08-21 复查）。

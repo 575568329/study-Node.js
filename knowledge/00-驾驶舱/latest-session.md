@@ -1,8 +1,57 @@
 # 最近一次学习记录
 
-**最后更新**:2026-08-16（Java 线 Day 27 Spring Cloud vs Dubbo）
+**最后更新**:2026-08-17（前端复习线 ⑩ axios + RHF + Zod）
 
-## 2026-08-16 学习记录（Java 线）
+## 2026-08-17 学习记录（前端复习线）
+
+### 课前小测（5 题）
+
+到期 2 条 + Java 抽查 2 条 + 预测 1 条。
+
+- ✅ Q1 1px 边框（到期）：G（DPR + 伪元素 scale 方案全对）
+- ⚠️ Q2 worker_threads（昨天到期）：H（应用层对，"cluster分配线程/worker_threads分配CPU核心"说反了第 3 次）
+- ✅ Q3 Dubbo 三角关系（Java 过期）：G（注册/订阅/调用不走 ZK 全对）
+- ✅ Q4 Maven 本地仓库（Java 过期）：G
+- Q5 预测 axios 拦截器：方向对，只说请求方向一半
+
+### 学习成果
+
+**⑩ axios 封装 + React Hook Form + Zod**
+
+- axios 封装四层价值：配置收口 / token 自动塞 / 错误统一出口 / 剥壳（组件拿纯业务数据）
+- 拦截器两方向：请求拦截塞 token / 响应拦截剥壳 + 统一错误处理
+- RHF 非受控表单：register 底层 ref 避免多次重渲染，handleSubmit 自动校验
+- RHF 全 API 演示：register / handleSubmit / errors / reset / setValue / watch / defaultValues
+- Zod 负责定义校验规则，RHF 负责执行（zodResolver 桥接）
+- z.infer 自动推断 TS 类型，一份 schema 三个用途（RHF 校验 / TS 类型 / 前后端同构）
+
+### 关键盲区
+
+- ⚠️ 响应拦截器剥壳后拿到的不是 axios response 对象，是后端纯业务数据
+- ⚠️ Zod/RHF 职责说反：Zod 定义规则，RHF 执行校验
+- ⚠️ worker_threads 机制说反（第 3 次）：cluster=进程级复制多份，worker_threads=单进程内开线程共享内存
+
+### 今日面试题沉淀（2 道）
+
+1. axios 为什么要封装？→ 配置收口(baseURL/timeout) + token 自动塞 + 错误统一出口 + 剥壳(组件拿业务数据)
+2. RHF 为什么用非受控？→ N 个 useState 每次按键 N 次重渲染，register 底层 ref 只提交时读一次值
+
+### 代码资产
+
+- `projects/react/react-ts-demo/src/form-demo/`（axios 封装 + 登录 + 新增/编辑用户，RHF 全 API 演示）
+- main.tsx 已切到 form-demo
+
+### 遗留问题 / 下次计划
+
+- ⑪ Tailwind（唤醒级）
+- ⑫ Redux Toolkit（🟡补学档开篇，对比 Zustand）
+- worker_threads 08-21 复查（机制说反）
+
+---
+
+## 上次会话（存档）
+
+**2026-08-16（Java 线 Day 27 Spring Cloud vs Dubbo）**
 
 ### 课前小测（7 题）
 
