@@ -1,8 +1,42 @@
 # 最近一次学习记录
 
-**最后更新**:2026-08-21（Java 线 Day 28 MQ 核心概念）
+**最后更新**:2026-08-21（前端复习线 ⑫ Redux Toolkit + 遗忘带翻盘）
+
+## 2026-08-21 学习记录（前端复习线，同日 Java 线 Day 28 见下方存档）
+
+### 课前小测（5 题）：1 H + 4 A，遗忘带暴露
+
+Tailwind 轴向（items-center 又说"底部居中"，连续 2 次）/ RHF（setValue 答成 register）/ Router 守卫（答成 axios 拦截器）/ OGNL（"0 是 false" 连续 2 次）全 A。**诊断**：⑧-⑪ 站 08-15~08-19 四天密集学，学得快忘得也快。
+
+**当场费曼翻盘**：合上复述 4 条 → 3 全过 + 1 半过（OGNL 差"空串转 0"半句）。5 条 KP 排 08-22 密集复查。
+
+### 学习成果
+
+**⑫ Redux Toolkit（对比 Zustand，复述 3/3 全过）**
+
+- RTK = Redux 官方减负工具包，7 文件收成 1 个 slice
+- 数据流灵魂：dispatch(action) → reducer 纯函数 → 新 state → 通知订阅；中间层换可预测性 + 时间旅行调试
+- reducer 里 `state.count++` 不违规：Immer 翻译成不可变
+- useSelector ≈ Zustand 选择器（精准订阅同原理）；RTK 要 Provider，Zustand 零配置
+- 2026 分工：服务端状态 TanStack Query，客户端 Zustand(新项目)/RTK(存量维护)
+
+### 今日面试题沉淀（2 道）
+
+1. Redux Toolkit 和 Zustand 怎么选？→ 新项目 Zustand 轻量零配置；存量/大团队要可预测性和时间旅行调试用 RTK。action→reducer 中间层是样板也是审计记录
+2. RTK reducer 里直接改 state 为什么没问题？→ 内置 Immer 把"直接改"语法翻译成造新对象，本质仍不可变
+
+### 遗留问题 / 下次计划
+
+- **08-22 密集复查 5 条 A/H**（Tailwind 轴向 / RHF setValue / Router 守卫 / OGNL / Zod）——第一优先级
+- ⑭ 性能优化成体系（🟡补学，2026 高级面试重灾区）
+- 今日追加：⑬ Antd ✅（14/?，国内岗方向；Element 映射 + Form 三路线选型 + Modal 受控环）
+- 教学节奏调整：新站放慢，每站学完当场费曼复述一次再走
+
+---
 
 ## 2026-08-21 学习记录（Java 线）
+
+### 课前小测（7 题）
 
 ### 课前小测（7 题）
 
