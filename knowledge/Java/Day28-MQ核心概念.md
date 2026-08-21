@@ -99,6 +99,38 @@ SETNX order:123 1  -- 返回 0 说明已存在
 > 记忆锚点：**查挡九成，索引兜底**
 > 注意因果关系：不是"先查后改消除风险"，是"先查后做本身有风险，唯一索引兜底"。
 
+### 幂等扣库存的标准写法（课后追问补充）
+
+```sql
+-- 建表时立规矩（索引在这里，不在 INSERT 里）
+CREATE TABLE stock_deduction_log (
+    id       BIGINT PRIMARY KEY AUTO_INCREMENT,
+    order_id BIGINT NOT NULL,
+    create_time DATETIME,
+    UNIQUE KEY uk_order_id (order_id)    -- 唯一索引
+);
+
+-- 消费者收到消息（订单 123 扣 1 件）：
+BEGIN;
+
+-- ① 直接插记录（不是查！让唯一索引当裁判）
+INSERT INTO stock_deduction_log (order_id) VALUES (123);
+-- 成功 → 第一次处理 → 继续 ②
+-- 报 Duplicate entry → 重复消息 → 直接 ACK 跳过
+
+-- ② 扣库存
+UPDATE stock SET num = num - 1 WHERE product_id = 456;
+
+COMMIT;
+```
+
+**三个要点**：
+1. **①② 同一个事务**——要么都成功要么都回滚，不存在"记录插了但库存没扣"
+2. **记录永不删除**——它就是"处理过"的证据，三个月后重投依然报错拦截。真要清理是归档历史表，不是删
+3. **安全性下沉到结构**——和 Day 17 `#{}` 预编译同一个思想：不靠业务代码自觉，靠结构本身保证（预编译让注入不可能，唯一索引让重复不可能）
+
+类比：收银台小票——每笔留一张，同一张小票来退第二次货，翻小票就拒掉。
+
 ---
 
 ## 四、知识闭环
