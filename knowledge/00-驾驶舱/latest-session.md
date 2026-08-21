@@ -1,103 +1,80 @@
 # 最近一次学习记录
 
-**最后更新**:2026-08-17（前端复习线 ⑩ axios + RHF + Zod）
+**最后更新**:2026-08-21（Java 线 Day 28 MQ 核心概念）
 
-## 2026-08-17 学习记录（前端复习线）
-
-### 课前小测（5 题）
-
-到期 2 条 + Java 抽查 2 条 + 预测 1 条。
-
-- ✅ Q1 1px 边框（到期）：G（DPR + 伪元素 scale 方案全对）
-- ⚠️ Q2 worker_threads（昨天到期）：H（应用层对，"cluster分配线程/worker_threads分配CPU核心"说反了第 3 次）
-- ✅ Q3 Dubbo 三角关系（Java 过期）：G（注册/订阅/调用不走 ZK 全对）
-- ✅ Q4 Maven 本地仓库（Java 过期）：G
-- Q5 预测 axios 拦截器：方向对，只说请求方向一半
-
-### 学习成果
-
-**⑩ axios 封装 + React Hook Form + Zod**
-
-- axios 封装四层价值：配置收口 / token 自动塞 / 错误统一出口 / 剥壳（组件拿纯业务数据）
-- 拦截器两方向：请求拦截塞 token / 响应拦截剥壳 + 统一错误处理
-- RHF 非受控表单：register 底层 ref 避免多次重渲染，handleSubmit 自动校验
-- RHF 全 API 演示：register / handleSubmit / errors / reset / setValue / watch / defaultValues
-- Zod 负责定义校验规则，RHF 负责执行（zodResolver 桥接）
-- z.infer 自动推断 TS 类型，一份 schema 三个用途（RHF 校验 / TS 类型 / 前后端同构）
-
-### 关键盲区
-
-- ⚠️ 响应拦截器剥壳后拿到的不是 axios response 对象，是后端纯业务数据
-- ⚠️ Zod/RHF 职责说反：Zod 定义规则，RHF 执行校验
-- ⚠️ worker_threads 机制说反（第 3 次）：cluster=进程级复制多份，worker_threads=单进程内开线程共享内存
-
-### 今日面试题沉淀（2 道）
-
-1. axios 为什么要封装？→ 配置收口(baseURL/timeout) + token 自动塞 + 错误统一出口 + 剥壳(组件拿业务数据)
-2. RHF 为什么用非受控？→ N 个 useState 每次按键 N 次重渲染，register 底层 ref 只提交时读一次值
-
-### 代码资产
-
-- `projects/react/react-ts-demo/src/form-demo/`（axios 封装 + 登录 + 新增/编辑用户，RHF 全 API 演示）
-- main.tsx 已切到 form-demo
-
-### 遗留问题 / 下次计划
-
-- ⑪ Tailwind（唤醒级）
-- ⑫ Redux Toolkit（🟡补学档开篇，对比 Zustand）
-- worker_threads 08-21 复查（机制说反）
-
----
-
-## 上次会话（存档）
-
-**2026-08-16（Java 线 Day 27 Spring Cloud vs Dubbo）**
+## 2026-08-21 学习记录（Java 线）
 
 ### 课前小测（7 题）
 
-2 预测 + 1 S=1 必查 + 2 到期 + 2 抽查。
+4 到期 + 1 跨线 + 2 预测。
 
-- ✅ Q1 宏微任务边界（🔴 S=1）：全对（setTimeout/回调都是宏任务）
-- ✅ Q2 React Hooks 依赖数组（🔴 Hard）：`[]` mount 一次，不写每次渲染都执行
-- ✅ Q3 worker_threads（到期）：cluster 多进程并发，worker_threads CPU 密集
-- ⚠️ Q4 异步错误（到期）：结论对（不加 await catch 不到），表述模糊
-- ✅ Q5 事务绑连接（抽查）：两个连接回滚管不到另一个
-- ❌ Q6 Dubbo vs Spring Cloud（预测）：不知道，正常
-- ⚠️ Q7 MQ vs RPC 选型（预测）：方向对但"RPC 同步不阻塞"说反了
+- ✅ **Q1 worker_threads（🔴 第 3 次说反后必查）**：**终于说对！** cluster=复制多份完整进程（多并发）、worker_threads=单进程内开线程共享内存（CPU 密集），三个维度全对
+- ✅ Q2 React Router Outlet（🔴 上次 H）：H→G 翻盘
+- ✅ Q3 axios 剥壳（到期）：过关（拿到的是后端纯业务数据）
+- ❌ Q4 RHF+Zod 分工（到期）：**又说反第 2 次**（说成 RHF 定规则 Zod 管类型）→ 正确：Zod 定义规则、RHF 执行、zodResolver 桥接。锚点：**Zod 是规则书，RHF 是执行者**
+- ❌ Q5 Spring Boot 自动配置（跨线）：忘光 → 课首 3 分钟重学（starter引类+yml给参数→@ConditionalOnXxx两条件→满足自动建Bean）
+- ⚠️ Q6 Tailwind（预测）：方向对（行内 class 写 CSS）
+- ❌ Q7 Redux Toolkit（预测）：不知道，正常
 
-**4/5 实际题过关，队列状态良好**
+**3/5 实际题过关。worker_threads 终于翻盘（S 延至 6 天）**
+
+### 公司代码考古 🏺（搜题后端 xkzy-ressearch-service）
+
+真实架构发现——**Spring Boot 壳 + XML/properties 魂**：
+- 项目骨架：Spring Boot（starter-parent + 内嵌容器）
+- Dubbo 配置：XML（application-context.xml，老 Dubbo code.alibabatech.com）
+- 参数：properties（大量 ${epas.server.app.key} 占位符），无 yml
+- 注册中心：**两个**——EPAS（讯飞自研）+ Zookeeper（智学 zxRegistry）
+- **RocketMQ 出现在 pom 的 exclusions 里**：公司生态其他服务用 RocketMQ，搜题服务本身不用（传递依赖被排除）
+
+印证 Day 25：Spring Boot 允许混搭（@ImportResource 引 XML），真实公司项目"半迁移"状态很常见。
 
 ### 学习成果
 
-**Spring Cloud vs Dubbo（Day 27）**
+**MQ 核心概念（Day 28）**
 
-**Dubbo 特点**：RPC 二进制长连接（性能好）、接口级调用（像本地方法）、国内老项目主流
-**Spring Cloud 特点**：HTTP REST（生态全/跨语言）、注解+自动配置（配置简单）、全球社区
+**1. MQ 三大价值**：
+- **解耦**：下游挂了不影响上游（订单→MQ→库存，库存挂了消息排队，订单无感）。类比留言板
+- **异步**：发完就走不等结果（Day 23 已学）
+- **削峰**：秒杀 10 万请求进 MQ 排队，消费端按 DB 承受力（5000/秒）慢慢消费。**代价**：用户体验从"秒回"变"排队中→成功"两段式
 
-**公司用 Dubbo 的原因**：老项目历史选型 + 内部调用频繁 RPC 性能优 + 和 Spring XML 兼容
+**2. 消息可靠性三道防线**（消息一生三个丢失点）：
+| 丢失环节 | 防线 |
+|---|---|
+| ① 发送时丢（网络传输失败） | 本地消息表（Day 23 学的闭环） |
+| ② 存储时丢（MQ 断电） | 持久化 + 刷盘（生产必开） |
+| ③ 消费时丢（处理一半崩了） | ACK 机制（处理成功才确认，没 ACK 重新投递） |
 
-**2026 面试回答策略**：说现状 → 说原因 → 说如果重来怎么选（体现判断力）
+**3. ACK → 重复消费 → 幂等**：
+- ACK 网络包丢失 → MQ 重新投递 → 同一消息处理两次
+- 幂等三方案：唯一索引（DB 层兜底最硬）/ 先查后做（业务层）/ Redis setnx
+- 🔴 **并发漏洞**：先查后做有"查和插之间的时间差缝隙"，两个消费者同时查都查不到→都执行。**唯一索引才是兜底**（DB 唯一约束原子，没有缝隙）
 
-**RPC 同步 vs MQ 异步选型**（纠正 Q7 矛盾）：
-| 场景 | 选型 | 原因 |
-|------|------|------|
-| 强一致（银行转账） | RPC 同步 | 要立即知道结果 |
-| 高并发最终一致（电商下单） | MQ 异步 | 不阻塞，可接受短暂不一致 |
-| 长流程（OTA 订票） | Saga | RPC 链太深 |
+**记忆锚点**：
+> 三防线：**表保发送、盘保存储、ACK 保消费**
+> 幂等：**查挡九成，索引兜底**
 
-### 今日面试题沉淀（2 道）
+### 收尾验证（3 问）
 
-1. Dubbo vs Spring Cloud？→ Dubbo RPC 性能好但生态窄，Spring Cloud HTTP REST 生态全但性能略低。公司用 Dubbo 是历史选型+性能需求。新项目我会考虑 Spring Cloud 或 Dubbo 3 混合
-2. 同步 RPC vs 异步 MQ 怎么选？→ 强一致用 RPC，高并发最终一致用 MQ，长流程用 Saga
+- Q1 削峰代价 ✅（用户等待后才知道结果）
+- Q2 三防线 ⚠️（丢失环节说对，防线名对不上号——已补对应表）
+- Q3 幂等并发漏洞 ⚠️（根因说成"网络波动补偿"，实际是**并发时间差**；"先查后改消除风险"说反——先查后做本身有风险，唯一索引才兜底）
+
+### 今日面试题沉淀（3 道）
+
+1. MQ 的三大价值？→ 解耦（下游挂不影响上游）/ 异步（发完就走）/ 削峰（洪峰排队按承受力消费，代价是结果延迟）
+2. 怎么保证消息不丢？→ 三道防线：发送端本地消息表、存储端持久化刷盘、消费端 ACK 确认
+3. 消息重复消费怎么办？→ 幂等。先查后做挡大部分，唯一索引兜底（先查后做有并发缝隙：两消费者同时查都查不到会都执行，DB 唯一约束原子无缝隙）
 
 ### 遗留问题 / 下次计划
 
-- 看公司代码里有没有 MQ 使用（RabbitMQ/Kafka）
-- Dubbo 3 + Spring Cloud 混合架构（可选）
-- Spring Cloud 组件深入（Gateway/Config/Nacos）
+- RocketMQ 消息模型（Topic/Tag/消费组/广播vs集群模式）
+- 复习线：⑪ Tailwind → ⑫ Redux Toolkit
+- 🔴 RHF/Zod 分工（说反第 2 次，08-23 复查）
+- 🔴 Spring Boot 自动配置（重学后 08-23 快速确认）
 
 ---
 
 ## 上次会话（存档）
 
-**2026-08-15（Java 线 Day 26 Spring Boot Web）**
+**2026-08-17（前端复习线 ⑩ axios + RHF + Zod）**
