@@ -21,14 +21,14 @@
 
 | KP | 线 | 类型 | D | S(天) | 上次 | 下次到期 | ratings |
 |---|---|---|---|---|---|---|---|
-| React Router v6（三层嵌套/Outlet=router-view/守卫组件包裹/useParams/useSearchParams/懒加载） | 复习 | 原理 | 5.7 | 1 | 08-21 | 08-22 | A,G,H,G |
+| React Router v6（三层嵌套/Outlet=router-view/守卫组件包裹+Navigate replace/useParams/懒加载） | 复习 | 原理 | 5.7 | 4 | 08-24 | 08-28 | G,A,G,H,G |
 | TanStack Query（服务端状态/queryKey缓存共享/invalidateQueries/useMutation/三层状态分工） | 复习 | 原理 | 5.5 | 5 | 08-19 | 08-24 | G,G |
 | Zustand（create返回hook/set浅合并只管第一层/选择器精准订阅/对比Pinia） | 复习 | 原理 | 5.0 | 5 | 08-19 | 08-24 | G,G |
 | axios封装（配置收口/token自动塞/错误统一出口/剥壳/拦截器两方向） | 复习 | 原理 | 4.5 | 8 | 08-21 | 08-29 | G,G |
-| Tailwind（utility-first/间距×4规则/items轴向/md前缀=媒体查询条件覆盖/hover前缀） | 复习 | 原理 | 5.2 | 1 | 08-21 | 08-22 | A,H |
+| Tailwind（utility-first/间距×4规则/items轴向/md前缀=媒体查询条件覆盖/hover前缀） | 复习 | 原理 | 5.2 | 4 | 08-24 | 08-28 | G,A,H,A |
 | Redux Toolkit（slice/configureStore/dispatch→reducer数据流/Immer翻译/useSelector≈Zustand选择器/对比Zustand） | 复习 | 原理 | 4.8 | 4 | 08-21 | 08-25 | G |
-| React Hook Form（register非受控/handleSubmit/reset/setValue/watch/defaultValues） | 复习 | 技能 | 5.3 | 1 | 08-21 | 08-22 | A,A,G |
-| Zod（schema定义校验规则/z.infer类型推断/zodResolver桥接RHF/一份schema三用途） | 复习 | 原理 | 5.2 | 2 | 08-21 | 08-23 | H,A,G |
+| React Hook Form（register非受控/handleSubmit/reset/setValue/watch/defaultValues） | 复习 | 技能 | 5.3 | 4 | 08-24 | 08-28 | G,A,A,G |
+| Zod（schema定义校验规则/z.infer类型推断/zodResolver桥接RHF/一份schema三用途） | 复习 | 原理 | 5.2 | 4 | 08-24 | 08-28 | G,H,A,G,A |
 | React 心智模型（重渲染=函数重跑/不可变/单向流/不监听） | 复习 | 原理 | 5.0 | 8 | 08-14 | 08-22 | G,G,A,G |
 | React 受控vs非受控 + 虚拟DOM + Fiber可中断 | 复习 | 原理 | 5.0 | 5 | 08-15 | 08-20 | G,G |
 | React Hooks（闭包陷阱+依赖数组+useCallback vs useMemo） | 复习 | 原理 | 5.0 | 8 | 08-16 | 08-24 | G,H,G,G |
@@ -130,7 +130,7 @@
 ### MyBatis 动态 UPDATE 与关联查询（Day 19）
 
 | `<set>` 标签（动态UPDATE/去尾逗号/与<where>对称/使用场景判断） | Java | 原理 | 5.5 | 5 | 08-14 | 08-19 | G,H,H |
-| OGNL 假值陷阱（0/false在test当假值/Integer包装类/数值类型只判!=null） | Java | 原理 | 5.8 | 1 | 08-21 | 08-22 | A,H,G,A,H,G,A |
+| OGNL 假值陷阱（0/false在test当假值/Integer包装类/数值类型只判!=null） | Java | 原理 | 5.8 | 3 | 08-24 | 08-27 | G,A,H,G,A,H,G,A |
 | ResultMap 关联查询（嵌套查询vs嵌套结果/N+1/笛卡尔积/collection+association/LEFT JOIN） | Java | 原理 | 5.5 | 5 | 08-19 | 08-24 | G,G,A |
 
 ### MyBatis 与 Spring 事务协调（Day 20）

@@ -43,6 +43,7 @@
 - [Day26 - Spring Boot Web](./Day26-SpringBootWeb.md) ⭐ @RestController(@Controller+@ResponseBody)/@GetMapping简写/内嵌Tomcat/main()直接启动
 - [Day27 - Spring Cloud vs Dubbo](./Day27-SpringCloud-vs-Dubbo.md) ⭐ 两条微服务路线对比/RPC vs HTTP REST/选型判断/面试回答策略/RPC同步vs MQ异步
 - [Day28 - MQ 核心概念](./Day28-MQ核心概念.md) ⭐ 三大价值(解耦/异步/削峰)/可靠性三防线(表保发送盘保存储ACK保消费)/幂等(查挡九成索引兜底)/搜题后端架构考古
+- [Day29 - RocketMQ 消息模型](./Day29-RocketMQ消息模型.md) ⭐ 消费组(组间复制/组内竞争)/广播模式/Topic+Tag划分/Broker侧过滤/重复消费排查
 
 ---
 
@@ -67,7 +68,7 @@
 | Week 2 | 核心 API + Stream | 🔄 进行中（Day7 Stream/Optional、Day8 日期时间 完成）|
 | Week 4 | Spring 框架 | ✅ 完成（Day12 IoC/DI/MVC、Day13 AOP/Bean生命周期、Day14 事务、Day14.5 AOP代理重学）|
 | Week 7 | 数据库 + MyBatis | ✅ 完成（Day16 入门、Day17 动态SQL+安全、Day18 缓存机制、Day19 动态UPDATE+关联查询、Day20 Spring事务协调）|
-| Week 9 | 微服务 Dubbo | 🔄 进行中（Day21-28 ✅ / Spring Boot + Spring Cloud + MQ 核心概念 ✅）|
+| Week 9 | 微服务 Dubbo | 🔄 进行中（Day21-29 ✅ / Spring Boot + Spring Cloud + MQ ✅）|
 
 > Week 2 剩余：StringBuilder、文件 I/O
-> Dubbo 下一步：Spring Boot Web、Spring Cloud 选型、看公司 MQ 使用
+> 下一步：MQ 延迟消息/死信队列、或进入运维阶段（Linux/Docker）
