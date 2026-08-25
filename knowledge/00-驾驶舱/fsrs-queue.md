@@ -21,21 +21,22 @@
 
 | KP | 线 | 类型 | D | S(天) | 上次 | 下次到期 | ratings |
 |---|---|---|---|---|---|---|---|
-| React Router v6（三层嵌套/Outlet=router-view/守卫组件包裹+Navigate replace/useParams/懒加载） | 复习 | 原理 | 5.7 | 4 | 08-24 | 08-28 | G,A,G,H,G |
+| React Router v6（三层嵌套/Outlet=router-view/守卫组件包裹+Navigate replace/useParams/懒加载） | 复习 | 原理 | 5.7 | 4 | 08-25 | 08-29 | G,G,A,G,H,G |
 | TanStack Query（服务端状态/queryKey缓存共享/invalidateQueries/useMutation/三层状态分工） | 复习 | 原理 | 5.5 | 8 | 08-24 | 09-01 | G,G,G |
 | Zustand（create返回hook/set浅合并只管第一层/选择器精准订阅/对比Pinia） | 复习 | 原理 | 5.0 | 8 | 08-24 | 09-01 | G,G,G |
 | axios封装（配置收口/token自动塞/错误统一出口/剥壳/拦截器两方向） | 复习 | 原理 | 4.5 | 8 | 08-21 | 08-29 | G,G |
 | Tailwind（utility-first/间距×4规则/items轴向/md前缀=媒体查询条件覆盖/hover前缀） | 复习 | 原理 | 5.2 | 4 | 08-24 | 08-28 | G,A,H,A |
 | Redux Toolkit（slice/configureStore/dispatch→reducer数据流/Immer翻译/useSelector≈Zustand选择器/对比Zustand） | 复习 | 原理 | 4.8 | 8 | 08-25 | 09-02 | G,G |
-| React 性能优化（两棵树/memo+useCallback+useMemo三位一体/状态下放/lazy分割/白屏问Network卡顿问Profiler） | 复习 | 原理 | 5.0 | 4 | 08-24 | 08-28 | G |
-| 前端测试（金字塔/RTL测行为不测实现/Mock三理由:get同步find异步/userEvent） | 复习 | 原理 | 5.2 | 4 | 08-24 | 08-28 | G |
-| React Hook Form（register非受控/handleSubmit/reset/setValue/watch/defaultValues） | 复习 | 技能 | 5.3 | 4 | 08-24 | 08-28 | G,A,A,G |
-| Zod（schema定义校验规则/z.infer类型推断/zodResolver桥接RHF/一份schema三用途） | 复习 | 原理 | 5.2 | 4 | 08-24 | 08-28 | G,H,A,G,A |
+| React 性能优化（两棵树/memo+useCallback+useMemo三位一体/状态下放/lazy分割/白屏问Network卡顿问Profiler） | 复习 | 原理 | 5.0 | 2 | 08-25 | 08-27 | H,G |
+| 前端测试（金字塔/RTL测行为不测实现/Mock三理由:get同步find异步/userEvent） | 复习 | 原理 | 5.2 | 2 | 08-25 | 08-27 | H,G |
+| 构建工具链（Vite开发不打包按需编译/生产Rollup两套策略/HMR成本恒定/esbuild预构建依赖） | 复习 | 原理 | 4.8 | 4 | 08-25 | 08-29 | G |
+| React Hook Form（register非受控/handleSubmit/reset/setValue/watch/defaultValues） | 复习 | 技能 | 5.3 | 4 | 08-25 | 08-29 | G,G,A,A,G |
+| Zod（schema定义校验规则/z.infer类型推断/zodResolver桥接RHF/一份schema三用途） | 复习 | 原理 | 5.2 | 2 | 08-25 | 08-27 | A,G,H,A,G,A |
 | React 心智模型（重渲染=函数重跑/不可变/单向流/不监听） | 复习 | 原理 | 5.0 | 8 | 08-24 | 09-01 | G,G,G,A,G |
 | React 受控vs非受控 + 虚拟DOM + Fiber可中断 | 复习 | 原理 | 5.0 | 2 | 08-25 | 08-27 | A,G,G |
 | React Hooks（闭包陷阱+依赖数组+useCallback vs useMemo） | 复习 | 原理 | 5.0 | 8 | 08-24 | 09-01 | G,G,H,G,G |
-| React 组件通信（props/子父回调/状态提升/useContext/createContext本质） | 复习 | 原理 | 4.0 | 8 | 08-14 | 08-22 | G,G |
-| 自定义 Hook（复用逻辑不复用state/state存组件Fiber/use前缀给lint识别） | 复习 | 原理 | 5.0 | 8 | 08-13 | 08-21 | G,G,A |
+| React 组件通信（props/子父回调/状态提升/useContext/createContext本质） | 复习 | 原理 | 4.5 | 1 | 08-25 | 08-26 | A,G,G |
+| 自定义 Hook（复用逻辑不复用state/state存组件Fiber/use前缀给lint识别） | 复习 | 原理 | 5.3 | 1 | 08-25 | 08-26 | A,G,G,A |
 | useReducer 基础（痛点:一动多state/数据流/reducer纯函数造新对象/适用判断） | 复习 | 原理 | 5.5 | 5 | 08-15 | 08-20 | G,G |
 | BFC（块格式化上下文） | 复习 | 原理 | 4.0 | 8 | 08-14 | 08-22 | G,G,G,G |
 | Promise 手写（三态/单向转换/原理过关） | 复习 | 技能 | 5.5 | 8 | 08-14 | 08-22 | H,G,A,G,G |
