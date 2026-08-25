@@ -26,13 +26,13 @@
 | Zustand（create返回hook/set浅合并只管第一层/选择器精准订阅/对比Pinia） | 复习 | 原理 | 5.0 | 8 | 08-24 | 09-01 | G,G,G |
 | axios封装（配置收口/token自动塞/错误统一出口/剥壳/拦截器两方向） | 复习 | 原理 | 4.5 | 8 | 08-21 | 08-29 | G,G |
 | Tailwind（utility-first/间距×4规则/items轴向/md前缀=媒体查询条件覆盖/hover前缀） | 复习 | 原理 | 5.2 | 4 | 08-24 | 08-28 | G,A,H,A |
-| Redux Toolkit（slice/configureStore/dispatch→reducer数据流/Immer翻译/useSelector≈Zustand选择器/对比Zustand） | 复习 | 原理 | 4.8 | 4 | 08-21 | 08-25 | G |
+| Redux Toolkit（slice/configureStore/dispatch→reducer数据流/Immer翻译/useSelector≈Zustand选择器/对比Zustand） | 复习 | 原理 | 4.8 | 8 | 08-25 | 09-02 | G,G |
 | React 性能优化（两棵树/memo+useCallback+useMemo三位一体/状态下放/lazy分割/白屏问Network卡顿问Profiler） | 复习 | 原理 | 5.0 | 4 | 08-24 | 08-28 | G |
 | 前端测试（金字塔/RTL测行为不测实现/Mock三理由:get同步find异步/userEvent） | 复习 | 原理 | 5.2 | 4 | 08-24 | 08-28 | G |
 | React Hook Form（register非受控/handleSubmit/reset/setValue/watch/defaultValues） | 复习 | 技能 | 5.3 | 4 | 08-24 | 08-28 | G,A,A,G |
 | Zod（schema定义校验规则/z.infer类型推断/zodResolver桥接RHF/一份schema三用途） | 复习 | 原理 | 5.2 | 4 | 08-24 | 08-28 | G,H,A,G,A |
 | React 心智模型（重渲染=函数重跑/不可变/单向流/不监听） | 复习 | 原理 | 5.0 | 8 | 08-24 | 09-01 | G,G,G,A,G |
-| React 受控vs非受控 + 虚拟DOM + Fiber可中断 | 复习 | 原理 | 5.0 | 5 | 08-15 | 08-20 | G,G |
+| React 受控vs非受控 + 虚拟DOM + Fiber可中断 | 复习 | 原理 | 5.0 | 2 | 08-25 | 08-27 | A,G,G |
 | React Hooks（闭包陷阱+依赖数组+useCallback vs useMemo） | 复习 | 原理 | 5.0 | 8 | 08-24 | 09-01 | G,G,H,G,G |
 | React 组件通信（props/子父回调/状态提升/useContext/createContext本质） | 复习 | 原理 | 4.0 | 8 | 08-14 | 08-22 | G,G |
 | 自定义 Hook（复用逻辑不复用state/state存组件Fiber/use前缀给lint识别） | 复习 | 原理 | 5.0 | 8 | 08-13 | 08-21 | G,G,A |
@@ -48,17 +48,17 @@
 | 1px 边框（DPR/物理像素） | 复习 | 原理 | 4.5 | 16 | 08-17 | 09-02 | G,G,G,G |
 | Node 事件循环（阶段/nextTick/setImmediate vs setTimeout） | 复习 | 原理 | 4.0 | 10 | 08-14 | 08-24 | G,G,G,G,G,H,H,G |
 | Node 模块化（CJS vs ESM/exports陷阱/循环引用/动态import） | 复习 | 原理 | 4.0 | 10 | 08-14 | 08-24 | G,G,G |
-| JWT 认证（签名机制/双token/主动失效难题） | 复习 | 原理 | 4.5 | 8 | 08-14 | 08-22 | G,G,G |
+| JWT 认证（签名机制/双token/主动失效难题） | 复习 | 原理 | 5.0 | 2 | 08-25 | 08-27 | A,G,G,G |
 | CORS 跨域（简单请求 vs 预检请求/OPTIONS） | 复习 | 原理 | 4.0 | 10 | 08-14 | 08-24 | G,G,G |
 | 异步错误处理（try-catch局限/await拉回/两大兜底钩子） | 复习 | 原理 | 4.0 | 10 | 08-16 | 08-26 | G,G,A,G,G |
 | SSE 流式响应（格式/EventSource/重连机制/生产坑） | 复习 | 原理 | 4.5 | 8 | 08-14 | 08-22 | G,G |
 | WebSocket（协议升级/全双工/SSE对比/手动重连/生产坑） | 复习 | 原理 | 4.5 | 8 | 08-14 | 08-22 | H,G,G |
-| Express 深入（中间件数组+next循环/路由本质/错误处理/asyncHandler） | 复习 | 原理 | 4.5 | 8 | 08-14 | 08-22 | H,G,G |
+| Express 深入（中间件数组+next循环/路由本质/错误处理/asyncHandler） | 复习 | 原理 | 5.0 | 2 | 08-25 | 08-27 | A,H,G,G |
 | worker_threads（单线程瓶颈/线程池/SharedArrayBuffer/cluster对比） | 复习 | 原理 | 5.7 | 6 | 08-21 | 08-27 | G,H,G,H,A,G |
 | DB 连接池（池化/借还/池满策略/雪崩） | 复习 | 原理 | 4.5 | 8 | 08-14 | 08-22 | G,G,G |
-| DB 事务（原子性/事务绑连接/rollback+throw铁律） | 复习 | 原理 | 5.5 | 8 | 08-14 | 08-22 | G,A,G,G,G |
+| DB 事务（原子性/事务绑连接/rollback+throw铁律） | 复习 | 原理 | 5.5 | 10 | 08-25 | 09-04 | G,G,A,G,G,G |
 | Node 原生 http（req/res 是流/手动收body/writeHead时序） | 复习 | 原理 | 5.0 | 8 | 08-14 | 08-22 | G,A,G,G |
-| 宏任务 vs 微任务边界（事件监听器是宏任务） | 复习 | 原理 | 6.5 | 2 | 08-24 | 08-26 | A,G,G,A,G,A,A,G,G |
+| 宏任务 vs 微任务边界（事件监听器是宏任务） | 复习 | 原理 | 6.5 | 3 | 08-25 | 08-28 | H,A,G,G,A,G,A,A,G,G |
 | cluster 多进程（主进程分发socket/worker不共享内存） | 复习 | 原理 | 5.0 | 8 | 08-14 | 08-22 | G,A,G,G |
 | Maven 坐标 GAV | Java | 原理 | 4.4 | 4 | 07-23 | 07-27 | G |
 | pom.xml 结构 | Java | 原理 | 4.4 | 4 | 07-23 | 07-27 | G |
