@@ -27,13 +27,14 @@
 | axios封装（配置收口/token自动塞/错误统一出口/剥壳/拦截器两方向） | 复习 | 原理 | 4.5 | 8 | 08-21 | 08-29 | G,G |
 | Tailwind（utility-first/间距×4规则/items轴向/md前缀=媒体查询条件覆盖/hover前缀） | 复习 | 原理 | 5.2 | 4 | 08-24 | 08-28 | G,A,H,A |
 | Redux Toolkit（slice/configureStore/dispatch→reducer数据流/Immer翻译/useSelector≈Zustand选择器/对比Zustand） | 复习 | 原理 | 4.8 | 8 | 08-25 | 09-02 | G,G |
-| React 性能优化（两棵树/memo+useCallback+useMemo三位一体/状态下放/lazy分割/白屏问Network卡顿问Profiler） | 复习 | 原理 | 5.0 | 2 | 08-25 | 08-27 | H,G |
-| 前端测试（金字塔/RTL测行为不测实现/Mock三理由:get同步find异步/userEvent） | 复习 | 原理 | 5.2 | 2 | 08-25 | 08-27 | H,G |
+| React 性能优化（两棵树/memo+useCallback+useMemo三位一体/状态下放/lazy分割/白屏问Network卡顿问Profiler） | 复习 | 原理 | 4.8 | 5 | 08-27 | 09-01 | G,H,G |
+| 前端测试（金字塔/RTL测行为不测实现/Mock三理由:get同步find异步/userEvent） | 复习 | 原理 | 5.0 | 5 | 08-27 | 09-01 | G,H,G |
 | 构建工具链（Vite开发不打包按需编译/生产Rollup两套策略/HMR成本恒定/esbuild预构建依赖） | 复习 | 原理 | 4.8 | 4 | 08-25 | 08-29 | G |
+| Next.js 渲染模式（CSR三痛点:首屏/SEO空HTML/弱网+SSR请求时SSG构建时ISR定期+RSC默认服务端/use client回浏览器） | 复习 | 原理 | 5.0 | 4 | 08-27 | 08-31 | G |
 | React Hook Form（register非受控/handleSubmit/reset/setValue/watch/defaultValues） | 复习 | 技能 | 5.3 | 4 | 08-25 | 08-29 | G,G,A,A,G |
-| Zod（schema定义校验规则/z.infer类型推断/zodResolver桥接RHF/一份schema三用途） | 复习 | 原理 | 5.2 | 2 | 08-25 | 08-27 | A,G,H,A,G,A |
+| Zod（schema定义校验规则/z.infer三级跳:值→typeof升类型→infer提形状/zodResolver桥接RHF/一份schema三用途） | 复习 | 原理 | 5.4 | 2 | 08-27 | 08-29 | A,A,G,H,A,G,A |
 | React 心智模型（重渲染=函数重跑/不可变/单向流/不监听） | 复习 | 原理 | 5.0 | 8 | 08-24 | 09-01 | G,G,G,A,G |
-| React 受控vs非受控 + 虚拟DOM + Fiber可中断 | 复习 | 原理 | 5.0 | 3 | 08-27 | 08-30 | H,A,G,G |
+| React 受控vs非受控 + 虚拟DOM + Fiber可中断 | 复习 | 原理 | 5.0 | 4 | 08-27 | 08-31 | H,H,A,G,G |
 | React Hooks（闭包陷阱+依赖数组+useCallback vs useMemo） | 复习 | 原理 | 5.0 | 8 | 08-24 | 09-01 | G,G,H,G,G |
 | React 组件通信（props/子父回调/状态提升/useContext/createContext本质） | 复习 | 原理 | 4.5 | 4 | 08-27 | 08-31 | G,A,G,G |
 | 自定义 Hook（复用逻辑不复用state/state存组件Fiber/use前缀给lint识别） | 复习 | 原理 | 5.3 | 3 | 08-27 | 08-30 | H,A,G,G,A |
